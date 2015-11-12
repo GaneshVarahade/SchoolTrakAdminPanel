@@ -50,7 +50,7 @@ function showBtn(){
  
  $(document).on("click", ".open-AddBookDialog", function () {
 	    var myBookId = $(this).data('id');
-	    var data = myBookId.split(",");
+	    var data = myBookId.value.split(",");
 	    var d = data[0];
 	    var d1 = data[1];
 	    var d2 = data[2];
@@ -375,6 +375,8 @@ function password_length_registration()
         <tbody>
         <c:forEach var="schoolAdmin" items="${schoolAdminList}">
             <tr>
+  				<c:if test= "${schoolAdmin.accountType eq 'Parent'}">
+  
   					<td>
           				  <input type="checkbox" id="${schoolAdmin.id}"  name="myTextEditBox" value="" onClick="displayNote(event)"/>
           			</td>
@@ -384,8 +386,9 @@ function password_length_registration()
 	                <td>${schoolAdmin.email}</td>
 	                <td>${schoolAdmin.age}</td>
 	                <td>${schoolAdmin.city}</td>
-	                
+	               </c:if> 
 	                     </tr>
+	               
          </c:forEach>
          </tbody>
 </table>
@@ -507,7 +510,7 @@ function password_length_registration()
 				      			<div class="modal-content">
 				        			<div class="modal-header">
 				          				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				          					<h4 class="modal-title">School Admin Details</h4>
+				          					<h4 class="modal-title">Parent Details</h4>
 				        			</div>
 				        			<div class="modal-body">
 				       		 			<form id="registerForm"  class="form-horizontal" role="form" name="registerForm">
@@ -529,7 +532,7 @@ function password_length_registration()
 													<label>Account Type</label>
 													<select name="accountType" id="accountType" class="form-control" >
 													
-													<option value="SchoolAdmin">School Admin</option>
+													<option value="Parent">Parent</option>
 													
 													</select>
 												</div>
@@ -618,4 +621,7 @@ function password_length_registration()
 				  </div>
 				 
 				</div>
+				<script src="script.js" type="text/javascript" defer="defer"></script>
+</body></html>
+
 

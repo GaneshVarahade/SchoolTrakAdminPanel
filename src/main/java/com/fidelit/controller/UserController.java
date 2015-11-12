@@ -72,13 +72,23 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/parentList")
-	public String allSchoolList(ModelMap model){
+	public String allParentList(ModelMap model){
 		List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
 		model.addAttribute("schoolAdminList", schoolAdminList);
 		List<School> schoolList=schoolService.allSchoolList();
 		model.addAttribute("schoolList", schoolList);
 		return "parentList";
 	}
+	
+	@RequestMapping(value="/studentList")
+	public String allStudentList(ModelMap model){
+		List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+		model.addAttribute("schoolAdminList", schoolAdminList);
+		List<School> schoolList=schoolService.allSchoolList();
+		model.addAttribute("schoolList", schoolList);
+		return "studentList";
+	}
+	
 	@RequestMapping(value="/leaveApply" )
 	public String addLeave(HttpServletRequest request,HttpServletResponse response,ModelMap model) throws ParseException{
 		LeavesApplied leavesApplied = new LeavesApplied();

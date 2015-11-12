@@ -11,11 +11,11 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar" style="width: 1261px;">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="${pageContext.request.contextPath}/user/home">Home</a></li>
+        <li class="active"><a href="${pageContext.request.contextPath}/schoolAdmin/home">Home</a></li>
         
         <li><a href="#">Routes</a></li>
-          <li><a href="#">Parents</a></li>
-        <li><a href="#">Students</a></li>
+          <li><a href="${pageContext.request.contextPath}/schoolAdmin/parentList">Parents</a></li>
+        <li><a href="${pageContext.request.contextPath}/schoolAdmin/studentList">Students</a></li>
         <li><a href="#">Bus</a></li>
    
       </ul>
