@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fidelit.model.Account;
+import com.fidelit.model.SchoolAdmin;
 import com.fidelit.service.AuthenticationService;
 
 @Controller
@@ -19,19 +20,17 @@ public class AuthenticationController {
 	@RequestMapping("/authenticate")
 	public String authenticate(@RequestParam("account") String accountId,@RequestParam("username") String username,@RequestParam("password") String password,ModelMap model){
 		
-		Account account = authenticationService.authenticateUser(username, password,accountId);
+		SchoolAdmin account = authenticationService.authenticateUser(username, password,accountId);
 		
-		if(account.getAccountId().equals("admin")){
+		if(account.getAccountType().equals("Admin")){
 			return "admin_home";
 		    
-		}else if(account.getAccountId().equals("schoolAdmin")){
-			return "admin_home";
+		}else if(account.getAccountType().equals("SchoolAdmin")){
+			return "user_home";
 			
-		}else if(account.getAccountId().equals("parent")){
+		}else if(account.getAccountType().equals("parents")){
 			return "admin_home";
-			
-		}else if(account.getAccountId().equals("child")){
-			return "admin_home";
+
 		}else{
 			model.addAttribute("message", "Login Failed !");
 			return "login";	

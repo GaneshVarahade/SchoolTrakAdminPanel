@@ -13,11 +13,11 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="${pageContext.request.contextPath}/user/home">Home</a></li>
         
-        <li><a href="${pageContext.request.contextPath}/user/leaveHistory">Leave</a></li>
-          <li><a href="${pageContext.request.contextPath}/user/leaveBalance">Leave Balance</a></li>
-        <li><a href="${pageContext.request.contextPath}/user/leaveHistory">Leave History</a></li>
-        <li><a href="#">Reports</a></li>
-        <li><a href="${pageContext.request.contextPath}/user/userProjectList">Projects</a></li> 
+        <li><a href="#">Routes</a></li>
+          <li><a href="#">Parents</a></li>
+        <li><a href="#">Students</a></li>
+        <li><a href="#">Bus</a></li>
+   
       </ul>
       <ul class="nav navbar-nav navbar-right">
        <!--  <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->

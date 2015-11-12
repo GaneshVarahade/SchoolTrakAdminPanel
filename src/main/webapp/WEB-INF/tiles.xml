@@ -150,6 +150,11 @@
         <put-attribute name="body" value="/WEB-INF/jsp/employeeList.jsp"></put-attribute>  
     </definition>  
     
+     <definition name="parentList" extends="user.definition" >  
+        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />   -->
+        <put-attribute name="body" value="/WEB-INF/jsp/parentList.jsp"></put-attribute>  
+    </definition>  
+    
     <definition name="clientList" extends="admin.definition" >  
         <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->  
         <put-attribute name="body" value="/WEB-INF/jsp/clientList.jsp"></put-attribute>  

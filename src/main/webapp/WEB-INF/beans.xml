@@ -30,4 +30,8 @@
    <bean id="schoolServiceImpl" class="com.fidelit.implementation.SchoolServiceImpl" scope="prototype">
    </bean>
    
+   <bean id="schoolAdminServiceImpl" class="com.fidelit.implementation.SchoolAdminServiceImpl" scope="prototype">
+   </bean>
+  
+   
 </beans>

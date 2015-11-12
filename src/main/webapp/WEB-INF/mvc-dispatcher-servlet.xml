@@ -47,7 +47,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 		<property name="url" value="jdbc:mysql://localhost:3306/schooltrack"></property>
 		<property name="username" value="root"></property>
-		<property name="password" value=""></property>
+		<property name="password" value="system"></property>
 	</bean>
 
 	<bean class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
@@ -70,6 +70,7 @@
 				<value>com.fidelit.model.Tasks</value>
 			    <value>com.fidelit.model.Account</value>
 			    <value>com.fidelit.model.School</value>
+			    <value>com.fidelit.model.SchoolAdmin</value>
 			</list>
 		</property>  
 		<property name="hibernateProperties">

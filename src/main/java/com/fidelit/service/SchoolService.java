@@ -15,6 +15,7 @@ public interface SchoolService {
 //	boolean checkUserName(String userName);
 	List<School> allSchoolList();
 	School getSchoolId(int id);
+	School getSchool(String schoolName);
 	void deleteSchool(int id);
 //	List<Employee> getEmployeeFirstName();
 }

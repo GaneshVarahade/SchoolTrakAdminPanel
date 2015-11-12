@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fidelit.model.Account;
 import com.fidelit.model.Clients;
+import com.fidelit.model.SchoolAdmin;
 import com.fidelit.service.AuthenticationService;
 
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true) 
@@ -22,19 +23,19 @@ public class AuthenticationImpl implements AuthenticationService{
 	
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)  
 	@Override
-	public Account authenticateUser(String username, String password,String accountId) {
+	public SchoolAdmin authenticateUser(String username, String password,String accountId) {
 
 		Session session;
-		Account account = null;
+		SchoolAdmin account = null;
 		
 		try{
 			session = sessionFactory.getCurrentSession();
-			Criteria criteria = session.createCriteria(Account.class);
+			Criteria criteria = session.createCriteria(SchoolAdmin.class);
 			criteria.add(Restrictions.eq("username", username));
 			criteria.add(Restrictions.eq("password", password));
-			criteria.add(Restrictions.eq("accountId", accountId));
+			criteria.add(Restrictions.eq("accountType", accountId));
 			Object result=criteria.uniqueResult();
-			account = (Account)result;
+			account = (SchoolAdmin)result;
 		}catch(Exception e){
 			e.printStackTrace();
 		}

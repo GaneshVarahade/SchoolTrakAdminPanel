@@ -102,12 +102,12 @@ public class SchoolServiceImpl implements SchoolService {
 	@Override
 	public void deleteSchool(int id) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Delete School"+id);
 		Session session;
 		School  school=null;
 		try{
 			session = sessionFactory.getCurrentSession();
-			Criteria criteria = session.createCriteria(Employee.class);
+			Criteria criteria = session.createCriteria(School.class);
 			 criteria.add(Restrictions.eq("id", id));
 			 Object result=criteria.uniqueResult();
 			 school = (School)result;
@@ -119,6 +119,29 @@ public class SchoolServiceImpl implements SchoolService {
 		}
 		
 
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public School getSchool(String schoolName) {
+		// TODO Auto-generated method stub
+		
+		Session session;
+		School  school=null;
+		try{
+			session = sessionFactory.getCurrentSession();
+			Criteria criteria = session.createCriteria(School.class);
+			 criteria.add(Restrictions.eq("schoolName", schoolName));
+			 Object result=criteria.uniqueResult();
+			 school = (School)result;
+			// session.getbyName(school);
+		//	 return school; 
+			//System.out.println(empList);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return school;	
 	}
 
 }

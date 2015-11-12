@@ -27,19 +27,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
+
+
+
+
 import com.fidelit.model.Employee;
 import com.fidelit.model.Holidays;
 import com.fidelit.model.LeavesApplied;
+import com.fidelit.model.School;
+import com.fidelit.model.SchoolAdmin;
 import com.fidelit.model.SuperVisor;
 import com.fidelit.model.empLeavesTaken;
 import com.fidelit.service.EmployeeService;
 import com.fidelit.service.HolidayService;
 import com.fidelit.service.LeaveService;
+import com.fidelit.service.SchoolAdminService;
+import com.fidelit.service.SchoolService;
 import com.fidelit.service.UserService;
 
 
 @Controller
-@RequestMapping({"/user"})
+@RequestMapping({"/schoolAdmin"})
 public class UserController {
 	
 	@Autowired	
@@ -51,12 +59,26 @@ public class UserController {
 	@Autowired	
 	  private LeaveService leaveService;
 	
+	@Autowired	
+	  private SchoolService schoolService;
+	
+	@Autowired
+		private SchoolAdminService schoolAdminService;
+	
 	
 	@RequestMapping(value="/home" )
 	public String userHome(){
 		return "user_home";
 	}
 	
+	@RequestMapping(value="/parentList")
+	public String allSchoolList(ModelMap model){
+		List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+		model.addAttribute("schoolAdminList", schoolAdminList);
+		List<School> schoolList=schoolService.allSchoolList();
+		model.addAttribute("schoolList", schoolList);
+		return "parentList";
+	}
 	@RequestMapping(value="/leaveApply" )
 	public String addLeave(HttpServletRequest request,HttpServletResponse response,ModelMap model) throws ParseException{
 		LeavesApplied leavesApplied = new LeavesApplied();

@@ -342,7 +342,7 @@ function password_length_registration()
 </head>
 <body >
 <button id="btn"  class="open-AddBookDialog btn btn-primary" type="button" onClick="showBtn()" >Delete</button>
-<button  class="open-AddBookDialog btn btn-primary" data-toggle="modal"  data-id=""  data-target="#forClientRegistration">Add School Admin</button>
+<button  class="open-AddBookDialog btn btn-primary" data-toggle="modal"  data-id=""  data-target="#forClientRegistration">Add Parent Admin</button>
 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>

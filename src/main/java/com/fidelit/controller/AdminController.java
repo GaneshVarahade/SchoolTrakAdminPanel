@@ -1,7 +1,6 @@
 package com.fidelit.controller;
 
 import java.sql.Date;
-
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -12,6 +11,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+
 
 
 
@@ -46,11 +47,13 @@ import com.fidelit.model.Holidays;
 import com.fidelit.model.LeavesApplied;
 import com.fidelit.model.Project;
 import com.fidelit.model.School;
+import com.fidelit.model.SchoolAdmin;
 import com.fidelit.model.SuperVisor;
 import com.fidelit.model.UserRole;
 import com.fidelit.service.ClientService;
 import com.fidelit.service.EmployeeProjectService;
 import com.fidelit.service.EmployeeService;
+import com.fidelit.service.SchoolAdminService;
 import com.fidelit.service.SchoolService;
 import com.fidelit.service.HolidayService;
 import com.fidelit.service.LeaveService;
@@ -77,6 +80,9 @@ public class AdminController {
   
   @Autowired
   private SchoolService schoolService;
+  
+  @Autowired
+  private SchoolAdminService schoolAdminService;
   
 @RequestMapping("/home")
 public String adminHome(){
@@ -340,7 +346,7 @@ public String addEmployee(HttpServletRequest request,HttpServletResponse respons
 }
 
 
-@ResponseBody
+/*@ResponseBody
 @RequestMapping(value="/addClient" , method=RequestMethod.POST)
 public String addClient(HttpServletRequest request,HttpServletResponse response,ModelMap model){
 	
@@ -355,9 +361,9 @@ public String addClient(HttpServletRequest request,HttpServletResponse response,
 	
 	String id = dataList[0];
 	System.out.println("id:"+id);
-	/*int clientId = Integer.parseInt(id);
+	int clientId = Integer.parseInt(id);
 	System.out.println("cliwntId "+clientId);
-	client.setClientId(clientId);*/
+	client.setClientId(clientId);
 	
 	client.setClientName(dataList[3]);
 	client.setClientEmail(dataList[4]);
@@ -380,6 +386,49 @@ public String addClient(HttpServletRequest request,HttpServletResponse response,
 	 
 	List<Clients> clientList= clientService.allClientList();
 	model.addAttribute("clientList", clientList);
+	return "clientList";
+	
+}
+*/
+
+@ResponseBody
+@RequestMapping(value="/addClient" , method=RequestMethod.POST)
+public String addClient(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+	
+	String list = request.getParameter("accessList");
+	String SchoolName=request.getParameter("schoolName");
+	
+	String [] dataList = list.split(",");
+	for (int i = 0; i < dataList.length; i++) {
+		System.out.println("i"+i+"="+dataList[i]);
+	}
+	String SchoolName1=dataList[6];
+	School school=schoolService.getSchool(SchoolName1);
+	SchoolAdmin schoolAdmin = new SchoolAdmin();
+	
+//	String id = dataList[0];
+//	System.out.println("id:"+id);
+	/*int clientId = Integer.parseInt(id);
+	System.out.println("cliwntId "+clientId);
+	client.setClientId(clientId);*/
+//	System.out.println("school"+school);
+	schoolAdmin.setName(dataList[0]);
+	schoolAdmin.setAddress(dataList[1]);
+	schoolAdmin.setPassword(dataList[3]);
+	schoolAdmin.setEmail(dataList[2]);
+	schoolAdmin.setAge(Integer.parseInt(dataList[4]));
+	schoolAdmin.setCity(dataList[5]);
+	schoolAdmin.setAccountType(dataList[8]);
+	schoolAdmin.setUsername(dataList[7]);
+	schoolAdmin.setSchool(school);
+	/*if(client.getClientUsername() !=null) {
+		  //client.getUserRole().setEmployee(employee);
+		  clientService.addClient(client);
+	}*/
+	 
+	schoolAdminService.addSchoolAdmin(schoolAdmin);
+	List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+	model.addAttribute("schoolAdminList", schoolAdminList);
 	return "clientList";
 	
 }
@@ -538,9 +587,7 @@ public String updateEmployeeList(ModelMap model){
 
 @RequestMapping(value="/schoolList")
 public String allSchoolList(ModelMap model){
-	System.out.println("sdxfdf");
 	List<School> employeeList= schoolService.allSchoolList();
-	System.out.println("sdxfdf");
 	for (School school2 : employeeList) {
 		System.out.println("School    "+school2.getSchoolName());
 	}
@@ -552,8 +599,10 @@ public String allSchoolList(ModelMap model){
 
 @RequestMapping(value="/reports")
 public String allClientList(ModelMap model){
-	List<Clients> clientList= clientService.allClientList();
-	model.addAttribute("clientList", clientList);
+	List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+	model.addAttribute("schoolAdminList", schoolAdminList);
+	List<School> schoolList=schoolService.allSchoolList();
+	model.addAttribute("schoolList", schoolList);
 	return "clientList";
 }
 
@@ -835,10 +884,11 @@ public String deleteEmployeeList(@RequestParam("list") String str,ModelMap model
 	for (int i = 0; i < str1.length; i++) {
 		
 		int id = Integer.parseInt(str1[i]);
-		 employeeService.deleteEmployee(id);
+		schoolService.deleteSchool(id);
 	}
 	
-	List<Employee> employeeList= employeeService.allEmployeeList();
+	List<School> employeeList= schoolService.allSchoolList();
+	
 	model.addAttribute("employeeList", employeeList);
 	return "employeeList";
 }
@@ -850,12 +900,12 @@ public String deleteClientList(@RequestParam("list") String str,ModelMap model){
 	
 	for (int i = 0; i < str1.length; i++) {
 		int id = Integer.parseInt(str1[i]);
-		clientService.deleteClient(id);
+		schoolAdminService.deleteSchoolAdmin(id);
 	}
 	
 
-    List<Clients> clientList= clientService.allClientList();
-	model.addAttribute("clientList", clientList);
+    List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+	model.addAttribute("schoolAdminList", schoolAdminList);
 	return "clientList";
 }
 
