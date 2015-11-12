@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Parent List</title>
+<title>School Admin</title>
 
  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -33,7 +33,7 @@ function showBtn(){
 		
 		 var result = confirm("want to delete?");
 		 if(result){
-			 window.location.href = "deleteParentList?list="+saveKara;	 
+			 window.location.href = "deleteSchoolAdminList?list="+saveKara;	 
 		 }
 		 	 
 	 }
@@ -50,7 +50,7 @@ function showBtn(){
  
  $(document).on("click", ".open-AddBookDialog", function () {
 	    var myBookId = $(this).data('id');
-	    var data = myBookId.value.split(",");
+	    var data = myBookId.split(",");
 	    var d = data[0];
 	    var d1 = data[1];
 	    var d2 = data[2];
@@ -134,7 +134,7 @@ function sendDataForUpdation(){
 }
 
 function sendDataForRegistration(){
-
+	
 	 
 	 var name=$("#aName").val();
 	 var address=$("#aAddress").val();
@@ -142,17 +142,16 @@ function sendDataForRegistration(){
 	 var password=$("#aPassword").val();
 	 var age=$("#aAge").val();
 	 var city=$("#aCity").val();
-	var school=$("#schoolId").val();
-	var username=$("#username").val();
-	var accountType=$("#accountType").val();
-
+	 var school=$("#schoolId").val();
+	 var username=$("#username").val();
+	 var accountType=$("#accountType").val();
 	 var allData = name+","+address+","+email+","+password+","+age+","+city+","+school+","+username+","+accountType;
 
 	 
 	 var formData = "accessList="+allData;
 	 $.ajax({
 		    type : "POST",
-		    url : "${pageContext.request.contextPath}/admin/addClient",
+		    url : "${pageContext.request.contextPath}/admin/addSchoolAdmin",
 		    data : formData,
 		    success : function(response) {	       
 		       alert("Client Profile Added");
@@ -315,7 +314,7 @@ function password_length_registration()
 </head>
 <body >
 <button id="btn"  class="open-AddBookDialog btn btn-primary" type="button" onClick="showBtn()" >Delete</button>
-<button  class="open-AddBookDialog btn btn-primary" data-toggle="modal"  data-id=""  data-target="#forClientRegistration">Add Parent</button>
+<button  class="open-AddBookDialog btn btn-primary" data-toggle="modal"  data-id=""  data-target="#schoolAdminId">Add School Admin</button>
 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
@@ -347,9 +346,8 @@ function password_length_registration()
  
         <tbody>
         <c:forEach var="schoolAdmin" items="${schoolAdminList}">
-            <tr>
-  				<c:if test= "${schoolAdmin.accountType eq 'Parent'}">
-  
+        	<c:if test= "${schoolAdmin.accountType eq 'SchoolAdmin'}">
+            	<tr>
   					<td>
           				  <input type="checkbox" id="${schoolAdmin.id}"  name="myTextEditBox" value="" onClick="displayNote(event)"/>
           			</td>
@@ -359,23 +357,23 @@ function password_length_registration()
 	                <td>${schoolAdmin.email}</td>
 	                <td>${schoolAdmin.age}</td>
 	                <td>${schoolAdmin.city}</td>
-	               </c:if> 
+	                
 	                     </tr>
-	               
+	                     </c:if>
          </c:forEach>
          </tbody>
 </table>
-	              
+	               
        
 	 <div class="container">  
-				  		<div class="modal fade" id="forClientRegistration" role="dialog">
+				  		<div class="modal fade" id="schoolAdminId" role="dialog">
 				    		<div class="modal-dialog">
 				    
 				      		<!-- Modal content-->
 				      			<div class="modal-content">
 				        			<div class="modal-header">
 				          				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				          					<h4 class="modal-title">Parent Details</h4>
+				          					<h4 class="modal-title">School Admin Details</h4>
 				        			</div>
 				        			<div class="modal-body">
 				       		 			<form id="registerForm"  class="form-horizontal" role="form" name="registerForm">
@@ -397,7 +395,7 @@ function password_length_registration()
 													<label>Account Type</label>
 													<select name="accountType" id="accountType" class="form-control" >
 													
-													<option value="Parent">Parent</option>
+													<option value="SchoolAdmin">School Admin</option>
 													
 													</select>
 												</div>
@@ -456,6 +454,5 @@ function password_length_registration()
 				    	</div>
 				  </div>
 				 
-			</div>
-
+				</div>
 

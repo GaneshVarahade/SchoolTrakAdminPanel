@@ -123,97 +123,25 @@ public String addSchool(HttpServletRequest request,HttpServletResponse response,
 	System.out.println("HII IN School");
 	
 	String list = request.getParameter("accessList");
-	System.out.println("in School:"+list);
 	
 	String [] dataList = list.split(",");
-	for (int i = 0; i < dataList.length; i++) {
-		System.out.println("i"+i+"="+dataList[i]);
-	}
-	System.out.println("Hdfghdfghi");
 	School school = new School();
 	school.setSchoolName(dataList[0]); 
-//	String id = dataList[0];
-//	int empId=Integer.parseInt(id);
 	school.setAddress(dataList[1]);
-//	String password =  dataList[2];
 	school.setDetails(dataList[2]);
-//	String inputFirstName =  dataList[3];
 	school.setLocation(dataList[3]);
-//	String inputLastName =  dataList[4];
 	school.setCity(dataList[4]);
-	
-	/*if(school.getId() != null){
-		System.out.println(employee.getfirstName());
-		schoolService.addSchool(school);
-	}*/
+
 	
 	schoolService.addSchool(school);
-	List<School> employeeList= schoolService.allSchoolList();
+	List<School> schoolList= schoolService.allSchoolList();
 	System.out.println("Hi");
-	for (School school2 : employeeList) {
+	for (School school2 : schoolList) {
 		System.out.println("School    "+school2.getSchoolName());
 	}
-	model.addAttribute("employeeList", employeeList);
-	return "employeeList";	
-	
-	/*Employee employee = new Employee();
-	UserRole userrole = new UserRole();
-	String id = request.getParameter("id");
-	String userName = request.getParameter("userName");
-	String password = request.getParameter("password");
-	String passwordConfirm = request.getParameter("passwordConfirm");
-	String firstName = request.getParameter("firstName");
-	String lastName = request.getParameter("lastName");
-	String birthDate = request.getParameter("birthDate");
-	String sex = request.getParameter("sex");
-	String maritalStatus = request.getParameter("maritalStatus");
-	String email = request.getParameter("email");
-	String address = request.getParameter("address");
-	String city = request.getParameter("city");
-	String state = request.getParameter("state");
-	String zip = request.getParameter("zip");
-	String country = request.getParameter("country");
-	String phone = request.getParameter("phone");
-	String designation = request.getParameter("designation");
-	String userRole = request.getParameter("userRole");
-	
-;
-	
-	if(id != null && userName != null && password != null && passwordConfirm != null && firstName != null && lastName != null && birthDate != null && sex != null &&
-			maritalStatus != null && email != null && address != null && city != null && state != null && state != null && zip != null && country != null && phone != null && designation != null && userRole != null){
-	
-	int employeeId=Integer.parseInt(id);
-	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-	java.util.Date bDate = formatter.parse(birthDate);
-	int empZip=Integer.parseInt(zip);
-	int empPhone=Integer.parseInt(phone);
-	
-	employee.setId(employeeId);
-	employee.setUserName(userName);
-	employee.setPassword(password);
-	employee.setPasswordConfirm(passwordConfirm);
-	employee.setfirstName(firstName);
-	employee.setLastName(lastName);
-	employee.setBirthDate(bDate);
-	employee.setSex(sex);
-	employee.setMaritalStatus(maritalStatus);
-	employee.setemail(email);
-	employee.setAddress(address);
-	employee.setCity(city);
-	employee.setState(state);
-	employee.setZip(empZip);
-	employee.setCountry(country);
-	employee.setPhone(empPhone);
-	employee.setDesignation(designation);
-	//userrole.setId();
-	userrole.setRole(userRole);
-	employee.setUserRole(userrole);
-	userrole.setEmployee(employee);
+	model.addAttribute("schoolList", schoolList);
+	return "schoolList";	
 
-	}
-*/	
-	
-	//return "admin_employee_registration";
 }
 
 
@@ -392,7 +320,7 @@ public String addClient(HttpServletRequest request,HttpServletResponse response,
 */
 
 @ResponseBody
-@RequestMapping(value="/addClient" , method=RequestMethod.POST)
+@RequestMapping(value="/addSchoolAdmin" , method=RequestMethod.POST)
 public String addClient(HttpServletRequest request,HttpServletResponse response,ModelMap model){
 	
 	String list = request.getParameter("accessList");
@@ -429,7 +357,7 @@ public String addClient(HttpServletRequest request,HttpServletResponse response,
 	schoolAdminService.addSchoolAdmin(schoolAdmin);
 	List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
 	model.addAttribute("schoolAdminList", schoolAdminList);
-	return "clientList";
+	return "schoolAdmin";
 	
 }
 
@@ -587,12 +515,12 @@ public String updateEmployeeList(ModelMap model){
 
 @RequestMapping(value="/schoolList")
 public String allSchoolList(ModelMap model){
-	List<School> employeeList= schoolService.allSchoolList();
-	for (School school2 : employeeList) {
+	List<School> schoolList= schoolService.allSchoolList();
+	for (School school2 : schoolList) {
 		System.out.println("School    "+school2.getSchoolName());
 	}
-	model.addAttribute("employeeList", employeeList);
-	return "employeeList";
+	model.addAttribute("schoolList", schoolList);
+	return "schoolList";
 }
 
 
@@ -604,6 +532,15 @@ public String allClientList(ModelMap model){
 	List<School> schoolList=schoolService.allSchoolList();
 	model.addAttribute("schoolList", schoolList);
 	return "clientList";
+}
+
+@RequestMapping(value="/schoolAdmin")
+public String allSchoolAdminList(ModelMap model){
+	List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+	model.addAttribute("schoolAdminList", schoolAdminList);
+	List<School> schoolList=schoolService.allSchoolList();
+	model.addAttribute("schoolList", schoolList);
+	return "schoolAdmin";
 }
 
 @RequestMapping(value="/projectList")
@@ -876,7 +813,7 @@ public String updateEmployeeProject(HttpServletRequest request,HttpServletRespon
 }
 
 
-@RequestMapping(value = "/deleteEmployeeList")
+@RequestMapping(value = "/deleteSchoolList")
 public String deleteEmployeeList(@RequestParam("list") String str,ModelMap model){
 	str = str.substring(0, str.length()-1);
 	String[] str1 = str.split(",");
@@ -887,13 +824,13 @@ public String deleteEmployeeList(@RequestParam("list") String str,ModelMap model
 		schoolService.deleteSchool(id);
 	}
 	
-	List<School> employeeList= schoolService.allSchoolList();
+	List<School> schoolList= schoolService.allSchoolList();
 	
-	model.addAttribute("employeeList", employeeList);
-	return "employeeList";
+	model.addAttribute("schoolList", schoolList);
+	return "schoolList";
 }
 
-@RequestMapping(value = "/deleteClientList")
+@RequestMapping(value = "/deleteSchoolAdminList")
 public String deleteClientList(@RequestParam("list") String str,ModelMap model){
 	str = str.substring(0, str.length()-1);
 	String[] str1 = str.split(",");
@@ -906,7 +843,7 @@ public String deleteClientList(@RequestParam("list") String str,ModelMap model){
 
     List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
 	model.addAttribute("schoolAdminList", schoolAdminList);
-	return "clientList";
+	return "schoolAdmin";
 }
 
 

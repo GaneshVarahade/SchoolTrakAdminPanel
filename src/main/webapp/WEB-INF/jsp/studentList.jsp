@@ -33,7 +33,7 @@ function showBtn(){
 		
 		 var result = confirm("want to delete?");
 		 if(result){
-			 window.location.href = "deleteClientList?list="+saveKara;	 
+			 window.location.href = "deleteStudentList?list="+saveKara;	 
 		 }
 		 	 
 	 }
@@ -136,27 +136,6 @@ function sendDataForUpdation(){
 function sendDataForRegistration(){
 	
 	
-	 /* var clientId = $("#cclientId").val();
-	 alert(clientId);
-	 var clientUsername = $("#cclientUsername").val();
-	 alert(clientUsername);
-	 var clientPassword = $("#cclientPassword").val();
-	 alert(clientPassword);
-	 var clientName = $("#cclientName").val();
-	 alert(clientName);
-	 var clientEmail = $("#cclientEmail").val();
-	 alert(clientEmail);
-	 var clientMobile = $("#cclientMobile").val();
-	 alert(clientMobile);
-	 var clientAddress = $("#cclientAddress").val();
-	 alert(clientAddress);
-	 var clientCountry = $("#cclientCountry").val();
-	 alert(clientCountry);
-	 var clientTimeZone = $("#cclientTimeZone").val();
-	 alert(clientTimeZone);
-	 var skypeId = $("#sskypeId").val();
-	 alert(skypeId);
-	 */
 	 
 	 var name=$("#aName").val();
 	 var address=$("#aAddress").val();
@@ -164,18 +143,10 @@ function sendDataForRegistration(){
 	 var password=$("#aPassword").val();
 	 var age=$("#aAge").val();
 	 var city=$("#aCity").val();
-	var school=$("#schoolId").val();
-	var username=$("#username").val();
-	var accountType=$("#accountType").val();
-//	alert(school);
-	// var school=$("#school").val();
-	/*  if( clientUsername == null || clientUsername == "" || clientPassword == null || clientPassword == "" || clientName == null || clientName == "" || clientEmail == null || clientEmail == "" || clientMobile == null || clientMobile == "" || clientAddress == null || clientAddress == "" || clientCountry == null || clientCountry == "" || clientTimeZone == null || clientTimeZone == "" || skypeId == null || skypeId == "" ){
-			alert("some fields are empty");
-		}
-	 else{ */
+	 var school=$("#schoolId").val();
+	 var username=$("#username").val();
+	 var accountType=$("#accountType").val();
 	 var allData = name+","+address+","+email+","+password+","+age+","+city+","+school+","+username+","+accountType;
-
-	 
 	 var formData = "accessList="+allData;
 	 $.ajax({
 		    type : "POST",
@@ -392,116 +363,7 @@ function password_length_registration()
          </c:forEach>
          </tbody>
 </table>
-	                <%-- 
-	                <td id="${client.clientId}" class="open-AddBookDialog btn btn-primary" data-toggle="modal"  data-id="${client.clientId},${client.clientUsername},${client.clientPassword},${client.clientName},${client.clientEmail},${client.clientMobile},${client.clientAddress},${client.clientCountry},${client.clientTimeZone},${client.skypeId}"  data-target="#myModal"><img src='${pageContext.request.contextPath}/resources/images/Pencil-icon.png'  style="height: 26px;"></td>
-	                
-					 <div class="container">  
-				  		<div class="modal fade" id="myModal" role="dialog">
-				    		<div class="modal-dialog">
-				    
-				      		<!-- Modal content-->
-				      			<div class="modal-content">
-				        			<div class="modal-header">
-				          				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				          					<h4 class="modal-title">Employee Details</h4>
-				        			</div>
-				        			<div class="modal-body">
-				       		 			<form id="updateForm"  class="form-horizontal" role="form" name="updateForm">
-				       		  				<div class="form-group">
-											<div class="container-fluid">
-											<section class="container">
-											<div class="container-page">
-											<div class="col-md-6">
-												<h3 class="dark-grey">Employee Edit Form</h3>
-				       		  				
-				       		  					<div class="form-group col-lg-4">
-													<label>ID</label>
-													<input type="text" name="clientId" id="clientId" value="" class="form-control" readonly>
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>Client Username</label>
-													<input type="text" name="clientUsername" id="clientUsername" value="" class="form-control"  onkeypress="return AllowAlphabet(event);"   onblur="checkUsernameUpdate();">
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>Client Password</label>
-													<input type="text" name="clientPassword" id="clientPassword" value="" class="form-control"  onblur="password_length_update()" >
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>Client Name</label>
-													<input type="text" name="clientName" id="clientName" value="" class="form-control"  onkeypress="return AllowAlphabet(event);" >
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>email</label>
-													<input type="text" name="clientEmail" id="clientEmail" value="" class="form-control" onblur="emailValidateUpdate()">
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>Mobile No</label>
-													<input type="text" name="clientMobile" id="clientMobile" value="" class="form-control" onblur="return phoneValidUpdate(clientMobile);">
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>Address</label>
-													<input type="text" name="clientAddress" id="clientAddress" value="" class="form-control" onkeypress="return AllowAlphabet(event);">
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>Country</label>
-													<input type="text" name="clientCountry" id="clientCountry" value="" class="form-control " onkeypress="return AllowAlphabet(event);">
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>Time Zone</label>
-													<input type="text" name="clientTimeZone" id="clientTimeZone" value="" class="form-control "  >
-												</div>
-												
-												
-												<div class="form-group col-lg-4">
-													<label>Skype Id</label>
-													<input type="text" name="skypeId" id="skypeId" value="" class="form-control " onkeypress="return AllowAlphabet(event);">
-												</div>
-												
-												
-												<!-- <div class="form-group col-lg-4">
-													<label>Sex</label>
-													<select  id="skypeId" name="skypeId" class="form-control" >
-													    <option value="male">male</option>
-													    <option value="female">female</option>
-												
-													</select> 
-												</div>
-				       		  				 -->
-				       		  				
-				       		  				
-				       		  				
-				        						<!-- clientId&nbsp<input type="text" name="clientId" id="clientId" value=""/><br>
-				        						clientName&nbsp<input type="text" name="clientName" id="clientName" value=""/><br>
-				       							clientEmail&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="clientEmail" id="clientEmail" value=""/><br>
-				        						clientMobile&nbsp&nbsp&nbsp<input type="text" name="clientMobile" id="clientMobile" value=""/><br>
-				        						clientAddress&nbsp<input type="text" name="clientAddress" id="clientAddress" value=""/><br>
-				        						clientCountry&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="clientCountry" id="clientCountry" value=""/><br>	
-				       							clientTimeZone<input type="text" name="clientTimeZone" id="clientTimeZone" value=""/><br>
-				       							skypeId<input type="text" name="skypeId" id="skypeId" value=""/><br> -->
-				       						</div>
-				       					</div>
-				       					</section>
-				       					</div>
-				       					</div>
-				       					</form>
-				        			</div>
-				        			<div class="modal-footer">
-				          				<button type="button" class="btn btn-default" onclick="sendDataForUpdation();" data-dismiss="modal">Close</button>
-				        			</div>
-				      			</div>
-				    	</div>
-				  </div>
-				 
-				</div> --%>
-       <form>
+	    
 	 <div class="container">  
 				  		<div class="modal fade" id="forClientRegistration" role="dialog">
 				    		<div class="modal-dialog">
@@ -575,43 +437,12 @@ function password_length_registration()
 													<label>City</label>
 													<input type="text" name="city" id="aCity" value="" class="form-control">
 												</div>
-												
-												<!-- <div class="form-group col-lg-4">
-													<label>Country</label>
-													<input type="text" name="cclientCountry" id="cclientCountry" value="" class="form-control " onkeypress="return AllowAlphabet(event);">
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>Time Zone</label>
-													<input type="text" name="cclientTimeZone" id="cclientTimeZone" value="" class="form-control " onkeypress="return AllowAlphabet(event);">
-												</div>
-												
-												
-												<div class="form-group col-lg-4">
-													<label>Skype Id</label>
-													<input type="text" name="sskypeId" id="sskypeId" value="" class="form-control " onkeypress="return AllowAlphabet(event);">
-												</div>
-												
-												
-												<div class="form-group col-lg-4">
-													<label>Sex</label>
-													<select  id="skypeId" name="skypeId" class="form-control" >
-													    <option value="male">male</option>
-													    <option value="female">female</option>
-												
-													</select> 
-												</div>
-				       		  				
-				       		  				
-				       		  				
-				       		  				
-				        						 -->
+											
 				       					</div>
 				       					</div>
 				       					</section>
 				       					</div>
 				       					</div>
-				       					</form>
 				        			</div>
 				        			<div class="modal-footer">
 				          				<button type="button" class="btn btn-default" onclick="sendDataForRegistration();" data-dismiss="modal">Submit</button>

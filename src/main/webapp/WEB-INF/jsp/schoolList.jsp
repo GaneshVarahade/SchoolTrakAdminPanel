@@ -155,7 +155,7 @@ function password_length_registration()
 		 */
 		 var result = confirm("want to delete?");
 		 if(result){
-			 window.location.href = "deleteEmployeeList?list="+saveKara;	 
+			 window.location.href = "deleteSchoolList?list="+saveKara;	 
 		 }
 		 	 
 	 }
@@ -333,37 +333,11 @@ function sendDataForUpdation(){
 
 
 function sendDataForRegistration(){
-/*	var id = $("#iid").val(); 
-	
-	 var userName = $("#uuserName").val();
-	 var password = $("#ppassword").val();
-	 var firstName = $("#ffirstName").val();
-	 var lastName = $("#llastName").val();
-	 var birthDate = $("#bbirthDate").val();
-	 var sex = $("#ssex").val();
-	 var maritalStatus = $("#mmaritalStatus").val();
-	 var email = $("#eemail").val();
-	 var address = $("#aaddress").val();
-	 var city = $("#ccity").val();
-	 var state = $("#sstate").val();
-	 var zip = $("#zzip").val();
-	 var country = $("#ccountry").val();
-	 var phone = $("#pphone").val();
-	 var designation = $("#ddesignation").val();
-	 var userRole = $("#uuserRole").val();*/
-	// var rId = $("#rrId").val();
-	 alert("dfg");
 	 var name=$("#schoolName").val();
 	 var address=$("#address").val();
 	 var details=$("#details").val();
 	 var location=$("#location").val();
 	 var city=$("#city1").val();
-	/*  var supervisor = $("#ssupervisor").val(); */
-	 //var sId = $("#ssId").val();
-	 //var fName = $("#firstName").val();
-	 /* if(id == null || id == "" || userName == null || userName == "" || password == null || password == "" || firstName == null || firstName == "" || lastName == null || lastName == "" || birthDate == null || birthDate == "" || sex == null || sex == "" || maritalStatus == null || maritalStatus == "" || email == null || email == "" || address == null || address == "" || city == null || city == "" || state == null || state == "" || zip == null || zip == "" || country == null || country == "" || phone == null || phone == "" || designation == null || designation == "" || userRole == null || userRole == ""){
-			alert("some fields are empty");
-		}else{ */
 	 var allData = name+","+address+","+details+","+location+","+city;
 	 
 	 var formData = "accessList="+allData;
@@ -373,8 +347,8 @@ function sendDataForRegistration(){
 		    url : "${pageContext.request.contextPath}/admin/addSchool",
 		    data : formData,
 		    success : function(response) {	       
-		       //$("#workingDays").val(response);
-		       alert("Employee Profile Added"+response);
+		
+		       alert("School Added"+response);
 		    },
 		    error : function(e) {
 		       alert('Error: ' + e);
@@ -394,11 +368,8 @@ $('.dropdown-menu a').on('click', function(){
 
 <script type="text/javascript">
 function checkUsernameUpdate(){
-/* $("#userName").blur(function(event){ */
-	//alert("hi");
+
 	 var userName = $("#userName").val(); 
-	//var userName = txt;
-	//alert(userName);
     $.ajax({url: "checkUserName?userName="+userName, 
     	dataType: "text",
     	
@@ -407,7 +378,6 @@ function checkUsernameUpdate(){
         	if(result == "true"){
         		alert("This username "+ userName + " is not allowed.")
         		$("#userName").val("");
-        		//$("#err").text("This username "+ userName + " is not allowed.");
         		
         	}
         	else{
@@ -446,7 +416,7 @@ function checkUsernameRegister(){
 
 												
 <button id="btn"  class="open-AddBookDialog btn btn-primary" type="button" onClick="showBtn()" >Delete</button>
-<button  class="open-AddBookDialog btn btn-primary" data-toggle="modal"  data-id=""  data-target="#forEmployeeRegistration">Add School</button>
+<button  class="open-AddBookDialog btn btn-primary" data-toggle="modal"  data-id=""  data-target="#schoolAdd">Add School</button>
 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
@@ -472,7 +442,7 @@ function checkUsernameRegister(){
         </tfoot>
  
         <tbody>
-        <c:forEach var="school" items="${employeeList}">
+        <c:forEach var="school" items="${schoolList}">
             <tr>
   					 <td>
           				  <input type="checkbox" id="${school.id}"  name="myTextEditBox" value="" onClick="displayNote(event)"/> Delete
@@ -485,205 +455,12 @@ function checkUsernameRegister(){
 	                <td>${school.city}</td>
 	         </tr>
 	      </c:forEach>
-	                <%-- <td >${employee.lastName}</td>
-	                <td >${employee.address}</td>
-	                <td ondblclick="setDateFormat(${employee.birthDate})">${employee.birthDate}</td>
-	                <td >${employee.userName}</td>
-	                <td >${employee.email}</td>
 
-					<td id="${employee.id}" class="open-AddBookDialog btn btn-primary" data-toggle="modal"  data-id="${employee.id},${employee.userName},${employee.password},${employee.firstName},${employee.lastName},${employee.birthDate},${employee.sex},${employee.maritalStatus},${employee.email},${employee.address},${employee.city},${employee.state},${employee.zip},${employee.country},${employee.phone},${employee.designation},${employee.userRole.role},${employee.userRole.id},${employee.supervisor.superVisorId},${employee.supervisor.sId}"  data-target="#myModal"><img src='${pageContext.request.contextPath}/resources/images/Pencil-icon.png'  style="height: 26px;"></td>
- --%>	                <!-- This is for edit -->
-					 <!-- <div class="container">  
-				  		<div class="modal fade" id="myModal" role="dialog">
-				    		<div class="modal-dialog">
-				    
-				      		Modal content
-				      			<div class="modal-content">
-				        			<div class="modal-header">
-				          				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				          					<h4 class="modal-title">Employee Details</h4>
-				        			</div>
-				        			<div class="modal-body">
-				       		 			<form id="updateForm"  class="form-horizontal" role="form" name="updateForm">
-				       		  				<div class="form-group">
-											<div class="container-fluid">
-											<section class="container">
-											<div class="container-page">
-											<div class="col-md-6">
-												<h3 class="dark-grey">Employee Edit Form</h3>
-												
-												
-												
-												<div class="form-group col-lg-4">
-													<label>ID</label>
-													<input type="text" name="id" id="id" value="" class="form-control" readonly>
-												</div>
-												
-												
-												
-												<div class="form-group col-lg-4">
-													<label>User Name</label>
-													<input type="text" name="userName" id="userName" value="" class="form-control"  onkeypress="return AllowAlphabet(event);"   onblur="checkUsernameUpdate();">
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>Password</label>
-													<input type="text" name="password" id="password" value="" class="form-control" onblur="password_length_update()">
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>First Name</label>
-													<input type="text" name="firstName" id="firstName" value="" class="form-control" onkeypress="return AllowAlphabet(event);">
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>Last Name</label>
-													<input type="text" name="lastName" id="lastName" value="" class="form-control" onkeypress="return AllowAlphabet(event);">
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>Birth Date</label>
-													<input type="text" name="birthDate" id="birthDate" value="" class="form-control " >
-												</div>
-												
-												
-												<div class="form-group col-lg-4">
-													<label>Sex</label>
-													<input type="text" name="sex" id="sex" value="" class="form-control" >
-												</div>
-												<div class="form-group col-lg-4">
-													<label>Sex</label>
-													<select  id="sex" name="sex" class="form-control" >
-													    <option value="male">male</option>
-													    <option value="female">female</option>
-												
-													</select> 
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>Marital Status</label>
-													<input type="text" name="maritalStatus" id="maritalStatus" value="" class="form-control" >
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>Marital Status</label>
-													<select  id="maritalStatus" name="maritalStatus" class="form-control">
-													    <option>married</option>
-													    <option>unmarried</option>
-													</select> 
-												</div>
-												
-												
-												
-												<div class="form-group col-lg-4">
-													<label>Email</label>
-													<input type="text" name="email" id="email" value="" class="form-control" onblur = "emailValidateUpdate()" >
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>Address</label>
-													<input type="text" name="address" id="address" value="" class="form-control" >
-												</div>
-										
-												<div class="form-group col-lg-4">
-													<label>City</label>
-													<input type="text" name="city" id="city" value="" class="form-control" onkeypress="return AllowAlphabet(event);">
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>State</label>
-													<input type="text" name="state" id="state" value="" class="form-control" onkeypress="return AllowAlphabet(event);">
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>Zip</label>
-													<input type="text" name="zip" id="zip" value="" class="form-control" onkeypress="return AllowNumber(event);">
-												</div>
-												
-												
-												<div class="form-group col-lg-4">
-													<label>Country</label>
-													<input type="text" name="country" id="country" value="" class="form-control" onkeypress="return AllowAlphabet(event);">
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>Phone No</label>
-													<input type="text" name="phone" id="phone" value="" class="form-control" onblur="return phoneValidUpdate(phone);">
-													<span id="phoneError"></span>
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>Designation</label>
-													<input type="text" name="designation" id="designation" value="" class="form-control" >
-													<select  id="designation" name="designation" class="form-control">
-													    <option>Jr. Software Developer</option>
-													    <option>Sr. Software Developer</option>
-													    <option>HR</option>
-													    <option>CEO</option>
-													    <option>Project Manager</option>
-													</select> 
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>User Role</label>
-													<input type="text" name="userRole" id="userRole" value="" class="form-control" >
-													
-												</div>
-												<div class="form-group col-lg-4">
-													<label>User Role</label>
-													<select  id="userRole" name="userRole" class="form-control">
-													    <option>ROLE_ADMIN</option>
-													    <option>ROLE_USER</option>
-													</select> 
-												</div>
-												
-												
-												
-												<div class="form-group col-lg-4">
-													<label>Role Id</label>
-													<input type="text" name="rId" id="rId" value="" class="form-control" readonly>
-												</div>
-											
-												<div class="form-group col-lg-4">
-													<label>Supervisor</label>
-													<input type="text" name="supervisor" id="supervisor" value="" class="form-control" >
-												</div>
-												
-												<div class="form-group col-lg-4">
-													<label>Supervisor Id</label>
-													<input type="text" name="sId" id="sId" value="" class="form-control" readonly >
-												</div>
-												
-											</div>
-											</div>
-											</section>
-											</div>							       		  				
-				       		  				
-				       		  		
-				        						
-				       						</div>
-				       					</form>
-				        			</div>
-				        			<div class="modal-footer">
-				          				<button type="button" class="btn btn-default" onclick="sendDataForUpdation()" data-dismiss="modal">Close</button>
-				        			</div>
-				      			</div>
-				    	</div>
-				  </div>
-				</div>
-	         -->       
-	                
-	        
-	            <%--     <td id="${employee.id}"    onClick="edit(this.id)"><img src='${pageContext.request.contextPath}/resources/images/Pencil-icon.png'  style="height: 26px;"></td> 
-	                <td id="${employee.id}"   onClick="deletel(this.id)"><img src='${pageContext.request.contextPath}/resources/images/delete.png'  style="height: 26px;"></td>
-            	 --%>
-         <%--    </tr>
-         </c:forEach> --%>
          </tbody>
 </table>
-<!-- THis is for employee registration -->
+<!-- THis is for School -->
 					 <div class="container">  
-				  		<div class="modal fade" id="forEmployeeRegistration" role="dialog">
+				  		<div class="modal fade" id="schoolAdd" role="dialog">
 				    		<div class="modal-dialog">
 				    
 				      		<!-- Modal content-->

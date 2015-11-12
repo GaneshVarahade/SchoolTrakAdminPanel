@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
+
 import com.fidelit.model.Employee;
 import com.fidelit.model.Holidays;
 import com.fidelit.model.LeavesApplied;
@@ -47,7 +48,7 @@ import com.fidelit.service.UserService;
 
 
 @Controller
-@RequestMapping({"/schoolAdmin"})
+@RequestMapping({"/user"})
 public class UserController {
 	
 	@Autowired	
@@ -86,6 +87,38 @@ public class UserController {
 		model.addAttribute("schoolAdminList", schoolAdminList);
 		List<School> schoolList=schoolService.allSchoolList();
 		model.addAttribute("schoolList", schoolList);
+		return "studentList";
+	}
+	
+	@RequestMapping(value = "/deleteParentList")
+	public String deleteParentList(@RequestParam("list") String str,ModelMap model){
+		str = str.substring(0, str.length()-1);
+		String[] str1 = str.split(",");
+		
+		for (int i = 0; i < str1.length; i++) {
+			int id = Integer.parseInt(str1[i]);
+			schoolAdminService.deleteSchoolAdmin(id);
+		}
+		
+
+	    List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+		model.addAttribute("schoolAdminList", schoolAdminList);
+		return "parentList";
+	}
+
+	@RequestMapping(value = "/deleteStudentList")
+	public String deleteStudentList(@RequestParam("list") String str,ModelMap model){
+		str = str.substring(0, str.length()-1);
+		String[] str1 = str.split(",");
+		
+		for (int i = 0; i < str1.length; i++) {
+			int id = Integer.parseInt(str1[i]);
+			schoolAdminService.deleteSchoolAdmin(id);
+		}
+		
+
+	    List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+		model.addAttribute("schoolAdminList", schoolAdminList);
 		return "studentList";
 	}
 	

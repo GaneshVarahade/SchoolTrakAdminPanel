@@ -160,6 +160,11 @@
         <put-attribute name="body" value="/WEB-INF/jsp/studentList.jsp"></put-attribute>  
     </definition>  
     
+     <definition name="schoolList" extends="admin.definition" >  
+        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />   -->
+        <put-attribute name="body" value="/WEB-INF/jsp/schoolList.jsp"></put-attribute>  
+    </definition>  
+    
     <definition name="clientList" extends="admin.definition" >  
         <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->  
         <put-attribute name="body" value="/WEB-INF/jsp/clientList.jsp"></put-attribute>  
@@ -168,6 +173,11 @@
     <definition name="projectList" extends="admin.definition" >  
         <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />   -->
         <put-attribute name="body" value="/WEB-INF/jsp/projectList.jsp"></put-attribute>  
+    </definition> 
+    
+    <definition name="schoolAdmin" extends="admin.definition" >  
+        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />   -->
+        <put-attribute name="body" value="/WEB-INF/jsp/schoolAdmin.jsp"></put-attribute>  
     </definition> 
     
     <definition name="leaveList" extends="admin.definition" >  
