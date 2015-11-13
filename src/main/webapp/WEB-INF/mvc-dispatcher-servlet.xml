@@ -71,6 +71,8 @@
 			    <value>com.fidelit.model.Account</value>
 			    <value>com.fidelit.model.School</value>
 			    <value>com.fidelit.model.SchoolAdmin</value>
+			    <value>com.fidelit.model.Route</value>
+			    <value>com.fidelit.model.Stop</value>
 			</list>
 		</property>  
 		<property name="hibernateProperties">

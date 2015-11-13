@@ -13,7 +13,7 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="${pageContext.request.contextPath}/schoolAdmin/home">Home</a></li>
         
-        <li><a href="#">Routes</a></li>
+        <li><a href="${pageContext.request.contextPath}/route/routeMap">Routes</a></li>
           <li><a href="${pageContext.request.contextPath}/schoolAdmin/parentList">Parents</a></li>
         <li><a href="${pageContext.request.contextPath}/schoolAdmin/studentList">Students</a></li>
         <li><a href="#">Bus</a></li>

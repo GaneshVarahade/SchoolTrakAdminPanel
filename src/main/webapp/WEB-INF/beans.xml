@@ -32,6 +32,9 @@
    
    <bean id="schoolAdminServiceImpl" class="com.fidelit.implementation.SchoolAdminServiceImpl" scope="prototype">
    </bean>
+   
+   <bean id="RouteServiceImpl" class="com.fidelit.implementation.RouteServiceImpl" scope="prototype">
+   </bean>
   
    
 </beans>

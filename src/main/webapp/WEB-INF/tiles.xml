@@ -45,6 +45,17 @@
         <put-attribute name="body" value="/WEB-INF/jsp/index.jsp" />  
     </definition>  
     
+    <definition name="routeMap"  extends="user.definition">  
+        <put-attribute name="menu" value="/WEB-INF/jsp/routeMapMenu.jsp" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/routeMap.jsp" />  
+  </definition>  
+
+  <definition name="stopMap"  extends="user.definition">  
+        <put-attribute name="menu" value="/WEB-INF/jsp/routeMapMenu.jsp" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/stopMap.jsp" />  
+  </definition> 
+    
+    
     <definition name="user" extends="user.definition">  
         <put-attribute name="title" value="Hello Spring MVC" />  
         <put-attribute name="body" value="/WEB-INF/jsp/user_management.jsp" />  
