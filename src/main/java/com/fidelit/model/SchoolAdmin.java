@@ -35,7 +35,9 @@ public class SchoolAdmin implements Serializable  {
 	
 	private String accountType;
 
+	private Boolean enabled;
 	
+	private String role;
 	
 
 	@Id
@@ -131,5 +133,25 @@ public class SchoolAdmin implements Serializable  {
 
 	public void setAccountType(String accountType) {
 		this.accountType = accountType;
+	}
+
+	@Column(name="enabled")
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	@Column(name="role")
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	} 
+	
+	
 }

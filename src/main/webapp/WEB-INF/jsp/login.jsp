@@ -114,7 +114,7 @@ app.controller('formCtrl', function($scope) {
      <img src="${pageContext.request.contextPath}/resources/images/logo/schoolTrackLogo.png" id="logo">
       <div id="loginBox" >		
         <label id ="message" style = "margin-left: 553px; color: red" class="label col col-4">${message}</label>
-			<form id="loginForm" action="${pageContext.request.contextPath}/loginAuth/authenticate" method="post">
+			<form id="loginForm" action="j_spring_security_check" method="post">
 			  
 				<label style = "margin-left: -15; " class="label col col-4">Enter your Login ID and Password</label>
 				<fieldset>		

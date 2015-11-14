@@ -7,9 +7,9 @@
 
 	<http auto-config="true">
 		<access-denied-handler error-page="/403page" />
-		<intercept-url pattern="/user**" access="ROLE_USER" />
+		<intercept-url pattern="/user**" access="ROLE_SCHOOL_ADMIN" />
 		<intercept-url pattern="/admin**" access="ROLE_ADMIN" />
-		<form-login login-page='/login' username-parameter="username"
+		<form-login login-page='/login' username-parameter="account"
 			password-parameter="password" default-target-url="/default"
 			authentication-failure-url="/login?authfailed" />
 		<logout logout-success-url="/login?logout" />
@@ -26,10 +26,8 @@
 	<authentication-manager>
 		<authentication-provider>
 			<jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query="select empUsername,empPassword,enabled from employee where empUsername=?"
-				authorities-by-username-query="select e.empUsername, ur.role from userRole ur inner join employee e 
-                                              on(e.empId=ur.empId)
-                                              where e.empUsername =?" />
+				users-by-username-query="select username,password,enabled from schooladmin where accountType=?"
+				authorities-by-username-query="select username, role from schooladmin where username=?" />
 		</authentication-provider>
 	</authentication-manager>
 

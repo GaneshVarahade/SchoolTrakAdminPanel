@@ -1,7 +1,12 @@
 package com.fidelit.controller;
 
+import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -9,15 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class DefaultController {
 
 @RequestMapping(value="default")
-public String defaultUrl(HttpServletRequest req){
+public String defaultUrl(HttpServletRequest req,SecurityContextHolderAwareRequestWrapper request){
 	
+	Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>)    SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+//	req.getAuthType();
 	String url="";
-	if(req.isUserInRole("ROLE_USER")){
-		  url = "user";
-	}else if(req.isUserInRole("ROLE_ADMIN")){
-		  url = "admin_home";
+	
+	if(authorities.contains("ROLE_ADMIN")){
+		 url = "admin_home";
+		 
 	}else{
-		  url = "client";
+		 url = "schoolAdminHome";
 	}
 	return url;	
 }

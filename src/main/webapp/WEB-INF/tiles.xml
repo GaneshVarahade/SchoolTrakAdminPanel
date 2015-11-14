@@ -112,10 +112,10 @@
         <put-attribute name="body" value="/WEB-INF/jsp/admin_employee_update_list.jsp" />  
     </definition> 
     
-     <definition name="user_home" extends="user.definition">  
+     <definition name="schoolAdminHome" extends="user.definition">  
         <put-attribute name="title" value="User" />   
        
-        <put-attribute name="body" value="/WEB-INF/jsp/user_home.jsp" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/schoolAdminHome.jsp" />  
     </definition>
     
     

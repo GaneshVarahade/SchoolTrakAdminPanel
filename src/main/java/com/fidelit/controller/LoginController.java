@@ -17,7 +17,13 @@ public class LoginController {
    @RequestParam(required = false) String authfailed, String logout,  
    String denied,ModelMap model,HttpServletRequest req) {
 	
-  
+  if(authfailed != null){
+	 model.addAttribute("message", "Authentication Failed");
+  }else if(denied != null){
+	  model.addAttribute("message", "Access denied");
+  }
+	
+	 
   return "login";  
  }  
   
