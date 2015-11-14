@@ -88,22 +88,44 @@ StopService stopService;
 		return "stopMap";
 	}
 	
-@RequestMapping(value="routeMap")
-public String route(ModelMap model){
-	List<Route> routes = routeService.getRouteList();
+	@RequestMapping(value="routeMap")
+	public String route(ModelMap model){
+		List<Route> routes = routeService.getRouteList();
 	
-	model.addAttribute("routeList",routes);
-	model.addAttribute(new Route());
-	return "routeMap";
-}
+		model.addAttribute("routeList",routes);
+		model.addAttribute(new Route());
+		return "routeMap";
+	}
 
-@RequestMapping(value="addRoute",method = RequestMethod.POST)
-public String addRoute(@ModelAttribute("route") Route route,ModelMap model){
-	System.out.println("Route"+route.getRouteName());
-	routeService.addRoute(route);
-    List<Route> routes = routeService.getRouteList();
-	model.addAttribute("routeList",routes);
+	@RequestMapping(value="addRoute",method = RequestMethod.POST)
+	public String addRoute(@ModelAttribute("route") Route route,ModelMap model){
+		System.out.println("Route"+route.getRouteName());
+		routeService.addRoute(route);
+		List<Route> routes = routeService.getRouteList();
+		model.addAttribute("routeList",routes);
 	
-	return "routeMap";
-}
+		return "routeMap";
+	}
+	@RequestMapping(value="editStop",method = RequestMethod.POST)
+	public String editStop(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		String list = request.getParameter("list");
+		System.out.println(list);
+		String [] dataList = list.split(",");
+		Stop stop = new Stop();
+		Integer stopNo=Integer.parseInt(dataList[4]);
+		Integer routeNo=Integer.parseInt(dataList[5]);
+		Integer id=Integer.parseInt(dataList[0]);
+		double latitude=Double.parseDouble(dataList[2]);
+		double longitude=Double.parseDouble(dataList[3]);
+		Route route=routeService.getRouteId(routeNo);
+		stop.setRoute(route);
+		stop.setStopId(id);
+		stop.setStopName(dataList[1]);
+		stop.setLatitude(latitude);
+		stop.setLongitude(longitude);
+		stop.setStopNo(stopNo);
+		stopService.updateStop(stop);
+		return "stopMap";
+	}
+
 }

@@ -18,7 +18,7 @@
 												<br>
 												<div >
 													<label>Stop No.</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													<input type="text" name="stopNo" id="stopNo" value= "${stopCounter}" style="width: 114px;">
+													<input type="text" name="stopNo" id="stopNo" value= "${stopCounter}" style="width: 114px;" readonly>
 												</div>
 												<br>
 												<div>
