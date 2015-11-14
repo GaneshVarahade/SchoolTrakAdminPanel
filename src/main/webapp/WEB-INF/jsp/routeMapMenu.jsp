@@ -8,29 +8,27 @@
 </head>
 
 <body>
-				       		  				
 				       		  					
-				       		  					
+				       		  		<form id="stopForm" action="${pageContext.request.contextPath}/route/addNewStops">
 												<div>
 													<label>Route No.</label>&nbsp;&nbsp;&nbsp;
 													<input type="text" name="routeId" id="routeId" value="${routeId}" style="width: 114px;" readonly>
 												</div>
 												
-												
 												<br>
 												<div >
 													<label>Stop No.</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													<input type="text" name="stopNo" id="stopNo" style="width: 114px;">
+													<input type="text" name="stopNo" id="stopNo" value= "${stopCounter}" style="width: 114px;">
 												</div>
 												<br>
 												<div>
 													
-													<B>Stop Name: </B><input type="text" name="stopName" value="${stop.stopName}" id="stopName" style="width: 114px;">
+													<B>Stop Name: </B><input type="text" name="stopName" id="stopName" style="width: 114px;">
 												</div>
 												<div >
 												<br>
 											<label>Latitude: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<input type="text" name="latitude" id="latitude" value="${latitude}" style="width: 114px;">
+												<input type="text" name="latitude" id="latitude"  style="width: 114px;">
 												</div>
 											<br>	
 											<div>
@@ -39,12 +37,12 @@
 												</div>
 												
 											<br>
-											<input type="button" value="Add" style="margin-left: 85px;" onclick="addStop()">
+											<input type="submit" value="Add" style="margin-left: 85px;" >
 				       					
-				       					
+				       					</form>
 
 <script>
-function addStop(){
+/* function addStop(){
 	
 	var routeNo=$('#routeId').val();
 	var stopNo=$('#stopNo').val();
@@ -67,7 +65,7 @@ function addStop(){
 		    }
 		});
 	
-}
+} */
 </script>
 </body>
 </html>

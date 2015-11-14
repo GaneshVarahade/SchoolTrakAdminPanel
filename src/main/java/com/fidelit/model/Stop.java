@@ -24,7 +24,7 @@ public class Stop implements Serializable{
 	private Double latitude;
 	private Double longitude;
 	private Date   createdTime;
-	private Route route;
+	private Route   route;
 	private Integer stopNo;
 	
 	

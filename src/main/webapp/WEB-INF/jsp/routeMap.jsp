@@ -67,7 +67,7 @@ function sendDataForUpdation(){
 function addStops(id){
 
 	var id=id;
-	window.location.href="${pageContext.request.contextPath}/route/addStop?id="+id;
+	window.location.href="${pageContext.request.contextPath}/route/addNewStops?routeId="+id;
 	
 }
 

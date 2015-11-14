@@ -61,7 +61,7 @@ public class Route implements Serializable{
 		this.endStop = endStop;
 	}
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy="route")
+	@OneToMany(fetch=FetchType.EAGER, cascade = {CascadeType.ALL}, mappedBy="route")
 	public List<Stop> getStopList() {
 		return stopList;
 	}
