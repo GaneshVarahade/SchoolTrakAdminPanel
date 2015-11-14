@@ -22,19 +22,30 @@ public class AuthenticationController {
 		
 		SchoolAdmin account = authenticationService.authenticateUser(username, password,accountId);
 		
-		if(account.getAccountType().equals("Admin")){
-			return "admin_home";
+		if(account!=null){
+			if(account.getAccountType().equals("Admin")){
+				return "admin_home";
 		    
-		}else if(account.getAccountType().equals("SchoolAdmin")){
-			return "user_home";
+			}else if(account.getAccountType().equals("SchoolAdmin")){
+				return "user_home";
 			
-		}else if(account.getAccountType().equals("Parent")){
-			return "admin_home";
+			}else if(account.getAccountType().equals("Parent")){
+				return "admin_home";
 
-		}else{
-			model.addAttribute("message", "Login Failed !");
-			return "login";	
+			}else if(account.getAccountType().equals("Student")){
+			
+				return "admin_home";
+			}else{
+					model.addAttribute("message", "Login Failed !");
+					return "login";	
+				}
 		}
+		else{
+				model.addAttribute("message", "Login Failed !");
+				return "login";	
+		}
+			
+		
 		
 		
 	}

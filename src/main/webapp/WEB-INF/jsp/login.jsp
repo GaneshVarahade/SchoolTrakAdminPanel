@@ -122,9 +122,13 @@ app.controller('formCtrl', function($scope) {
 						<div class="row">
 							<label class="label col col-4">Account</label>
 							<div class="col col-8">
-								<label class="input">
-									<input class="inputForm" type="text" name="account">
-								</label>
+							<select name="account" style="width: 275px;height: 36px;">
+  										<option value="Admin">Admin</option>
+  										<option value="SchoolAdmin">School Admin</option>
+  										<option value="Parent">Parent</option>
+  										<option value="Student">Student</option>
+							</select>
+								
 							</div>
 						</div>
 					</section>			

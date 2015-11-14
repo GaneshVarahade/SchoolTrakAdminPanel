@@ -46,7 +46,7 @@
     </definition>  
     
     <definition name="routeMap"  extends="user.definition">  
-        <put-attribute name="menu" value="/WEB-INF/jsp/routeMapMenu.jsp" />  
+        
         <put-attribute name="body" value="/WEB-INF/jsp/routeMap.jsp" />  
   </definition>  
 
