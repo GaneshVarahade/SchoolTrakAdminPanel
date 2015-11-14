@@ -33,32 +33,7 @@ RouteService routeService;
 @Autowired
 StopService stopService;
 	
-	@RequestMapping("addStop")
-	public String addStop(HttpServletRequest request,HttpServletResponse response,ModelMap model){
-		int routeId=Integer.parseInt(request.getParameter("id"));
-		int stopCounter=0;
-        Route fetchRoute=routeService.getRouteId(routeId);
-		
-		List<Stop> stopList =  fetchRoute.getStopList();
-	  //  List<Double> coordinateList = new ArrayList<Double>();
-	    StringBuilder coordinateList = new StringBuilder();
-		for (Stop stop2 : stopList) {
-			stopCounter++;
-			coordinateList.append(stop2.getLatitude());
-			coordinateList.append(",");
-			coordinateList.append(stop2.getLongitude());
-			coordinateList.append(",");
-		}
-		stopCounter++;
-		System.out.println(coordinateList);
-		
-		model.addAttribute("stopCounter", stopCounter);
-		model.addAttribute("stopList", stopList);
-		model.addAttribute("routeId", routeId);
-		model.addAttribute("coordinateList", coordinateList);
-		model.addAttribute("routeId", routeId);
-		return "stopMap";
-	}
+	
 
 	@RequestMapping(value="/addNewStops")
 	public String addNewStops(HttpServletRequest request,HttpServletResponse response,ModelMap model){
