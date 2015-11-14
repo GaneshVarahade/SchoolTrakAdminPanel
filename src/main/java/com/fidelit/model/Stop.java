@@ -24,11 +24,12 @@ public class Stop implements Serializable{
 	private Double latitude;
 	private Double longitude;
 	private Date   createdTime;
-	private Date   datetime;
 	private Route route;
+	private Integer stopNo;
 	
 	
 
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public Integer getStopId() {
@@ -61,12 +62,7 @@ public class Stop implements Serializable{
 	public void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
 	}
-	public Date getDatetime() {
-		return datetime;
-	}
-	public void setDatetime(Date datetime) {
-		this.datetime = datetime;
-	}
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "routeId", nullable = false)
@@ -76,7 +72,11 @@ public class Stop implements Serializable{
 	public void setRoute(Route route) {
 		this.route = route;
 	}
+	public Integer getStopNo() {
+		return stopNo;
+	}
+	public void setStopNo(Integer stopNo) {
+		this.stopNo = stopNo;
+	}
   
-	
-	
 }

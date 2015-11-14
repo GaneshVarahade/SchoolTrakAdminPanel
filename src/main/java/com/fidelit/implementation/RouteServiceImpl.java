@@ -6,11 +6,13 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fidelit.model.Clients;
 import com.fidelit.model.Route;
 import com.fidelit.service.RouteService;
 
@@ -35,5 +37,26 @@ public class RouteServiceImpl implements RouteService{
 		
 		return criteria.list();
 	}
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public Route getRouteId(int id) {
+		Session session;
+		Route  route = null;
+		try{
+			session = sessionFactory.getCurrentSession();
+			Criteria criteria = session.createCriteria(Route.class);
+			 criteria.add(Restrictions.eq("routeNo", id));
+			 Object result=criteria.uniqueResult();
+			 route = (Route)result;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return route;
+	}
+
+	
+	
 
 }

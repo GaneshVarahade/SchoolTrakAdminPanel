@@ -8,4 +8,5 @@ public interface RouteService {
 
 	void addRoute(Route route);
 	List<Route> getRouteList();
+	Route getRouteId(int id);
 }

@@ -344,7 +344,7 @@ function password_length_registration()
             </tr>
         </tfoot>
  
-        <tbody>
+       <tbody>
         <c:forEach var="schoolAdmin" items="${schoolAdminList}">
         	<c:if test= "${schoolAdmin.accountType eq 'SchoolAdmin'}">
             	<tr>
@@ -358,10 +358,10 @@ function password_length_registration()
 	                <td>${schoolAdmin.age}</td>
 	                <td>${schoolAdmin.city}</td>
 	                
-	                     </tr>
-	                     </c:if>
+	            </tr>
+	        </c:if>
          </c:forEach>
-         </tbody>
+       </tbody>
 </table>
 	               
        
@@ -440,19 +440,18 @@ function password_length_registration()
 												</div>
 												
 											
+				       						</div>
 				       					</div>
-				       					</div>
-				       					</section>
-				       					</div>
-				       					</div>
-				       					</form>
-				        			</div>
-				        			<div class="modal-footer">
-				          				<button type="button" class="btn btn-default" onclick="sendDataForRegistration();" data-dismiss="modal">Submit</button>
-				        			</div>
-				      			</div>
-				    	</div>
-				  </div>
-				 
-				</div>
+				       				</section>
+				       			</div>
+				       		</div>
+				       	</form>
+				       </div>
+				        <div class="modal-footer">
+				          			<button type="button" class="btn btn-default" onclick="sendDataForRegistration();" data-dismiss="modal">Submit</button>
+				        </div>
+				      </div>
+				   </div>
+				 </div>
+			  </div>
 

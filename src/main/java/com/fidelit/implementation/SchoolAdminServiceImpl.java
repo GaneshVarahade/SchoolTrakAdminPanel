@@ -96,16 +96,16 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 		Session session;
 		SchoolAdmin  schoolAdmin=null;
 		try{
-			session = sessionFactory.getCurrentSession();
-			Criteria criteria = session.createCriteria(SchoolAdmin.class);
-			 criteria.add(Restrictions.eq("id", id));
-			 Object result=criteria.uniqueResult();
-			 schoolAdmin = (SchoolAdmin)result;
-			 session.delete(schoolAdmin);
+				session = sessionFactory.getCurrentSession();
+				Criteria criteria = session.createCriteria(SchoolAdmin.class);
+				criteria.add(Restrictions.eq("id", id));
+				Object result=criteria.uniqueResult();
+				schoolAdmin = (SchoolAdmin)result;
+				session.delete(schoolAdmin);
 			//System.out.println(empList);
 		}
 		catch(Exception e){
-			e.printStackTrace();
+				e.printStackTrace();
 		}
 		
 	}

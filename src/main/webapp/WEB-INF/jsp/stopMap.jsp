@@ -91,8 +91,15 @@
     </style>
   </head>
   <body>
+  
+  <input type="text" value="${latitude}" style="margin-left: 586px;border-bottom-width: 0px;border-right-width: 10px;margin-top: 0px;">
     <h1>Create a polyline</h1>
-    <div id="map"></div>
+    <div id="map">
+    
+    </div>
     <p id="error"></p>
+    
+    
+    
   </body>
 </html>

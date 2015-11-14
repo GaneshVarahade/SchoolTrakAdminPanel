@@ -28,7 +28,7 @@ public class AuthenticationController {
 		}else if(account.getAccountType().equals("SchoolAdmin")){
 			return "user_home";
 			
-		}else if(account.getAccountType().equals("parents")){
+		}else if(account.getAccountType().equals("Parent")){
 			return "admin_home";
 
 		}else{

@@ -35,6 +35,9 @@
    
    <bean id="RouteServiceImpl" class="com.fidelit.implementation.RouteServiceImpl" scope="prototype">
    </bean>
+   
+   <bean id="StopServiceImpl" class="com.fidelit.implementation.StopServiceImpl" scope="prototype">
+   </bean>
   
    
 </beans>

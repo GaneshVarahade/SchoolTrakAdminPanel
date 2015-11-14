@@ -64,6 +64,12 @@ function sendDataForUpdation(){
 	}
 }
 
+function addStops(id){
+
+	var id=id;
+	window.location.href="${pageContext.request.contextPath}/route/addStop?id="+id;
+	
+}
 
 
 
@@ -90,7 +96,8 @@ function sendDataForUpdation(){
 				<th>Status</th>
 				<th>Start Stop</th>
 				<th>End Stop</th>
-
+				<th>Add Stop</th>
+				<th>Edit Route</th>
 			</tr>
 		</thead>
 
@@ -101,6 +108,8 @@ function sendDataForUpdation(){
 				<th>Status</th>
 				<th>Start Stop</th>
 				<th>End Stop</th>
+				<th>Add Stop</th>
+				<th>Edit Route</th>
 
 			</tr>
 		</tfoot>
@@ -113,8 +122,8 @@ function sendDataForUpdation(){
 				   <td>${route.routeStatus}</td> 
 				   <td>${route.startStop}</td> 
 				   <td>${route.endStop}</td> 
+				   <td><input type="button" value="Add Stops" onclick="addStops(${route.routeNo})"></td>
 				   <td><input type="button" value="Edit" onclick="editRoute()"></td>
-				   <td><input type="button" value="Add Stops" onclick="addStops()"></td>
 				</tr>
 			</c:forEach>
 		</tbody>
