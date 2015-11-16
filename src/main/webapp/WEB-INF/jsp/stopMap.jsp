@@ -164,13 +164,92 @@
 				   <td>${stop.stopName}</td> 
 				   <td>${stop.latitude}</td> 
 				   <td>${stop.longitude}</td> 
-				   <td><input type="button" value="Edit" onclick="editRoute()"></td>
+				   <td><input type="button" value="Edit" class="open-AddBookDialog btn btn-primary" onclick="editRoute('${stop.stopNo}','${stop.stopName}','${stop.latitude}','${stop.longitude}','${stop.stopId}','${stop.route.routeNo}')"></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 </div>
     <p id="error"></p>
+    
+    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+           <div class="modal-dialog">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Edit </h4>
+			  </div>
+			  <div class="modal-body">
+			    <div>
+					<label>Stop Number :</label>
+						<input type="text" name="stopNumber" id="stopNumber" class="form-control" readOnly>
+				</div>
+				
+				<div>
+					<label>Stop Name :</label>
+						<input type="text" name="stopsName" id="stopsName" class="form-control">
+				</div>
+				
+				<div>
+					<label>Latitude :</label>
+						<input type="text" name="latitudes" id="latitudes" class="form-control">
+				</div>
+				
+				<div>
+					<label>Longitude :</label>
+						<input type="text" name="longitudes" id="longitudes" class="form-control">
+				</div>
+				<input type="hidden" id="stopId" name="id">
+				<input type="hidden" id="routeNumber" name="id">
+				<div><br>
+					<input type="button" class="open-AddBookDialog btn btn-primary" value="Submit" onclick="editStop()">
+				</div>
+			  </div>
+			</div>
+		  </div>
+        </div>
 
+<script>
+function editRoute(stopNo,stopName,latitude,longitude,stopId,routeNo){
+//	alert(stopNo);
+	$("#stopNumber").val(stopNo);
+	$("#stopsName").val(stopName);
+	$("#latitudes").val(latitude);
+	$("#longitudes").val(longitude);
+	$("#stopId").val(stopId);
+	$("#routeNumber").val(routeNo);
+	$("#edit").modal('show');
+}
+function editStop(){
+	
+	 var stopId = $("#stopId").val();
+	 var stopNo = $("#stopNumber").val();
+	 var stopName= $("#stopsName").val();
+	 var latitude= $("#latitudes").val();
+	 var longitude = $("#longitudes").val();
+	 var routeNo=$("#routeNumber").val();
+	 var data=stopId+","+stopName+","+latitude+","+longitude+","+stopNo+","+routeNo;
+	 var formData="list="+data;
+	 $.ajax({
+		    type : "POST",
+		    url : "${pageContext.request.contextPath}/route/editStop",
+		    data : formData,
+		    success : function(response) {	 
+		    	 $("#edit").modal('hide');
+		       alert("Stop Updated Successfully!");
+		       location.reload();
+		      },
+		    error : function(e) {
+		    	 $("#edit").modal('hide');
+		       alert('Error: ' + e);
+		    }
+		});
+	 
+}
+ 
+</script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  
   </body>
 </html>

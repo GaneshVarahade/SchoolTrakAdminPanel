@@ -47,51 +47,21 @@ function showBtn(){
 	});
  
  
- 
- $(document).on("click", ".open-AddBookDialog", function () {
-	    var myBookId = $(this).data('id');
-	    var data = myBookId.value.split(",");
-	    var d = data[0];
-	    var d1 = data[1];
-	    var d2 = data[2];
-	    var d3 = data[3];
-	    var d4 = data[4];
-	    var d5 = data[5];
-	    var d6 = data[6];
-	    var d7 = data[7];
-	    var d8 = data[8];
-	    var d9 = data[9];
-	
-	    
-	    
-	    
-	    $(".modal-body #clientId").val( d );
-	    $(".modal-body #clientUsername").val( d1 );
-	    $(".modal-body #clientPassword").val( d2 );
-	    $(".modal-body #clientName").val( d3 );
-	    $(".modal-body #clientEmail").val( d4 );
-	    $(".modal-body #clientMobile").val( d5 );
-	    $(".modal-body #clientAddress").val( d6 );
-	    $(".modal-body #clientCountry").val( d7 );
-	    $(".modal-body #clientTimeZone").val( d8 );
-	    $(".modal-body #skypeId").val( d9 );
-	    
-	});
+
 
  
 </script>
 <script type="text/javascript">
 
 $(document).ready(function() {
-    $('#example').DataTable();
+      $('#example').DataTable({
+    	  "paging":   false
+      }
+    		  
+      ); 
 } );
 
 
-function edit(id){
-	var id = id;
-	window.location.href = "editClient?id="+id;
-	}
-	
 function deletel(id){
 	
 	var id = id;
@@ -152,10 +122,10 @@ function sendDataForRegistration(){
 	 var formData = "accessList="+allData;
 	 $.ajax({
 		    type : "POST",
-		    url : "${pageContext.request.contextPath}/admin/addClient",
+		    url : "${pageContext.request.contextPath}/admin/addSchoolAdmin",
 		    data : formData,
 		    success : function(response) {	       
-		       alert("Client Profile Added");
+		       alert("Parent Added");
 		    },
 		    error : function(e) {
 		       alert('Error: ' + e);
@@ -167,11 +137,11 @@ function sendDataForRegistration(){
 function malaDeleteKara(id){
 	if(saveKara == 0){
 		saveKara = id + ",";
-		alert(saveKara);
+	//	alert(saveKara);
 	}
 	else{
 		saveKara = saveKara + id + ",";	
-		alert(saveKara);
+	//	alert(saveKara);
 	}
 	//showAlert(saveKara);
 }
@@ -179,7 +149,7 @@ function malaDeleteKara(id){
 function removeString(ch){
 	ch = ch + ",";
 	saveKara = saveKara.replace(ch,'');
-	alert(saveKara);
+//	alert(saveKara);
 //	showAlert(saveKara);
 }
 
@@ -319,7 +289,7 @@ function password_length_registration()
 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
-            	<th>DELETE</th>
+            	<th></th>
                 <th>Name</th>
                 <th>School Name</th>
                 <th>Address</th>
@@ -333,7 +303,7 @@ function password_length_registration()
  
         <tfoot>
             <tr>
-            	<th>DELETE</th>
+            	<th></th>
                 <th>Name</th>
                 <th>School Name</th>
                 <th>Address</th>

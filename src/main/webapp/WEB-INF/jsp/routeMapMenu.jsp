@@ -18,7 +18,7 @@
 												<br>
 												<div >
 													<label>Stop No.</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													<input type="text" name="stopNo" id="stopNo" value= "${stopCounter}" style="width: 114px;">
+													<input type="text" name="stopNo" id="stopNo" value= "${stopCounter}" style="width: 114px;" readonly>
 												</div>
 												<br>
 												<div>
@@ -37,7 +37,7 @@
 												</div>
 												
 											<br>
-											<input type="submit" value="Add" style="margin-left: 85px;" >
+											<input type="submit" class="open-AddBookDialog btn btn-primary" value="Add" style="margin-left: 85px;" >
 				       					
 				       					</form>
 

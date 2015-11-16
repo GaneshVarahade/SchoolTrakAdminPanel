@@ -1,5 +1,6 @@
 package com.fidelit.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fidelit.model.Clients;
 import com.fidelit.model.Route;
+import com.fidelit.model.School;
 import com.fidelit.service.RouteService;
 
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true) 
@@ -32,10 +34,17 @@ public class RouteServiceImpl implements RouteService{
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false) 
 	@Override
 	public List<Route> getRouteList() {
-		Session session = sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(Route.class);
-		
-		return criteria.list();
+		List<Route> routeList = new ArrayList<Route>();
+		 Session session;
+			try {
+				session = sessionFactory.getCurrentSession();
+				Criteria criteria = session.createCriteria(Route.class);
+				routeList = criteria.list();
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+		return routeList;
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
@@ -54,6 +63,48 @@ public class RouteServiceImpl implements RouteService{
 			e.printStackTrace();
 		}
 		return route;
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public void updateRoute(Route route) {
+		
+		Session session;
+		try {
+			
+			session = sessionFactory.getCurrentSession();
+			session.update(route);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public void deleteRoute(int id) {
+		
+		Session session;
+		Route  route=null;
+		try{
+			session = sessionFactory.getCurrentSession();
+			Criteria criteria = session.createCriteria(Route.class);
+			 criteria.add(Restrictions.eq("id", id));
+			 Object result=criteria.uniqueResult();
+			 route = (Route)result;
+			 session.delete(route);
+			//System.out.println(empList);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+
+		
+		// TODO Auto-generated method stub
+		
 	}
 
 	

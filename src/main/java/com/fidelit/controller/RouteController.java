@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fidelit.model.Route;
+import com.fidelit.model.SchoolAdmin;
 import com.fidelit.model.Stop;
 import com.fidelit.service.RouteService;
 import com.fidelit.service.StopService;
@@ -88,22 +90,91 @@ StopService stopService;
 		return "stopMap";
 	}
 	
-@RequestMapping(value="routeMap")
-public String route(ModelMap model){
-	List<Route> routes = routeService.getRouteList();
-	
-	model.addAttribute("routeList",routes);
-	model.addAttribute(new Route());
-	return "routeMap";
-}
+	@RequestMapping(value="routeMap")
+	public String route(ModelMap model){
+		List<Route> routes = routeService.getRouteList();
+		System.out.println(routes.toString());
+		model.addAttribute("routeList",routes);
+		model.addAttribute(new Route());
+		return "routeMap";
+	}
 
-@RequestMapping(value="addRoute",method = RequestMethod.POST)
-public String addRoute(@ModelAttribute("route") Route route,ModelMap model){
-	System.out.println("Route"+route.getRouteName());
-	routeService.addRoute(route);
-    List<Route> routes = routeService.getRouteList();
-	model.addAttribute("routeList",routes);
+	@RequestMapping(value="addRoute",method = RequestMethod.POST)
+	public String addRoute(@ModelAttribute("route") Route route,ModelMap model){
+		System.out.println("Route"+route.getRouteName());
+		routeService.addRoute(route);
+		List<Route> routes = routeService.getRouteList();
+		model.addAttribute("routeList",routes);
 	
-	return "routeMap";
-}
+		return "routeMap";
+	}
+	@RequestMapping(value="editRoute",method = RequestMethod.POST)
+	public String editRoute(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		String list = request.getParameter("list");
+		System.out.println(list);
+		String [] dataList = list.split(",");
+		Route route = new Route();
+		Integer routeId=Integer.parseInt(dataList[0]);
+		route.setRouteNo(routeId);
+		route.setRouteName(dataList[1]);
+		route.setRouteStatus(true);
+		route.setStartStop(dataList[3]);
+		route.setEndStop(dataList[4]);
+		routeService.updateRoute(route);
+	/*	Integer stopNo=Integer.parseInt(dataList[4]);
+		Integer routeNo=Integer.parseInt(dataList[5]);
+		Integer id=Integer.parseInt(dataList[0]);
+		double latitude=Double.parseDouble(dataList[2]);
+		double longitude=Double.parseDouble(dataList[3]);
+		Route routes=routeService.getRouteId(routeNo);
+		stop.setRoute(route);
+		stop.setStopId(id);
+		stop.setStopName(dataList[1]);
+		stop.setLatitude(latitude);
+		stop.setLongitude(longitude);
+		stop.setStopNo(stopNo);
+		stopService.updateStop(stop);*/
+		return "stopMap";
+	}
+
+	
+	@RequestMapping(value="editStop",method = RequestMethod.POST)
+	public String editStop(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		String list = request.getParameter("list");
+		System.out.println(list);
+		String [] dataList = list.split(",");
+		Stop stop = new Stop();
+		Integer stopNo=Integer.parseInt(dataList[4]);
+		Integer routeNo=Integer.parseInt(dataList[5]);
+		Integer id=Integer.parseInt(dataList[0]);
+		double latitude=Double.parseDouble(dataList[2]);
+		double longitude=Double.parseDouble(dataList[3]);
+		Route route=routeService.getRouteId(routeNo);
+		stop.setRoute(route);
+		stop.setStopId(id);
+		stop.setStopName(dataList[1]);
+		stop.setLatitude(latitude);
+		stop.setLongitude(longitude);
+		stop.setStopNo(stopNo);
+		stopService.updateStop(stop);
+		return "stopMap";
+	}
+	
+	@RequestMapping(value = "/deleteRouteList")
+	public String deleteParentList(@RequestParam("list") String str,ModelMap model){
+		str = str.substring(0, str.length()-1);
+		String[] str1 = str.split(",");
+		
+		for (int i = 0; i < str1.length; i++) {
+			int id = Integer.parseInt(str1[i]);
+			routeService.deleteRoute(id);
+		}
+		
+
+	    List<Route> routeList= routeService.getRouteList();
+		model.addAttribute("routeList", routeList);
+		model.addAttribute(new Route());
+		return "routeMap";
+	}
+
 }

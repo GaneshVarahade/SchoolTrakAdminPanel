@@ -25,7 +25,7 @@
 var saveKara = 0;
 
 function showBtn(){
-
+	alert("fcg");
 	 if(saveKara == 0){
 		 alert("Please select Atleast one client for delete");
 	 }
@@ -40,11 +40,6 @@ function showBtn(){
 	 
 }
 
- $(function(){
-	    $('#browse_app').click(function(){
-	        window.location='addClient';
-	    });
-	});
  
  
  
@@ -150,10 +145,10 @@ function sendDataForRegistration(){
 	 var formData = "accessList="+allData;
 	 $.ajax({
 		    type : "POST",
-		    url : "${pageContext.request.contextPath}/admin/addClient",
+		    url : "${pageContext.request.contextPath}/admin/addSchoolAdmin",
 		    data : formData,
 		    success : function(response) {	       
-		       alert("Client Profile Added");
+		       alert("Student Added");
 		    },
 		    error : function(e) {
 		       alert('Error: ' + e);
