@@ -37,7 +37,7 @@
 												</div>
 												
 											<br>
-											<input type="submit" value="Add" style="margin-left: 85px;" >
+											<input type="submit" class="open-AddBookDialog btn btn-primary" value="Add" style="margin-left: 85px;" >
 				       					
 				       					</form>
 

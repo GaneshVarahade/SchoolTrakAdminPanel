@@ -122,8 +122,8 @@ function addStops(id){
 				   <td>${route.routeStatus}</td> 
 				   <td>${route.startStop}</td> 
 				   <td>${route.endStop}</td> 
-				   <td><input type="button" value="Add Stops" onclick="addStops(${route.routeNo})"></td>
-				   <td><input type="button" value="Edit" onclick="editRoute()"></td>
+				   <td><input type="button" value="Add Stops" class="open-AddBookDialog btn btn-primary" onclick="addStops(${route.routeNo})"></td>
+				   <td><input type="button" value="Edit" class="open-AddBookDialog btn btn-primary" onclick="editRoute()"></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -188,7 +188,7 @@ function addStops(id){
 								</div>
 							</div>
 							<div class="modal-footer">
-						     <input type="submit" value="Submit"/>
+						     <input type="submit" class="open-AddBookDialog btn btn-primary" value="Submit"/>
 					        </div>
 						</form:form>
 						

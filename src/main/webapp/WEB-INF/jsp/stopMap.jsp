@@ -164,7 +164,7 @@
 				   <td>${stop.stopName}</td> 
 				   <td>${stop.latitude}</td> 
 				   <td>${stop.longitude}</td> 
-				   <td><input type="button" value="Edit" onclick="editRoute('${stop.stopNo}','${stop.stopName}','${stop.latitude}','${stop.longitude}','${stop.stopId}','${stop.route.routeNo}')"></td>
+				   <td><input type="button" value="Edit" class="open-AddBookDialog btn btn-primary" onclick="editRoute('${stop.stopNo}','${stop.stopName}','${stop.latitude}','${stop.longitude}','${stop.stopId}','${stop.route.routeNo}')"></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -202,7 +202,7 @@
 				<input type="hidden" id="stopId" name="id">
 				<input type="hidden" id="routeNumber" name="id">
 				<div><br>
-					<input type="button" value="Submit" onclick="editStop()">
+					<input type="button" class="open-AddBookDialog btn btn-primary" value="Submit" onclick="editStop()">
 				</div>
 			  </div>
 			</div>
