@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -94,6 +96,7 @@ StopService stopService;
 	public String route(ModelMap model){
 		List<Route> routes = routeService.getRouteList();
 		System.out.println(routes.toString());
+		
 		model.addAttribute("routeList",routes);
 		model.addAttribute(new Route());
 		return "routeMap";

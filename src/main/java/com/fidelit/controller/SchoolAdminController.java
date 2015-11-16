@@ -74,7 +74,7 @@ public class SchoolAdminController {
 	
 	@RequestMapping(value="/studentList")
 	public String allStudentList(ModelMap model){
-		List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+		List<SchoolAdmin> schoolAdminList= schoolAdminService.getAllStudentList();
 		model.addAttribute("schoolAdminList", schoolAdminList);
 		List<School> schoolList=schoolService.allSchoolList();
 		model.addAttribute("schoolList", schoolList);
@@ -106,9 +106,8 @@ public class SchoolAdminController {
 			int id = Integer.parseInt(str1[i]);
 			schoolAdminService.deleteSchoolAdmin(id);
 		}
-		
 
-	    List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+	    List<SchoolAdmin> schoolAdminList= schoolAdminService.getAllStudentList();
 		model.addAttribute("schoolAdminList", schoolAdminList);
 		return "studentList";
 	}

@@ -135,10 +135,7 @@ public String addSchool(HttpServletRequest request,HttpServletResponse response,
 	
 	schoolService.addSchool(school);
 	List<School> schoolList= schoolService.allSchoolList();
-	System.out.println("Hi");
-	for (School school2 : schoolList) {
-		System.out.println("School    "+school2.getSchoolName());
-	}
+	
 	model.addAttribute("schoolList", schoolList);
 	return "schoolList";	
 
@@ -349,6 +346,17 @@ public String addClient(HttpServletRequest request,HttpServletResponse response,
 	schoolAdmin.setAccountType(dataList[8]);
 	schoolAdmin.setUsername(dataList[7]);
 	schoolAdmin.setSchool(school);
+	schoolAdmin.setEnabled(true);
+	
+	if(dataList[8].equals("Student")){
+		schoolAdmin.setRole("ROLE_STUDENT");
+	}else if(dataList[8].equals("SchoolAdmin")){
+		schoolAdmin.setRole("ROLE_SCHOOLADMIN");
+	}else if(dataList[8].equalsIgnoreCase("Parent")){
+		schoolAdmin.setRole("ROLE_PARENT");
+	}else if(dataList[8].equalsIgnoreCase("Admin")){
+		schoolAdmin.setRole("ROLE_ADMIN");
+	}
 	/*if(client.getClientUsername() !=null) {
 		  //client.getUserRole().setEmployee(employee);
 		  clientService.addClient(client);

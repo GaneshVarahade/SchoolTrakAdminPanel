@@ -19,12 +19,16 @@ public String defaultUrl(HttpServletRequest req,SecurityContextHolderAwareReques
 	Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>)    SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 //	req.getAuthType();
 	String url="";
-	
+	System.out.println("authorities"+authorities);
 	if(authorities.toString().contains("ROLE_ADMIN")){
 		 url = "admin_home";
 		 
+	}else if(authorities.toString().contains("ROLE_PARENT")){
+		url = "parent_home";
+	}else if(authorities.toString().contains("ROLE_STUDENT")){
+		url = "student_home";
 	}else{
-		 url = "schoolAdminHome";
+		url = "schoolAdminHome";
 	}
 	return url;	
 }

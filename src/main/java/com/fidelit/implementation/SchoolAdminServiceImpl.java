@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -108,6 +109,25 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 				e.printStackTrace();
 		}
 		
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public List<SchoolAdmin> getAllStudentList() {
+		List<SchoolAdmin> schoolAdminList = new ArrayList<SchoolAdmin>();
+		 Session session;
+			try {
+				session = sessionFactory.getCurrentSession();
+				String hql = "from SchoolAdmin where accountType = :accountType";
+				Query query = session.createQuery(hql);
+				query.setParameter("accountType", "Student");
+				schoolAdminList = query.list();
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+		// TODO Auto-generated method stub
+		return schoolAdminList;
 	}
 
 }
