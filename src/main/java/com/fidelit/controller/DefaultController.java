@@ -20,7 +20,7 @@ public String defaultUrl(HttpServletRequest req,SecurityContextHolderAwareReques
 //	req.getAuthType();
 	String url="";
 	
-	if(authorities.contains("ROLE_ADMIN")){
+	if(authorities.toString().contains("ROLE_ADMIN")){
 		 url = "admin_home";
 		 
 	}else{
