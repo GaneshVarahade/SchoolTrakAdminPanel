@@ -32,8 +32,25 @@
         <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />  
     </definition>  
 	
+	<definition name="parent.definition"  
+        template="/WEB-INF/layout/admin_layout.jsp">  
+        <put-attribute name="title" value="userMangement" />  
+        <put-attribute name="header" value="/WEB-INF/layout/parent_header.jsp" />  
+        <put-attribute name="logo" value="/WEB-INF/layout/logo.jsp" />
+        <put-attribute name="menu" value="" />  
+        <put-attribute name="body" value="" />  
+        <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />  
+    </definition>  
 
-
+	<definition name="child.definition"  
+        template="/WEB-INF/layout/admin_layout.jsp">  
+        <put-attribute name="title" value="userMangement" />  
+        <put-attribute name="header" value="/WEB-INF/layout/student_header.jsp" />  
+        <put-attribute name="logo" value="/WEB-INF/layout/logo.jsp" />
+        <put-attribute name="menu" value="" />  
+        <put-attribute name="body" value="" />  
+        <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />  
+    </definition>  
 
   
     <definition name="login" template="/WEB-INF/jsp/login.jsp">  
@@ -70,6 +87,19 @@
         <put-attribute name="title" value="Employee Management" /> 
         <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />   -->
         <put-attribute name="body" value="/WEB-INF/jsp/admin_employee_management.jsp" />  
+    </definition>
+    
+     
+    <definition name="student_home" extends="child.definition">  
+        <put-attribute name="title" value="Admin" />   
+       
+        <put-attribute name="body" value="/WEB-INF/jsp/student_home.jsp" />  
+    </definition>
+    
+    <definition name="parent_home" extends="parent.definition">  
+        <put-attribute name="title" value="Admin" />   
+       
+        <put-attribute name="body" value="/WEB-INF/jsp/parent_home.jsp" />  
     </definition>
     <definition name="admin_home" extends="admin.definition">  
         <put-attribute name="title" value="Admin" />   
