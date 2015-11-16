@@ -1,9 +1,5 @@
 package com.fidelit.controller;
 
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,34 +8,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-
-
-
-
-
-
-
-//import org.apache.jasper.tagplugins.jstl.core.ForEach;
-import org.hibernate.SQLQuery;
-import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-
 
 
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.fidelit.implementation.SchoolServiceImpl;
 import com.fidelit.model.Clients;
 import com.fidelit.model.Employee;
 import com.fidelit.model.EmployeeProject;
@@ -58,8 +36,6 @@ import com.fidelit.service.SchoolService;
 import com.fidelit.service.HolidayService;
 import com.fidelit.service.LeaveService;
 import com.fidelit.service.ProjectService;
-import com.mysql.jdbc.Connection;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.MethodType;
 
 @Controller
 @RequestMapping({"/admin"})
@@ -382,6 +358,7 @@ public String addProject( HttpServletRequest request,HttpServletResponse respons
 	String eDate = request.getParameter("projectEndDate");
 	String status = request.getParameter("projectStatus");
 	String cId = request.getParameter("clientId");
+
 	
 	if(id != null && name != null && description != null && technology != null && sDate != null && status != null && cId != null)
 	{
