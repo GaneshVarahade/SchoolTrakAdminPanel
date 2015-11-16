@@ -12,6 +12,25 @@ var saveKara = 0;
  
 </script>
 <script type="text/javascript">
+var saveKara = 0;
+
+function showBtn(){
+
+	 if(saveKara == 0){
+		 alert("Please select Atleast one client for delete");
+	 }
+	 else{
+		alert(saveKara);
+		 var result = confirm("want to delete?");
+		 if(result){
+			 window.location.href = "deleteRouteList?list="+saveKara;	 
+		 }
+		 	 
+	 }
+	 
+}
+
+
 
 $(document).ready(function() {
     $('#routeDataTable').DataTable();
@@ -71,13 +90,77 @@ function addStops(id){
 	
 }
 
+ function editRoute(id,name,status,start,stop){
+	$("#routeId").val(id);
+	$("#routeName").val(name);
+	$("#status").val(status);
+	$("#start").val(start);
+	$("#stop").val(stop);
+	$("#edit").modal('show');
+	
+}
+
+ function editRoutes(){
+
+	var routeId = $("#routeId").val();
+	 var routeName=$("#routeName").val();
+	var status=$("#status").val();
+	var start=$("#start").val();
+	var stop=$("#stop").val();
+	 var allData=routeId+","+routeName+","+status+","+start+","+stop;
+	var formData="list="+allData;
+	 $.ajax({
+	    type : "POST",
+	    url : "${pageContext.request.contextPath}/route/editRoute",
+	    data : formData,
+	    success : function(response) {	 
+	    	 $("#edit").modal('hide');
+	       alert("Route Updated Successfully!");
+	       location.reload();
+	      },
+	    error : function(e) {
+	    	 $("#edit").modal('hide');
+	       alert('Error: ' + e);
+	    }
+	});   
+} 
 
 
 
+ function malaDeleteKara(id){
+		if(saveKara == 0){
+			saveKara = id + ",";
+		//	alert(saveKara);
+		}
+		else{
+			saveKara = saveKara + id + ",";	
+		//	alert(saveKara);
+		}
+		//showAlert(saveKara);
+	}
 
+	function removeString(ch){
+		ch = ch + ",";
+		saveKara = saveKara.replace(ch,'');
+//		alert(saveKara);
+//		showAlert(saveKara);
+	}
 
+	function displayNote(evt){
+		
+		var el = evt.target || evt.srcElement;
 
+		  if (el && el.type == 'checkbox' && el.checked == true) {
+		   
+		   	    malaDeleteKara(el.id);
+		  }
+		  else if(el && el.type == 'checkbox' && el.checked == false){
+			  removeString(el.id);
+		  }
+		 
+	}
 
+	
 
 </script>
 
@@ -91,7 +174,7 @@ function addStops(id){
 		cellspacing="0" width="100%">
 		<thead>
 			<tr>
-				<th>DELETE</th>
+				<th></th>
 				<th>Name</th>
 				<th>Status</th>
 				<th>Start Stop</th>
@@ -103,7 +186,7 @@ function addStops(id){
 
 		<tfoot>
 			<tr>
-				<th>DELETE</th>
+				<th></th>
 				<th>Name</th>
 				<th>Status</th>
 				<th>Start Stop</th>
@@ -117,17 +200,58 @@ function addStops(id){
 		<tbody>
 			<c:forEach var="route" items="${routeList}">
 				<tr>
-				   <td><input type="checkbox" ></td>
+				   <td><input type="checkbox" id="${route.routeNo}" name="myTextEditBox" value="" onClick="displayNote(event)"></td>
 				   <td>${route.routeName}</td>  
 				   <td>${route.routeStatus}</td> 
 				   <td>${route.startStop}</td> 
 				   <td>${route.endStop}</td> 
-				   <td><input type="button" value="Add Stops" class="open-AddBookDialog btn btn-primary" onclick="addStops(${route.routeNo})"></td>
-				   <td><input type="button" value="Edit" class="open-AddBookDialog btn btn-primary" onclick="editRoute()"></td>
+				   <td><input type="button" value="Add Stops" onclick="addStops(${route.routeNo})"></td>
+				   <td><input type="button" value="Edit" onclick="editRoute('${route.routeNo}','${route.routeName}','${route.routeStatus}','${route.startStop}','${route.endStop}');"></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
+
+	 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+           <div class="modal-dialog">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Edit </h4>
+			  </div>
+			  <div class="modal-body">
+			  
+				<div>
+					<label>Route Number :</label>
+						<input type="text" name="name" id="routeId" class="form-control" readOnly>
+				</div>			  
+			  	<div>
+					<label>Route Name :</label>
+						<input type="text" name="name" id="routeName" class="form-control">
+				</div>
+				
+				<div>
+					<label>Route Status :</label>
+						<input type="text" name="status" id="status" class="form-control">
+				</div>
+				
+				<div>
+					<label>Start Stop :</label>
+						<input type="text" name="start" id="start" class="form-control">
+				</div>
+				
+				<div>
+					<label>End Stop :</label>
+						<input type="text" name="end" id="stop" class="form-control">
+				</div>
+				
+				<div><br>
+					<input type="button" value="Submit" onclick="editRoutes();">
+				</div>
+			  </div>
+			 </div>
+			</div>
+	</div>
 
 
 	<div class="container">
@@ -188,7 +312,7 @@ function addStops(id){
 								</div>
 							</div>
 							<div class="modal-footer">
-						     <input type="submit" class="open-AddBookDialog btn btn-primary" value="Submit"/>
+						     <input type="submit" value="Submit"/>
 					        </div>
 						</form:form>
 						
