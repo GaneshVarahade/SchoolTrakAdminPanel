@@ -520,7 +520,7 @@ function checkUsernameRegister(){
 				       					</form>
 				        			</div>
 				        			<div class="modal-footer">
-				          				<button type="button" class="btn btn-default" onclick="sendDataForRegistration()" data-dismiss="modal">Submit</button>
+				          				<button type="button" class="open-AddBookDialog btn btn-primary" onclick="sendDataForRegistration()" data-dismiss="modal">Submit</button>
 				        			</div>
 				      			</div>
 				    	</div>
