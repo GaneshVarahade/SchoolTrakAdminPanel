@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
@@ -38,8 +39,9 @@ public class RouteServiceImpl implements RouteService{
 		 Session session;
 			try {
 				session = sessionFactory.getCurrentSession();
-				Criteria criteria = session.createCriteria(Route.class);
-				routeList = criteria.list();
+				String hql ="from Route"; 
+				Query query = session.createQuery(hql);
+				routeList = query.list();
 			} catch (Exception e) {
 				
 				e.printStackTrace();

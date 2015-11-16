@@ -351,7 +351,6 @@ function password_length_registration()
         <tbody>
         <c:forEach var="schoolAdmin" items="${schoolAdminList}">
             <tr>
-  				<c:if test= "${schoolAdmin.accountType eq 'Student'}">
   
   					<td>
           				  <input type="checkbox" id="${schoolAdmin.id}"  name="myTextEditBox" value="" onClick="displayNote(event)"/>
@@ -362,8 +361,7 @@ function password_length_registration()
 	                <td>${schoolAdmin.email}</td>
 	                <td>${schoolAdmin.age}</td>
 	                <td>${schoolAdmin.city}</td>
-	               </c:if> 
-	                     </tr>
+	                </tr>
 	               
          </c:forEach>
          </tbody>
