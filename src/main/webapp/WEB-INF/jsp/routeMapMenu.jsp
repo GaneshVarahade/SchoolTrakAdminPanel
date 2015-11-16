@@ -5,6 +5,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Stop</title>
+<style>
+.button{
+    border-left-width: 0px;
+    width: 108px;
+    height: 27px;
+    padding-left: 0px;
+    margin-left: 0px;
+    background-color : #F5BE0A;
+}
+</style>
 </head>
 
 <body>
@@ -38,7 +48,7 @@
 												
 											<br>
 											
-											<input type="submit" class="open-AddBookDialog btn btn-primary" value="Add" style="margin-left: 85px;" >
+											<input type="submit" class="button" value="Add" style="margin-left: 85px;" >
 				       					
 				       					</form>
 

@@ -122,7 +122,16 @@
         height: 400px;
         margin-top: 10px;
       }
-    </style>
+    
+.button{
+    border-left-width: 0px;
+    width: 108px;
+    height: 27px;
+    padding-left: 0px;
+    margin-left: 0px;
+    background-color : #F5BE0A;
+}
+</style>
   </head>
   <body>
   
@@ -165,7 +174,7 @@
 				   <td>${stop.latitude}</td> 
 				   <td>${stop.longitude}</td> 
 				   
-				   <td><input type="button" value="Edit" class="open-AddBookDialog btn btn-primary" onclick="editRoute('${stop.stopNo}','${stop.stopName}','${stop.latitude}','${stop.longitude}','${stop.stopId}','${stop.route.routeNo}')"></td>
+				   <td><input type="button" value="Edit" class="button" onclick="editRoute('${stop.stopNo}','${stop.stopName}','${stop.latitude}','${stop.longitude}','${stop.stopId}','${stop.route.routeNo}')"></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -204,7 +213,7 @@
 				<input type="hidden" id="routeNumber" name="id">
 				<div><br>
 				
-					<input type="button" class="open-AddBookDialog btn btn-primary" value="Submit" onclick="editStop()">
+					<input type="button" class="button" value="Submit" onclick="editStop()">
 				</div>
 			  </div>
 			</div>

@@ -310,11 +310,29 @@ function password_length_registration()
      }  
 }
 </script>
-
+<style>
+.button{
+    border-left-width: 0px;
+    width: 108px;
+    height: 27px;
+    padding-left: 0px;
+    margin-left: 0px;
+    background-color : #F5BE0A;
+}
+.button1{
+    border-left-width: 0px;
+    width: 150px;
+    height: 27px;
+    padding-left: 0px;
+    margin-left: 0px;
+    background-color : #F5BE0A;
+}
+</style>
 </head>
 <body >
-<button id="btn"  class="open-AddBookDialog btn btn-primary" type="button" onClick="showBtn()" >Delete</button>
-<button  class="open-AddBookDialog btn btn-primary" data-toggle="modal"  data-id=""  data-target="#schoolAdminId">Add School Admin</button>
+<button id="btn"  class="button" type="submit" onClick="showBtn()" >Delete</button>&nbsp;
+<button  class="button1" data-toggle="modal"  data-id=""  data-target="#schoolAdminId">Add School Admin</button>
+<hr style="border-top-width: 0px;">
 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
@@ -382,7 +400,7 @@ function password_length_registration()
 											<section class="container">
 											<div class="container-page">
 											<div class="col-md-6">
-												<h3 class="dark-grey">School Admin Registration</h3>
+												<!-- <h3 class="dark-grey">School Admin Registration</h3> -->
 				       		  				
 				       		  					
 				       		  					
@@ -448,7 +466,7 @@ function password_length_registration()
 				       	</form>
 				       </div>
 				        <div class="modal-footer">
-				          			<button type="button" class="open-AddBookDialog btn btn-primary" onclick="sendDataForRegistration();" data-dismiss="modal">Submit</button>
+				          			<button type="submit" class="button" onclick="sendDataForRegistration();" data-dismiss="modal">Submit</button>
 				        </div>
 				      </div>
 				   </div>

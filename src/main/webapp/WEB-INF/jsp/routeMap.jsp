@@ -161,15 +161,25 @@ function addStops(id){
 	}
 
 	
-
+	
 </script>
-
+<style>
+.button{
+    border-left-width: 0px;
+    width: 108px;
+    height: 27px;
+    padding-left: 0px;
+    margin-left: 0px;
+    background-color : #F5BE0A;
+}
+</style>
 </head>
 <body>
-	<button id="btn" class="open-AddBookDialog btn btn-primary"
-		type="button" onClick="showBtn()">Delete</button>
-	<button class="open-AddBookDialog btn btn-primary" data-toggle="modal"
+	<button id="btn" class="button"
+		type="submit" onClick="showBtn()">Delete</button>&nbsp;
+	<button class="button" data-toggle="modal"
 		data-id="" data-target="#forClientRegistration">Add Route</button>
+		<hr style="border-top-width: 0px;">
 	<table id="routeDataTable" class="table table-striped table-bordered"
 		cellspacing="0" width="100%">
 		<thead>
@@ -179,8 +189,8 @@ function addStops(id){
 				<th>Status</th>
 				<th>Start Stop</th>
 				<th>End Stop</th>
-				<th>Add Stop</th>
-				<th>Edit Route</th>
+				<th style="width: 125px;">Add Stop</th>
+				<th style="width: 125px;">Edit Route</th>
 			</tr>
 		</thead>
 
@@ -205,8 +215,8 @@ function addStops(id){
 				   <td>${route.routeStatus}</td> 
 				   <td>${route.startStop}</td> 
 				   <td>${route.endStop}</td> 
-				   <td><input type="button" class="open-AddBookDialog btn btn-primary" value="Add Stops" onclick="addStops(${route.routeNo})"></td>
-				   <td><input type="button" class="open-AddBookDialog btn btn-primary" value="Edit" onclick="editRoute('${route.routeNo}','${route.routeName}','${route.routeStatus}','${route.startStop}','${route.endStop}');"></td>
+				   <td><input type="submit" class="button" value="Add Stops" onclick="addStops(${route.routeNo})"></td>
+				   <td><input type="submit" class="button" value="Edit" onclick="editRoute('${route.routeNo}','${route.routeName}','${route.routeStatus}','${route.startStop}','${route.endStop}');"></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -246,7 +256,7 @@ function addStops(id){
 				</div>
 				
 				<div><br>
-					<input type="button" class="open-AddBookDialog btn btn-primary" value="Submit" onclick="editRoutes();">
+					<input type="submit" class="button" value="Submit" onclick="editRoutes();">
 				</div>
 			  </div>
 			 </div>
@@ -312,7 +322,7 @@ function addStops(id){
 								</div>
 							</div>
 							<div class="modal-footer">
-						     <input class="open-AddBookDialog btn btn-primary" type="submit" value="Submit"/>
+						     <input class="button" type="submit" value="Submit"/>
 					        </div>
 						</form:form>
 						

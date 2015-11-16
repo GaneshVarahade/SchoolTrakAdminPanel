@@ -280,12 +280,22 @@ function password_length_registration()
        return false;  	
      }  
 }
-</script>
 
+</script>
+<style>.button{
+    border-left-width: 0px;
+    width: 108px;
+    height: 27px;
+    padding-left: 0px;
+    margin-left: 0px;
+    background-color : #F5BE0A;
+}
+</style>
 </head>
 <body >
-<button id="btn"  class="open-AddBookDialog btn btn-primary" type="button" onClick="showBtn()" >Delete</button>
-<button  class="open-AddBookDialog btn btn-primary" data-toggle="modal"  data-id=""  data-target="#forClientRegistration">Add Parent</button>
+<button id="btn"  class="button" type="submit" onClick="showBtn()" >Delete</button>&nbsp;
+<button  class="button" data-toggle="modal"  data-id=""  data-target="#forClientRegistration">Add Parent</button>
+<hr style="border-top-width: 0px;">
 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
@@ -420,7 +430,7 @@ function password_length_registration()
 				       					</form>
 				        			</div>
 				        			<div class="modal-footer">
-				          				<button type="button" class="open-AddBookDialog btn btn-primary" onclick="sendDataForRegistration();" data-dismiss="modal">Submit</button>
+				          				<button type="submit" class="button" onclick="sendDataForRegistration();" data-dismiss="modal">Submit</button>
 				        			</div>
 				      			</div>
 				    	</div>
