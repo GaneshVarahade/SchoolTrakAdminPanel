@@ -135,18 +135,49 @@ StopService stopService;
 		List<Route> routes = routeService.getRouteList();
 		System.out.println(routes.toString());
 		List<Map<String,Object>>  list = new ArrayList<Map<String,Object>>();
+		int cnt=1;
 		for (Route product : routes) {
 			   Map<String,Object> routeMap = new HashMap<String, Object>();
+			   routeMap.put("Id", cnt);
+			   routeMap.put("RouteId", product.getRouteNo());
 			   routeMap.put("RouteName", product.getRouteName());
+			   routeMap.put("PID",-1);
 			   list.add(routeMap);
+			   System.out.println( "Route"+product.getRouteName());
+			   List<Stop> stopList = product.getStopList();
+			   for (Stop stop : stopList) {
+				   cnt++;
+				System.out.println("stop:"+stop.toString());
+				 Map<String,Object> routeMapLocal = new HashMap<String, Object>();
+				 routeMapLocal.put("Id", cnt);
+				 routeMapLocal.put("RouteId", stop.getRoute().getRouteNo());
+				// routeMapLocal.put("RouteName", stop.getRoute().getRouteName());
+				 routeMapLocal.put("StopId", stop.getStopNo());
+				 routeMapLocal.put("StopName", stop.getStopName());
+				 routeMapLocal.put("PID", product.getRouteNo());
+				 list.add(routeMapLocal);
 			}
-		Map<String,List<Map<String,Object>> > megaRouteMap = new HashMap<String, List<Map<String,Object>> >();
+			   cnt++;
+			}
+		System.out.println(list.toString());
+//		List<Stop> stops = stopService.getAllStop();
+//		System.out.println(stops.toString());
+		//List<Map<String,Object>>  stoplist = new ArrayList<Map<String,Object>>();
+		/*for (Route product : routes) {
+			   Map<String,Object> routeMap = new HashMap<String, Object>();
+			   routeMap.put("RouteId", product.getRouteNo());
+			   routeMap.put("RouteName", product.getRouteName());
+			   routeMap.put("PID",-1);
+			   list.add(routeMap);
+			}*/
+		
+		/*Map<String,List<Map<String,Object>> > megaRouteMap = new HashMap<String, List<Map<String,Object>> >();
 		List<Map<String,Object>>  list1 = new ArrayList<Map<String,Object>>();
 		Map<String,Object> routeMap = new HashMap<String, Object>();
 		routeMap.put("RouteName", "value");
 		list1.add(routeMap);
-		megaRouteMap.put("product", list1);
-		list.add(megaRouteMap);
+		megaRouteMap.put("product", list1);*/
+		//list.add(megaRouteMap);
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(list);
 		return json;

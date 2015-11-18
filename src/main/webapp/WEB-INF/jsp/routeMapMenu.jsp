@@ -14,6 +14,10 @@
     <!-- Ignite UI Required Combined JavaScript Files -->
     <script src="http://cdn-na.infragistics.com/igniteui/2015.2/latest/js/infragistics.core.js"></script>
     <script src="http://cdn-na.infragistics.com/igniteui/2015.2/latest/js/infragistics.lob.js"></script>
+    
+    <!-- Used to add markup and provide logging 
+        functionality for the API Explorer and API Viewer UI -->
+    <script src="http://www.igniteui.com/js/apiviewer.js"></script>   
 
 </head>
 <body>
@@ -26,20 +30,24 @@
 
         $(function () {
           
-         
+        	$("#treegrid1").on("igtreeselectionchanged", function (e, ui) {
+            	alert("igtreeselectionchanged: [ " + "Selection Changed: " + ui.newNodes[0].data.Text + "]"); focusOnMobile();
+            });
 
             $("#treegrid1").igTreeGrid({
                 width: "100%",
                 dataType : "json",
                 dataSource: "${pageContext.request.contextPath}/route/routeMapMenuAjax", //bound to flat data source,
                 autoGenerateColumns: false,
-                primaryKey: "RouteName",
+                primaryKey: "Id",
+                foreignKey: "PID",
                 initialExpandDepth: 1,
                 columns: [
-                    { headerText: "RouteName ", key: "RouteName", width: "200px", dataType: "String" },
-                   
-                ],
-                childDataKey: "product",
+                     { headerText: "RouteName ", key: "RouteName", width: "100px", dataType: "String" },
+                     { headerText: "StopName ", key: "StopName", width: "100px", dataType: "String" },
+                     {headerText:"ID", key: "Id" ,width: "0px", dataType: "number"}
+                ]
+               
             });
 
 
