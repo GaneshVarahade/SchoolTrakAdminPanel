@@ -39,5 +39,10 @@
    <bean id="StopServiceImpl" class="com.fidelit.implementation.StopServiceImpl" scope="prototype">
    </bean>
   
+   <bean id="BusServiceImpl" class="com.fidelit.implementation.BusServiceImpl" scope="prototype">
+   </bean>
+   
+   <bean id="BusDriverServiceImpl" class="com.fidelit.implementation.BusDriverServiceImpl" scope="prototype">
+   </bean>
    
 </beans>

@@ -16,7 +16,8 @@
         <li><a href="${pageContext.request.contextPath}/route/routeMap">Routes</a></li>
           <li><a href="${pageContext.request.contextPath}/schoolAdmin/parentList">Parents</a></li>
         <li><a href="${pageContext.request.contextPath}/schoolAdmin/studentList">Students</a></li>
-        <li><a href="#">Bus</a></li>
+        <li><a href="${pageContext.request.contextPath}/route/busList">Bus</a></li>
+         <li><a href="${pageContext.request.contextPath}/route/driverList">Driver</a></li>
    
       </ul>
       <ul class="nav navbar-nav navbar-right">

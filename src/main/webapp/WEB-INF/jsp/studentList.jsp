@@ -14,10 +14,13 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
  
   <script src="https://cdn.datatables.net/1.10.8/css/dataTables.bootstrap.min.css"></script>
-  <script src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script>
+
   <script src="https://cdn.datatables.net/1.10.8/js/dataTables.bootstrap.min.js"></script>
 
-
+<head>
+ <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js" type="text/javascript"></script>
+ <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
+</head>
 
 
 

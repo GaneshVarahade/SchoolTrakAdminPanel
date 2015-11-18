@@ -1,7 +1,9 @@
  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
  <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
- 
-
+ <head>
+ <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js" type="text/javascript"></script>
+ <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
+</head>
 <script>
 var saveKara = 0;
 
@@ -109,7 +111,9 @@ function addStops(id){
 	var status=$("#status").val();
 	var start=$("#start").val();
 	var stop=$("#stop").val();
-	 var allData=routeId+","+routeName+","+status+","+start+","+stop;
+	var busNo=$("#regNumber").val();
+	var driverName=$("#driverName").val();
+	 var allData=routeId+","+routeName+","+status+","+start+","+stop+","+busNo+","+driverName;
 	var formData="list="+allData;
 	 $.ajax({
 	    type : "POST",
@@ -165,7 +169,6 @@ function addStops(id){
 	
 	
 </script>
-
 <style>
 .button{
     border-left-width: 0px;
@@ -176,10 +179,8 @@ function addStops(id){
     background-color : #F5BE0A;
 }
 </style>
-
 </head>
 <body>
-	 
 	<button id="btn" class="button"
 		type="submit" onClick="showBtn()">Delete</button>&nbsp;
 	<button class="button" data-toggle="modal"
@@ -194,6 +195,8 @@ function addStops(id){
 				<th>Status</th>
 				<th>Start Stop</th>
 				<th>End Stop</th>
+				<th>Bus Number</th>
+				<th>Driver Name</th>
 				<th style="width: 125px;">Add Stop</th>
 				<th style="width: 125px;">Edit Route</th>
 			</tr>
@@ -206,6 +209,8 @@ function addStops(id){
 				<th>Status</th>
 				<th>Start Stop</th>
 				<th>End Stop</th>
+				<th>Bus Number</th>
+				<th>Driver Name</th>
 				<th>Add Stop</th>
 				<th>Edit Route</th>
 
@@ -219,7 +224,9 @@ function addStops(id){
 				   <td>${route.routeName}</td>  
 				   <td>${route.routeStatus}</td> 
 				   <td>${route.startStop}</td> 
-				   <td>${route.endStop}</td> 
+				   <td>${route.endStop}</td>
+				   <td>${route.bus.regNumber}</td> 
+				   <td>${route.busDriver.driverName}</td>
 				   <td><input type="submit" class="button" value="Add Stops" onclick="addStops(${route.routeNo})"></td>
 				   <td><input type="submit" class="button" value="Edit" onclick="editRoute('${route.routeNo}','${route.routeName}','${route.routeStatus}','${route.startStop}','${route.endStop}');"></td>
 				</tr>
@@ -259,6 +266,31 @@ function addStops(id){
 					<label>End Stop :</label>
 						<input type="text" name="end" id="stop" class="form-control">
 				</div>
+				
+			
+				<div>
+					<label>Bus Number</label>
+					 <select name="regNumber" id="regNumber" class="form-control" >
+  													
+  					<c:forEach var="bus" items="${busList}">
+  						<option value="${bus.regNumber}">${bus.regNumber}</option>
+					</c:forEach>
+				 	</select> 
+												
+				</div>
+												
+												
+				<div>
+					<label> Driver </label>
+					 <select id="driverName" class="form-control" >
+  													
+  						<c:forEach var="busDriver" items="${busDriverList}">
+  							<option value="${busDriver.driverName}">${busDriver.driverName}</option>
+						</c:forEach>
+				 	</select> 
+												
+				</div>
+				
 				
 				<div><br>
 					<input type="submit" class="button" value="Submit" onclick="editRoutes();">
@@ -319,6 +351,29 @@ function addStops(id){
 													<form:label path="endStop">End Stop</form:label>
 													<form:input path="endStop" id="endStop"
 														value="" class="form-control" />
+												</div>
+												
+												<div>
+													<form:label path="bus.regNumber">Bus Number</form:label>
+													<form:select path="bus.regNumber" name="regNumber" id="bus.regNumber" class="form-control" >
+  													
+  													<c:forEach var="bus" items="${busList}">
+  													<form:option value="${bus.regNumber}">${bus.regNumber}</form:option>
+													</c:forEach>
+				 									</form:select>
+												
+												</div>
+												
+												
+												<div>
+													<form:label path="busDriver.driverName"> Driver </form:label>
+													<form:select path="busDriver.driverName" id="busDriver.driverName" class="form-control" >
+  													
+  													<c:forEach var="busDriver" items="${busDriverList}">
+  													<form:option value="${busDriver.driverName}">${busDriver.driverName}</form:option>
+													</c:forEach>
+				 									</form:select>
+												
 												</div>
 
 											</div>
