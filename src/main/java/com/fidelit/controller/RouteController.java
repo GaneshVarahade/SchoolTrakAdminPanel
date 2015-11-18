@@ -1,5 +1,6 @@
 package com.fidelit.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,9 @@ import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -93,15 +97,60 @@ StopService stopService;
 	}
 	
 	@RequestMapping(value="routeMap")
-	public String route(ModelMap model){
+	public String route(ModelMap model) throws JsonGenerationException, JsonMappingException, IOException{
 		List<Route> routes = routeService.getRouteList();
 		System.out.println(routes.toString());
+		List<Map<String,String>>  list = new ArrayList<Map<String,String>>();
+		for (Route product : routes) {
+			   HashMap<String,String> routeMap = new HashMap<String, String>();
+			   routeMap.put("RouteName", product.getRouteName());
+			   list.add(routeMap);
+			}
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		System.out.println("json"+json);
+		model.addAttribute("routeMap",json);
 		
 		model.addAttribute("routeList",routes);
 		model.addAttribute(new Route());
 		return "routeMap";
 	}
+	
+	@RequestMapping(value="routeMapMenu")
+	public String routeMap(ModelMap model){
+		List<Route> routes = routeService.getRouteList();
+		System.out.println(routes.toString());
+		HashMap<String, Route> productMap = new HashMap<String, Route>();
+		for (Route product : routes) {
+			   productMap.put(product.getRouteName(), product);
+			}
+		model.addAttribute("routeMap",productMap);
+		model.addAttribute(new Route());
+		return "routeMap";
+	}
 
+	@ResponseBody
+	@RequestMapping(value="routeMapMenuAjax")
+	public String routeMapMenuAjax(ModelMap model) throws JsonGenerationException, JsonMappingException, IOException{
+		List<Route> routes = routeService.getRouteList();
+		System.out.println(routes.toString());
+		List<Map<String,Object>>  list = new ArrayList<Map<String,Object>>();
+		for (Route product : routes) {
+			   Map<String,Object> routeMap = new HashMap<String, Object>();
+			   routeMap.put("RouteName", product.getRouteName());
+			   list.add(routeMap);
+			}
+		Map<String,List<Map<String,Object>> > megaRouteMap = new HashMap<String, List<Map<String,Object>> >();
+		List<Map<String,Object>>  list1 = new ArrayList<Map<String,Object>>();
+		Map<String,Object> routeMap = new HashMap<String, Object>();
+		routeMap.put("RouteName", "value");
+		list1.add(routeMap);
+		megaRouteMap.put("product", list1);
+		list.add(megaRouteMap);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(list);
+		return json;
+	}
 	@RequestMapping(value="addRoute",method = RequestMethod.POST)
 	public String addRoute(@ModelAttribute("route") Route route,ModelMap model){
 		System.out.println("Route"+route.getRouteName());

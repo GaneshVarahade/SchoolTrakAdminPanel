@@ -1,82 +1,51 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Stop</title>
-<style>
-.button{
-    border-left-width: 0px;
-    width: 108px;
-    height: 27px;
-    padding-left: 0px;
-    margin-left: 0px;
-    background-color : #F5BE0A;
-}
-</style>
+    <title></title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="http://cdn-na.infragistics.com/igniteui/2015.2/latest/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
+    <link href="http://cdn-na.infragistics.com/igniteui/2015.2/latest/css/structure/infragistics.css" rel="stylesheet" />
+
+    <script src="http://modernizr.com/downloads/modernizr-latest.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="http://cdn-na.infragistics.com/igniteui/2015.2/latest/js/infragistics.core.js"></script>
+    <script src="http://cdn-na.infragistics.com/igniteui/2015.2/latest/js/infragistics.lob.js"></script>
+
 </head>
-
 <body>
-				       		  					
-				       		  		<form id="stopForm" action="${pageContext.request.contextPath}/route/addNewStops">
-												<div>
-													<label>Route No.</label>&nbsp;&nbsp;&nbsp;
-													<input type="text" name="routeId" id="routeId" value="${routeId}" style="width: 114px;" readonly>
-												</div>
-												
-												<br>
-												<div >
-													<label>Stop No.</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													<input type="text" name="stopNo" id="stopNo" value= "${stopCounter}" style="width: 114px;" readonly>
-												</div>
-												<br>
-												<div>
-													
-													<B>Stop Name: </B><input type="text" name="stopName" id="stopName" style="width: 114px;">
-												</div>
-												<div >
-												<br>
-											<label>Latitude: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<input type="text" name="latitude" id="latitude"  style="width: 114px;">
-												</div>
-											<br>	
-											<div>
-											<label>Longitude: </label>&nbsp;&nbsp;
-												<input type="text" name="longitude" id="longitude" style="width: 114px;">
-												</div>
-												
-											<br>
-											
-											<input type="submit" class="button" value="Add" style="margin-left: 85px;" >
-				       					
-				       					</form>
+    <h3>Flat Data Source</h3>
+    <table id="treegrid1"></table>
+    <br />
+ 
 
-<script>
-/* function addStop(){
-	
-	var routeNo=$('#routeId').val();
-	var stopNo=$('#stopNo').val();
-	var stopName=$('#stopName').val();
-	var latitude=$('#latitude').val();
-	var longitude=$('#longitude').val();
-	
-	var data=routeNo+","+stopNo+","+stopName+","+latitude+","+longitude;
-	
-	var formData="data="+data;
-	 $.ajax({
-		    type : "POST",
-		    url : "${pageContext.request.contextPath}/route/addNewStops",
-		    data : formData,
-		    success : function(response) {	       
-		       alert("Stop Added Successfully");
-		    },
-		    error : function(e) {
-		       alert('Error: ' + e);
-		    }
-		});
-	
-} */
-</script>
+    <script>
+
+        $(function () {
+          
+         
+
+            $("#treegrid1").igTreeGrid({
+                width: "100%",
+                dataType : "json",
+                dataSource: "${pageContext.request.contextPath}/route/routeMapMenuAjax", //bound to flat data source,
+                autoGenerateColumns: false,
+                primaryKey: "RouteName",
+                initialExpandDepth: 1,
+                columns: [
+                    { headerText: "RouteName ", key: "RouteName", width: "200px", dataType: "String" },
+                   
+                ],
+                childDataKey: "product",
+            });
+
+
+            
+            });
+
+    </script>
 </body>
 </html>

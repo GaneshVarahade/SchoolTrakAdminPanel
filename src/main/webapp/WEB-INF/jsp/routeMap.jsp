@@ -1,5 +1,7 @@
  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
  <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+ 
+
 <script>
 var saveKara = 0;
 
@@ -163,6 +165,7 @@ function addStops(id){
 	
 	
 </script>
+
 <style>
 .button{
     border-left-width: 0px;
@@ -173,8 +176,10 @@ function addStops(id){
     background-color : #F5BE0A;
 }
 </style>
+
 </head>
 <body>
+	 
 	<button id="btn" class="button"
 		type="submit" onClick="showBtn()">Delete</button>&nbsp;
 	<button class="button" data-toggle="modal"

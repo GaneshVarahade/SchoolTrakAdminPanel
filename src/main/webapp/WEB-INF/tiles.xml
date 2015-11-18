@@ -63,13 +63,13 @@
     </definition>  
     
     <definition name="routeMap"  extends="user.definition">  
-        
+          <put-attribute name="menu" value="/WEB-INF/jsp/routeMapMenu.jsp" />  
         <put-attribute name="body" value="/WEB-INF/jsp/routeMap.jsp" />  
   </definition>  
 
   <definition name="stopMap"  extends="user.definition">  
-        <put-attribute name="menu" value="/WEB-INF/jsp/routeMapMenu.jsp" />  
         <put-attribute name="body" value="/WEB-INF/jsp/stopMap.jsp" />  
+        <put-attribute name="menu" value="/WEB-INF/jsp/stopMapMenu.jsp" />  
   </definition> 
     
     
