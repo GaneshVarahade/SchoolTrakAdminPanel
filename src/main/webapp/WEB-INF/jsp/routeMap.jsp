@@ -51,40 +51,6 @@ function deletel(id){
 	window.location.href = "deleteClient?id="+id;
 }	
 
-function sendDataForUpdation(){
-	
-	
-	 var clientId = $("#clientId").val();
-	 var clientUsername = $("#clientUsername").val();
-	 var clientPassword = $("#clientPassword").val();
-	 var clientName = $("#clientName").val();
-	 var clientEmail = $("#clientEmail").val();
-	 var clientMobile = $("#clientMobile").val();
-	 var clientAddress = $("#clientAddress").val();
-	 var clientCountry = $("#clientCountry").val();
-	 var clientTimeZone = $("#clientTimeZone").val();
-	 var skypeId = $("#skypeId").val();
-	 
-	 if(clientId == null || clientId == "" || clientUsername == null || clientUsername == "" || clientPassword == null || clientPassword == "" || clientName == null || clientName == "" || clientEmail == null || clientEmail == "" || clientMobile == null || clientMobile == "" || clientAddress == null || clientAddress == "" || clientCountry == null || clientCountry == "" || clientTimeZone == null || clientTimeZone == "" || skypeId == null || skypeId == "" ){
-			alert("some fields are empty");
-		}
-	 else{
-	 var allData = clientId+","+clientUsername+","+clientPassword+","+clientName+","+clientEmail+","+clientMobile+","+clientAddress+","+clientCountry+","+clientTimeZone+","+skypeId;
-	 
-	 var formData = "accessList="+allData;
-	 $.ajax({
-		    type : "POST",
-		    url : "${pageContext.request.contextPath}/admin/updateClient",
-		    data : formData,
-		    success : function(response) {	       
-		       alert("Client Profile Updated");
-		    },
-		    error : function(e) {
-		       alert('Error: ' + e);
-		    }
-		});
-	}
-}
 
 function addStops(id){
 
@@ -107,11 +73,8 @@ function addStops(id){
 }
 
  function editRoutes(){
-
-	 
-	
 	var routeId = $("#routeId").val();
-	 var routeName=$("#routeName").val();
+	var routeName=$("#routeName").val();
 	var status=$("#status").val();
 	var start=$("#start").val();
 	var stop=$("#stop").val();

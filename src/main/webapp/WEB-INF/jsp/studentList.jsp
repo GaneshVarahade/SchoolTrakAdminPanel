@@ -41,38 +41,6 @@ function showBtn(){
 
  
  
- 
- $(document).on("click", ".open-AddBookDialog", function () {
-	    var myBookId = $(this).data('id');
-	    var data = myBookId.split(",");
-	    var d = data[0];
-	    var d1 = data[1];
-	    var d2 = data[2];
-	    var d3 = data[3];
-	    var d4 = data[4];
-	    var d5 = data[5];
-	    var d6 = data[6];
-	    var d7 = data[7];
-	    var d8 = data[8];
-	    var d9 = data[9];
-	
-	    
-	    
-	    
-	    $(".modal-body #clientId").val( d );
-	    $(".modal-body #clientUsername").val( d1 );
-	    $(".modal-body #clientPassword").val( d2 );
-	    $(".modal-body #clientName").val( d3 );
-	    $(".modal-body #clientEmail").val( d4 );
-	    $(".modal-body #clientMobile").val( d5 );
-	    $(".modal-body #clientAddress").val( d6 );
-	    $(".modal-body #clientCountry").val( d7 );
-	    $(".modal-body #clientTimeZone").val( d8 );
-	    $(".modal-body #skypeId").val( d9 );
-	    
-	});
-
- 
 </script>
 <script type="text/javascript">
 
@@ -92,40 +60,7 @@ function deletel(id){
 	window.location.href = "deleteClient?id="+id;
 }	
 
-function sendDataForUpdation(){
-	
-	
-	 var clientId = $("#clientId").val();
-	 var clientUsername = $("#clientUsername").val();
-	 var clientPassword = $("#clientPassword").val();
-	 var clientName = $("#clientName").val();
-	 var clientEmail = $("#clientEmail").val();
-	 var clientMobile = $("#clientMobile").val();
-	 var clientAddress = $("#clientAddress").val();
-	 var clientCountry = $("#clientCountry").val();
-	 var clientTimeZone = $("#clientTimeZone").val();
-	 var skypeId = $("#skypeId").val();
-	 
-	 if(clientId == null || clientId == "" || clientUsername == null || clientUsername == "" || clientPassword == null || clientPassword == "" || clientName == null || clientName == "" || clientEmail == null || clientEmail == "" || clientMobile == null || clientMobile == "" || clientAddress == null || clientAddress == "" || clientCountry == null || clientCountry == "" || clientTimeZone == null || clientTimeZone == "" || skypeId == null || skypeId == "" ){
-			alert("some fields are empty");
-		}
-	 else{
-	 var allData = clientId+","+clientUsername+","+clientPassword+","+clientName+","+clientEmail+","+clientMobile+","+clientAddress+","+clientCountry+","+clientTimeZone+","+skypeId;
-	 
-	 var formData = "accessList="+allData;
-	 $.ajax({
-		    type : "POST",
-		    url : "${pageContext.request.contextPath}/admin/updateClient",
-		    data : formData,
-		    success : function(response) {	       
-		       alert("Student Profile Updated");
-		    },
-		    error : function(e) {
-		       alert('Error: ' + e);
-		    }
-		});
-	}
-}
+
 
 function sendDataForRegistration(){
 	

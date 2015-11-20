@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,6 +29,7 @@ import com.fidelit.model.SchoolAdmin;
 import com.fidelit.model.Stop;
 import com.fidelit.service.BusDriverService;
 import com.fidelit.service.BusService;
+import com.fidelit.service.GtsService;
 import com.fidelit.service.RouteService;
 import com.fidelit.service.StopService;
 
@@ -46,7 +48,9 @@ BusService busService;
 
 @Autowired
 BusDriverService busDriverService;
-	
+
+@Autowired
+GtsService gtsService;
 	
 
 	@RequestMapping(value="/addNewStops")
@@ -71,16 +75,19 @@ BusDriverService busDriverService;
 		}
 		int routeId= Integer.parseInt(request.getParameter("routeId"));
 		
-	
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println("userName:"+userName);
 		if(stopName != null){
 		 Stop stop= new Stop();
 		 Route route=routeService.getRouteId(routeId);
+		 String corridorID=route.getCorridorId();
 		 stop.setRoute(route);
 		 stop.setStopNo(stopNo);
 		 stop.setStopName(stopName);
 		 stop.setLatitude(latitude);
 		 stop.setLongitude(longitude);
 		 stopService.addStop(stop);
+		 gtsService.addCorridorInGtsList(userName, corridorID, latitude, longitude,stopNo);
 		}
 		
 		Route fetchRoute=routeService.getRouteId(routeId);
@@ -129,6 +136,9 @@ BusDriverService busDriverService;
 		route.setBus(bus);
 	//	route.setAccountId(request.getSession().getValue("currentUser"));
 		routeService.addRoute(route);
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println("userName:"+userName);
+		gtsService.addCorridorInGts(userName, route.getCorridorId(), route.getRouteName());
 		List<Route> routes = routeService.getRouteList();
 		model.addAttribute("routeList",routes);
 		model.addAttribute("busList",busList);

@@ -5,4 +5,5 @@ public interface GtsService {
 
 	void addCorridorInGts(String accountId, String corridorID,
 			String description);
+	void addCorridorInGtsList(String accountId, String corridorID,double latitude,double longitude,int stopID);
 }

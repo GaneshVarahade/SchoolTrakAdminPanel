@@ -18,8 +18,8 @@ public class GtsServiceImpl implements GtsService{
 	public void addAccountInGts(String accountId) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
-		String sql = "insert into Account (accountID) values ('"+accountId +"')";
-		Query query = session.createQuery(sql);
+		String sql = "INSERT INTO Account (accountID) VALUES ('"+accountId +"');";
+		Query query = session.createSQLQuery(sql);
 		query.executeUpdate();
 		session.close();
 	}
@@ -29,9 +29,28 @@ public class GtsServiceImpl implements GtsService{
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
 		String sql = "insert into GeoCorridor (accountID,corridorID,description) values('"+accountId +"','"+corridorID +"','"+description +"')";
-		Query query = session.createQuery(sql);
+		Query query = session.createSQLQuery(sql);
 		query.executeUpdate();
 		session.close();
+	}
+
+
+	@Override
+	public void addCorridorInGtsList(String accountId, String corridorID,
+			double latitude, double longitude, int stopID) {
+		Session session = sessionFactory.openSession();
+		String sql=null;
+		if(stopID==1){
+			sql="insert into GeoCorridorList (accountID,corridorID,latitude"+stopID+",longitude"+stopID+",sortID) values('"+accountId +"','"+corridorID +"',"+latitude+stopID +","+longitude+stopID +",1)"; 
+		}else{
+			sql="update GeoCorridorList set latitude"+stopID+" = "+latitude +", longitude"+stopID+" ="+longitude +"where corridorID = '"+corridorID +"'" ;
+		}
+		Query query = session.createSQLQuery(sql);
+		query.executeUpdate();
+		session.close();
+		
+		// TODO Auto-generated method stub
+		
 	}
 
 }
