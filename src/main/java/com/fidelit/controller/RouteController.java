@@ -127,6 +127,7 @@ BusDriverService busDriverService;
 		
 		route.setBusDriver(busDriver);
 		route.setBus(bus);
+		route.setAccountId(request.getSession().getValue("currentUser"));
 		routeService.addRoute(route);
 		List<Route> routes = routeService.getRouteList();
 		model.addAttribute("routeList",routes);

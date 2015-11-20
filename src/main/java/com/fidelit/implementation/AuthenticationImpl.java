@@ -44,6 +44,27 @@ public class AuthenticationImpl implements AuthenticationService{
 	}
 
 	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)  
+	@Override
+	public SchoolAdmin authenticateUser(String username) {
+
+		Session session;
+		SchoolAdmin account = null;
+		
+		try{
+			session = sessionFactory.getCurrentSession();
+			Criteria criteria = session.createCriteria(SchoolAdmin.class);
+			criteria.add(Restrictions.eq("username", username));
+			
+			Object result=criteria.uniqueResult();
+			account = (SchoolAdmin)result;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return account;
+	}
+	
 	
 	 
 }

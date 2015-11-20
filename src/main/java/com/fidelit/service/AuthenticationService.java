@@ -8,5 +8,7 @@ public interface AuthenticationService {
 	
 public SchoolAdmin authenticateUser(String username,String password,String accountId);
 
+SchoolAdmin authenticateUser(String username);
+
 
 }

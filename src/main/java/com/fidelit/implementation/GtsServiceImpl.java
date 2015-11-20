@@ -23,5 +23,15 @@ public class GtsServiceImpl implements GtsService{
 		query.executeUpdate();
 		session.close();
 	}
+	
+	@Override
+	public void addCorridorInGts(String accountId,String corridorID,String description) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		String sql = "insert into GeoCorridor (accountID,corridorID,description) values('"+accountId +"','"+corridorID +"','"+description +"')";
+		Query query = session.createQuery(sql);
+		query.executeUpdate();
+		session.close();
+	}
 
 }
