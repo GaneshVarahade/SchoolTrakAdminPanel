@@ -44,7 +44,7 @@
    
    <bean id="BusDriverServiceImpl" class="com.fidelit.implementation.BusDriverServiceImpl" scope="prototype">
    </bean>
-   <bean id="GtsServiceImpl" class="com.fidelit.implementation.GtsServiceImpl" scope="prototype">
+   <bean id="gtsServiceImpl" class="com.fidelit.implementation.GtsServiceImpl" scope="prototype">
    </bean>
    
 </beans>

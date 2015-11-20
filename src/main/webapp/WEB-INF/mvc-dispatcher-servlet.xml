@@ -80,6 +80,9 @@
 			    <value>com.fidelit.model.SchoolAdmin</value>
 			    <value>com.fidelit.model.Route</value>
 			    <value>com.fidelit.model.Stop</value>
+			    <value>com.fidelit.model.Bus</value>
+			    <value>com.fidelit.model.BusDriver</value>
+			    
 			</list>
 		</property>  
 		<property name="hibernateProperties">
@@ -114,6 +117,8 @@
 			    <value>com.fidelit.model.SchoolAdmin</value>
 			    <value>com.fidelit.model.Route</value>
 			    <value>com.fidelit.model.Stop</value>
+			    <value>com.fidelit.model.Bus</value>
+			    <value>com.fidelit.model.BusDriver</value>
 			</list>
 		</property>  
 		<property name="hibernateProperties">
