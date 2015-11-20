@@ -189,7 +189,7 @@ function addStops(id){
 	<button id="btn" class="button"
 		type="submit" onClick="showBtn()">Delete</button>&nbsp;
 	<button class="button" data-toggle="modal"
-		data-id="" data-target="#forClientRegistration">Add Route</button>
+		data-id="" data-target="#addRoutes">Add Route</button>
 		<hr style="border-top-width: 0px;">
 	<table id="routeDataTable" class="table table-striped table-bordered"
 		cellspacing="0" width="100%">
@@ -315,7 +315,7 @@ function addStops(id){
 
 
 	<div class="container">
-		<div class="modal fade" id="forClientRegistration" role="dialog">
+		<div class="modal fade" id="addRoutes" role="dialog">
 			<div class="modal-dialog">
 
 				<!-- Modal content-->
