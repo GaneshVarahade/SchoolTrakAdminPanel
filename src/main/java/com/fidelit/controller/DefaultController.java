@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
@@ -19,6 +20,7 @@ import com.fidelit.service.SchoolAdminService;
 @Controller
 public class DefaultController {
 
+@Autowired
 private AuthenticationService authenticationService;
 	
 @RequestMapping(value="default")

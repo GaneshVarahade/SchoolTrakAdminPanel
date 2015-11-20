@@ -18,7 +18,7 @@ public class GtsServiceImpl implements GtsService{
 	public void addAccountInGts(String accountId) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
-		String sql = "insert into Account (accountID) values('"+accountId +"')";
+		String sql = "insert into Account (accountID) values ('"+accountId +"')";
 		Query query = session.createQuery(sql);
 		query.executeUpdate();
 		session.close();

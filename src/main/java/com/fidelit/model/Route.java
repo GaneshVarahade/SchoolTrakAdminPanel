@@ -28,7 +28,7 @@ public class Route implements Serializable{
 	 private String  startStop;
 	 private String  endStop;
 	 private String corridorId;
-	 private Object accountId;
+	 private String accountId;
 	 private List<Stop> stopList;
 	 private Bus      bus;
 	 private BusDriver busDriver;
@@ -100,12 +100,11 @@ public class Route implements Serializable{
 	public void setCorridorId(String corridorId) {
 		this.corridorId = corridorId;
 	}
-	public Object getAccountId() {
+	
+	public String getAccountId() {
 		return accountId;
 	}
-	public void setAccountId(Object accountId) {
+	public void setAccountId(String accountId) {
 		this.accountId = accountId;
 	}
-	
-	
 }
