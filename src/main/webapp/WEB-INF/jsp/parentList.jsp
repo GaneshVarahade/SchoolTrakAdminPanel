@@ -30,7 +30,7 @@ var saveKara = 0;
 function showBtn(){
 
 	 if(saveKara == 0){
-		 alert("Please select Atleast one client for delete");
+		 alert("Please select Atleast one Parent for delete");
 	 }
 	 else{
 		
@@ -284,6 +284,53 @@ function password_length_registration()
      }  
 }
 
+function editParent(id,name,school,address,email,age,city,password,username,accountType){
+	$("#parentId").val(id);
+	$("#name1").val(name);
+	$("#school1").val(school);
+	$("#address1").val(address);
+	$("#email1").val(email);
+	$("#age1").val(age);
+	$("#city1").val(city);
+	$("#password1").val(password);
+	$("#username1").val(username);
+	$("#accountType1").val(accountType);
+	$("#edit").modal('show');
+	
+}
+
+function editParents(){
+	
+	var id=$("#parentId").val();
+	var name=$("#name1").val();
+	var school=$("#school1").val();
+	var address=$("#address1").val();
+	var email=$("#email1").val();
+	var age=$("#age1").val();
+	var city=$("#city1").val();
+	var password=$("#password1").val();
+	var username=$("#username1").val();
+	var accountType=$("#accountType1").val();
+	var allData=id+","+name+","+school+","+address+","+email+","+age+","+city+","+password+","+username+","+accountType;
+	var formData="list="+allData;
+	 $.ajax({
+	    type : "POST",
+	    url : "${pageContext.request.contextPath}/user/editParent",
+	    data : formData,
+	    success : function(response) {	 
+	    	 $("#edit").modal('hide');
+	       alert("Parent Updated Successfully!");
+	       location.reload();
+	      },
+	    error : function(e) {
+	    	$("#edit").modal('hide');
+		       alert("Error"+e);
+		       
+	    }
+	});   
+	
+}
+
 </script>
 <style>.button{
     border-left-width: 0px;
@@ -309,6 +356,7 @@ function password_length_registration()
                 <th>Email</th>
                 <th>Age</th>
                 <th>City</th>
+                <th>Edit</th>
                 
                
             </tr>
@@ -323,7 +371,7 @@ function password_length_registration()
                 <th>Email</th>
                 <th>Age</th>
                 <th>City</th>
-                
+                <th>Edit</th>
                
             </tr>
         </tfoot>
@@ -342,6 +390,7 @@ function password_length_registration()
 	                <td>${schoolAdmin.email}</td>
 	                <td>${schoolAdmin.age}</td>
 	                <td>${schoolAdmin.city}</td>
+	                <td><input type="submit" class="button" value="Edit" onclick="editParent('${schoolAdmin.id}','${schoolAdmin.name}','${schoolAdmin.school.schoolName}','${schoolAdmin.address}','${schoolAdmin.email}','${schoolAdmin.age}','${schoolAdmin.city}','${schoolAdmin.password}','${schoolAdmin.username}','${schoolAdmin.accountType}');"></td>
 	               </c:if> 
 	                     </tr>
 	               
@@ -440,5 +489,80 @@ function password_length_registration()
 				  </div>
 				 
 			</div>
+			
+			<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+           <div class="modal-dialog">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Edit </h4>
+			  </div>
+			  <div class="modal-body">
+			  
+			  <div>
+				<label>Parent Id</label>
+					<input type="text" name="id" id="parentId" value="" class="form-control" readonly>
+			  </div>
+			  
+			  <div >
+				<label>Account Type</label>
+					<select name="accountType1" id="accountType1" class="form-control" >
+							<option value="Parent">Parent</option>
+													
+					</select>
+				</div>
+			  
+			  <div>
+				<label>User Name</label>
+					<input type="text" name="username1" id="username1" value="" class="form-control">
+			  </div>
+			  
+			  <div>
+				<label>Passoword</label>
+					<input type="text" name="password1" id="password1" value="" class="form-control">
+			  </div>
+			  
+			  <div>
+				<label>Parent Name</label>
+					<input type="text" name="name1" id="name1" value="" class="form-control">
+			  </div>
+			  
+			   <div>
+				<label>Address</label>
+					<input type="text" name="address1" id="address1" value="" class="form-control">
+			  </div>
+			  
+			  <div>
+				<label>Email</label>
+					<input type="text" name="email1" id="email1" value="" class="form-control">
+			  </div>
+			  
+			  <div>
+				<label>City</label>
+					<input type="text" name="city" id="city1" value="" class="form-control">
+			  </div>
+			  
+			  <div>
+				<label>Age</label>
+					<input type="text" name="city" id="age1" value="" class="form-control">
+			  </div>
+			  
+			  <div>
+				<label>School Name</label>
+					<select name="school" id="school1" class="form-control" >
+  					<c:forEach var="school" items="${schoolList}">
+  						<option value="${school.schoolName}">${school.schoolName}</option>
+					</c:forEach>
+					</select>
+			  </div>
+			  <br><br>
+			  <div>
+			  <button type="submit" class="button" onclick="editParents();">Submit</button>
+			  </div>
+			 </div>
+			</div>
+		</div>
+	</div>
+			  
 
 

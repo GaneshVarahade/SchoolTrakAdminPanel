@@ -17,10 +17,7 @@
 
   <script src="https://cdn.datatables.net/1.10.8/js/dataTables.bootstrap.min.js"></script>
 
-<head>
- <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js" type="text/javascript"></script>
- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
-</head>
+
 
 
 
@@ -28,9 +25,8 @@
 var saveKara = 0;
 
 function showBtn(){
-	alert("fcg");
 	 if(saveKara == 0){
-		 alert("Please select Atleast one client for delete");
+		 alert("Please select Atleast One Student for delete");
 	 }
 	 else{
 		
@@ -122,7 +118,7 @@ function sendDataForUpdation(){
 		    url : "${pageContext.request.contextPath}/admin/updateClient",
 		    data : formData,
 		    success : function(response) {	       
-		       alert("Client Profile Updated");
+		       alert("Student Profile Updated");
 		    },
 		    error : function(e) {
 		       alert('Error: ' + e);
@@ -163,11 +159,11 @@ function sendDataForRegistration(){
 function malaDeleteKara(id){
 	if(saveKara == 0){
 		saveKara = id + ",";
-		alert(saveKara);
+		
 	}
 	else{
 		saveKara = saveKara + id + ",";	
-		alert(saveKara);
+	
 	}
 	//showAlert(saveKara);
 }
@@ -175,7 +171,6 @@ function malaDeleteKara(id){
 function removeString(ch){
 	ch = ch + ",";
 	saveKara = saveKara.replace(ch,'');
-	alert(saveKara);
 //	showAlert(saveKara);
 }
 
@@ -306,6 +301,55 @@ function password_length_registration()
        return false;  	
      }  
 }
+
+function editStudent(id,name,school,address,email,age,city,password,username,accountType){
+	
+	$("#studentId").val(id);
+	$("#name1").val(name);
+	$("#school1").val(school);
+	$("#address1").val(address);
+	$("#email1").val(email);
+	$("#age1").val(age);
+	$("#city1").val(city);
+	$("#password1").val(password);
+	$("#username1").val(username);
+	$("#accountType1").val(accountType);
+	$("#edit").modal('show');
+	
+}
+
+function editStudents(){
+	
+	var id=$("#studentId").val();
+	var name=$("#name1").val();
+	var school=$("#school1").val();
+	var address=$("#address1").val();
+	var email=$("#email1").val();
+	var age=$("#age1").val();
+	var city=$("#city1").val();
+	var password=$("#password1").val();
+	var username=$("#username1").val();
+	var accountType=$("#accountType1").val();
+	
+	var allData=id+","+name+","+school+","+address+","+email+","+age+","+city+","+password+","+username+","+accountType;
+	var formData="list="+allData;
+	 $.ajax({
+	    type : "POST",
+	    url : "${pageContext.request.contextPath}/user/editStudent",
+	    data : formData,
+	    success : function(response) {	 
+	    	 $("#edit").modal('hide');
+	       alert("Student Updated Successfully!");
+	       location.reload();
+	      },
+	    error : function(e) {
+	    	$("#edit").modal('hide');
+		       alert("Error"+e);
+		       location.reload();
+	    }
+	});   
+	
+}
 </script>
 <style>
 .button{
@@ -332,7 +376,7 @@ function password_length_registration()
                 <th>Email</th>
                 <th>Age</th>
                 <th>City</th>
-                
+                <th>Edit</th>
                
             </tr>
         </thead>
@@ -346,6 +390,7 @@ function password_length_registration()
                 <th>Email</th>
                 <th>Age</th>
                 <th>City</th>
+                <th>Edit</th>
                 
                
             </tr>
@@ -364,7 +409,8 @@ function password_length_registration()
 	                <td>${schoolAdmin.email}</td>
 	                <td>${schoolAdmin.age}</td>
 	                <td>${schoolAdmin.city}</td>
-	                </tr>
+	                <td><input type="submit" class="button" value="Edit" onclick="editStudent('${schoolAdmin.id}','${schoolAdmin.name}','${schoolAdmin.school.schoolName}','${schoolAdmin.address}','${schoolAdmin.email}','${schoolAdmin.age}','${schoolAdmin.city}','${schoolAdmin.password}','${schoolAdmin.username}','${schoolAdmin.accountType}');"></td>
+	         </tr>
 	               
          </c:forEach>
          </tbody>
@@ -406,12 +452,12 @@ function password_length_registration()
 												</div>
 												
 												<div >
-													<label>Admin Name</label>
+													<label>Student Name</label>
 													<input type="text" name="name" id="aName" value="" class="form-control">
 												</div>
 												
 												<div>
-													<label>Admin Password</label>
+													<label>Student Password</label>
 													<input type="text" name="password" id="aPassword" value="" class="form-control" ">
 												</div>
 												
@@ -419,11 +465,12 @@ function password_length_registration()
 													<label>School Name</label>
 												<select name="schoolName" id="schoolId" class="form-control" >
   													
-  													<c:forEach var="school" items="${schoolList}">
+  													
+  												<c:forEach var="school" items="${schoolList}">
   															<option value="${school.schoolName}">${school.schoolName}</option>
 												</c:forEach>
 												</select>
-												
+												</div>
 												<div>
 													<label>Address</label>
 													<input type="text" name="address" id="aAddress" value="" class="form-control" >
@@ -458,4 +505,79 @@ function password_length_registration()
 				  </div>
 				 
 				</div>
+				
+				<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+           <div class="modal-dialog">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Edit </h4>
+			  </div>
+			  <div class="modal-body">
+			  
+			  <div>
+				<label>Student Id</label>
+					<input type="text" name="id" id="studentId" value="" class="form-control" readonly>
+			  </div>
+			  
+			  <div >
+				<label>Account Type</label>
+					<select name="accountType1" id="accountType1" class="form-control" >
+							<option value="Student">Student</option>
+													
+					</select>
+				</div>
+			  
+			  <div>
+				<label>User Name</label>
+					<input type="text" name="username1" id="username1" value="" class="form-control">
+			  </div>
+			  
+			  <div>
+				<label>Passoword</label>
+					<input type="text" name="password1" id="password1" value="" class="form-control">
+			  </div>
+			  
+			  <div>
+				<label>Student Name</label>
+					<input type="text" name="name1" id="name1" value="" class="form-control">
+			  </div>
+			  
+			   <div>
+				<label>Address</label>
+					<input type="text" name="address1" id="address1" value="" class="form-control">
+			  </div>
+			  
+			  <div>
+				<label>Email</label>
+					<input type="text" name="email1" id="email1" value="" class="form-control">
+			  </div>
+			  
+			  <div>
+				<label>City</label>
+					<input type="text" name="city" id="city1" value="" class="form-control">
+			  </div>
+			  
+			  <div>
+				<label>Age</label>
+					<input type="text" name="city" id="age1" value="" class="form-control">
+			  </div>
+			  
+			  <div>
+				<label>School Name</label>
+					<select name="school" id="school1" class="form-control" >
+  					<c:forEach var="school" items="${schoolList}">
+  						<option value="${school.schoolName}">${school.schoolName}</option>
+					</c:forEach>
+					</select>
+			  </div>
+			  <br><br>
+			  <div>
+			  <button type="submit" class="button" onclick="editStudents();">Submit</button>
+			  </div>
+			 </div>
+			</div>
+		</div>
+	</div>
+			  
 

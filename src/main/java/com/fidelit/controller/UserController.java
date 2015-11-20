@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fidelit.model.BusDriver;
 import com.fidelit.model.Employee;
 import com.fidelit.model.Holidays;
 import com.fidelit.model.LeavesApplied;
@@ -126,7 +128,6 @@ public class UserController {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date leaveEnd = format.parse(end);
 		//leaveEnd = new Date();
-		System.out.println(leaveEnd);
 		leavesApplied.setLeaveEnd(leaveEnd);
 		}
 
@@ -281,7 +282,55 @@ public class UserController {
 				
 		
 	}
-
 	
+	@ResponseBody
+	@RequestMapping(value="/editStudent",method = RequestMethod.POST)
+	public String editStudent(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		String list = request.getParameter("list");
+		String [] dataList = list.split(",");
+		SchoolAdmin schoolAdmin = new SchoolAdmin();
+		School school =schoolService.getSchool(dataList[2]);
+		Integer studentId=Integer.parseInt(dataList[0]);
+		Integer age=Integer.parseInt(dataList[5]);
+		schoolAdmin.setId(studentId);
+		schoolAdmin.setName(dataList[1]);
+		schoolAdmin.setSchool(school);
+		schoolAdmin.setAddress(dataList[3]);
+		schoolAdmin.setEmail(dataList[4]);
+		schoolAdmin.setAge(age);
+		schoolAdmin.setCity(dataList[6]);
+		schoolAdmin.setPassword(dataList[7]);
+		schoolAdmin.setUsername(dataList[8]);
+		schoolAdmin.setAccountType(dataList[9]);
+		model.addAttribute(new SchoolAdmin());
+		schoolAdminService.updateSchool(schoolAdmin);
+		return "Ok";
+	}
+
+
+	@ResponseBody
+	@RequestMapping(value="/editParent",method = RequestMethod.POST)
+	public String editParent(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		String list = request.getParameter("list");
+		String [] dataList = list.split(",");
+		SchoolAdmin schoolAdmin = new SchoolAdmin();
+		School school =schoolService.getSchool(dataList[2]);
+		Integer parentId=Integer.parseInt(dataList[0]);
+		Integer age=Integer.parseInt(dataList[5]);
+		schoolAdmin.setId(parentId);
+		schoolAdmin.setName(dataList[1]);
+		schoolAdmin.setSchool(school);
+		schoolAdmin.setAddress(dataList[3]);
+		schoolAdmin.setEmail(dataList[4]);
+		schoolAdmin.setAge(age);
+		schoolAdmin.setCity(dataList[6]);
+		schoolAdmin.setPassword(dataList[7]);
+		schoolAdmin.setUsername(dataList[8]);
+		schoolAdmin.setAccountType(dataList[9]);
+		model.addAttribute(new SchoolAdmin());
+		schoolAdminService.updateSchool(schoolAdmin);
+		return "Ok";
+	}
+
 	
 }

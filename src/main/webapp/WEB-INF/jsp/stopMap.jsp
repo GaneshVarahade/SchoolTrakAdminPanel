@@ -248,7 +248,7 @@ function editStop(){
 		    success : function(response) {	 
 		    	 $("#edit").modal('hide');
 		       alert("Stop Updated Successfully!");
-		       location.reload();
+		       window.location.href="${pageContext.request.contextPath}/route/addNewStops?routeId="+routeNo;
 		      },
 		    error : function(e) {
 		    	 $("#edit").modal('hide');
