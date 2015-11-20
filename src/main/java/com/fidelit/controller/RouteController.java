@@ -142,6 +142,7 @@ BusDriverService busDriverService;
 		Route route = new Route();
 		String busNo=dataList[5];
 		String driver=dataList[6];
+		String corridorId=dataList[7];
 		Bus bus=busService.getBusRegNo(busNo);
 		BusDriver busDriver=busDriverService.getDriverByName(driver);
 		Integer routeId=Integer.parseInt(dataList[0]);
@@ -152,6 +153,7 @@ BusDriverService busDriverService;
 		route.setEndStop(dataList[4]);
 		route.setBus(bus);
 		route.setBusDriver(busDriver);
+		route.setCorridorId(corridorId);
 		routeService.updateRoute(route);
 		return "stopMap";
 	}
@@ -306,6 +308,8 @@ BusDriverService busDriverService;
 		return "driverList";
 	}
 
+	
+	
 	
 
 }

@@ -1,8 +1,8 @@
  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
  <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
  <head>
- <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js" type="text/javascript"></script>
- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
+ <script src="https://cdn.datatables.net/1.10.10/js/.dataTables.min.js" type="text/javascript"></script>
+ <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/.dataTables.min.css">
 </head>
 <script>
 var saveKara = 0;
@@ -24,7 +24,6 @@ function showBtn(){
 		 alert("Please select Atleast one client for delete");
 	 }
 	 else{
-		alert(saveKara);
 		 var result = confirm("want to delete?");
 		 if(result){
 			 window.location.href = "deleteRouteList?list="+saveKara;	 
@@ -94,18 +93,23 @@ function addStops(id){
 	
 }
 
- function editRoute(id,name,status,start,stop){
+ function editRoute(id,name,status,start,stop,corridorId){
+	 
 	$("#routeId").val(id);
 	$("#routeName").val(name);
 	$("#status").val(status);
 	$("#start").val(start);
 	$("#stop").val(stop);
+	$("#corridorId").val(corridorId);
 	$("#edit").modal('show');
+	
 	
 }
 
  function editRoutes(){
 
+	 
+	
 	var routeId = $("#routeId").val();
 	 var routeName=$("#routeName").val();
 	var status=$("#status").val();
@@ -113,7 +117,8 @@ function addStops(id){
 	var stop=$("#stop").val();
 	var busNo=$("#regNumber").val();
 	var driverName=$("#driverName").val();
-	 var allData=routeId+","+routeName+","+status+","+start+","+stop+","+busNo+","+driverName;
+	var corridorId=$("#corridorId").val();
+	 var allData=routeId+","+routeName+","+status+","+start+","+stop+","+busNo+","+driverName+","+corridorId;
 	var formData="list="+allData;
 	 $.ajax({
 	    type : "POST",
@@ -195,6 +200,7 @@ function addStops(id){
 				<th>Status</th>
 				<th>Start Stop</th>
 				<th>End Stop</th>
+				<th>Corridor ID</th>
 				<th>Bus Number</th>
 				<th>Driver Name</th>
 				<th style="width: 125px;">Add Stop</th>
@@ -209,6 +215,7 @@ function addStops(id){
 				<th>Status</th>
 				<th>Start Stop</th>
 				<th>End Stop</th>
+				<th>Corridor ID</th>
 				<th>Bus Number</th>
 				<th>Driver Name</th>
 				<th>Add Stop</th>
@@ -225,10 +232,11 @@ function addStops(id){
 				   <td>${route.routeStatus}</td> 
 				   <td>${route.startStop}</td> 
 				   <td>${route.endStop}</td>
+				   <td>${route.corridorId}</td>
 				   <td>${route.bus.regNumber}</td> 
 				   <td>${route.busDriver.driverName}</td>
 				   <td><input type="submit" class="button" value="Add Stops" onclick="addStops(${route.routeNo})"></td>
-				   <td><input type="submit" class="button" value="Edit" onclick="editRoute('${route.routeNo}','${route.routeName}','${route.routeStatus}','${route.startStop}','${route.endStop}');"></td>
+				   <td><input type="submit" class="button" value="Edit" onclick="editRoute('${route.routeNo}','${route.routeName}','${route.routeStatus}','${route.startStop}','${route.endStop}','${route.corridorId}');"></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -267,6 +275,11 @@ function addStops(id){
 						<input type="text" name="end" id="stop" class="form-control">
 				</div>
 				
+				<div>
+					<label>Corridor Id :</label>
+						<input type="text" name="corridorId" id="corridorId" class="form-control">
+				</div>
+												
 			
 				<div>
 					<label>Bus Number</label>
@@ -350,6 +363,12 @@ function addStops(id){
 												<div>
 													<form:label path="endStop">End Stop</form:label>
 													<form:input path="endStop" id="endStop"
+														value="" class="form-control" />
+												</div>
+												
+												<div>
+													<form:label path="corridorId">Corridor ID</form:label>
+													<form:input path="corridorId" id="corridorId"
 														value="" class="form-control" />
 												</div>
 												
