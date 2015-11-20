@@ -10,6 +10,7 @@
 	<context:property-placeholder location="classpath:database.properties" />
 	<context:component-scan base-package="com.fidelit.controller" />
 	<tx:annotation-driven transaction-manager="hibernateTransactionManager" />
+	<tx:annotation-driven transaction-manager="transactionManager" />
     <mvc:annotation-driven />
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
@@ -45,9 +46,49 @@
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		id="dataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://localhost:3306/schooltrack"></property>
+		<property name="url" value="jdbc:mysql://45.40.137.142:3306/schooltrack"></property>
 		<property name="username" value="root"></property>
-		<property name="password" value="system"></property>
+		<property name="password" value=""></property>
+	</bean>
+	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		id="gtsDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://45.40.137.142:3306/gts"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value=""></property>
+	</bean>
+	<bean class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		id="gtsSessionFactory">
+		<property name="dataSource" ref="gtsDataSource"></property>
+	    <property name="annotatedClasses">
+			<list>
+				<value>com.fidelit.model.Employee</value>
+				<value>com.fidelit.model.UserRole</value>
+				<value>com.fidelit.model.Clients</value>
+				<value>com.fidelit.model.empLeaves</value>
+				<value>com.fidelit.model.empLeavesTaken</value>
+				<value>com.fidelit.model.EmployeeProject</value>
+				<value>com.fidelit.model.EmployeeSkill</value>
+				<value>com.fidelit.model.Holidays</value>
+				<value>com.fidelit.model.LeavesApplied</value>
+				<value>com.fidelit.model.Project</value>
+				<value>com.fidelit.model.Skill</value>
+				<value>com.fidelit.model.SuperVisor</value>
+				<value>com.fidelit.model.Tasks</value>
+			    <value>com.fidelit.model.Account</value>
+			    <value>com.fidelit.model.School</value>
+			    <value>com.fidelit.model.SchoolAdmin</value>
+			    <value>com.fidelit.model.Route</value>
+			    <value>com.fidelit.model.Stop</value>
+			</list>
+		</property>  
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
 	</bean>
 
 	<bean class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
@@ -73,9 +114,6 @@
 			    <value>com.fidelit.model.SchoolAdmin</value>
 			    <value>com.fidelit.model.Route</value>
 			    <value>com.fidelit.model.Stop</value>
-			    <value>com.fidelit.model.Bus</value>
-			    <value>com.fidelit.model.BusDriver</value>
-
 			</list>
 		</property>  
 		<property name="hibernateProperties">
@@ -86,8 +124,33 @@
 			</props>
 		</property>
 	</bean>
+	 <bean id="transactionInterceptor"
+	class="org.springframework.transaction.interceptor.TransactionInterceptor">
+	<property name="transactionManager" ref="hibernateTransactionManager" />
+	<property name="transactionAttributes">
+		<props>
+			<prop key="*">PROPAGATION_REQUIRED</prop>
+		</props>
+	</property>
+</bean>
+ <bean id="secondTransactionInterceptor"
+  class="org.springframework.transaction.interceptor.TransactionInterceptor">
+  <property name="transactionManager" ref="transactionManager" />
+  <property name="transactionAttributes">
+   <props>
+    <prop key="*">PROPAGATION_REQUIRED</prop>
+   </props>
+  </property>
+ </bean>
+
+	<bean class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+		id="transactionManager">
+		<property name="sessionFactory" ref="gtsSessionFactory"></property>
+	</bean>
 	<bean class="org.springframework.orm.hibernate4.HibernateTransactionManager"
 		id="hibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
+	
+	
 </beans>

@@ -13,11 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.fidelit.model.Clients;
 import com.fidelit.model.Employee;
 import com.fidelit.model.EmployeeProject;
@@ -31,6 +30,7 @@ import com.fidelit.model.UserRole;
 import com.fidelit.service.ClientService;
 import com.fidelit.service.EmployeeProjectService;
 import com.fidelit.service.EmployeeService;
+import com.fidelit.service.GtsService;
 import com.fidelit.service.SchoolAdminService;
 import com.fidelit.service.SchoolService;
 import com.fidelit.service.HolidayService;
@@ -60,6 +60,9 @@ public class AdminController {
   @Autowired
   private SchoolAdminService schoolAdminService;
   
+  
+  @Autowired
+  private GtsService gtsService;
 @RequestMapping("/home")
 public String adminHome(){
 	
@@ -323,7 +326,7 @@ public String addClient(HttpServletRequest request,HttpServletResponse response,
 	schoolAdmin.setUsername(dataList[7]);
 	schoolAdmin.setSchool(school);
 	schoolAdmin.setEnabled(true);
-	
+	gtsService.addAccountInGts(schoolAdmin.getUsername());
 	if(dataList[8].equals("Student")){
 		schoolAdmin.setRole("ROLE_STUDENT");
 	}else if(dataList[8].equals("SchoolAdmin")){
