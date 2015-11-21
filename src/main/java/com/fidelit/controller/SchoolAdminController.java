@@ -60,7 +60,7 @@ public class SchoolAdminController {
 	
 	@RequestMapping(value="/home" )
 	public String userHome(){
-		return "user_home";
+		return "schoolAdminHome";
 	}
 	
 	@RequestMapping(value="/parentList")
