@@ -4,7 +4,8 @@
     
 
  
- <script>
+<script type="text/javascript">
+
  function emailValidateUpdate() 
  {
  	 var mail = $("#email").val();
@@ -347,9 +348,7 @@ $('.dropdown-menu a').on('click', function(){
 });
 
 
-</script>
 
-<script type="text/javascript">
 function checkUsernameUpdate(){
 
 	 var userName = $("#userName").val(); 

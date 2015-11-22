@@ -1,30 +1,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Parent List</title>
 
- <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
- 
-  <script src="https://cdn.datatables.net/1.10.8/css/dataTables.bootstrap.min.css"></script>
-  <script src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.8/js/dataTables.bootstrap.min.js"></script>
-
-<head>
- <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js" type="text/javascript"></script>
- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
-</head>
-
-
-
-<script>
+<script type="text/javascript">
 var saveKara = 0;
 
 function showBtn(){
@@ -32,37 +10,25 @@ function showBtn(){
 	 if(saveKara == 0){
 		 alert("Please select Atleast one Parent for delete");
 	 }
-	 else{
-		
+	 else{		
 		 var result = confirm("want to delete?");
 		 if(result){
 			 window.location.href = "deleteParentList?list="+saveKara;	 
-		 }
-		 	 
+		 } 
 	 }
-	 
 }
 
- $(function(){
-	    $('#browse_app').click(function(){
-	        window.location='addClient';
-	    });
+$(function(){
+	$('#browse_app').click(function(){
+		window.location='addClient';
 	});
- 
- 
+});
 
-
- 
-</script>
-<script type="text/javascript">
-
-$(document).ready(function() {
+	$(document).ready(function() {
       $('#example').DataTable({
     	  "paging":   false
-      }
-    		  
-      ); 
-} );
+     	}); 
+	});
 
 
 function deletel(id){
@@ -332,166 +298,162 @@ function editParents(){
 }
 
 </script>
-<style>.button{
-    border-left-width: 0px;
-    width: 108px;
-    height: 27px;
-    padding-left: 0px;
-    margin-left: 0px;
-    background-color : #F5BE0A;
-}
-</style>
-</head>
-<body >
-<button id="btn"  class="button" type="submit" onClick="showBtn()" >Delete</button>&nbsp;
-<button  class="button" data-toggle="modal"  data-id=""  data-target="#forClientRegistration">Add Parent</button>
-<hr style="border-top-width: 0px;">
-<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-            	<th></th>
-                <th>Name</th>
-                <th>School Name</th>
-                <th>Address</th>
-                <th>Email</th>
-                <th>Age</th>
-                <th>City</th>
-                <th>Edit</th>
+<div class="form-horizontal">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="fixed-page-header">
+                <div class="page-header clearfix">
+                    <h1 class="page-head-text pull-left">Parent</h1>                    
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal"  data-target="#forClientRegistration"><i class="fa fa-plus-circle"></i>  Add Parent</button>                    
+                    <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
+                </div>                                    
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+           
+    <div class="row">                        
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                   <div class="panel-name">
+                        <span class="panel-head">Parent List</span>
+                    </div>                                        
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="example" class="table table-bordered table-striped table-hover">
+                          <thead>
+                            <tr>
+                            	<th width="3%" class="text-center no-sort"><input type="checkbox"></th>
+                                <th width="10%">Name</th>
+                                <th width="15%">School Name</th>
+                                <th width="20%">Address</th>
+                                <th width="15%">Email</th>
+                                <th width="10%">Age</th>
+                                <th width="10%">City</th>
+                                <th width="10%">Edit</th>                             
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <c:forEach var="schoolAdmin" items="${schoolAdminList}">
+                                <tr>
+                                    <c:if test= "${schoolAdmin.accountType eq 'Parent'}">                      
+                                        <td><input type="checkbox" id="${schoolAdmin.id}"  name="myTextEditBox" value="" onClick="displayNote(event)"/></td>
+                                        <td>${schoolAdmin.name}</td>
+                                        <td>${schoolAdmin.school.schoolName}</td>
+                                        <td>${schoolAdmin.address}</td>
+                                        <td>${schoolAdmin.email}</td>
+                                        <td>${schoolAdmin.age}</td>
+                                        <td>${schoolAdmin.city}</td>
+                                        <td><input type="submit" class="button" value="Edit" onClick="editParent('${schoolAdmin.id}','${schoolAdmin.name}','${schoolAdmin.school.schoolName}','${schoolAdmin.address}','${schoolAdmin.email}','${schoolAdmin.age}','${schoolAdmin.city}','${schoolAdmin.password}','${schoolAdmin.username}','${schoolAdmin.accountType}');"></td>
+                                       </c:if> 
+                                   	</tr>                                       
+                             </c:forEach>
+                         </tbody>
+	                  </table>
+                    </div>
+                </div>                                    
+            </div>
+        </div>
+    </div>
+	<!-- / row -->   
+</div>
+
+<div class="modal fade" id="forClientRegistration" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
+    <div class="modal-dialog">
+    	<!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Parent</h4>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm"  class="form-horizontal" role="form" name="registerForm">
+                    			
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">User Name</label>
+                        <div class="col-sm-8">
+                        	<input type="text" name="username" id="username" value="" class="form-control">
+                      	</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Account Type</label>
+                        <div class="col-sm-8">
+                            <select name="accountType" id="accountType" class="form-control" >                            
+                            	<option value="Parent">Parent</option>                            
+                            </select>
+                      	</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Admin Name</label>
+                        <div class="col-sm-8">
+                        	<input type="text" name="name" id="aName" value="" class="form-control">
+                      	</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Admin Password</label>
+                        <div class="col-sm-8">
+                       		<input type="text" name="password" id="aPassword" value="" class="form-control">
+                       	</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">School Name</label>
+                        <div class="col-sm-8">
+                            <select name="schoolName" id="schoolId" class="form-control" >                        
+                                <c:forEach var="school" items="${schoolList}">
+                                    <option value="${school.schoolName}">${school.schoolName}</option>
+                                </c:forEach>
+                            </select>
+                      	</div>
+                  	</div>
+                            
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Address</label>
+                        <div class="col-sm-8">
+                        	<input type="text" name="address" id="aAddress" value="" class="form-control">
+                      	</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-8">
+                        	<input type="text" name="email" id="aEmail" value="" class="form-control" >
+                      	</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Age</label>
+                        <div class="col-sm-8">
+                        	<input type="text" name="age" id="aAge" value="" class="form-control" >
+                       	</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">City</label>
+                        <div class="col-sm-8">
+                        	<input type="text" name="city" id="aCity" value="" class="form-control">
+                      	</div>
+                    </div>
+              	</form>
+                </div>
                 
-               
-            </tr>
-        </thead>
- 
-        <tfoot>
-            <tr>
-            	<th></th>
-                <th>Name</th>
-                <th>School Name</th>
-                <th>Address</th>
-                <th>Email</th>
-                <th>Age</th>
-                <th>City</th>
-                <th>Edit</th>
-               
-            </tr>
-        </tfoot>
- 
-        <tbody>
-        <c:forEach var="schoolAdmin" items="${schoolAdminList}">
-            <tr>
-  				<c:if test= "${schoolAdmin.accountType eq 'Parent'}">
-  
-  					<td>
-          				  <input type="checkbox" id="${schoolAdmin.id}"  name="myTextEditBox" value="" onClick="displayNote(event)"/>
-          			</td>
-	                <td>${schoolAdmin.name}</td>
-	                <td>${schoolAdmin.school.schoolName}</td>
-	                <td>${schoolAdmin.address}</td>
-	                <td>${schoolAdmin.email}</td>
-	                <td>${schoolAdmin.age}</td>
-	                <td>${schoolAdmin.city}</td>
-	                <td><input type="submit" class="button" value="Edit" onclick="editParent('${schoolAdmin.id}','${schoolAdmin.name}','${schoolAdmin.school.schoolName}','${schoolAdmin.address}','${schoolAdmin.email}','${schoolAdmin.age}','${schoolAdmin.city}','${schoolAdmin.password}','${schoolAdmin.username}','${schoolAdmin.accountType}');"></td>
-	               </c:if> 
-	                     </tr>
-	               
-         </c:forEach>
-         </tbody>
-</table>
-	              
-       
-	 <div class="container">  
-				  		<div class="modal fade" id="forClientRegistration" role="dialog">
-				    		<div class="modal-dialog">
-				    
-				      		<!-- Modal content-->
-				      			<div class="modal-content">
-				        			<div class="modal-header">
-				          				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				          					<h4 class="modal-title">Parent Details</h4>
-				        			</div>
-				        			<div class="modal-body">
-				       		 			<form id="registerForm"  class="form-horizontal" role="form" name="registerForm">
-				       		  				<div class="form-group">
-											<div class="container-fluid">
-											<section class="container">
-											<div class="container-page">
-											<div class="col-md-6">
-												<h3 class="dark-grey">School Admin Registration</h3>
-				       		  				
-				       		  					
-				       		  					
-												<div>
-													<label>User Name</label>
-													<input type="text" name="username" id="username" value="" class="form-control">
-												</div>
-												
-												<div >
-													<label>Account Type</label>
-													<select name="accountType" id="accountType" class="form-control" >
-													
-													<option value="Parent">Parent</option>
-													
-													</select>
-												</div>
-												
-												<div >
-													<label>Admin Name</label>
-													<input type="text" name="name" id="aName" value="" class="form-control">
-												</div>
-												
-												<div>
-													<label>Admin Password</label>
-													<input type="text" name="password" id="aPassword" value="" class="form-control" ">
-												</div>
-												
-												<div>
-													<label>School Name</label>
-												<select name="schoolName" id="schoolId" class="form-control" >
-  													
-  													<c:forEach var="school" items="${schoolList}">
-  															<option value="${school.schoolName}">${school.schoolName}</option>
-												</c:forEach>
-												</select>
-												
-												<div>
-													<label>Address</label>
-													<input type="text" name="address" id="aAddress" value="" class="form-control" >
-												</div>
-												
-												<div>
-													<label>Email</label>
-													<input type="text" name="email" id="aEmail" value="" class="form-control" >
-												</div>
-												
-												<div>
-													<label>Age</label>
-													<input type="text" name="age" id="aAge" value="" class="form-control" >
-												</div>
-												
-												<div>
-													<label>City</label>
-													<input type="text" name="city" id="aCity" value="" class="form-control">
-												</div>
-												
-											
-				       					</div>
-				       					</div>
-				       					</section>
-				       					</div>
-				       					</div>
-				       					</form>
-				        			</div>
-				        			<div class="modal-footer">
-				          				<button type="submit" class="button" onclick="sendDataForRegistration();" data-dismiss="modal">Submit</button>
-				        			</div>
-				      			</div>
-				    	</div>
-				  </div>
-				 
-			</div>
-			
-			<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-           <div class="modal-dialog">
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration()" data-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      	<div class="modal-dialog">
 			<div class="modal-content">
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -499,70 +461,90 @@ function editParents(){
 			  </div>
 			  <div class="modal-body">
 			  
-			  <div>
-				<label>Parent Id</label>
+			  <div class="form-group">
+                 <label class="col-sm-3 control-label">Parent Id</label>
+               	<div class="col-sm-8">
 					<input type="text" name="id" id="parentId" value="" class="form-control" readonly>
+                 </div>
 			  </div>
 			  
-			  <div >
-				<label>Account Type</label>
+			  <div class="form-group">
+                <label class="col-sm-3 control-label">Account Type</label>
+                <div class="col-sm-8">
 					<select name="accountType1" id="accountType1" class="form-control" >
-							<option value="Parent">Parent</option>
-													
+						<option value="Parent">Parent</option>
 					</select>
-				</div>
-			  
-			  <div>
-				<label>User Name</label>
-					<input type="text" name="username1" id="username1" value="" class="form-control">
+                 </div>
 			  </div>
 			  
-			  <div>
-				<label>Passoword</label>
+			  <div class="form-group">
+                	<label class="col-sm-3 control-label">User Name</label>
+                    <div class="col-sm-8">
+						<input type="text" name="username1" id="username1" value="" class="form-control">
+                   	</div>
+			  </div>
+			  
+			  <div class="form-group">
+                <label class="col-sm-3 control-label">Passoword</label>
+                <div class="col-sm-8">
 					<input type="text" name="password1" id="password1" value="" class="form-control">
+               	</div>
 			  </div>
 			  
-			  <div>
-				<label>Parent Name</label>
+			  <div class="form-group">
+                <label class="col-sm-3 control-label">Parent Name</label>
+                <div class="col-sm-8">
 					<input type="text" name="name1" id="name1" value="" class="form-control">
+                </div>
 			  </div>
 			  
-			   <div>
-				<label>Address</label>
+			   <div class="form-group">
+                <label class="col-sm-3 control-label">Address</label>
+                <div class="col-sm-8">
 					<input type="text" name="address1" id="address1" value="" class="form-control">
+                </div>
 			  </div>
 			  
-			  <div>
-				<label>Email</label>
+			  <div class="form-group">
+                <label class="col-sm-3 control-label">Email</label>
+                <div class="col-sm-8">
 					<input type="text" name="email1" id="email1" value="" class="form-control">
+                </div>
 			  </div>
 			  
-			  <div>
-				<label>City</label>
+			  <div class="form-group">
+                <label class="col-sm-3 control-label">City</label>
+                <div class="col-sm-8">
 					<input type="text" name="city" id="city1" value="" class="form-control">
+               	</div>
 			  </div>
 			  
-			  <div>
-				<label>Age</label>
+			  <div class="form-group">
+                <label class="col-sm-3 control-label">Age</label>
+                <div class="col-sm-8">
 					<input type="text" name="city" id="age1" value="" class="form-control">
+                </div>
 			  </div>
 			  
-			  <div>
-				<label>School Name</label>
+			  <div class="form-group">
+                <label class="col-sm-3 control-label">School Name</label>
+                <div class="col-sm-8">
 					<select name="school" id="school1" class="form-control" >
   					<c:forEach var="school" items="${schoolList}">
   						<option value="${school.schoolName}">${school.schoolName}</option>
 					</c:forEach>
 					</select>
+                </div>
 			  </div>
-			  <br><br>
-			  <div>
-			  <button type="submit" class="button" onclick="editParents();">Submit</button>
-			  </div>
-			 </div>
-			</div>
-		</div>
-	</div>
+              </div>
+                
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>                    
+                    <button type="submit" class="btn btn-sky btn-sm" onClick="editParents();" data-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 			  
 
 
