@@ -137,7 +137,7 @@
           	</div>
       	</div>
         
-        <div class="col-md-6">
+        <div class="col-md-6 nopad-l">
             <div id="stopList" class="panel panel-default">
                 <div class="panel-heading clearfix">
                    <div class="panel-name">
@@ -184,39 +184,41 @@
 		<div class="modal-content">
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Edit</h4>
+				<h4 class="modal-title">Edit Bus Stop</h4>
 			  </div>
               
-			  <div class="modal-body">
-			    <div class="form-group">
-                  	<label class="col-sm-3 control-label">Stop Number :</label>
+			  <div class="modal-body">              	
+        		<div class="form-horizontal">
                     <div class="form-group">
-						<input type="text" name="stopNumber" id="stopNumber" class="form-control" readOnly>
-                  	</div>
-				</div>
+                        <label class="col-sm-3 control-label">Stop Number :</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="stopNumber" id="stopNumber" class="form-control" readOnly>
+                        </div>
+                    </div>
 				
-				<div class="form-group">
-                  	<label class="col-sm-3 control-label">Stop Name :</label>
                     <div class="form-group">
-						<input type="text" name="stopsName" id="stopsName" class="form-control">
-                  	</div>
-				</div>
+                        <label class="col-sm-3 control-label">Stop Name :</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="stopsName" id="stopsName" class="form-control">
+                        </div>
+                    </div>
 				
-				<div class="form-group">
-                  	<label class="col-sm-3 control-label">Latitude :</label>
                     <div class="form-group">
-						<input type="text" name="latitudes" id="latitudes" class="form-control">
-                  	</div>
-				</div>
+                        <label class="col-sm-3 control-label">Latitude :</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="latitudes" id="latitudes" class="form-control">
+                        </div>
+                    </div>
 				
-				<div class="form-group">
-                  	<label class="col-sm-3 control-label">Longitude :</label>
-                   	<div class="form-group">
-						<input type="text" name="longitudes" id="longitudes" class="form-control">
-                  	</div>
-				</div>
-				<input type="hidden" id="stopId" name="id">
-				<input type="hidden" id="routeNumber" name="id">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Longitude :</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="longitudes" id="longitudes" class="form-control">
+                        </div>
+                    </div>
+                    <input type="hidden" id="stopId" name="id">
+                    <input type="hidden" id="routeNumber" name="id">
+              	</div>
             </div>
             
             <div class="modal-footer text-center">
