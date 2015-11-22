@@ -353,8 +353,6 @@ function password_length_registration()
                 <th>Email</th>
                 <th>Age</th>
                 <th>City</th>
-                
-               
             </tr>
         </thead>
  
@@ -611,7 +609,7 @@ function password_length_registration()
 				       					</form>
 				        			</div>
 				        			<div class="modal-footer">
-				          				<button type="button" class="btn btn-default" onclick="sendDataForRegistration();" data-dismiss="modal">Submit</button>
+				          				<button type="button" class="btn btn-default" onClick="sendDataForRegistration();" data-dismiss="modal">Submit</button>
 				        			</div>
 				      			</div>
 				    	</div>

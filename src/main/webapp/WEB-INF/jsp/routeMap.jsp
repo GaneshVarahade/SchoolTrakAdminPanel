@@ -1,9 +1,5 @@
- <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
- <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
- <head>
- <script src="https://cdn.datatables.net/1.10.10/js/.dataTables.min.js" type="text/javascript"></script>
- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/.dataTables.min.css">
-</head>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <script>
 var saveKara = 0;
 
@@ -137,244 +133,227 @@ function addStops(id){
 	
 	
 </script>
-<style>
-.button{
-    border-left-width: 0px;
-    width: 108px;
-    height: 27px;
-    padding-left: 0px;
-    margin-left: 0px;
-    background-color : #F5BE0A;
-}
-</style>
-</head>
-<body>
-	<button id="btn" class="button"
-		type="submit" onClick="showBtn()">Delete</button>&nbsp;
-	<button class="button" data-toggle="modal"
-		data-id="" data-target="#addRoutes">Add Route</button>
-		<hr style="border-top-width: 0px;">
-	<table id="routeDataTable" class="table table-striped table-bordered"
-		cellspacing="0" width="100%">
-		<thead>
-			<tr>
-				<th></th>
-				<th>Name</th>
-				<th>Status</th>
-				<th>Start Stop</th>
-				<th>End Stop</th>
-				<th>Corridor ID</th>
-				<th>Bus Number</th>
-				<th>Driver Name</th>
-				<th style="width: 125px;">Add Stop</th>
-				<th style="width: 125px;">Edit Route</th>
-			</tr>
-		</thead>
 
-		<tfoot>
-			<tr>
-				<th></th>
-				<th>Name</th>
-				<th>Status</th>
-				<th>Start Stop</th>
-				<th>End Stop</th>
-				<th>Corridor ID</th>
-				<th>Bus Number</th>
-				<th>Driver Name</th>
-				<th>Add Stop</th>
-				<th>Edit Route</th>
+<div class="form-horizontal">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="fixed-page-header">
+                <div class="page-header clearfix">
+                    <h1 class="page-head-text pull-left">Route</h1>                    
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addRoutes"><i class="fa fa-plus-circle"></i>  Add Route</button>                    
+                    <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
+                </div>                                    
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+           
+    <div class="row">                        
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                   <div class="panel-name">
+                        <span class="panel-head">Route List</span>
+                    </div>                                        
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="routeDataTable" class="table table-bordered table-striped table-hover">
+                          <thead>
+                            <tr>
+                              <th width="3%" class="text-center no-sort"><input type="checkbox"></th>
+                              <th width="12%">Name</th>
+                              <th width="10%">Status</th>
+                              <th width="10%">Start Stop</th>
+                              <th width="10%">End Stop</th>
+                              <th width="10%">Corridor ID</th>
+                              <th width="10%">Bus Number</th>
+                              <th width="15%">Driver Name</th>
+                              <th width="10%">Add Stop</th>
+                              <th width="10%">Edit Route</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <c:forEach var="route" items="${routeList}">
+                              <tr>
+                                <td class="text-center"><input type="checkbox" id="${route.routeNo}" name="myTextEditBox" value="" onClick="displayNote(event)"></td>
+                                <td>${route.routeName}</td>
+                                <td>${route.routeStatus}</td>
+                                <td>${route.startStop}</td>
+                                <td>${route.endStop}</td>
+                                <td>${route.corridorId}</td>
+                                <td>${route.bus.regNumber}</td>
+                                <td>${route.busDriver.driverName}</td>
+                                <td><button type="submit" class="btn btn-default btn-sm" onClick="addStops(${route.routeNo})"><i class="fa fa-plus-circle"></i> Add Stops</button></td>
+                                <td><button type="submit" class="btn btn-default btn-sm" onClick="editRoute('${route.routeNo}','${route.routeName}','${route.routeStatus}','${route.startStop}','${route.endStop}','${route.corridorId}');"><i class="fa fa-pencil-square-o"></i> Edit</button></td>
+                              </tr>
+                            </c:forEach>
+                          </tbody>
+					</table>
+                    </div>
+                </div>                                    
+            </div>
+        </div>
+    </div>
+<!-- / row -->   
+</div>
 
-			</tr>
-		</tfoot>
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Edit Route </h4>
+      </div>
+      <div class="modal-body">
+      	<div class="form-horizontal">
+            <div class="form-group">
+             	<label class="col-sm-3 control-label">Route Number :</label>
+                <div class="col-sm-8">
+                  <input type="text" name="name" id="routeId" class="form-control" readOnly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Route Name :</label>
+                <div class="col-sm-8">
+                  <input type="text" name="name" id="routeName" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Route Status :</label>
+                <div class="col-sm-8">
+                  <input type="text" name="status" id="status" class="form-control">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Start Stop :</label>
+                <div class="col-sm-8">
+                  <input type="text" name="start" id="start" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">End Stop :</label>
+                <div class="col-sm-8">
+                  <input type="text" name="end" id="stop" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Corridor Id :</label>
+                <div class="col-sm-8">
+                  <input type="text" name="corridorId" id="corridorId" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Bus Number</label>
+                <div class="col-sm-8">
+                  <select name="regNumber" id="regNumber" class="form-control" >
+                    <c:forEach var="bus" items="${busList}">
+                      <option value="${bus.regNumber}">${bus.regNumber}</option>
+                    </c:forEach>
+                  </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Driver </label>
+                <div class="col-sm-8">
+                  <select id="driverName" class="form-control" >
+                    <c:forEach var="busDriver" items="${busDriverList}">
+                      <option value="${busDriver.driverName}">${busDriver.driverName}</option>
+                    </c:forEach>
+                  </select>
+                </div>
+            </div>
+      	</div>
+        <div class="modal-footer text-center">
+            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-sky btn-sm" onClick="editRoutes();" data-dismiss="modal">Save</button>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
 
-		<tbody>
-			<c:forEach var="route" items="${routeList}">
-				<tr>
-				   <td><input type="checkbox" id="${route.routeNo}" name="myTextEditBox" value="" onClick="displayNote(event)"></td>
-				   <td>${route.routeName}</td>  
-				   <td>${route.routeStatus}</td> 
-				   <td>${route.startStop}</td> 
-				   <td>${route.endStop}</td>
-				   <td>${route.corridorId}</td>
-				   <td>${route.bus.regNumber}</td> 
-				   <td>${route.busDriver.driverName}</td>
-				   <td><input type="submit" class="button" value="Add Stops" onclick="addStops(${route.routeNo})"></td>
-				   <td><input type="submit" class="button" value="Edit" onclick="editRoute('${route.routeNo}','${route.routeName}','${route.routeStatus}','${route.startStop}','${route.endStop}','${route.corridorId}');"></td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+<div class="modal fade" id="addRoutes" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Add Route</h4>
+      </div>
+      	 <form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/route/addRoute" commandName="route">            
+      	<div class="modal-body">
+            
+            <div class="form-group">
+                <form:label path="routeNo" class="col-sm-3 control-label">Route No.</form:label>
+                <div class="col-sm-8">
+                	<form:input  path="routeNo" id="routeNo" value="" class="form-control" />
+               	</div>
+           	</div>
+            <div class="form-group">
+                <form:label  path="routeName" class="col-sm-3 control-label">Name</form:label>
+                <div class="col-sm-8">
+                	<form:input  path="routeName" id="routeName" value="" class="form-control" />
+               	</div>
+            </div>
+            <div class="form-group">
+                <form:label path="routeStatus" class="col-sm-3 control-label">Status</form:label>
+                <div class="col-sm-8">
+                    <form:select path="routeStatus" id="routeStatus" class="form-control">
+                      <form:option value="1">ON</form:option>
+                      <form:option value="0">OFF</form:option>
+                    </form:select>
+               	</div>
+            </div>
+            <div class="form-group">
+                <form:label path="startStop" class="col-sm-3 control-label">Start Stop</form:label>
+                <div class="col-sm-8">
+                	<form:input path="startStop" id="startStop" value="" class="form-control" />
+               	</div>
+            </div>
+            <div class="form-group">
+                <form:label path="endStop" class="col-sm-3 control-label">End Stop</form:label>
+                <div class="col-sm-8">
+                	<form:input path="endStop" id="endStop" value="" class="form-control" />
+               	</div>
+            </div>
+            <div class="form-group">
+                <form:label path="corridorId" class="col-sm-3 control-label">Corridor ID</form:label>
+                <div class="col-sm-8">
+                	<form:input path="corridorId" id="corridorId" value="" class="form-control" />
+               	</div>
+            </div>
+            <div class="form-group">
+                <form:label path="bus.regNumber" class="col-sm-3 control-label">Bus Number</form:label>
+                <div class="col-sm-8">
+                    <form:select path="bus.regNumber" name="regNumber" id="bus.regNumber" class="form-control" >
+                      <c:forEach var="bus" items="${busList}">
+                        <form:option value="${bus.regNumber}">${bus.regNumber}</form:option>
+                      </c:forEach>
+                    </form:select>
+               	</div>
+             </div>
+             <div class="form-group">
+                <form:label path="busDriver.driverName" class="col-sm-3 control-label"> Driver </form:label>
+                <div class="col-sm-8">
+                    <form:select path="busDriver.driverName" id="busDriver.driverName" class="form-control" >
+                      <c:forEach var="busDriver" items="${busDriverList}">
+                        <form:option value="${busDriver.driverName}">${busDriver.driverName}</form:option>
+                      </c:forEach>
+                    </form:select>
+               	</div>
+              </div>
+            </div>
+         	<div class="modal-footer text-center">
+            	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+            	<button type="submit" class="btn btn-sky btn-sm" data-dismiss="modal">Save</button>
+            </div>          
+            
+          </form:form>
+        </div>
+      </div>
+    </div>
 
-	 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-           <div class="modal-dialog">
-			<div class="modal-content">
-			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Edit </h4>
-			  </div>
-			  <div class="modal-body">
-			  
-				<div>
-					<label>Route Number :</label>
-						<input type="text" name="name" id="routeId" class="form-control" readOnly>
-				</div>			  
-			  	<div>
-					<label>Route Name :</label>
-						<input type="text" name="name" id="routeName" class="form-control">
-				</div>
-				
-				<div>
-					<label>Route Status :</label>
-						<input type="text" name="status" id="status" class="form-control">
-				</div>
-				
-				<div>
-					<label>Start Stop :</label>
-						<input type="text" name="start" id="start" class="form-control">
-				</div>
-				
-				<div>
-					<label>End Stop :</label>
-						<input type="text" name="end" id="stop" class="form-control">
-				</div>
-				
-				<div>
-					<label>Corridor Id :</label>
-						<input type="text" name="corridorId" id="corridorId" class="form-control">
-				</div>
-												
-			
-				<div>
-					<label>Bus Number</label>
-					 <select name="regNumber" id="regNumber" class="form-control" >
-  													
-  					<c:forEach var="bus" items="${busList}">
-  						<option value="${bus.regNumber}">${bus.regNumber}</option>
-					</c:forEach>
-				 	</select> 
-												
-				</div>
-												
-												
-				<div>
-					<label> Driver </label>
-					 <select id="driverName" class="form-control" >
-  													
-  						<c:forEach var="busDriver" items="${busDriverList}">
-  							<option value="${busDriver.driverName}">${busDriver.driverName}</option>
-						</c:forEach>
-				 	</select> 
-												
-				</div>
-				
-				
-				<div><br>
-					<input type="submit" class="button" value="Submit" onclick="editRoutes();">
-				</div>
-			  </div>
-			 </div>
-			</div>
-	</div>
-
-
-	<div class="container">
-		<div class="modal fade" id="addRoutes" role="dialog">
-			<div class="modal-dialog">
-
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Parent Details</h4>
-					</div>
-					<div class="modal-body">
-						<form:form id="registerForm" class="form-horizontal" method="post"
-							name="registerForm" action="${pageContext.request.contextPath}/route/addRoute" commandName="route">
-							<div class="form-group">
-								<div class="container-fluid">
-									<section class="container">
-										<div class="container-page">
-											<div class="col-md-6">
-												<h3 class="dark-grey">Add Route</h3>
-
-												<div>
-													<form:label path="routeNo" >Route No.</form:label>
-													<form:input  path="routeNo" id="routeNo"
-														value="" class="form-control" />
-												</div>
-												<div>
-													<form:label  path="routeName">Name</form:label>
-													<form:input  path="routeName" id="routeName"
-														value="" class="form-control" />
-												</div>
-
-												<div>
-													<form:label path="routeStatus">Status</form:label>
-													<form:select path="routeStatus" id="routeStatus"
-														class="form-control">
-														<form:option value="1">ON</form:option>
-														<form:option value="0">OFF</form:option>
-													</form:select>
-												</div>
-
-												<div>
-													<form:label path="startStop" >Start Stop</form:label>
-													<form:input path="startStop" id="startStop"
-														value="" class="form-control" />
-												</div>
-
-												<div>
-													<form:label path="endStop">End Stop</form:label>
-													<form:input path="endStop" id="endStop"
-														value="" class="form-control" />
-												</div>
-												
-												<div>
-													<form:label path="corridorId">Corridor ID</form:label>
-													<form:input path="corridorId" id="corridorId"
-														value="" class="form-control" />
-												</div>
-												
-												<div>
-													<form:label path="bus.regNumber">Bus Number</form:label>
-													<form:select path="bus.regNumber" name="regNumber" id="bus.regNumber" class="form-control" >
-  													
-  													<c:forEach var="bus" items="${busList}">
-  													<form:option value="${bus.regNumber}">${bus.regNumber}</form:option>
-													</c:forEach>
-				 									</form:select>
-												
-												</div>
-												
-												
-												<div>
-													<form:label path="busDriver.driverName"> Driver </form:label>
-													<form:select path="busDriver.driverName" id="busDriver.driverName" class="form-control" >
-  													
-  													<c:forEach var="busDriver" items="${busDriverList}">
-  													<form:option value="${busDriver.driverName}">${busDriver.driverName}</form:option>
-													</c:forEach>
-				 									</form:select>
-												
-												</div>
-
-											</div>
-										</div>
-									</section>
-								</div>
-							</div>
-							<div class="modal-footer">
-						     <input class="button" type="submit" value="Submit"/>
-					        </div>
-						</form:form>
-						
-					</div>
-					
-				</div>
-			</div>
-		</div>
-
-	</div>
-	<script src="script.js" type="text/javascript" defer="defer"></script>
-</body>
-
+<script src="script.js" type="text/javascript" defer="defer"></script>
