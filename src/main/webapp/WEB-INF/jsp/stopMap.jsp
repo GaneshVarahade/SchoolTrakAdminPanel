@@ -218,14 +218,12 @@
                             <input type="text" name="longitudes" id="longitudes" class="form-control">
                         </div>
                     </div>
-                    <input type="hidden" id="stopId" name="id">
-                    <input type="hidden" id="routeNumber" name="id">
               	</div>
             </div>
             
             <div class="modal-footer text-center">
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-sky btn-sm" onClick="editStop()">Save</button>
+                <button type="submit" class="btn btn-sky btn-sm" onClick="editStop()" data-dismiss="modal">Save</button>
             </div>				
      	</div>
    	</div>
@@ -265,14 +263,14 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Latitude :</label>
                         <div class="col-sm-8">
-                            <input type="text" name="latitudes" id="latitudes" class="form-control">
+                            <input type="text" name="latitude" id="latitudes" class="form-control">
                         </div>
                     </div>
 				
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Longitude :</label>
                         <div class="col-sm-8">
-                            <input type="text" name="longitudes" id="longitudes" class="form-control">
+                            <input type="text" name="longitude" id="longitudes" class="form-control">
                         </div>
                     </div>
                     <input type="hidden" id="stopId" name="id">
@@ -281,7 +279,7 @@
             </div>
              <div class="modal-footer text-center">
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-sky btn-sm">Save</button>
+                <input type="submit" class="btn btn-sky btn-sm"  value="Save">
             </div>
            </form>            
      	</div>
