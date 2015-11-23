@@ -33,6 +33,7 @@ public class StopServiceImpl implements StopService{
 					System.out.println("sdfg");
 					session = sessionFactory.getCurrentSession();
 					session.save(stop);
+					System.out.println("in AddStop");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

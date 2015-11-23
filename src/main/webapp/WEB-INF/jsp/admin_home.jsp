@@ -20,7 +20,7 @@
             </div>
             
             <div class="col-md-2 col-sm-3">
-            	<a href="javascript:void(0);" class="menu-link">
+            	<a href="${pageContext.request.contextPath}/admin/reports" class="menu-link">
                     <div class="menu-block m-block4">
                         <div class="menu-icon"><i class="fa fa-file-text-o"></i></div>
                         <div class="menu-name">Reports</div>
@@ -29,7 +29,7 @@
             </div>
             
             <div class="col-md-2 col-sm-3">
-               <a href="javascript:void(0);" class="menu-link">
+               <a href="${pageContext.request.contextPath}/admin/settings" class="menu-link">
                     <div class="menu-block m-block5">
                         <div class="menu-icon"><i class="fa fa-cog"></i></div>
                         <div class="menu-name">Settings</div>

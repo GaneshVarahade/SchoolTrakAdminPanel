@@ -43,7 +43,7 @@ public String defaultUrl(ModelMap model,HttpServletRequest req,SecurityContextHo
 		 return "login";
 		 
 	}else if(!accountType.toString().equals(currentUser.getAccountType())){
-				 model.addAttribute("message", "Authentication Failed");
+				 model.addAttribute("message", "Account Type Wrong");
 			  return "login";  
 		}
 		session.setAttribute("currentUser", currentUser);

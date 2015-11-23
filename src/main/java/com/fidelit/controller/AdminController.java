@@ -37,6 +37,7 @@ import com.fidelit.service.HolidayService;
 import com.fidelit.service.LeaveService;
 import com.fidelit.service.ProjectService;
 
+
 @Controller
 @RequestMapping({"/admin"})
 public class AdminController {
@@ -59,6 +60,7 @@ public class AdminController {
   
   @Autowired
   private SchoolAdminService schoolAdminService;
+  
   
   
   @Autowired
@@ -295,6 +297,8 @@ public String addClient(HttpServletRequest request,HttpServletResponse response,
 }
 */
 
+
+
 @ResponseBody
 @RequestMapping(value="/addSchoolAdmin" , method=RequestMethod.POST)
 public String addClient(HttpServletRequest request,HttpServletResponse response,ModelMap model){
@@ -513,14 +517,18 @@ public String allSchoolList(ModelMap model){
 
 
 
+
+
 @RequestMapping(value="/reports")
 public String allClientList(ModelMap model){
-	List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+	/*List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
 	model.addAttribute("schoolAdminList", schoolAdminList);
 	List<School> schoolList=schoolService.allSchoolList();
-	model.addAttribute("schoolList", schoolList);
-	return "clientList";
+	model.addAttribute("schoolList", schoolList);*/
+	return "reports";
 }
+
+
 
 @RequestMapping(value="/schoolAdmin")
 public String allSchoolAdminList(ModelMap model){
@@ -549,9 +557,9 @@ public String allLeaveList(ModelMap model){
 
 @RequestMapping(value="/settings")
 public String allHolidayList(ModelMap model){
-	List<Holidays> holidayList= holidayService.allHolidayList();
-	model.addAttribute("holidayList", holidayList);
-	return "holidayList";
+	/*List<Holidays> holidayList= holidayService.allHolidayList();
+	model.addAttribute("holidayList", holidayList);*/
+	return "settings";
 }
 
 @RequestMapping(value="/empProjectList")

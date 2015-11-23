@@ -265,11 +265,23 @@
         <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->  
         <put-attribute name="body" value="/WEB-INF/jsp/admin_edit_empProject.jsp"></put-attribute>  
     </definition>   
+	
+	
+    <definition name="reports" extends="admin.definition" >  
+        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->  
+        <put-attribute name="body" value="/WEB-INF/jsp/reports.jsp"></put-attribute>  
+    </definition>
+	
+	<definition name="settings" extends="admin.definition" >  
+        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->  
+        <put-attribute name="body" value="/WEB-INF/jsp/settings.jsp"></put-attribute>  
+    </definition>
 	 
 	 <definition name="busList" extends="user.definition" >  
         <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->  
         <put-attribute name="body" value="/WEB-INF/jsp/busList.jsp"></put-attribute>  
     </definition>   
+      
     
     <definition name="driverList" extends="user.definition" >  
         <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->  

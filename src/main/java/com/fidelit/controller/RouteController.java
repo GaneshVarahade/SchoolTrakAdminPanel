@@ -55,6 +55,7 @@ GtsService gtsService;
 
 	@RequestMapping(value="/addNewStops")
 	public String addNewStops(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		System.out.println("HI ");
 		int stopCounter = 0;
 		int stopNo=0;
 		String stopName=null;
@@ -86,6 +87,7 @@ GtsService gtsService;
 		 stop.setStopName(stopName);
 		 stop.setLatitude(latitude);
 		 stop.setLongitude(longitude);
+		 System.out.println("In NewAddStops");
 		 stopService.addStop(stop);
 		 gtsService.addCorridorInGtsList(userName, corridorID, latitude, longitude,stopNo);
 		}
@@ -125,6 +127,7 @@ GtsService gtsService;
 
 	@RequestMapping(value="addRoute",method = RequestMethod.POST)
 	public String addRoute(@ModelAttribute("route") Route route,HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		System.out.println("Just In AddRoute");
 		List<Bus> busList=busService.allBusList();
 		String busNumber=route.getBus().getRegNumber();
 		String driverName=route.getBusDriver().getDriverName();
@@ -139,6 +142,7 @@ GtsService gtsService;
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		System.out.println("userName:"+userName);
 		gtsService.addCorridorInGts(userName, route.getCorridorId(), route.getRouteName());
+		System.out.println("AddRoute:After Adding Record");
 		List<Route> routes = routeService.getRouteList();
 		model.addAttribute("routeList",routes);
 		model.addAttribute("busList",busList);
