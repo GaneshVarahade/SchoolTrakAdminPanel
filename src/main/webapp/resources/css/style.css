@@ -1402,6 +1402,9 @@ a.edit-section:hover {
 		width: 100%;
 		bottom: 0;
 	}
+	.main-menu .navbar-nav.long>li>a {
+		padding: 5px 12px 6px;
+	}
 }
 
 @media (min-width: 980px) and (max-width: 1199px) {
@@ -1410,6 +1413,9 @@ a.edit-section:hover {
 	}
 	.user-se {
 		margin-left: 30px;
+	}
+	.main-menu .navbar-nav.long>li>a {
+		padding: 5px 12px 6px;
 	}
 }
 /* Portrait tablet to landscape and desktop */
