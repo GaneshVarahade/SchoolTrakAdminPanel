@@ -274,33 +274,33 @@ function addStops(id){
                 <div class="form-group">
                   <%--   <form:label path="busId" class="col-sm-3 control-label">Vehicle ID.</form:label> --%>
                     <div class="col-sm-8">
-                        <form:input type="hidden" path="busId" id="routeNo" value="" class="form-control" />
+                        <form:input type="hidden" path="busId" id="routeNo" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group">
                     <form:label  path="regNumber" class="col-sm-3 control-label">Vehicle Register Number</form:label>
                     <div class="col-sm-8">
-                        <form:input  path="regNumber" id="regNumber" value="" class="form-control" />
+                        <form:input  path="regNumber" id="regNumber" class="form-control" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <form:label path="busType" class="col-sm-3 control-label">Vehicle Type</form:label>
                     <div class="col-sm-8">
-                        <form:input path="busType" id="busType" value="" class="form-control" />   
+                        <form:input path="busType" id="busType"  class="form-control" />   
                     </div>                 
                 </div>
 
                 <div class="form-group">
                     <form:label path="capacity" class="col-sm-3 control-label">Capacity</form:label>
                     <div class="col-sm-8">
-                        <form:input path="capacity" id="capacity" value="" class="form-control" />
+                        <form:input path="capacity" id="capacity" class="form-control" />
                     </div>
                 </div>
             </div>
             <div class="modal-footer text-center">
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>                    
-                <button type="submit" class="btn btn-sky btn-sm" />Save</button>
+                <input type="submit" class="btn btn-sky btn-sm" value="Save">
             </div>
             </form:form>
         </div>
