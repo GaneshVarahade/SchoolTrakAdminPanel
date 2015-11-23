@@ -276,4 +276,13 @@
         <put-attribute name="body" value="/WEB-INF/jsp/driverList.jsp"></put-attribute>  
     </definition>   
 	  
+	<definition name="extintorList" extends="user.definition" >  
+        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->  
+        <put-attribute name="body" value="/WEB-INF/jsp/extintorList.jsp"></put-attribute>  
+    </definition> 
+    
+    <definition name="newsletterList" extends="user.definition" >  
+        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->  
+        <put-attribute name="body" value="/WEB-INF/jsp/newsletterList.jsp"></put-attribute>  
+    </definition>     
 </tiles-definitions>  

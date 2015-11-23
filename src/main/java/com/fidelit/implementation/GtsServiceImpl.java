@@ -24,6 +24,7 @@ public class GtsServiceImpl implements GtsService{
 		session.close();
 	}
 	
+	
 	@Override
 	public void addCorridorInGts(String accountId,String corridorID,String description) {
 		// TODO Auto-generated method stub
@@ -51,6 +52,43 @@ public class GtsServiceImpl implements GtsService{
 		
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void editCorridorInGts(String accountId, String corridorID,
+			String description) {
+		
+		Session session = sessionFactory.openSession();
+		String sql = "update GeoCorridor set accountID = '"+accountId+"', corridorID ='"+corridorID+"' , description ='"+description+"' where corridorID = '"+corridorID+"'";
+		Query query = session.createSQLQuery(sql);
+		query.executeUpdate();
+		session.close();
+		
+	}
+
+	@Override
+	public void editCorridorInGtsList(String accountId, String corridorID,
+			double latitude, double longitude, int stopID) {
+		
+		Session session = sessionFactory.openSession();
+		String  sql="update GeoCorridorList set latitude"+stopID+" = "+latitude +", longitude"+stopID+" ="+longitude +"where corridorID = '"+corridorID +"'" ;
+		Query query = session.createSQLQuery(sql);
+		query.executeUpdate();
+		session.close();
+		
+	}
+
+	@Override
+	public void deleteCorridor(String corridorID) {
+		
+		Session session = sessionFactory.openSession();
+		String sql = "delete from GeoCorridor where corridorID = '"+corridorID+"'";
+		String sql1= "delete from GeoCorridorList where corridorID = '"+corridorID+"'";
+		Query query = session.createSQLQuery(sql);
+		Query query1=session.createSQLQuery(sql1);
+		query1.executeUpdate();
+		query.executeUpdate();
+		session.close();
 	}
 
 }

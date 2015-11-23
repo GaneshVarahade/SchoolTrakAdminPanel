@@ -42,6 +42,12 @@
                     	<img src="${pageContext.request.contextPath}/resources/images/logo/logo.png" id="logo"> 
                   	</a>
                 </div>
+                
+                <ul class="nav navbar-nav navbar-right">
+	<!--  <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
+	<li><a href="${pageContext.request.contextPath}/j_spring_security_logout"><i class="fa fa-power-off"></i> Logout</a></li>
+</ul>
+                
                 <!-- /.navbar-top-links -->
             </div>
         </div>
@@ -75,7 +81,7 @@
        	</div>
         
         <div class="footer">
-        	Copyright  2010-2015 FidelItServices.com
+        	Copyright 2015 Ciweb Tech LLC
       	</div>
         
 	</body>

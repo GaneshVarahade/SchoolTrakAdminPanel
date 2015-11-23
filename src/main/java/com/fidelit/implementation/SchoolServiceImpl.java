@@ -144,4 +144,26 @@ public class SchoolServiceImpl implements SchoolService {
 		return school;	
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public School getSchoolByName(String schoolName) {
+		
+		Session session;
+		School  school=null;
+		try{
+			session = sessionFactory.getCurrentSession();
+			Criteria criteria = session.createCriteria(School.class);
+			 criteria.add(Restrictions.eq("schoolName", schoolName));
+			 Object result=criteria.uniqueResult();
+			 school = (School)result;
+			// session.getbyName(school);
+		//	 return school; 
+			//System.out.println(empList);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return school;	
+	}
+
 }

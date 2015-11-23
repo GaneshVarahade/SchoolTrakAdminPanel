@@ -118,7 +118,7 @@
       	</div>
 	</div>
    	<div class="footer">
-        Copyright  2010-2015 FidelItServices.com
+        Copyright 2015 Ciweb Tech LLC
     </div>        
 </body>
 </html>

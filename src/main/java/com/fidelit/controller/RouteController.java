@@ -165,6 +165,8 @@ GtsService gtsService;
 		route.setBus(bus);
 		route.setBusDriver(busDriver);
 		route.setCorridorId(corridorId);
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		gtsService.editCorridorInGts(userName, corridorId, dataList[1]);
 		routeService.updateRoute(route);
 		return "stopMap";
 	}
@@ -182,12 +184,15 @@ GtsService gtsService;
 		double latitude=Double.parseDouble(dataList[2]);
 		double longitude=Double.parseDouble(dataList[3]);
 		Route route=routeService.getRouteId(routeNo);
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		String corridorID=route.getCorridorId();
 		stop.setRoute(route);
 		stop.setStopId(id);
 		stop.setStopName(dataList[1]);
 		stop.setLatitude(latitude);
 		stop.setLongitude(longitude);
 		stop.setStopNo(stopNo);
+		gtsService.editCorridorInGtsList(userName, corridorID, latitude, longitude, stopNo);
 		stopService.updateStop(stop);
 		return "stopMap";
 	}
@@ -199,7 +204,12 @@ GtsService gtsService;
 		
 		for (int i = 0; i < str1.length; i++) {
 			int id = Integer.parseInt(str1[i]);
+			
+			Route route1=routeService.getRouteId(id);
+			System.out.println("Route"+route1.getCorridorId());
+			gtsService.deleteCorridor(route1.getCorridorId());
 			routeService.deleteRoute(id);
+			
 		}
 		
 
@@ -257,7 +267,6 @@ GtsService gtsService;
 		bus.setCapacity(capacity);
 		bus.setRegNumber(dataList[1]);
 		bus.setBusType(dataList[2]);
-		
 		model.addAttribute(new Bus());
 		busService.updateBus(bus);
 		return "busList";

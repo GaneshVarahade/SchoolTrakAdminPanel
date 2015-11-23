@@ -17,5 +17,6 @@ public interface SchoolService {
 	School getSchoolId(int id);
 	School getSchool(String schoolName);
 	void deleteSchool(int id);
+	School getSchoolByName(String schoolName);
 //	List<Employee> getEmployeeFirstName();
 }

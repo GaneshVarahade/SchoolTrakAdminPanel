@@ -35,7 +35,7 @@
             	<a href="${pageContext.request.contextPath}/route/busList" class="menu-link">
                     <div class="menu-block m-block4">
                         <div class="menu-icon"><i class="fa fa-bus"></i></div>
-                        <div class="menu-name">Bus</div>
+                        <div class="menu-name">Vehicles</div>
                     </div>
                 </a>
             </div>
@@ -44,7 +44,7 @@
                <a href="${pageContext.request.contextPath}/route/driverList" class="menu-link">
                     <div class="menu-block m-block5">
                         <div class="menu-icon"><i class="fa fa-user"></i></div>
-                        <div class="menu-name">Driver</div>
+                        <div class="menu-name">Drivers</div>
                     </div>
                 </a>
             </div>

@@ -47,4 +47,10 @@
    <bean id="gtsServiceImpl" class="com.fidelit.implementation.GtsServiceImpl" scope="prototype">
    </bean>
    
+   <bean id="ExtinctorServiceImpl" class="com.fidelit.implementation.ExtinctorServiceImpl" scope="prototype">
+   </bean>
+   
+    <bean id="NewsletterServiceImpl" class="com.fidelit.implementation.NewsletterServiceImpl" scope="prototype">
+   </bean>
+   
 </beans>

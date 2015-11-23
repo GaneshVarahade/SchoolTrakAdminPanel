@@ -16,5 +16,5 @@ public interface StopService {
 	Stop getStopId(int id);
 	Stop getStop(String stopName);
 	void deleteStop(int id);
-
+	
 }

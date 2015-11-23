@@ -75,7 +75,7 @@ public class Route implements Serializable{
 		this.stopList = stopList;
 	}
 	
-	@OneToOne(fetch=FetchType.EAGER, cascade = {CascadeType.ALL})
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="regNumber")
 	public Bus getBus() {
 		return bus;
@@ -84,7 +84,7 @@ public class Route implements Serializable{
 		this.bus = bus;
 	}
 	
-	@OneToOne(fetch=FetchType.EAGER, cascade = {CascadeType.ALL})
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="driverName")
 	public BusDriver getBusDriver() {
 		return busDriver;

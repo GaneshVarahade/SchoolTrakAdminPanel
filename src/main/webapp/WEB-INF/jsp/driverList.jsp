@@ -166,7 +166,7 @@ function addStops(id){
         <div class="col-lg-12">
             <div class="fixed-page-header">
                 <div class="page-header clearfix">
-                    <h1 class="page-head-text pull-left">Bus Driver</h1>
+                    <h1 class="page-head-text pull-left"> Driver</h1>
                     
                     <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#forClientRegistration"><i class="fa fa-plus-circle"></i>  Add Bus Driver</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
@@ -182,7 +182,7 @@ function addStops(id){
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
                    <div class="panel-name">
-                        <span class="panel-head">Bus Driver List</span>
+                        <span class="panel-head">Driver List</span>
                     </div>                                        
                 </div>
                 <!-- /.panel-heading -->

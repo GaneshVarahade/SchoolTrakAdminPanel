@@ -164,7 +164,7 @@ function addStops(id){
         <div class="col-lg-12">
             <div class="fixed-page-header">
                 <div class="page-header clearfix">
-                    <h1 class="page-head-text pull-left">Bus</h1>
+                    <h1 class="page-head-text pull-left">Vehicle</h1>
                     
                     <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#forClientRegistration"><i class="fa fa-plus-circle"></i>  Add Bus</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
@@ -180,7 +180,7 @@ function addStops(id){
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
                    <div class="panel-name">
-                        <span class="panel-head">Bus List</span>
+                        <span class="panel-head">Vehicle List</span>
                     </div>                                        
                 </div>
                 <!-- /.panel-heading -->
@@ -190,10 +190,10 @@ function addStops(id){
                           <thead>
                             <tr>
                             	<th width="5%" class="text-center no-sort"><input type="checkbox"></th>
-                                <th width="25%">Bus Number</th>
-                                <th width="25%">Bus Type</th>
-                                <th width="20%">Bus Capacity</th>
-                                <th width="20%">Edit Bus</th>                  
+                                <th width="25%">Vehicle Number</th>
+                                <th width="25%">Vehicle Type</th>
+                                <th width="20%">Vehicle Capacity</th>
+                                <th width="20%">Edit Vehicle</th>                  
                             </tr>
                           </thead>
                         	<tbody>
@@ -221,32 +221,32 @@ function addStops(id){
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Edit Bus</h4>
+            <h4 class="modal-title">Edit Vehicle</h4>
           </div>
           <div class="modal-body">   
           	<div class="form-horizontal">   
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Bus Id :</label>
+                    <label class="col-sm-3 control-label">Vehicle Id :</label>
                     <div class="col-sm-8">
                         <input type="text" name="name" id="busId" class="form-control" readOnly>
                     </div>
                 </div>			  
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Bus Register Number :</label>
+                    <label class="col-sm-3 control-label">Vehicle Register Number :</label>
                     <div class="col-sm-8">
                         <input type="text" name="regNo" id="regNo" class="form-control">
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Bus Type:</label>
+                    <label class="col-sm-3 control-label">Vehicle Type:</label>
                     <div class="col-sm-8">
                         <input type="text" name="type" id="type" class="form-control">
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Bus Capacity :</label>
+                    <label class="col-sm-3 control-label">Vehicle Capacity :</label>
                     <div class="col-sm-8">
                         <input type="text" name="capacity" id="capacity" class="form-control">
                     </div>
@@ -267,25 +267,25 @@ function addStops(id){
         <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Add Bus</h4>
+            <h4 class="modal-title">Add Vehicle</h4>
         </div>
         <form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/route/addBus" commandName="bus">
             <div class="modal-body">
                 <div class="form-group">
-                    <form:label path="busId" class="col-sm-3 control-label">Bus ID.</form:label>
+                    <form:label path="busId" class="col-sm-3 control-label">Vehicle ID.</form:label>
                     <div class="col-sm-8">
                         <form:input  path="busId" id="routeNo" value="" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <form:label  path="regNumber" class="col-sm-3 control-label">Bus Register Number</form:label>
+                    <form:label  path="regNumber" class="col-sm-3 control-label">Vehicle Register Number</form:label>
                     <div class="col-sm-8">
                         <form:input  path="regNumber" id="regNumber" value="" class="form-control" />
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <form:label path="busType" class="col-sm-3 control-label">Bus Type</form:label>
+                    <form:label path="busType" class="col-sm-3 control-label">Vehicle Type</form:label>
                     <div class="col-sm-8">
                         <form:input path="busType" id="busType" value="" class="form-control" />   
                     </div>                 
