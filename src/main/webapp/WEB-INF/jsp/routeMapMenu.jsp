@@ -29,16 +29,16 @@
     <script>
 
         $(function () {
-          
-        	$("#treegrid1").on("igtreeselectionchanged", function (e, ui) {
-            	alert("igtreeselectionchanged: [ " + "Selection Changed: " + ui.newNodes[0].data.Text + "]"); focusOnMobile();
-            });
+   
+        	
 
             $("#treegrid1").igTreeGrid({
                 width: "100%",
                 dataType : "json",
                 dataSource: "${pageContext.request.contextPath}/route/routeMapMenuAjax", //bound to flat data source,
                 autoGenerateColumns: false,
+                dragAndDrop: true,
+                singleBranchExpand: true,
                 primaryKey: "Id",
                 foreignKey: "PID",
                 initialExpandDepth: 1,
@@ -46,11 +46,11 @@
                      { headerText: "RouteName ", key: "RouteName", width: "100px", dataType: "String" },
                      { headerText: "StopName ", key: "StopName", width: "100px", dataType: "String" },
                      {headerText:"ID", key: "Id" ,width: "0px", dataType: "number"}
-                ]
-               
+                ],
+                nodeClick: function(evt, ui) {alert("testingsfsf...");}
             });
 
-
+  
             
             });
 

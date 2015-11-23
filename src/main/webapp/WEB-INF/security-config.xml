@@ -15,8 +15,9 @@
 		<intercept-url pattern="/schoolAdmin/parentList**" access="ROLE_SCHOOLADMIN" />
 		<intercept-url pattern="/schoolAdmin/studentList**" access="ROLE_SCHOOLADMIN" />
 		
-		<form-login login-page='/login' username-parameter="account"
+		<form-login login-page='/login' username-parameter="username"
 			password-parameter="password" default-target-url="/default"
+			authentication-details-source-ref="customWebAuthenticationDetailsSource"
 			authentication-failure-url="/login?authfailed" />
 		<logout logout-success-url="/login?logout" />
 	</http>
@@ -32,7 +33,7 @@
 	<authentication-manager>
 		<authentication-provider>
 			<jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query="select username,password,enabled from schoolAdmin where accountType=?"
+				users-by-username-query="select username,password,enabled from schoolAdmin where username=?"
 				authorities-by-username-query="select username, role from schoolAdmin where username=?" />
 		</authentication-provider>
 	</authentication-manager>

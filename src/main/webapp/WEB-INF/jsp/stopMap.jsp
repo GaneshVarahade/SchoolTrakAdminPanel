@@ -9,6 +9,7 @@
 	  $("#error").text("Your browser doesn't support the Geolocation API");
 	  return;
 	}
+	
 	// Save the positions' history
 	var path = [];
 
@@ -112,7 +113,8 @@
 		<div class="col-lg-12">
 			<div class="fixed-page-header">
 				<div class="page-header clearfix">
-					<h1 class="page-head-text pull-left">Bus Stop</h1>                    
+					<h1 class="page-head-text pull-left">Bus Stop</h1>         
+					<button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addStop"><i class="fa fa-plus-circle"></i> Add Stop</button></td>           
 					<a class="btn btn-inverse btn-sm pull-right" href="javascript:history.back();"><i class="fa fa-angle-double-left"></i> Back</a>
 				</div>                                    
 			</div>
@@ -229,6 +231,64 @@
    	</div>
 </div>
 
+<div class="modal fade" id="addStop" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
+   	<div class="modal-dialog">
+		<div class="modal-content">
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Add Bus Stop</h4>
+			  </div>
+              
+			  <div class="modal-body">              	
+        		<div class="form-horizontal">
+        		
+				    <div class="form-group">
+                        <label class="col-sm-3 control-label">Route Number :</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="routeId" id="routeId" value= "${routeId}" class="form-control" readOnly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Stop Number :</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="stopNumber" id="stopNumber" value= "${stopCounter}" class="form-control" readOnly>
+                        </div>
+                    </div>
+				
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Stop Name :</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="stopsName" id="stopsName" class="form-control">
+                        </div>
+                    </div>
+				
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Latitude :</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="latitudes" id="latitudes" class="form-control">
+                        </div>
+                    </div>
+				
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Longitude :</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="longitudes" id="longitudes" class="form-control">
+                        </div>
+                    </div>
+                    <input type="hidden" id="stopId" name="id">
+                    <input type="hidden" id="routeNumber" name="id">
+              	</div>
+            </div>
+            
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-sky btn-sm" onClick="addStop()" data-dismiss="modal">Save</button>
+            </div>				
+     	</div>
+   	</div>
+</div>
+
+
 <script>
 	function editRoute(stopNo,stopName,latitude,longitude,stopId,routeNo){
 	//	alert(stopNo);
@@ -265,4 +325,29 @@
 		}
 	});
 }
+	
+function addStop(){
+
+var routeNo=$('#routeId').val();
+var stopNo=$('#stopNo').val();
+var stopName=$('#stopName').val();
+var latitude=$('#latitude').val();
+var longitude=$('#longitude').val();
+
+var data=routeNo+","+stopNo+","+stopName+","+latitude+","+longitude;
+
+var formData="data="+data;
+ $.ajax({
+	    type : "POST",
+	    url : "${pageContext.request.contextPath}/route/addNewStops",
+	    data : formData,
+	    success : function(response) {	       
+	       alert("Stop Added Successfully");
+	    },
+	    error : function(e) {
+	       alert('Error: ' + e);
+	    }
+	});
+
+} 
 </script>
