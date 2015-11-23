@@ -272,9 +272,9 @@ function addStops(id){
         <form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/route/addBus" commandName="bus">
             <div class="modal-body">
                 <div class="form-group">
-                    <form:label path="busId" class="col-sm-3 control-label">Vehicle ID.</form:label>
+                  <%--   <form:label path="busId" class="col-sm-3 control-label">Vehicle ID.</form:label> --%>
                     <div class="col-sm-8">
-                        <form:input  path="busId" id="routeNo" value="" class="form-control" />
+                        <form:input type="hidden" path="busId" id="routeNo" value="" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group">
