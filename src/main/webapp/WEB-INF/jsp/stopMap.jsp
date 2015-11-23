@@ -235,7 +235,7 @@
    	<div class="modal-dialog">
 		<div class="modal-content">
 			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<button type="button" class="close"  aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Add Bus Stop</h4>
 			  </div>
               <form action="${pageContext.request.contextPath}/route/addNewStops">
@@ -281,11 +281,9 @@
             </div>
              <div class="modal-footer text-center">
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-sky btn-sm" data-dismiss="modal">Save</button>
+                <input type="submit" class="btn btn-sky btn-sm" data-dismiss="modal" value="Save">
             </div>
            </form>            
-           		
-     	
      	</div>
    	</div>
 </div>
