@@ -5,8 +5,3 @@
 	<li><a href="#">Reports</a></li>
 	<li><a href="#">Settings</a></li>
 </ul>
-
-<ul class="nav navbar-nav navbar-right">
-	<!--  <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
-	<li><a href="${pageContext.request.contextPath}/j_spring_security_logout"><i class="fa fa-power-off"></i> Logout</a></li>
-</ul>

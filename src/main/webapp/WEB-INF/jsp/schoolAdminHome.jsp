@@ -40,11 +40,29 @@
                 </a>
             </div>
             
-            <div class="col-md-2 col-md-offset-0 col-sm-3 col-sm-offset-5">
+            <div class="col-md-2 col-sm-3">
                <a href="${pageContext.request.contextPath}/route/driverList" class="menu-link">
                     <div class="menu-block m-block5">
                         <div class="menu-icon"><i class="fa fa-user"></i></div>
                         <div class="menu-name">Drivers</div>
+                    </div>
+                </a>
+            </div>
+            
+             <div class="col-md-2 col-md-offset-4 col-sm-3">
+            	<a href="${pageContext.request.contextPath}/extintor/extintorList" class="menu-link">
+                    <div class="menu-block m-block4">
+                        <div class="menu-icon"><i class="fa fa-fire-extinguisher"></i></div>
+                        <div class="menu-name">Extintor</div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="col-md-2 col-md-offset-0 col-sm-3">
+               <a href="${pageContext.request.contextPath}/newsletter/newsletterList" class="menu-link">
+                    <div class="menu-block m-block1">
+                        <div class="menu-icon"><i class="fa fa-newspaper-o"></i></div>
+                        <div class="menu-name">Newsletter</div>
                     </div>
                 </a>
             </div>

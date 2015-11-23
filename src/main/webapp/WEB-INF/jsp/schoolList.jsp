@@ -492,7 +492,7 @@ function checkUsernameRegister(){
                             <input type="text" name="city" id="city1" value="" class="form-control" >
                       	</div>
                     </div>
-                        
+                                            
                   	<!--<div class="form-group">
                     	<label class="col-sm-3 control-label">Sex</label>
                       	<div class="col-sm-8">
@@ -503,7 +503,7 @@ function checkUsernameRegister(){
             </div>
             <div class="modal-footer text-center">
             	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            	<button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration()" data-dismiss="modal">Save</button>
+            	<button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration()">Save</button>
             </div>
         </div>
 	</div>

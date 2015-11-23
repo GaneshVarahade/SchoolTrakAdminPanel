@@ -1,10 +1,6 @@
  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
- <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
- <head>
- <script src="https://cdn.datatables.net/1.10.10/js/.dataTables.min.js" type="text/javascript"></script>
- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/.dataTables.min.css">
-</head>
-<script>
+ <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%><head>
+<script type="text/javascript">
 var saveKara = 0;
 
  
@@ -14,8 +10,6 @@ var saveKara = 0;
 	});
 
  
-</script>
-<script type="text/javascript">
 var saveKara = 0;
 
 function showBtn(){
@@ -126,190 +120,169 @@ function addStops(id){
 		  }
 		 
 	}
-
-	
 	
 </script>
-<style>
-.button{
-    border-left-width: 0px;
-    width: 108px;
-    height: 27px;
-    padding-left: 0px;
-    margin-left: 0px;
-    background-color : #F5BE0A;
-}
-</style>
-</head>
-<body>
-	<button id="btn" class="button"
-		type="submit" onClick="showBtn()">Delete</button>&nbsp;
-	<button class="button" data-toggle="modal"
-		data-id="" data-target="#addExtintor">Add Extintor</button>
-		<hr style="border-top-width: 0px;">
-	<table id="routeDataTable" class="table table-striped table-bordered"
-		cellspacing="0" width="100%">
-		<thead>
-			<tr>
-				<th></th>
-				<th>Type</th>
-				<th>Status</th>
-				<th>Bus Number</th>
-				<th>Edit Extintor</th>
 
-			</tr>
-		</thead>
+<div class="form-horizontal">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="fixed-page-header">
+                <div class="page-header clearfix">
+                    <h1 class="page-head-text pull-left">Extintor</h1>    
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addExtintor"><i class="fa fa-plus-circle"></i>  Add Extintor</button>                    
+                    <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
+                </div>                                    
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+           
+    <div class="row">                        
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                   <div class="panel-name">
+                        <span class="panel-head">Extintor List</span>
+                    </div>                                        
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="routeDataTable" class="table table-bordered table-striped table-hover">
+                          <thead>
+                            <tr>
+                            	<th width="10%" class="text-center no-sort"><input type="checkbox"></th>
+                                <th width="10%">Type</th>
+                                <th width="20%">Status</th>
+                                <th width="20%">Bus Number</th>
+                                <th width="30%">Edit Extintor</th>
+                            </tr>
+                          </thead>
+                            <tbody>
+                                <c:forEach var="extintor" items="${extintorList}">
+                                    <tr>
+                                       <td><input type="checkbox" id="${extintor.id}" name="myTextEditBox" value="" onClick="displayNote(event)"></td>
+                                       <td>${extintor.type}</td>  
+                                       <c:choose>
+                                        <c:when test="${extintor.status=='1'}">
+                                        	<td>ON</td>
+                                        </c:when>    
+                                        <c:otherwise>
+                                        	<td>OFF</td>
+                                        </c:otherwise>
+                                      </c:choose>
+                                       <td>${extintor.bus.regNumber}</td> 
+                                       <td><button type="submit" class="btn btn-default btn-sm" onClick="editExtintors('${extintor.id}','${extintor.type}','${extintor.status}');"><i class="fa fa-pencil-square-o"></i> Edit</button></td>
+                                      </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>                                    
+            </div>
+        </div>
+    </div>
+<!-- / row -->   
+</div>
 
-		<tfoot>
-			<tr>
-				<th></th>
-				<th>Type</th>
-				<th>Status</th>
-				<th>Bus Number</th>
-				<th>Edit Extintor</th>
-
-			</tr>
-		</tfoot>
-
-		<tbody>
-			<c:forEach var="extintor" items="${extintorList}">
-				<tr>
-				   <td><input type="checkbox" id="${extintor.id}" name="myTextEditBox" value="" onClick="displayNote(event)"></td>
-				   <td>${extintor.type}</td>  
-				   <c:choose>
-    				<c:when test="${extintor.status=='1'}">
-        			<td>	ON </td>
-        
-    				</c:when>    
-    				<c:otherwise>
-        			<td>	OFF </td>
-    				</c:otherwise>
-				  </c:choose>
-				   
-				  
-				   <td>${extintor.bus.regNumber}</td> 
-				   <td><input type="submit" class="button" value="Edit" onclick="editExtintors('${extintor.id}','${extintor.type}','${extintor.status}');"></td>
-				  </tr>
-			</c:forEach>
-		</tbody>
-	</table>
-
-	 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-           <div class="modal-dialog">
-			<div class="modal-content">
-			  <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Edit </h4>
-			  </div>
-			  <div class="modal-body">
-			  
-				<div>
-					<label>Extintor ID :</label>
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
+   	<div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Edit Extintor</h4>
+          </div>
+          <div class="modal-body">   
+          	<div class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Extintor ID :</label>
+                    <div class="col-sm-8">
 						<input type="text" name="name" id="id" class="form-control" readOnly>
+                  	</div>
 				</div>			  
-			  	<div>
-					<label>Extintor TYPE :</label>
+			  	<div class="form-group">
+					<label class="col-sm-3 control-label">Extintor TYPE :</label>
+                    <div class="col-sm-8">
 						<input type="text" name="name" id="type" class="form-control">
+                  	</div>
 				</div>
-				
-				
-				
-				<div>
-					<label>Status</label>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Status</label>
+                    <div class="col-sm-8">
 						<select id="status" class="form-control">
-						<option value="1">ON</option>
-						<option value="0">OFF</option>
+                            <option value="1">ON</option>
+                            <option value="0">OFF</option>
 						</select>
-				</div>
-				
-				
-				<div>
-					<label>Bus Number</label>
-					 <select name="regNumber" id="regNumber" class="form-control" >
-  													
-  					<c:forEach var="bus" items="${busList}">
-  						<option value="${bus.regNumber}">${bus.regNumber}</option>
-					</c:forEach>
-				 	</select> 
-												
-				</div>
-												
-								
-				<div><br>
-					<input type="submit" class="button" value="Submit" onclick="editExtintor();">
-				</div>
-			  </div>
-			 </div>
-			</div>
-	</div>
-
-
-	<div class="container">
-		<div class="modal fade" id="addExtintor" role="dialog">
-			<div class="modal-dialog">
-
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Add Extintor</h4>
-					</div>
-					<div class="modal-body">
-						<form:form id="registerForm" class="form-horizontal" method="post"
-							name="registerForm" action="${pageContext.request.contextPath}/extintor/addExtintor" commandName="extintor">
-							<div class="form-group">
-								<div class="container-fluid">
-									<section class="container">
-										<div class="container-page">
-											<div class="col-md-6">
-												<h3 class="dark-grey">Add Extintor</h3>
-
-												
-												<div>
-													<form:label  path="type">Type</form:label>
-													<form:input  path="type" id="type"
-														value="" class="form-control" />
-												</div>
-
-												<div>
-													<form:label path="status">Status</form:label>
-													<form:select path="status" id="status"
-														class="form-control">
-														<form:option value="1">ON</form:option>
-														<form:option value="0">OFF</form:option>
-													</form:select>
-												</div>
-
-												 <div>
-													<form:label path="bus.regNumber">Bus Number</form:label>
-													<form:select path="bus.regNumber" name="regNumber" id="bus.regNumber" class="form-control" >
-  													
-  													<c:forEach var="bus" items="${busList}">
-  													<form:option value="${bus.regNumber}">${bus.regNumber}</form:option>
-													</c:forEach>
-				 									</form:select>
-												
-												</div> 
-												
-												
-												
-											</div>
-										</div>
-									</section>
-								</div>
-							</div>
-							<div class="modal-footer">
-						     <input class="button" type="submit" value="Submit"/>
-					        </div>
-						</form:form>
-						
-					</div>
-					
+                  	</div>
+				</div>				
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Bus Number</label>
+                    <div class="col-sm-8">
+					 	<select name="regNumber" id="regNumber" class="form-control" >  													
+                            <c:forEach var="bus" items="${busList}">
+                                <option value="${bus.regNumber}">${bus.regNumber}</option>
+                            </c:forEach>
+				 		</select> 
+					</div>						
 				</div>
 			</div>
-		</div>
+            
+            <div class="modal-footer text-center">                
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-sky btn-sm" onClick="editExtintor();">Save</button>
+             </div>
+    	</div>
+  </div>
+</div>
+</div>
 
+
+<div class="modal fade" id="addExtintor" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
+   	<div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Add Extintor</h4>
+          </div>            
+          	<form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/extintor/addExtintor" commandName="extintor">
+          	<div class="modal-body"> 
+                <div class="form-group">
+                    <form:label path="type" class="col-sm-3 control-label">Type</form:label>
+                    <div class="col-sm-8">
+                    	<form:input path="type" id="type" value="" class="form-control" />
+                   	</div>
+                </div>
+    
+                <div class="form-group">
+                    <form:label path="status" class="col-sm-3 control-label">Status</form:label>
+                    <div class="col-sm-8">
+                        <form:select path="status" id="status" class="form-control">
+                            <form:option value="1">ON</form:option>
+                            <form:option value="0">OFF</form:option>
+                        </form:select>
+                   	</div>
+                </div>
+    
+                 <div class="form-group">
+                    <form:label path="bus.regNumber" class="col-sm-3 control-label">Bus Number</form:label>
+                    <div class="col-sm-8">
+                        <form:select path="bus.regNumber" name="regNumber" id="bus.regNumber" class="form-control">                    
+                            <c:forEach var="bus" items="${busList}">
+                                <form:option value="${bus.regNumber}">${bus.regNumber}</form:option>
+                            </c:forEach>
+                        </form:select>
+                  	</div>
+                </div> 
+           	</div>
+			<div class="modal-footer text-center">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>                    
+                <button type="submit" class="btn btn-sky btn-sm" />Save</button>
+            </div>
+         </form:form>
+    	</div>
 	</div>
-	<script src="script.js" type="text/javascript" defer="defer"></script>
-</body>
+</div>
+
+<script src="script.js" type="text/javascript" defer="defer"></script>
 

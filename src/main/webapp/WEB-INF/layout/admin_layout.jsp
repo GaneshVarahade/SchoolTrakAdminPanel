@@ -41,12 +41,7 @@
                 	<a class="navbar-brand" href="javascript:void(0);"> 
                     	<img src="${pageContext.request.contextPath}/resources/images/logo/logo.png" id="logo"> 
                   	</a>
-                </div>
-                
-                <ul class="nav navbar-nav navbar-right">
-	<!--  <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
-	<li><a href="${pageContext.request.contextPath}/j_spring_security_logout"><i class="fa fa-power-off"></i> Logout</a></li>
-</ul>
+                </div>                
                 
                 <!-- /.navbar-top-links -->
             </div>
@@ -68,6 +63,11 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="dashboard-menu">
             	<tiles:insertAttribute name="header" />
+                
+                <ul class="nav navbar-nav navbar-right">
+                    <!--  <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
+                    <li><a href="${pageContext.request.contextPath}/j_spring_security_logout"><i class="fa fa-power-off"></i> Logout</a></li>
+                </ul>
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
         </nav>

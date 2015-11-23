@@ -402,7 +402,7 @@ function editStudents(){
     	</div>
     	<div class="modal-footer text-center">
             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration();" data-dismiss="modal">Save</button>
+            <button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration();">Save</button>
         </div>
     </div>
   </div>
@@ -487,7 +487,7 @@ function editStudents(){
        	</div>
     	<div class="modal-footer text-center">
             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-sky btn-sm" onClick="editStudents();" data-dismiss="modal">Save</button>
+            <button type="submit" class="btn btn-sky btn-sm" onClick="editStudents();">Save</button>
         </div>
     </div>
   </div>

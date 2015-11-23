@@ -378,7 +378,8 @@ a.btn-inverse, a.btn-inverse:focus {
 	padding: 2px 0;
     background: #4C4C4E;
 }
-.main-menu .navbar-nav>li>a {
+.main-menu .navbar-nav>li>a,
+.main-menu .navbar-nav>li>a:focus {
 	color: #fff;
 	line-height: normal;
 	font-size: 16px;
@@ -387,8 +388,10 @@ a.btn-inverse, a.btn-inverse:focus {
 	border-right: 1px solid #F8D310;
 	text-transform: uppercase;
 }
-.main-menu .navbar-nav>li>a:hover, 
-.main-menu .navbar-nav>li>a:focus {
+.main-menu .navbar-nav.long>li>a {
+	padding: 5px 25px 6px;
+}
+.main-menu .navbar-nav>li>a:hover {
 	color: #4C4C4E;	
 	background: #F8D310;
 }
@@ -1380,6 +1383,10 @@ a.edit-section:hover {
 .container-fluid>.navbar-header {
     margin-right: -15px;
     margin-left: -15px;
+}
+
+.dataTables_empty {
+	text-align: center;
 }
 
 /* Large desktop */

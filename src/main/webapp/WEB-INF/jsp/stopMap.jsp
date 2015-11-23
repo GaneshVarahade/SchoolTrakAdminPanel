@@ -225,7 +225,7 @@
             
             <div class="modal-footer text-center">
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-sky btn-sm" onClick="editStop()" data-dismiss="modal">Save</button>
+                <button type="submit" class="btn btn-sky btn-sm" onClick="editStop()">Save</button>
             </div>				
      	</div>
    	</div>
@@ -281,7 +281,7 @@
             </div>
              <div class="modal-footer text-center">
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-                <input type="submit" class="btn btn-sky btn-sm" data-dismiss="modal" value="Save">
+                <button type="submit" class="btn btn-sky btn-sm">Save</button>
             </div>
            </form>            
      	</div>

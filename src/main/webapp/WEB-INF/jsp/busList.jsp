@@ -166,7 +166,7 @@ function addStops(id){
                 <div class="page-header clearfix">
                     <h1 class="page-head-text pull-left">Vehicle</h1>
                     
-                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#forClientRegistration"><i class="fa fa-plus-circle"></i>  Add Bus</button>                    
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#forClientRegistration"><i class="fa fa-plus-circle"></i>  Add Vehicle</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>
@@ -255,7 +255,7 @@ function addStops(id){
       	</div>
     	<div class="modal-footer text-center">
             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-sky btn-sm" onClick="editBuses();" data-dismiss="modal">Save</button>
+            <button type="submit" class="btn btn-sky btn-sm" onClick="editBuses();">Save</button>
         </div>
     </div>
   </div>

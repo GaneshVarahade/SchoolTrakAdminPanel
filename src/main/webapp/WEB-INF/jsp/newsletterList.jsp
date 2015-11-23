@@ -1,10 +1,7 @@
  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
- <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
- <head>
- <script src="https://cdn.datatables.net/1.10.10/js/.dataTables.min.js" type="text/javascript"></script>
- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/.dataTables.min.css">
-</head>
-<script>
+ <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%><head>
+ 
+<script type="text/javascript">
 var saveKara = 0;
 
  
@@ -13,9 +10,7 @@ var saveKara = 0;
 	    
 	});
 
- 
-</script>
-<script type="text/javascript">
+
 var saveKara = 0;
 
 function showBtn(){
@@ -130,108 +125,84 @@ function addStops(id){
 	
 	
 </script>
-<style>
-.button{
-    border-left-width: 0px;
-    width: 108px;
-    height: 27px;
-    padding-left: 0px;
-    margin-left: 0px;
-    background-color : #F5BE0A;
-}
-</style>
-</head>
-<body>
-	<button id="btn" class="button"
-		type="submit" onClick="showBtn()">Delete</button>&nbsp;
-	<button class="button" data-toggle="modal"
-		data-id="" data-target="#addNewsletter">Add Newsletter</button>
-		<hr style="border-top-width: 0px;">
-	<table id="routeDataTable" class="table table-striped table-bordered"
-		cellspacing="0" width="100%">
-		<thead>
-			<tr>
-				<th></th>
-				<th> News </th>
-				<th>Date</th>
 
-			</tr>
-		</thead>
+<div class="form-horizontal">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="fixed-page-header">
+                <div class="page-header clearfix">
+                    <h1 class="page-head-text pull-left">Newsletter</h1>
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addNewsletter"><i class="fa fa-plus-circle"></i>  Add Newsletter</button>                    
+                    <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
+                </div>                                    
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+           
+    <div class="row">                        
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                   <div class="panel-name">
+                        <span class="panel-head">Newsletter List</span>
+                    </div>                                        
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="routeDataTable" class="table table-bordered table-striped table-hover">
+                          <thead>
+                            <tr>
+                            	<th width="10%" class="text-center no-sort"><input type="checkbox"></th>
+                                <th width="60%">News</th>
+                                <th width="30%">Date</th>
+                            </tr>
+                          </thead>
+                            <tbody>
+                                <c:forEach var="newsletter" items="${newsletterList}">
+                                    <tr>
+                                       <td class="text-center"><input type="checkbox" id="${newsletter.id}" name="myTextEditBox" value="" onClick="displayNote(event)"></td>
+                                       <td>${newsletter.news}</td>  
+                                       <td>${newsletter.date}</td> 
+                                      
+                                      </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>                                    
+            </div>
+        </div>
+    </div>
+<!-- / row -->   
+</div>
 
-		<tfoot>
-			<tr>
-				<th></th>
-				<th> News </th>
-				<th>Date</th>
-
-			</tr>
-		</tfoot>
-
-		<tbody>
-			<c:forEach var="newsletter" items="${newsletterList}">
-				<tr>
-				   <td><input type="checkbox" id="${newsletter.id}" name="myTextEditBox" value="" onClick="displayNote(event)"></td>
-				   <td>${newsletter.news}</td>  
-				   <td>${newsletter.date}</td> 
-				   
-				  
-				  </tr>
-			</c:forEach>
-		</tbody>
-	</table>
-
-	
-
-
-	<div class="container">
-		<div class="modal fade" id="addNewsletter" role="dialog">
-			<div class="modal-dialog">
-
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Add Extintor</h4>
-					</div>
-					<div class="modal-body">
-						<form:form id="registerForm" class="form-horizontal" method="post"
-							name="registerForm" action="${pageContext.request.contextPath}/newsletter/addNewsletter" commandName="newsletter">
-							<div class="form-group">
-								<div class="container-fluid">
-									<section class="container">
-										<div class="container-page">
-											<div class="col-md-6">
-												<h3 class="dark-grey">Add NewsLetter</h3>
-
-												
-												<div>
-													<form:label  path="news">News</form:label>
-													<form:input  path="news" id="news"
-														value="" class="form-control" />
-												</div>
-												
-											
-												
-												
-												</div> 
-												
-											</div>
-										</div>
-									</section>
-								</div>
-							</div>
-							<div class="modal-footer">
-						     <input class="button" type="submit" value="Push Notification"/>
-					        </div>
-						</form:form>
-						
-					</div>
-					
-				</div>
-			</div>
-		</div>
-
+<div class="modal fade" id="addNewsletter" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
+    <div class="modal-dialog">
+    	<!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add NewsLetter</h4>
+            </div>
+            <form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/newsletter/addNewsletter" commandName="newsletter">
+                <div class="modal-body">            
+                    <div class="form-group">
+                        <form:label path="news" class="col-sm-3 control-label">News</form:label>
+                        <div class="col-sm-8">
+                            <form:input path="news" id="news" value="" class="form-control" />
+                        </div>
+                    </div>
+               	</div>
+                <div class="modal-footer text-center">                
+            		<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                  	<button type="submit" class="btn btn-sky btn-sm">Save</button>
+                </div>
+            </form:form>
+        </div>
 	</div>
-	<script src="script.js" type="text/javascript" defer="defer"></script>
-</body>
-
+</div>
+					
+<script src="script.js" type="text/javascript" defer="defer"></script>
