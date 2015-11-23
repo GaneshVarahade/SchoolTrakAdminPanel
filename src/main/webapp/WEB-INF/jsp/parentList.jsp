@@ -339,8 +339,8 @@ function editParents(){
                           </thead>
                           <tbody>
                             <c:forEach var="schoolAdmin" items="${schoolAdminList}">
-                                <tr>
-                                    <c:if test= "${schoolAdmin.accountType eq 'Parent'}">                      
+                            <c:if test= "${schoolAdmin.accountType eq 'Parent'}">    
+                                <tr>              
                                         <td><input type="checkbox" id="${schoolAdmin.id}"  name="myTextEditBox" value="" onClick="displayNote(event)"/></td>
                                         <td>${schoolAdmin.name}</td>
                                         <td>${schoolAdmin.school.schoolName}</td>
@@ -349,8 +349,8 @@ function editParents(){
                                         <td>${schoolAdmin.age}</td>
                                         <td>${schoolAdmin.city}</td>
                                         <td><input type="submit" class="button" value="Edit" onClick="editParent('${schoolAdmin.id}','${schoolAdmin.name}','${schoolAdmin.school.schoolName}','${schoolAdmin.address}','${schoolAdmin.email}','${schoolAdmin.age}','${schoolAdmin.city}','${schoolAdmin.password}','${schoolAdmin.username}','${schoolAdmin.accountType}');"></td>
-                                       </c:if> 
-                                   	</tr>                                       
+                                   	</tr>  
+                                   </c:if>                                      
                              </c:forEach>
                          </tbody>
 	                  </table>
@@ -390,14 +390,14 @@ function editParents(){
                     </div>
                     
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Admin Name</label>
+                        <label class="col-sm-3 control-label">Parent Name</label>
                         <div class="col-sm-8">
                         	<input type="text" name="name" id="aName" value="" class="form-control">
                       	</div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Admin Password</label>
+                        <label class="col-sm-3 control-label">Parent Password</label>
                         <div class="col-sm-8">
                        		<input type="text" name="password" id="aPassword" value="" class="form-control">
                        	</div>

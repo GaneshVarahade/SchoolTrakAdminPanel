@@ -42,7 +42,7 @@ public class SchoolAppNotificationForIOS {
         };
 
         final ApnsService svc = APNS.newService()
-                .withCert("/media/mujib/Educational/IOSCertificate/Certificates.p12", "apple")
+                .withCert("/usr/local/easy/share/easy-tomcat7/webapps/track/certificate/Certificates.p12", "apple")
                 .withDelegate(delegate)
                 .build();
 
