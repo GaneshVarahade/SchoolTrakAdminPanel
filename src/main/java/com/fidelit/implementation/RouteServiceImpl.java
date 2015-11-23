@@ -30,6 +30,7 @@ public class RouteServiceImpl implements RouteService{
 	public void addRoute(Route route) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(route);
+		System.out.println("In AddRoute");
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false) 

@@ -52,5 +52,6 @@
    
     <bean id="NewsletterServiceImpl" class="com.fidelit.implementation.NewsletterServiceImpl" scope="prototype">
    </bean>
-   
+   <bean id="customWebAuthenticationDetailsSource" class="com.fidelit.controller.CustomWebAuthenticationDetailsSource" scope="prototype">
+   </bean>
 </beans>

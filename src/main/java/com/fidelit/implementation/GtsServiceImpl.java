@@ -32,6 +32,7 @@ public class GtsServiceImpl implements GtsService{
 		String sql = "insert into GeoCorridor (accountID,corridorID,description) values('"+accountId +"','"+corridorID +"','"+description +"')";
 		Query query = session.createSQLQuery(sql);
 		query.executeUpdate();
+		System.out.println(" In addCorridorInGts");
 		session.close();
 	}
 
@@ -47,6 +48,7 @@ public class GtsServiceImpl implements GtsService{
 			sql="update GeoCorridorList set latitude"+stopID+" = "+latitude +", longitude"+stopID+" ="+longitude +"where corridorID = '"+corridorID +"'" ;
 		}
 		Query query = session.createSQLQuery(sql);
+		System.out.println("in addCorridorInGtsList");
 		query.executeUpdate();
 		session.close();
 		
