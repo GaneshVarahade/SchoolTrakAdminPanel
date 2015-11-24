@@ -33,6 +33,7 @@ function showBtn(){
 
 $(document).ready(function() {
     $('#routeDataTable').DataTable();
+    
 } );
 
 

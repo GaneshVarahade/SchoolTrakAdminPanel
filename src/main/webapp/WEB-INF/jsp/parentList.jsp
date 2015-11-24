@@ -95,6 +95,7 @@ function sendDataForRegistration(){
 		    data : formData,
 		    success : function(response) {	       
 		       alert("Parent Added");
+		       
 		    },
 		    error : function(e) {
 		       alert('Error: ' + e);
