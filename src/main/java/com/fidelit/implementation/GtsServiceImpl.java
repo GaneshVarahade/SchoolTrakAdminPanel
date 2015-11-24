@@ -18,10 +18,29 @@ public class GtsServiceImpl implements GtsService{
 	public void addAccountInGts(String accountId,String password,String description) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
-		String sql = "INSERT INTO Account (accountID,password,description) VALUES ('"+accountId +"','"+password +"','"+description +"');";
-		Query query = session.createSQLQuery(sql);
+		
+		
+        StringBuilder builder = new StringBuilder();		
+        builder.append(" INSERT INTO `gts`.`Account`(`accountID`,`accountType`,`notifyEmail`,`allowNotify`,`speedUnits`,`distanceUnits`,`volumeUnits`,`pressureUnits`,`economyUnits`,`temperatureUnits`,");
+        builder.append("`currencyUnits`,`fuelCostPerLiter`,`latLonFormat`,`geocoderMode`,`privateLabelName`, `isBorderCrossing`,`retainedEventAge`,`maximumDevices`,`totalPingCount`,");
+        builder.append("`maxPingCount`,`autoAddDevices`,`dcsPropertiesID`,`smsEnabled`,`smsProperties`,`emailProperties`,`expirationTime`,`allowWebService`,`defaultUser`,`password`,");
+		builder.append("`contactName`,`contactPhone`,`contactEmail`,`timeZone`,`passwdChangeTime`,`passwdQueryTime`,`lastLoginTime`,`isActive`,`displayName`,`description`, `notes`,");
+		builder.append("`lastUpdateTime`,`creationTime`,`mapLegendDevice`,`mapLegendGroup`,`isAccountManager`,`managerID`,`requestPassCode`,`requestIPAddress`,`dataPushURL`,");
+	    builder.append("`lastDataRequestTime`,`lastDataPushTime`)");
+	    
+	    builder.append(" VALUES('"+accountId +"',0,'',1,0,0,0,0,0,0,");
+	    builder.append("'',0,0,3,' *', 0,0,0,0,");
+	    builder.append("0,0,'',1,'','',0,0,'','"+password +"',");
+	    builder.append("'','','',0,0,0,0,1,'','System Administrator', '',");
+	    builder.append("0,0,'','',0,'','','','',");
+	    builder.append("'0','0');");
+	    
+		System.out.println("builder.toString()"+builder.toString());
+	    Query query = session.createSQLQuery(builder.toString());
 		query.executeUpdate();
+		
 		session.close();
+	
 	}
 	
 	
