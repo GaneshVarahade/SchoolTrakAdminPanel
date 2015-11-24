@@ -29,6 +29,7 @@ import com.fidelit.model.SchoolAdmin;
 import com.fidelit.model.Stop;
 import com.fidelit.service.BusDriverService;
 import com.fidelit.service.BusService;
+import com.fidelit.service.ExtinctorService;
 import com.fidelit.service.GtsService;
 import com.fidelit.service.RouteService;
 import com.fidelit.service.StopService;
@@ -51,6 +52,9 @@ BusDriverService busDriverService;
 
 @Autowired
 GtsService gtsService;
+
+@Autowired
+ExtinctorService extinctorService;
 	
 
 	@RequestMapping(value="/addNewStops")
@@ -250,11 +254,12 @@ GtsService gtsService;
 		
 		for (int i = 0; i < str1.length; i++) {
 			int id = Integer.parseInt(str1[i]);
+			routeService.deleteBusInRoute(id);
+			extinctorService.deleteBusInExtinctor(id);
 			busService.deleteBus(id);
 		}
-		
 
-	    List<Bus> busList= busService.allBusList();
+		List<Bus> busList= busService.allBusList();
 		model.addAttribute("busList", busList);
 		model.addAttribute(new Bus());
 		return "busList";

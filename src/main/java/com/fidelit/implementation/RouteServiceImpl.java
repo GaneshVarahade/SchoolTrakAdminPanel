@@ -93,8 +93,8 @@ public class RouteServiceImpl implements RouteService{
 		Session session;
 		Route  route=null;
 		try{
-			session = sessionFactory.getCurrentSession();
-			Criteria criteria = session.createCriteria(Route.class);
+			 session = sessionFactory.getCurrentSession();
+			 Criteria criteria = session.createCriteria(Route.class);
 			 criteria.add(Restrictions.eq("id", id));
 			 Object result=criteria.uniqueResult();
 			 route = (Route)result;
@@ -108,6 +108,22 @@ public class RouteServiceImpl implements RouteService{
 		
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public void deleteBusInRoute(int busId) {
+		 Session session = sessionFactory.getCurrentSession();
+		String hql = "UPDATE route set regNumber = null "  + 
+	             "WHERE regNumber = "+busId;
+		try{
+		Query query = session.createSQLQuery(hql);
+		System.out.println("update :"+query.executeUpdate());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+       
+
 	}
 
 	

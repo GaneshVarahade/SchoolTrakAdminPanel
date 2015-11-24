@@ -249,14 +249,14 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Stop Number :</label>
                         <div class="col-sm-8">
-                            <input type="text" name="stopNumber" id="stopNumber" value= "${stopCounter}" class="form-control" readOnly>
+                            <input type="text" name="stopNo" id="stopNumber" value= "${stopCounter}" class="form-control" readOnly>
                         </div>
                     </div>
 				
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Stop Name :</label>
                         <div class="col-sm-8">
-                            <input type="text" name="stopsName" id="stopsName" class="form-control">
+                            <input type="text" name="stopName" id="stopsName" class="form-control">
                         </div>
                     </div>
 				

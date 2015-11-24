@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -14,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fidelit.model.Employee;
 import com.fidelit.model.School;
+import com.fidelit.model.SchoolAdmin;
+import com.fidelit.service.SchoolAdminService;
 import com.fidelit.service.SchoolService;
 
 
@@ -24,6 +27,10 @@ public class SchoolServiceImpl implements SchoolService {
 	
 	@Autowired
 	SessionFactory sessionFactory;
+	
+	@Autowired
+	SchoolAdminService schoolAdminService;
+	
 	
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)  
 	@Override
@@ -106,13 +113,21 @@ public class SchoolServiceImpl implements SchoolService {
 		Session session;
 		School  school=null;
 		try{
-			session = sessionFactory.getCurrentSession();
-			Criteria criteria = session.createCriteria(School.class);
-			 criteria.add(Restrictions.eq("id", id));
-			 Object result=criteria.uniqueResult();
-			 school = (School)result;
+			    session = sessionFactory.getCurrentSession();
+			    Criteria criteria = session.createCriteria(School.class);
+			    criteria.add(Restrictions.eq("id", id));
+			    Object result=criteria.uniqueResult();
+			    school = (School)result;
+			
+				String hql = "UPDATE schooladmin set schoolId = null "  + 
+			             "WHERE schoolId = "+id;
+				try{
+				Query query = session.createSQLQuery(hql);
+				System.out.println("update :"+query.executeUpdate());
+				}catch(Exception e){
+					e.printStackTrace();
+				}
 			 session.delete(school);
-			//System.out.println(empList);
 		}
 		catch(Exception e){
 			e.printStackTrace();

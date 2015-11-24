@@ -303,7 +303,7 @@ public class UserController {
 		schoolAdmin.setUsername(dataList[8]);
 		schoolAdmin.setAccountType(dataList[9]);
 		model.addAttribute(new SchoolAdmin());
-		schoolAdminService.updateSchool(schoolAdmin);
+		schoolAdminService.updateSchoolAdmin(schoolAdmin);
 		return "Ok";
 	}
 
@@ -328,7 +328,7 @@ public class UserController {
 		schoolAdmin.setUsername(dataList[8]);
 		schoolAdmin.setAccountType(dataList[9]);
 		model.addAttribute(new SchoolAdmin());
-		schoolAdminService.updateSchool(schoolAdmin);
+		schoolAdminService.updateSchoolAdmin(schoolAdmin);
 		return "Ok";
 	}
 

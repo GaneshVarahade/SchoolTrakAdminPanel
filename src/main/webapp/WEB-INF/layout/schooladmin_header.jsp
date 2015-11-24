@@ -10,12 +10,5 @@
 </ul>
 <script type="text/javascript">
 
-function homeActive(){
-	 $( "#homeActive" ).addClass( 'active' );
-}
-function routesActive(){
-	alert("Hi");
-	 $( "#routesActive" ).addClass( 'active' );
-}
 </script>
 

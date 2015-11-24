@@ -8,7 +8,7 @@ import com.fidelit.model.SchoolAdmin;
 public interface SchoolAdminService {
 	
 	void addSchoolAdmin(SchoolAdmin schoolAdmin);
-	void updateSchool(SchoolAdmin schoolAdmin);
+	void updateSchoolAdmin(SchoolAdmin schoolAdmin);
 	//void deleteEmployee(Employee employee);
 	ArrayList<SchoolAdmin> getAllSchoolAdmin();
 //	boolean checkUserName(String userName);

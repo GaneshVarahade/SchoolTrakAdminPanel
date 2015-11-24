@@ -108,7 +108,7 @@ public class SchoolAdmin implements Serializable  {
 	}
 
 	@OneToOne
-	@JoinColumn(name="schoolId")
+	@JoinColumn(name="schoolId",nullable = true, insertable = true, updatable = true)
 	public School getSchool() {
 		return school;
 	}

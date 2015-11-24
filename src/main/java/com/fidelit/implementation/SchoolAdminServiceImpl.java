@@ -43,7 +43,7 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
-	public void updateSchool(SchoolAdmin schoolAdmin) {
+	public void updateSchoolAdmin(SchoolAdmin schoolAdmin) {
 		// TODO Auto-generated method stub
 		
 		Session session;

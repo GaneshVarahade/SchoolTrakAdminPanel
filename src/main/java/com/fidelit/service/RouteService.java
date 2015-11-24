@@ -12,4 +12,5 @@ public interface RouteService {
 	List<Route> getRouteList();
 	Route getRouteId(int id);
 	void deleteRoute(int id);
+	void deleteBusInRoute(int id);
 }

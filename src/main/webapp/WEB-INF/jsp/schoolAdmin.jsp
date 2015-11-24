@@ -300,7 +300,7 @@ function password_length_registration()
                 <div class="page-header clearfix">
                     <h1 class="page-head-text pull-left">School Admin </h1>
                     
-                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-id=""  data-toggle="modal" data-target="#schoolAdminId"><i class="fa fa-plus-circle"></i>  Add School</button>                    
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-id=""  data-toggle="modal" data-target="#schoolAdminId"><i class="fa fa-plus-circle"></i>  Add School Admin</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>

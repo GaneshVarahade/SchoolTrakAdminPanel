@@ -108,4 +108,21 @@ public class ExtinctorServiceImpl implements ExtinctorService {
 		
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public void deleteBusInExtinctor(int busId) {
+		// TODO Auto-generated method stub
+		 Session session = sessionFactory.getCurrentSession();
+			String hql = "UPDATE extintor set bus_busId = null "  + 
+		             "WHERE bus_busId = "+busId;
+			try{
+			Query query = session.createSQLQuery(hql);
+			System.out.println("update :"+query.executeUpdate());
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		
+		
+	}
+
 }
