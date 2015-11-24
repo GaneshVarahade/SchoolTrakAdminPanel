@@ -15,10 +15,10 @@ public class GtsServiceImpl implements GtsService{
 	SessionFactory sessionFactory; 
 	
 	@Override
-	public void addAccountInGts(String accountId) {
+	public void addAccountInGts(String accountId,String password,String description) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
-		String sql = "INSERT INTO Account (accountID) VALUES ('"+accountId +"');";
+		String sql = "INSERT INTO Account (accountID,password,description) VALUES ('"+accountId +"','"+password +"','"+description +"');";
 		Query query = session.createSQLQuery(sql);
 		query.executeUpdate();
 		session.close();

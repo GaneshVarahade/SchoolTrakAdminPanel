@@ -330,7 +330,7 @@ public String addClient(HttpServletRequest request,HttpServletResponse response,
 	schoolAdmin.setUsername(dataList[7]);
 	schoolAdmin.setSchool(school);
 	schoolAdmin.setEnabled(true);
-	gtsService.addAccountInGts(schoolAdmin.getUsername());
+	gtsService.addAccountInGts(schoolAdmin.getUsername(),schoolAdmin.getPassword(),schoolAdmin.getAccountType());
 	if(dataList[8].equals("Student")){
 		schoolAdmin.setRole("ROLE_STUDENT");
 	}else if(dataList[8].equals("SchoolAdmin")){

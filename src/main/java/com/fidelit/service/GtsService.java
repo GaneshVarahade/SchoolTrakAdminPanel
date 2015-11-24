@@ -1,7 +1,7 @@
 package com.fidelit.service;
 
 public interface GtsService {
-    void addAccountInGts(String accountId);
+    void addAccountInGts(String accountId, String password, String discription);
 
 	void addCorridorInGts(String accountId, String corridorID,
 			String description);
