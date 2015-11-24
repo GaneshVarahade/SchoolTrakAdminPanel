@@ -16,7 +16,7 @@ var saveKara = 0;
 function showBtn(){
 
 	 if(saveKara == 0){
-		 alert("Please select Atleast one client for delete");
+		 alert("Please select Atleast one NewsLetter for delete");
 	 }
 	 else{
 		 var result = confirm("want to delete?");
@@ -92,20 +92,16 @@ function addStops(id){
  function malaDeleteKara(id){
 		if(saveKara == 0){
 			saveKara = id + ",";
-		//	alert(saveKara);
 		}
 		else{
 			saveKara = saveKara + id + ",";	
-		//	alert(saveKara);
 		}
-		//showAlert(saveKara);
 	}
 
 	function removeString(ch){
 		ch = ch + ",";
 		saveKara = saveKara.replace(ch,'');
-//		alert(saveKara);
-//		showAlert(saveKara);
+
 	}
 
 	function displayNote(evt){

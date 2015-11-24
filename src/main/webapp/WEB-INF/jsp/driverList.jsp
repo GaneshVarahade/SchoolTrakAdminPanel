@@ -11,7 +11,6 @@ $(document).on("click", ".open-AddBookDialog", function () {
 var saveKara = 0;
 
 function showBtn(){
-	alert(saveKara);
 	 if(saveKara == 0){
 		 alert("Please select Atleast one Driver for delete");
 	 }

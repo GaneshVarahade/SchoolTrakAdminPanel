@@ -17,7 +17,7 @@ var saveKara = 0;
 function showBtn(){
 
 	 if(saveKara == 0){
-		 alert("Please select Atleast one client for delete");
+		 alert("Please select Atleast one Route for delete");
 	 }
 	 else{
 		 var result = confirm("want to delete?");
@@ -33,7 +33,6 @@ function showBtn(){
 
 $(document).ready(function() {
     $('#routeDataTable').DataTable();
-    
 } );
 
 

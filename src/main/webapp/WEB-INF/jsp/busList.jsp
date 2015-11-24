@@ -14,10 +14,9 @@ var saveKara = 0;
 	function showBtn(){
 	
 		 if(saveKara == 0){
-			 alert("Please select Atleast one client for delete");
+			 alert("Please select Atleast one Vehicle for delete");
 		 }
 		 else{
-			alert(saveKara);
 			 var result = confirm("want to delete?");
 			 if(result){
 				 window.location.href = "deleteBusList?list="+saveKara;	 
