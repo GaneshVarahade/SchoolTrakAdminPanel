@@ -19,7 +19,7 @@ public class Bus {
 	String busType;
 	Integer capacity;
 	Route   route;
-	
+	String accountId;
 	
 
 	@Id
@@ -68,4 +68,15 @@ public class Bus {
 	public void setRoute(Route route) {
 		this.route = route;
 	}
+
+	@Column(name="accountId")
+	public String getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
+	}
+	
+	
 }

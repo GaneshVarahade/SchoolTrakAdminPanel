@@ -1,31 +1,22 @@
 package com.fidelit.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.fidelit.model.Bus;
 import com.fidelit.model.BusDriver;
 import com.fidelit.model.Route;
-import com.fidelit.model.SchoolAdmin;
 import com.fidelit.model.Stop;
 import com.fidelit.service.BusDriverService;
 import com.fidelit.service.BusService;
@@ -55,6 +46,8 @@ GtsService gtsService;
 
 @Autowired
 ExtinctorService extinctorService;
+
+
 	
 
 	@RequestMapping(value="/addNewStops")
@@ -117,11 +110,12 @@ ExtinctorService extinctorService;
 	
 	@RequestMapping(value="routeMap")
 	public String route(ModelMap model){
-		List<Route> routes = routeService.getRouteList();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<Route> routes = routeService.getRouteList(userName);
 		System.out.println(routes.toString());
 		
-		List<Bus> busList=busService.allBusList();
-		List<BusDriver> busDriverList=busDriverService.allBusDriverList();
+		List<Bus> busList=busService.allBusList(userName);
+		List<BusDriver> busDriverList=busDriverService.allBusDriverList(userName);
 		model.addAttribute("routeList",routes);
 		model.addAttribute("busList",busList);
 		model.addAttribute("busDriverList",busDriverList);
@@ -132,22 +126,23 @@ ExtinctorService extinctorService;
 	@RequestMapping(value="addRoute",method = RequestMethod.POST)
 	public String addRoute(@ModelAttribute("route") Route route,HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		System.out.println("Just In AddRoute");
-		List<Bus> busList=busService.allBusList();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<Bus> busList=busService.allBusList(userName);
 		String busNumber=route.getBus().getRegNumber();
 		String driverName=route.getBusDriver().getDriverName();
-		List<BusDriver> busDriverList=busDriverService.allBusDriverList();
+		List<BusDriver> busDriverList=busDriverService.allBusDriverList(userName);
 		Bus bus=busService.getBusRegNo(busNumber);
 		BusDriver busDriver=busDriverService.getDriverByName(driverName);
 		
 		route.setBusDriver(busDriver);
 		route.setBus(bus);
-	//	route.setAccountId(request.getSession().getValue("currentUser"));
+		route.setAccountId(userName);
 		routeService.addRoute(route);
-		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		
 		System.out.println("userName:"+userName);
 		gtsService.addCorridorInGts(userName, route.getCorridorId(), route.getRouteName());
 		System.out.println("AddRoute:After Adding Record");
-		List<Route> routes = routeService.getRouteList();
+		List<Route> routes = routeService.getRouteList(userName);
 		model.addAttribute("routeList",routes);
 		model.addAttribute("busList",busList);
 		model.addAttribute("busDriverList",busDriverList);
@@ -220,8 +215,8 @@ ExtinctorService extinctorService;
 			
 		}
 		
-
-	    List<Route> routeList= routeService.getRouteList();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+	    List<Route> routeList= routeService.getRouteList(userName);
 		model.addAttribute("routeList", routeList);
 		model.addAttribute(new Route());
 		return "routeMap";
@@ -230,7 +225,8 @@ ExtinctorService extinctorService;
 	@RequestMapping(value = "/busList")
 	public String busList( HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		
-		List<Bus> busList= busService.allBusList();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<Bus> busList= busService.allBusList(userName);
 		model.addAttribute("busList", busList);
 		model.addAttribute(new Bus());
 		return "busList";
@@ -239,9 +235,10 @@ ExtinctorService extinctorService;
 	
 	@RequestMapping(value="addBus",method = RequestMethod.POST)
 	public String addBus(@ModelAttribute("bus") Bus bus,ModelMap model){
-		
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		bus.setAccountId(userName);
 		busService.addBus(bus);
-		List<Bus> busList = busService.allBusList();
+		List<Bus> busList = busService.allBusList(userName);
 		model.addAttribute("busList",busList);
 		model.addAttribute(new Bus());
 		return "busList";
@@ -258,8 +255,8 @@ ExtinctorService extinctorService;
 			extinctorService.deleteBusInExtinctor(id);
 			busService.deleteBus(id);
 		}
-
-		List<Bus> busList= busService.allBusList();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<Bus> busList= busService.allBusList(userName);
 		model.addAttribute("busList", busList);
 		model.addAttribute(new Bus());
 		return "busList";
@@ -284,7 +281,8 @@ ExtinctorService extinctorService;
 	@RequestMapping(value = "/driverList")
 	public String busDriverList( HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		
-		List<BusDriver> busDriverList= busDriverService.allBusDriverList();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<BusDriver> busDriverList= busDriverService.allBusDriverList(userName);
 		model.addAttribute("busDriverList", busDriverList);
 		model.addAttribute(new BusDriver());
 		return "driverList";
@@ -293,9 +291,9 @@ ExtinctorService extinctorService;
 	
 	@RequestMapping(value="addDriver",method = RequestMethod.POST)
 	public String addBusDriver(@ModelAttribute("busDriver") BusDriver driver,ModelMap model){
-		
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		busDriverService.addBusDriver(driver);
-		List<BusDriver> busDriverList = busDriverService.allBusDriverList();
+		List<BusDriver> busDriverList = busDriverService.allBusDriverList(userName);
 		model.addAttribute("busDriverList",busDriverList);
 		model.addAttribute(new BusDriver());
 		return "driverList";
@@ -329,9 +327,9 @@ ExtinctorService extinctorService;
 			int id = Integer.parseInt(str1[i]);
 			busDriverService.deleteBusDriver(id);
 		}
-		
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 
-	    List<BusDriver> busDriverList= busDriverService.allBusDriverList();
+	    List<BusDriver> busDriverList= busDriverService.allBusDriverList(userName);
 		model.addAttribute("busDriverList", busDriverList);
 		model.addAttribute(new BusDriver());
 		return "driverList";

@@ -33,6 +33,7 @@ public String defaultUrl(ModelMap model,HttpServletRequest req,SecurityContextHo
 //	req.getAuthType();
 	String url="";
 	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+	model.addAttribute("userName",userName);
 	if(userName != null){
 		SchoolAdmin currentUser = authenticationService.authenticateUser(userName);
 		Object accountType = session.getAttribute("currentAccountType");

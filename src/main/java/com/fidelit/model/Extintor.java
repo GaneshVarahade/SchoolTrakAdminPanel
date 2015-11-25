@@ -18,6 +18,7 @@ public class Extintor {
 	private String type;
 	private boolean status;
 	private Bus bus;
+	private String accountId;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -53,4 +54,12 @@ public class Extintor {
 		this.bus = bus;
 	}	
 
+	@Column(name="accountId")
+	public String getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
+	}
 }

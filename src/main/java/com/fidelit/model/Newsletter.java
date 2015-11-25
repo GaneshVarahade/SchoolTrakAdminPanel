@@ -2,6 +2,7 @@ package com.fidelit.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +16,7 @@ public class Newsletter {
 	private int id;
 	private String news;
 	private Date date;
+	private String accountId;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -41,5 +43,13 @@ public class Newsletter {
 		this.date = date;
 	}
 	
+	@Column(name="accountId")
+	public String getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
+	}
 
 }

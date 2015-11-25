@@ -3,6 +3,7 @@ package com.fidelit.implementation;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -51,13 +52,14 @@ public class BusDriverServiceImpl implements BusDriverService{
 
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
-	public List<BusDriver> allBusDriverList() {
+	public List<BusDriver> allBusDriverList(String userName) {
 	
 		Session session;
 		List<BusDriver> busDriverList = null;
 		try{
 			session = sessionFactory.getCurrentSession();
-			SQLQuery query = session.createSQLQuery("select * from busDriver ").addEntity(BusDriver.class);
+			Query query = session.createSQLQuery("from busDriver where accountId= :accountId");
+			query.setParameter("accountId", userName);
 			busDriverList = query.list();
 		}
 		catch(Exception e){

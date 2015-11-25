@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
+
 import com.fidelit.model.Employee;
 import com.fidelit.model.Holidays;
 import com.fidelit.model.LeavesApplied;
@@ -65,7 +66,9 @@ public class SchoolAdminController {
 	
 	@RequestMapping(value="/parentList")
 	public String allParentList(ModelMap model){
-		List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+		
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
 		model.addAttribute("schoolAdminList", schoolAdminList);
 		List<School> schoolList=schoolService.allSchoolList();
 		model.addAttribute("schoolList", schoolList);
@@ -74,7 +77,8 @@ public class SchoolAdminController {
 	
 	@RequestMapping(value="/studentList")
 	public String allStudentList(ModelMap model){
-		List<SchoolAdmin> schoolAdminList= schoolAdminService.getAllStudentList();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<SchoolAdmin> schoolAdminList= schoolAdminService.getAllStudentList(userName);
 		model.addAttribute("schoolAdminList", schoolAdminList);
 		List<School> schoolList=schoolService.allSchoolList();
 		model.addAttribute("schoolList", schoolList);
@@ -91,8 +95,8 @@ public class SchoolAdminController {
 			schoolAdminService.deleteSchoolAdmin(id);
 		}
 		
-
-	    List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+	    List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
 		model.addAttribute("schoolAdminList", schoolAdminList);
 		return "parentList";
 	}
@@ -107,7 +111,8 @@ public class SchoolAdminController {
 			schoolAdminService.deleteSchoolAdmin(id);
 		}
 
-	    List<SchoolAdmin> schoolAdminList= schoolAdminService.getAllStudentList();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+	    List<SchoolAdmin> schoolAdminList= schoolAdminService.getAllStudentList(userName);
 		model.addAttribute("schoolAdminList", schoolAdminList);
 		return "studentList";
 	}

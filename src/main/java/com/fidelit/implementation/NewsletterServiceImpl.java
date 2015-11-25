@@ -88,14 +88,15 @@ public class NewsletterServiceImpl implements NewsletterService{
 
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
-	public List<Newsletter> getNewsletterList() {
+	public List<Newsletter> getNewsletterList(String userName) {
 		
 		List<Newsletter> newsletter = new ArrayList<Newsletter>();
 		 Session session;
 			try {
 				session = sessionFactory.getCurrentSession();
-				String hql ="from Newsletter"; 
+				String hql ="from Newsletter where accountId =:accountId"; 
 				Query query = session.createQuery(hql);
+				query.setParameter("accountId", userName);
 				newsletter = query.list();
 			} catch (Exception e) {
 				

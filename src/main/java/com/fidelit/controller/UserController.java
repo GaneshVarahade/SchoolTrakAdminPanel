@@ -1,4 +1,4 @@
-package com.fidelit.controller;
+/*package com.fidelit.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -228,11 +228,11 @@ public class UserController {
 	public String testMethod(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		String list = request.getParameter("accessList");
 		System.out.println(list);
-		/*	System.out.println(new Date());
+			System.out.println(new Date());
 		Date dNow = new Date( );
 	      SimpleDateFormat ft = 
 	    		  new SimpleDateFormat ("EEE MMM dd HH:mm:ss zzz yyyy");
-	      System.out.println("Current Date: " + ft.format(dNow));*/
+	      System.out.println("Current Date: " + ft.format(dNow));
 	      
 		String [] dateList = list.split(",");
 		 //Date [] dates = new Date[dateList.length];
@@ -334,3 +334,4 @@ public class UserController {
 
 	
 }
+*/

@@ -36,8 +36,9 @@ public class ExtintorController {
 		
 	@RequestMapping(value="extintorList")
 	public String extintorList(ModelMap model){
-		List<Extintor> extintorList = extinctorService.getExtintorList();
-		List<Bus> busList=busService.allBusList();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<Extintor> extintorList = extinctorService.getExtintorList(userName);
+		List<Bus> busList=busService.allBusList(userName);
 		model.addAttribute("extintorList",extintorList);
 		model.addAttribute("busList",busList);
 		model.addAttribute(new Extintor());
@@ -46,12 +47,13 @@ public class ExtintorController {
 	
 	@RequestMapping(value="addExtintor",method = RequestMethod.POST)
 	public String addExtintor(@ModelAttribute("extintor") Extintor extintor,HttpServletRequest request,HttpServletResponse response,ModelMap model){
-		List<Bus> busList=busService.allBusList();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<Bus> busList=busService.allBusList(userName);
 		String busNumber=extintor.getBus().getRegNumber();
 		Bus bus=busService.getBusRegNo(busNumber);
 		extintor.setBus(bus);
 		extinctorService.addExtintor(extintor);
-		List<Extintor> extintorList =extinctorService.getExtintorList();
+		List<Extintor> extintorList =extinctorService.getExtintorList(userName);
 		model.addAttribute("extintorList",extintorList);
 		model.addAttribute("busList",busList);
 		return "extintorList";
@@ -95,8 +97,8 @@ public class ExtintorController {
 			
 		}
 		
-
-	    List<Extintor> extintorList= extinctorService.getExtintorList();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+	    List<Extintor> extintorList= extinctorService.getExtintorList(userName);
 		model.addAttribute("extintorList", extintorList);
 		model.addAttribute(new Extintor());
 		return "extintorList";

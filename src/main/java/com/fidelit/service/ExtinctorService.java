@@ -8,7 +8,7 @@ public interface ExtinctorService {
 	
 	void updateExtintor(Extintor extinctor);
 	void addExtintor(Extintor extinctor);
-	List<Extintor> getExtintorList();
+	List<Extintor> getExtintorList(String userName);
 	Extintor getExtintorId(int id);
 	void deleteExtintor(int id);
 	void deleteBusInExtinctor(int id);

@@ -12,10 +12,10 @@ public interface SchoolAdminService {
 	//void deleteEmployee(Employee employee);
 	ArrayList<SchoolAdmin> getAllSchoolAdmin();
 //	boolean checkUserName(String userName);
-	List<SchoolAdmin> allSchoolAdminList();
+	List<SchoolAdmin> allSchoolAdminList(String userName);
 	SchoolAdmin getSchoolAdminId(int id);
 	void deleteSchoolAdmin(int id);
 //	List<Employee> getEmployeeFirstName();
-	List<SchoolAdmin> getAllStudentList();
+	List<SchoolAdmin> getAllStudentList(String userName);
 
 }

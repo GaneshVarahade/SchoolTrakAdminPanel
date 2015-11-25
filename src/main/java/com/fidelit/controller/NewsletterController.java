@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,7 +33,8 @@ public class NewsletterController {
 	
 	@RequestMapping(value="newsletterList")
 	public String newsletterList(ModelMap model){
-		List<Newsletter> newsletterList = newsletterService.getNewsletterList();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<Newsletter> newsletterList = newsletterService.getNewsletterList(userName);
 		model.addAttribute("newsletterList",newsletterList);
 		model.addAttribute(new Newsletter());
 		return "newsletterList";
@@ -42,9 +44,10 @@ public class NewsletterController {
 	public String addExtintor(@ModelAttribute("newsletter") Newsletter newsletter,HttpServletRequest request,HttpServletResponse response,ModelMap model) throws ParseException{
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		newsletter.setDate(dateFormat.parse(dateFormat.format(date)));
 		newsletterService.addNewsletter(newsletter);
-		List<Newsletter> newsletterList =newsletterService.getNewsletterList();
+		List<Newsletter> newsletterList =newsletterService.getNewsletterList(userName);
 		model.addAttribute("newsletterList",newsletterList);
 		return "newsletterList";
 	}
@@ -62,8 +65,8 @@ public class NewsletterController {
 			
 		}
 		
-
-	    List<Newsletter> newsletterList= newsletterService.getNewsletterList();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+	    List<Newsletter> newsletterList= newsletterService.getNewsletterList(userName);
 		model.addAttribute("newsletterList", newsletterList);
 		model.addAttribute(new Newsletter());
 		return "newsletterList";

@@ -39,7 +39,10 @@ public class SchoolAdmin implements Serializable  {
 	
 	private String role;
 	
-
+	private String accountId;
+	
+   
+    
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
@@ -151,7 +154,17 @@ public class SchoolAdmin implements Serializable  {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	@Column(name="accountId")
+	public String getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
 	} 
+	
 	
 	
 }

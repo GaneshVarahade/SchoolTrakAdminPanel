@@ -52,14 +52,15 @@ public class ExtinctorServiceImpl implements ExtinctorService {
 
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
-	public List<Extintor> getExtintorList() {
+	public List<Extintor> getExtintorList(String userName) {
 		
 		List<Extintor> extintorList = new ArrayList<Extintor>();
 		 Session session;
 			try {
 				session = sessionFactory.getCurrentSession();
-				String hql ="from Extintor"; 
+				String hql ="from Extintor where accountId= :accountId"; 
 				Query query = session.createQuery(hql);
+				query.setParameter("accountId", userName);
 				extintorList = query.list();
 			} catch (Exception e) {
 				

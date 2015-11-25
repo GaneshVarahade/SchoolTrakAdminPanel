@@ -67,13 +67,14 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
-	public List<SchoolAdmin> allSchoolAdminList() {
+	public List<SchoolAdmin> allSchoolAdminList(String userName) {
 		
 		List<SchoolAdmin> schoolAdminList = new ArrayList<SchoolAdmin>();
 		 Session session;
 			try {
 				session = sessionFactory.getCurrentSession();
 				Criteria criteria = session.createCriteria(SchoolAdmin.class);
+				criteria.add(Restrictions.eq("accountId", userName));
 				schoolAdminList = criteria.list();
 			} catch (Exception e) {
 				
@@ -113,14 +114,15 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
-	public List<SchoolAdmin> getAllStudentList() {
+	public List<SchoolAdmin> getAllStudentList(String userName) {
 		List<SchoolAdmin> schoolAdminList = new ArrayList<SchoolAdmin>();
 		 Session session;
 			try {
 				session = sessionFactory.getCurrentSession();
-				String hql = "from SchoolAdmin where accountType = :accountType";
+				String hql = "from SchoolAdmin where accountType = :accountType and accountId =:accountId";
 				Query query = session.createQuery(hql);
 				query.setParameter("accountType", "Student");
+				query.setParameter("accountId", userName);
 				schoolAdminList = query.list();
 			} catch (Exception e) {
 				

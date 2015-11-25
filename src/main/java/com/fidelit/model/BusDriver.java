@@ -18,6 +18,7 @@ public class BusDriver {
 	String  licenseNo;
 	String  experiance;
 	Integer age;
+	String  accountId;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -80,5 +81,16 @@ public class BusDriver {
 	public void setAge(Integer age) {
 		this.age = age;
 	}
+
+	@Column(name="accountId")
+	public String getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
+	}
  
+	
+	
 }

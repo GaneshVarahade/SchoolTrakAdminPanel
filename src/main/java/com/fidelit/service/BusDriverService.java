@@ -8,7 +8,7 @@ public interface BusDriverService {
 	
 	void addBusDriver(BusDriver busDriver);
 	void updateBusDriver(BusDriver busDriver);
-	List<BusDriver> allBusDriverList();
+	List<BusDriver> allBusDriverList(String userName);
 	BusDriver getBusDriverId(int id);
 	void deleteBusDriver(int id);
 	BusDriver getDriverByName(String driverName);

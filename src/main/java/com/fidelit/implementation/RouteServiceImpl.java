@@ -35,13 +35,14 @@ public class RouteServiceImpl implements RouteService{
 
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false) 
 	@Override
-	public List<Route> getRouteList() {
+	public List<Route> getRouteList(String accountId) {
 		List<Route> routeList = new ArrayList<Route>();
 		 Session session;
 			try {
 				session = sessionFactory.getCurrentSession();
-				String hql ="from Route"; 
+				String hql ="from Route where accountId =:accountId"; 
 				Query query = session.createQuery(hql);
+				query.setParameter("accountId", accountId);
 				routeList = query.list();
 			} catch (Exception e) {
 				

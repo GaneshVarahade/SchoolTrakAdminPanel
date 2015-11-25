@@ -9,7 +9,7 @@ public interface RouteService {
 
 	void updateRoute(Route route);
 	void addRoute(Route route);
-	List<Route> getRouteList();
+	List<Route> getRouteList(String accountId);
 	Route getRouteId(int id);
 	void deleteRoute(int id);
 	void deleteBusInRoute(int id);

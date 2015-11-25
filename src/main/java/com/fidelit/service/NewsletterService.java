@@ -8,7 +8,7 @@ import com.fidelit.model.Route;
 public interface NewsletterService {
 	
 	void addNewsletter(Newsletter newsletter);
-	List<Newsletter> getNewsletterList();
+	List<Newsletter> getNewsletterList(String userName);
 	Newsletter getNewsletterId(int id);
 	void deleteNewsletter(int id);
 	

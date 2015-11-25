@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -314,12 +315,7 @@ public String addClient(HttpServletRequest request,HttpServletResponse response,
 	School school=schoolService.getSchool(SchoolName1);
 	SchoolAdmin schoolAdmin = new SchoolAdmin();
 	
-//	String id = dataList[0];
-//	System.out.println("id:"+id);
-	/*int clientId = Integer.parseInt(id);
-	System.out.println("cliwntId "+clientId);
-	client.setClientId(clientId);*/
-//	System.out.println("school"+school);
+
 	schoolAdmin.setName(dataList[0]);
 	schoolAdmin.setAddress(dataList[1]);
 	schoolAdmin.setPassword(dataList[3]);
@@ -340,13 +336,10 @@ public String addClient(HttpServletRequest request,HttpServletResponse response,
 	}else if(dataList[8].equalsIgnoreCase("Admin")){
 		schoolAdmin.setRole("ROLE_ADMIN");
 	}
-	/*if(client.getClientUsername() !=null) {
-		  //client.getUserRole().setEmployee(employee);
-		  clientService.addClient(client);
-	}*/
-	 
+	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+	schoolAdmin.setAccountId(userName);
 	schoolAdminService.addSchoolAdmin(schoolAdmin);
-	List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+	List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
 	model.addAttribute("schoolAdminList", schoolAdminList);
 	return "schoolAdmin";
 	
@@ -532,7 +525,8 @@ public String allClientList(ModelMap model){
 
 @RequestMapping(value="/schoolAdmin")
 public String allSchoolAdminList(ModelMap model){
-	List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+	List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
 	model.addAttribute("schoolAdminList", schoolAdminList);
 	List<School> schoolList=schoolService.allSchoolList();
 	model.addAttribute("schoolList", schoolList);
@@ -836,8 +830,8 @@ public String deleteClientList(@RequestParam("list") String str,ModelMap model){
 		schoolAdminService.deleteSchoolAdmin(id);
 	}
 	
-
-    List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+    List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
 	model.addAttribute("schoolAdminList", schoolAdminList);
 	return "schoolAdmin";
 }

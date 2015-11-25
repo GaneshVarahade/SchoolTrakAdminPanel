@@ -42,7 +42,23 @@
                     	<img src="${pageContext.request.contextPath}/resources/images/logo/logo.png" id="logo"> 
                   	</a>
                 </div>                
-                
+                <ul class="nav navbar-top-links navbar-right">
+					<li class="dropdown"><a class="dropdown-toggle profile-img"
+						data-toggle="dropdown" href="javascript:void(0);"> <img
+							src="${pageContext.request.contextPath}/resources/images/profile-pic.jpg"> ${userName}<i
+							class="fa fa-caret-down"></i>
+					</a>
+						<ul class="dropdown-menu dropdown-user">
+							<!-- <li><a href="#"><i class="fa fa-th-large"></i>&nbsp;
+									Portal</a></li> -->
+							<%-- <li><a href="#/user/detail/${appUser.id}"><i
+									class="fa fa-user fa-fw"></i> User Profile</a></li> --%>
+							<li class="divider"></li>
+							<li><a href="${pageContext.request.contextPath}/j_spring_security_logout"><i class="fa fa-sign-out fa-fw"></i>
+									Logout</a></li>
+						</ul> <!-- /.dropdown-user --></li>
+					<!-- /.dropdown -->
+					</ul>
                 <!-- /.navbar-top-links -->
             </div>
         </div>
@@ -64,10 +80,10 @@
             <div class="collapse navbar-collapse" id="dashboard-menu">
             	<tiles:insertAttribute name="header" />
                 
-                <ul class="nav navbar-nav navbar-right">
+                <%-- <ul class="nav navbar-nav navbar-right">
                     <!--  <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
                     <li><a href="${pageContext.request.contextPath}/j_spring_security_logout"><i class="fa fa-power-off"></i> Logout</a></li>
-                </ul>
+                </ul> --%>
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
         </nav>

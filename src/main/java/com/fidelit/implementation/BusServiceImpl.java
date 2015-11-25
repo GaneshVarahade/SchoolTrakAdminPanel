@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -59,13 +60,14 @@ public class BusServiceImpl implements BusService{
 
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false) 
 	@Override
-	public List<Bus> allBusList() {
+	public List<Bus> allBusList(String userName) {
 		
 		Session session;
 		List<Bus> busList = null;
 		try{
 			session = sessionFactory.getCurrentSession();
-			SQLQuery query = session.createSQLQuery("select * from bus ").addEntity(Bus.class);
+			Query query = session.createQuery("from Bus where accountId =:accountId");
+			query.setParameter("accountId", userName);
 			busList = query.list();
 		}
 		catch(Exception e){
