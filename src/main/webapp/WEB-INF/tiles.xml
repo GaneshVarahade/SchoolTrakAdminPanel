@@ -63,8 +63,12 @@
     </definition>  
     
     <definition name="routeMap"  extends="schooladmin.definition">  
-          <put-attribute name="menu" value="/WEB-INF/jsp/routeMapMenu.jsp" />  
+        <put-attribute name="menu" value="/WEB-INF/jsp/routeMapMenu.jsp" />  
         <put-attribute name="body" value="/WEB-INF/jsp/routeMap.jsp" />  
+  </definition>
+  
+  <definition name="device"  extends="schooladmin.definition">  
+        <put-attribute name="body" value="/WEB-INF/jsp/device.jsp" />  
   </definition>  
 
   <definition name="stopMap"  extends="schooladmin.definition">  

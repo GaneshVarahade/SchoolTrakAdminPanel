@@ -7,6 +7,7 @@
  	<li id="driveractive"><a href="${pageContext.request.contextPath}/route/driverList">Drivers</a></li>
  	<li id="extintoractive"><a href="${pageContext.request.contextPath}/extintor/extintorList">Extintor</a></li>
  	<li id="newsSletteractive"><a href="${pageContext.request.contextPath}/newsletter/newsletterList">Newsletter</a></li>
+ 	<li id="deviceactive"><a href="${pageContext.request.contextPath}/device/deviceList">Device</a></li>
 </ul>
 <script type="text/javascript">
 

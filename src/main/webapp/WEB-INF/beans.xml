@@ -54,4 +54,6 @@
    </bean>
    <bean id="customWebAuthenticationDetailsSource" class="com.fidelit.controller.CustomWebAuthenticationDetailsSource" scope="prototype">
    </bean>
+   <bean id="deviceServiceImpl" class="com.fidelit.implementation.DeviceServiceImpl" scope="prototype">
+   </bean>
 </beans>

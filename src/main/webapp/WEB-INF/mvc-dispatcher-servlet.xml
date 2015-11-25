@@ -46,14 +46,14 @@
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		id="dataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://45.40.137.142:3306/schooltrack"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/schooltrack"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value=""></property>
 	</bean>
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		id="gtsDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://45.40.137.142:3306/gts"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/gts"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value=""></property>
 	</bean>
@@ -83,8 +83,9 @@
 			    <value>com.fidelit.model.Bus</value>
 			    <value>com.fidelit.model.BusDriver</value>
 			    <value>com.fidelit.model.Extintor</value>
-			     <value>com.fidelit.model.Newsletter</value>
-			     <value>com.fidelit.model.AddDeviceForNotification</value>
+			    <value>com.fidelit.model.Newsletter</value>
+			    <value>com.fidelit.model.AddDeviceForNotification</value>
+			    <value>com.fidelit.model.Device</value>
 			    
 			</list>
 		</property>  
@@ -122,9 +123,10 @@
 			    <value>com.fidelit.model.Stop</value>
 			    <value>com.fidelit.model.Bus</value>
 			    <value>com.fidelit.model.BusDriver</value>
-			     <value>com.fidelit.model.Extintor</value>
-			     <value>com.fidelit.model.Newsletter</value>
-			     <value>com.fidelit.model.AddDeviceForNotification</value>
+			    <value>com.fidelit.model.Extintor</value>
+			    <value>com.fidelit.model.Newsletter</value>
+			    <value>com.fidelit.model.AddDeviceForNotification</value>
+			    <value>com.fidelit.model.Device</value>
 			</list>
 		</property>  
 		<property name="hibernateProperties">

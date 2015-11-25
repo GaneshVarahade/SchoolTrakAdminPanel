@@ -66,6 +66,14 @@
                     </div>
                 </a>
             </div>
+             <div class="col-md-2 col-md-offset-0 col-sm-3">
+              <a href="${pageContext.request.contextPath}/device/deviceList" class="menu-link"> 
+                    <div class="menu-block m-block2">
+                        <div class="menu-icon"><i class="fa fa-camera-retro fa-lg"></i></div>
+                        <div class="menu-name">Device</div>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 </div>

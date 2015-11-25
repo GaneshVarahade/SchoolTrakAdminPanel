@@ -1,11 +1,17 @@
 package com.fidelit.implementation;
 
+
+import javax.transaction.Transactional;
+
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import com.fidelit.model.Device;
 import com.fidelit.service.GtsService;
 
 public class GtsServiceImpl implements GtsService{
@@ -110,6 +116,27 @@ public class GtsServiceImpl implements GtsService{
 		query1.executeUpdate();
 		query.executeUpdate();
 		session.close();
+	}
+
+
+	@Transactional
+	@Override
+	public void addDeviceInGts(Device device) {
+		try{
+		   Session session = sessionFactory.openSession();
+	
+		   String sql = "insert into Device (uniqueID,accountID,deviceID,allowNotify,description,isActive) "
+		   		+ "values('"+device.getUniqueID()+"','"+device.getAccountID()+"','"+device.getDeviceID()+"',"+device.getAllowNotify()+",'"
+		   		+ device.getDescription()+"',"+device.getIsActive()+");";
+				   
+		   SQLQuery query = session.createSQLQuery(sql);	
+		   query.executeUpdate();		
+		   System.out.println("In gts ");
+		   session.close();
+		   
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 }

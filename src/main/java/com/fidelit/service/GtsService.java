@@ -1,5 +1,7 @@
 package com.fidelit.service;
 
+import com.fidelit.model.Device;
+
 public interface GtsService {
     void addAccountInGts(String accountId, String password, String discription);
 
@@ -12,4 +14,6 @@ public interface GtsService {
 	
 	void deleteCorridor(String corridorID);
 	void editCorridorInGtsList(String accountId, String corridorID,double latitude,double longitude,int stopID);
+
+	void addDeviceInGts(Device device);
 }
