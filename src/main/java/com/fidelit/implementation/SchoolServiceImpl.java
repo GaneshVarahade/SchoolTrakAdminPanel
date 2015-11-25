@@ -119,7 +119,7 @@ public class SchoolServiceImpl implements SchoolService {
 			    Object result=criteria.uniqueResult();
 			    school = (School)result;
 			
-				String hql = "UPDATE schooladmin set schoolId = null "  + 
+				String hql = "UPDATE schoolAdmin set schoolId = null "  + 
 			             "WHERE schoolId = "+id;
 				try{
 				Query query = session.createSQLQuery(hql);

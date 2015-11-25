@@ -223,14 +223,21 @@ function setDateFormat(manu){
 	 return menu;
 }
 
-function edit(id){
-	var id = id;
-	window.location.href = "editEmployee?id="+id;
-	}
-	
-function deletel(id){
-	var id = id;
-	window.location.href = "deleteEmployee?id="+id;
+function deleteAllRow(source){
+	/* var count = 0;
+	<c:forEach var="school" items="${schoolList}">
+	 <td class="text-center"><input type="checkbox" id="${school.id}"  name="myTextEditBox" value="" onClick="displayNote(event)"/>
+  	</c:forEach> */
+  	
+  		
+  	 checkboxes = document.getElementsByName('myTextEditBox');
+  	  for(var i=0, n=checkboxes.length;i<n;i++) {
+  		var id = checkboxes[i].getAttribute( 'id' );
+  	    checkboxes[i].checked = source.checked;
+  	    malaDeleteKara(id);
+  	  }
+  	
+  	
 }	
 
 function displayNote(evt){
@@ -246,6 +253,7 @@ function displayNote(evt){
 	  }
 	 
 }
+
 var saveKara = 0;
 function malaDeleteKara(id){
 	if(saveKara == 0){
@@ -423,7 +431,7 @@ function checkUsernameRegister(){
                         <table id="example" class="table table-bordered table-striped table-hover">
                           <thead>
                             <tr>
-                            	<th width="3%" class="text-center no-sort"><input type="checkbox"></th>
+                            	<th width="3%" class="text-center no-sort"><input type="checkbox"  onClick="deleteAllRow(this)" ></th>
                                 <th width="20%">School Name</th>
                                 <th width="25%">Address</th>
                                 <th width="22%">Details</th>

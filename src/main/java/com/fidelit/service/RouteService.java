@@ -13,4 +13,5 @@ public interface RouteService {
 	Route getRouteId(int id);
 	void deleteRoute(int id);
 	void deleteBusInRoute(int id);
+	int getLastRouteId();
 }

@@ -148,9 +148,10 @@ ExtinctorService extinctorService;
 		model.addAttribute("busDriverList",busDriverList);
 		return "routeMap";
 	}
+	
 	@RequestMapping(value="editRoute",method = RequestMethod.POST)
 	public String editRoute(HttpServletRequest request,HttpServletResponse response,ModelMap model){
-		String list = request.getParameter("list");
+		/*String list = request.getParameter("list");
 		System.out.println(list);
 		String [] dataList = list.split(",");
 		Route route = new Route();
@@ -171,7 +172,102 @@ ExtinctorService extinctorService;
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		gtsService.editCorridorInGts(userName, corridorId, dataList[1]);
 		routeService.updateRoute(route);
-		return "stopMap";
+		return "stopMap";*/
+		
+
+		int routeId = 0;
+		String routeName = null;
+		boolean status = false;
+		String start = null;
+		String stop = null;
+		String corridorId = null;
+		String regNumber = null;
+		String driverName = null;
+		
+		if(request.getParameter("routeId") != null){
+			routeId = Integer.parseInt(request.getParameter("routeId"));
+			}
+			
+		if(request.getParameter("routeName") != null){
+				routeName = request.getParameter("routeName");
+				System.out.println("routeName:"+routeName);
+			}
+			
+		if(request.getParameter("status") != null){
+				if(request.getParameter("status").equals("true")){
+					status = true;
+				}else{
+					status = false;
+				}
+				
+			}
+			
+		if(request.getParameter("start") != null){
+				start = request.getParameter("start");
+				
+		}
+		
+		if(request.getParameter("stop") != null){
+			stop = request.getParameter("stop");
+		}
+		
+		if(request.getParameter("corridorId") != null){
+			corridorId = request.getParameter("corridorId");
+			System.out.println("corridorID:"+corridorId);
+		}
+		
+		if(request.getParameter("regNumber") != null){
+			regNumber = request.getParameter("regNumber");
+		}
+		
+		if(request.getParameter("driverName") != null){
+			driverName = request.getParameter("driverName");
+		}
+		Route route = new Route();
+		
+		
+		
+/*		String list = request.getParameter("list");
+		System.out.println(list);
+		String [] dataList = list.split(",");
+
+		String busNo=dataList[5];
+		String driver=dataList[6];
+		String corridorId=dataList[7];*/
+		Bus bus=busService.getBusRegNo(regNumber);
+		BusDriver busDriver=busDriverService.getDriverByName(driverName);
+		//Integer routeId=Integer.parseInt(dataList[0]);
+		route.setRouteNo(routeId);
+		route.setRouteName(routeName);
+		
+		/*String routeStatus = dataList[2];
+		if(routeStatus.equals("true")){
+			route.setRouteStatus(true);
+		}else{
+			route.setRouteStatus(false);
+		}*/
+
+		route.setRouteStatus(status);
+		
+		route.setStartStop(start);
+		route.setEndStop(stop);
+		route.setBus(bus);
+		route.setBusDriver(busDriver);
+		route.setCorridorId(corridorId);
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		gtsService.editCorridorInGts(userName, corridorId, routeName);
+		routeService.updateRoute(route);
+		
+		List<Route> routes = routeService.getRouteList(userName);
+		System.out.println(routes.toString());
+		
+		List<Bus> busList=busService.allBusList(userName);
+		List<BusDriver> busDriverList=busDriverService.allBusDriverList(userName);
+		model.addAttribute("routeList",routes);
+		model.addAttribute("busList",busList);
+		model.addAttribute("busDriverList",busDriverList);
+		model.addAttribute(new Route());
+		return "routeMap";
 	}
 
 	

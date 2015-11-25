@@ -328,7 +328,7 @@ function editParents(){
                         <table id="example" class="table table-bordered table-striped table-hover">
                           <thead>
                             <tr>
-                            	<th width="3%" class="text-center no-sort"><input type="checkbox"></th>
+                            	<th width="3%" class="text-center no-sort"><input type="checkbox" id="${schoolAdmin}" name="myTextEditBox" value="" onClick="displayNote(event)"/></th>
                                 <th width="10%">Name</th>
                                 <th width="15%">School Name</th>
                                 <th width="20%">Address</th>

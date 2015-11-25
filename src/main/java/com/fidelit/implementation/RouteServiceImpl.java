@@ -113,6 +113,31 @@ public class RouteServiceImpl implements RouteService{
 
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
+	public int getLastRouteId() {
+		Session session;
+		Route  route = null;
+		int id = 0;
+		try{
+			session = sessionFactory.getCurrentSession();
+			Route result = (Route) session.createQuery("from Route ORDER BY routeNo DESC")
+                    .setMaxResults(1)
+                    .uniqueResult();
+			/*Criteria criteria = session.createCriteria(Route.class);
+			 criteria.add(Restrictions.eq("routeNo", id));
+			 Object result=criteria.uniqueResult();
+			 route = (Route)result;*/
+			id = result.getRouteNo();
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return id;
+	}
+	
+	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
 	public void deleteBusInRoute(int busId) {
 		 Session session = sessionFactory.getCurrentSession();
 		String hql = "UPDATE route set regNumber = null "  + 

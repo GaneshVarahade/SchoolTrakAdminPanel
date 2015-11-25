@@ -55,13 +55,15 @@ function addStops(id){
 	
 }
 
- function editRoute(id,name,status,start,stop,corridorId){
+ function editRoute(id,name,status,start,stop,regNo,driverName,corridorId){
 	 
 	$("#routeId").val(id);
 	$("#routeName").val(name);
 	$("#status").val(status);
 	$("#start").val(start);
 	$("#stop").val(stop);
+	$("#regNumber").val(regNo);
+	$("#driverName").val(driverName);
 	$("#corridorId").val(corridorId);
 	$("#edit").modal('show');
 	
@@ -86,7 +88,8 @@ function addStops(id){
 	    success : function(response) {	 
 	    	 $("#edit").modal('hide');
 	       alert("Route Updated Successfully!");
-	       location.reload();
+//	       location.reload();
+	       window.location.href="${pageContext.request.contextPath}/route/routeMap";
 	      },
 	    error : function(e) {
 	    	 $("#edit").modal('hide');
@@ -94,6 +97,8 @@ function addStops(id){
 	    }
 	});   
 } 
+ 
+ 
 
 
 
@@ -130,6 +135,7 @@ function addStops(id){
 		 
 	}
 
+	
 	
 	
 </script>
@@ -187,7 +193,7 @@ function addStops(id){
                                 <td>${route.bus.regNumber}</td>
                                 <td>${route.busDriver.driverName}</td>
                                 <td><button type="submit" class="btn btn-default btn-sm" onClick="addStops(${route.routeNo})"><i class="fa fa-plus-circle"></i> Add Stops</button></td>
-                                <td><button type="submit" class="btn btn-default btn-sm" onClick="editRoute('${route.routeNo}','${route.routeName}','${route.routeStatus}','${route.startStop}','${route.endStop}','${route.corridorId}');"><i class="fa fa-pencil-square-o"></i> Edit</button></td>
+                                <td><button type="submit" class="btn btn-default btn-sm" onClick="editRoute('${route.routeNo}','${route.routeName}','${route.routeStatus}','${route.startStop}','${route.endStop}','${route.bus.regNumber}','${route.busDriver.driverName}','${route.corridorId}');"><i class="fa fa-pencil-square-o"></i> Edit</button></td>
                               </tr>
                             </c:forEach>
                           </tbody>
@@ -207,18 +213,20 @@ function addStops(id){
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Edit Route </h4>
       </div>
+      
+      <form method="post" action="${pageContext.request.contextPath}/route/editRoute">
       <div class="modal-body">
       	<div class="form-horizontal">
             <div class="form-group">
-             	<label class="col-sm-3 control-label">Route Number :</label>
+             <!-- 	<label class="col-sm-3 control-label">Route Number :</label> -->
                 <div class="col-sm-8">
-                  <input type="text" name="name" id="routeId" class="form-control" readOnly>
+                  <input type="hidden" name="routeId" id="routeId" class="form-control" readOnly>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Route Name :</label>
                 <div class="col-sm-8">
-                  <input type="text" name="name" id="routeName" class="form-control">
+                  <input type="text" name="routeName" id="routeName" class="form-control">
                 </div>
             </div>
             <div class="form-group">
@@ -237,18 +245,19 @@ function addStops(id){
             <div class="form-group">
                 <label class="col-sm-3 control-label">End Stop :</label>
                 <div class="col-sm-8">
-                  <input type="text" name="end" id="stop" class="form-control">
+                  <input type="text" name="stop" id="stop" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">Corridor Id :</label>
+            <!--     <label class="col-sm-3 control-label">Corridor Id :</label> -->
                 <div class="col-sm-8">
-                  <input type="text" name="corridorId" id="corridorId" class="form-control">
+                  <input type="hidden" name="corridorId" id="corridorId" class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Bus Number</label>
                 <div class="col-sm-8">
+                	
                   <select name="regNumber" id="regNumber" class="form-control" >
                     <c:forEach var="bus" items="${busList}">
                       <option value="${bus.regNumber}">${bus.regNumber}</option>
@@ -269,9 +278,10 @@ function addStops(id){
       	</div>
         <div class="modal-footer text-center">
             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-sky btn-sm" onClick="editRoutes();" data-dismiss="modal">Save</button>
+            <input type="submit" class="btn btn-sky btn-sm"  value="Save">
         </div>
     </div>
+    </form> 
   </div>
 </div>
 </div>
@@ -287,9 +297,9 @@ function addStops(id){
       	<div class="modal-body">
             
             <div class="form-group">
-                <form:label path="routeNo" class="col-sm-3 control-label">Route No.</form:label>
+              <%--   <form:label path="routeNo" class="col-sm-3 control-label">Route No.</form:label> --%>
                 <div class="col-sm-8">
-                	<form:input  path="routeNo" id="routeNo" value="" class="form-control" />
+                	<form:input type="hidden" path="routeNo" id="routeNo" value="" class="form-control" />
                	</div>
            	</div>
             <div class="form-group">
@@ -302,8 +312,8 @@ function addStops(id){
                 <form:label path="routeStatus" class="col-sm-3 control-label">Status</form:label>
                 <div class="col-sm-8">
                     <form:select path="routeStatus" id="routeStatus" class="form-control">
-                      <form:option value="1">ON</form:option>
-                      <form:option value="0">OFF</form:option>
+                      <form:option value="1">isTrackON</form:option>
+                      <form:option value="0">isTrackOFF</form:option>
                     </form:select>
                	</div>
             </div>
@@ -320,9 +330,9 @@ function addStops(id){
                	</div>
             </div>
             <div class="form-group">
-                <form:label path="corridorId" class="col-sm-3 control-label">Corridor ID</form:label>
+                <%-- <form:label path="corridorId" class="col-sm-3 control-label">Corridor ID</form:label> --%>
                 <div class="col-sm-8">
-                	<form:input path="corridorId" id="corridorId" value="" class="form-control" />
+                	<form:input type = "hidden" path="corridorId" id="corridorId" value="" class="form-control" />
                	</div>
             </div>
             <div class="form-group">
