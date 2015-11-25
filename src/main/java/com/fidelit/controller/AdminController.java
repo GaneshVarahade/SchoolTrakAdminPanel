@@ -103,7 +103,7 @@ public @ResponseBody String checkClientUsername(HttpServletRequest request){
 @RequestMapping(value="/addSchool" , method=RequestMethod.POST)
 public String addSchool(HttpServletRequest request,HttpServletResponse response,ModelMap model) throws ParseException{
 	System.out.println("HII IN School");
-	
+	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 	String list = request.getParameter("accessList");
 	
 	String [] dataList = list.split(",");
@@ -115,8 +115,9 @@ public String addSchool(HttpServletRequest request,HttpServletResponse response,
 	school.setCity(dataList[4]);
 
 	
+
 	schoolService.addSchool(school);
-	List<School> schoolList= schoolService.allSchoolList();
+	List<School> schoolList= schoolService.allSchoolList(userName);
 	
 	model.addAttribute("schoolList", schoolList);
 	return "schoolList";	
@@ -500,7 +501,8 @@ public String updateEmployeeList(ModelMap model){
 
 @RequestMapping(value="/schoolList")
 public String allSchoolList(ModelMap model){
-	List<School> schoolList= schoolService.allSchoolList();
+	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+	List<School> schoolList= schoolService.allSchoolList(userName);
 	for (School school2 : schoolList) {
 		System.out.println("School    "+school2.getSchoolName());
 	}
@@ -523,12 +525,13 @@ public String allClientList(ModelMap model){
 
 
 
+
 @RequestMapping(value="/schoolAdmin")
 public String allSchoolAdminList(ModelMap model){
 	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 	List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
 	model.addAttribute("schoolAdminList", schoolAdminList);
-	List<School> schoolList=schoolService.allSchoolList();
+	List<School> schoolList=schoolService.allSchoolList(userName);
 	model.addAttribute("schoolList", schoolList);
 	return "schoolAdmin";
 }
@@ -814,7 +817,8 @@ public String deleteEmployeeList(@RequestParam("list") String str,ModelMap model
 		schoolService.deleteSchool(id);
 	}
 	
-	List<School> schoolList= schoolService.allSchoolList();
+	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+	List<School> schoolList= schoolService.allSchoolList(userName);
 	
 	model.addAttribute("schoolList", schoolList);
 	return "schoolList";

@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.annotations.Filters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 
 
@@ -65,22 +67,27 @@ public class SchoolAdminController {
 	}
 	
 	@RequestMapping(value="/parentList")
-	public String allParentList(ModelMap model){
+	public String allParentList(HttpServletRequest request,ModelMap model){
 		
+		HttpSession session = request.getSession();
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
 		model.addAttribute("schoolAdminList", schoolAdminList);
-		List<School> schoolList=schoolService.allSchoolList();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		List<School> schoolList=schoolService.allSchoolList(currentUser.getAccountId());
 		model.addAttribute("schoolList", schoolList);
 		return "parentList";
 	}
 	
 	@RequestMapping(value="/studentList")
-	public String allStudentList(ModelMap model){
+	public String allStudentList(HttpServletRequest request,ModelMap model){
+		
+		HttpSession session = request.getSession();
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<SchoolAdmin> schoolAdminList= schoolAdminService.getAllStudentList(userName);
 		model.addAttribute("schoolAdminList", schoolAdminList);
-		List<School> schoolList=schoolService.allSchoolList();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		List<School> schoolList=schoolService.allSchoolList(currentUser.getAccountId());
 		model.addAttribute("schoolList", schoolList);
 		return "studentList";
 	}

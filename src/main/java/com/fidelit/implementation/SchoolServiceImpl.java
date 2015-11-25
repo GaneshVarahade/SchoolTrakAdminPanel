@@ -79,7 +79,7 @@ public class SchoolServiceImpl implements SchoolService {
 
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
-	public List<School> allSchoolList() {
+	public List<School> allSchoolList(String userName) {
 		
 		
 		List<School> schoolList = new ArrayList<School>();
@@ -87,6 +87,7 @@ public class SchoolServiceImpl implements SchoolService {
 			try {
 				session = sessionFactory.getCurrentSession();
 				Criteria criteria = session.createCriteria(School.class);
+				criteria.add(Restrictions.eq("accountId", userName));
 				schoolList = criteria.list();
 			} catch (Exception e) {
 				
@@ -98,7 +99,6 @@ public class SchoolServiceImpl implements SchoolService {
 
 		// TODO Auto-generated method stub
 	}
-
 	@Override
 	public School getSchoolId(int id) {
 		// TODO Auto-generated method stub

@@ -46,6 +46,7 @@ public class NewsletterController {
 		Date date = new Date();
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		newsletter.setDate(dateFormat.parse(dateFormat.format(date)));
+		newsletter.setAccountId(userName);
 		newsletterService.addNewsletter(newsletter);
 		List<Newsletter> newsletterList =newsletterService.getNewsletterList(userName);
 		model.addAttribute("newsletterList",newsletterList);

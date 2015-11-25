@@ -13,7 +13,7 @@ public interface SchoolService {
 	//void deleteEmployee(Employee employee);
 	ArrayList<School> getAllSchool();
 //	boolean checkUserName(String userName);
-	List<School> allSchoolList();
+	List<School> allSchoolList(String userName);
 	School getSchoolId(int id);
 	School getSchool(String schoolName);
 	void deleteSchool(int id);

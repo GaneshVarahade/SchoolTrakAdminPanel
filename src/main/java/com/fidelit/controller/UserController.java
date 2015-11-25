@@ -1,4 +1,4 @@
-/*package com.fidelit.controller;
+package com.fidelit.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -64,18 +64,20 @@ public class UserController {
 	
 	@RequestMapping(value="/parentList")
 	public String allParentList(ModelMap model){
-		List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
 		model.addAttribute("schoolAdminList", schoolAdminList);
-		List<School> schoolList=schoolService.allSchoolList();
+		List<School> schoolList=schoolService.allSchoolList(userName);
 		model.addAttribute("schoolList", schoolList);
 		return "parentList";
 	}
 	
 	@RequestMapping(value="/studentList")
 	public String allStudentList(ModelMap model){
-		List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
 		model.addAttribute("schoolAdminList", schoolAdminList);
-		List<School> schoolList=schoolService.allSchoolList();
+		List<School> schoolList=schoolService.allSchoolList(userName);
 		model.addAttribute("schoolList", schoolList);
 		return "studentList";
 	}
@@ -90,8 +92,8 @@ public class UserController {
 			schoolAdminService.deleteSchoolAdmin(id);
 		}
 		
-
-	    List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+	    List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
 		model.addAttribute("schoolAdminList", schoolAdminList);
 		return "parentList";
 	}
@@ -106,8 +108,8 @@ public class UserController {
 			schoolAdminService.deleteSchoolAdmin(id);
 		}
 		
-
-	    List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+	    List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
 		model.addAttribute("schoolAdminList", schoolAdminList);
 		return "studentList";
 	}
@@ -292,6 +294,7 @@ public class UserController {
 		School school =schoolService.getSchool(dataList[2]);
 		Integer studentId=Integer.parseInt(dataList[0]);
 		Integer age=Integer.parseInt(dataList[5]);
+		
 		schoolAdmin.setId(studentId);
 		schoolAdmin.setName(dataList[1]);
 		schoolAdmin.setSchool(school);
@@ -302,6 +305,8 @@ public class UserController {
 		schoolAdmin.setPassword(dataList[7]);
 		schoolAdmin.setUsername(dataList[8]);
 		schoolAdmin.setAccountType(dataList[9]);
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		schoolAdmin.setAccountId(userName);
 		model.addAttribute(new SchoolAdmin());
 		schoolAdminService.updateSchoolAdmin(schoolAdmin);
 		return "Ok";
@@ -327,6 +332,8 @@ public class UserController {
 		schoolAdmin.setPassword(dataList[7]);
 		schoolAdmin.setUsername(dataList[8]);
 		schoolAdmin.setAccountType(dataList[9]);
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		schoolAdmin.setAccountId(userName);
 		model.addAttribute(new SchoolAdmin());
 		schoolAdminService.updateSchoolAdmin(schoolAdmin);
 		return "Ok";
@@ -334,4 +341,3 @@ public class UserController {
 
 	
 }
-*/

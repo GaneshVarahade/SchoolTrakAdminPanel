@@ -255,6 +255,7 @@ ExtinctorService extinctorService;
 		route.setBusDriver(busDriver);
 		route.setCorridorId(corridorId);
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		route.setAccountId(userName);
 		gtsService.editCorridorInGts(userName, corridorId, routeName);
 		routeService.updateRoute(route);
 		
@@ -360,6 +361,7 @@ ExtinctorService extinctorService;
 	
 	@RequestMapping(value="editBus",method = RequestMethod.POST)
 	public String editBus(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		String list = request.getParameter("list");
 		String [] dataList = list.split(",");
 		Bus bus = new Bus();
@@ -369,6 +371,7 @@ ExtinctorService extinctorService;
 		bus.setCapacity(capacity);
 		bus.setRegNumber(dataList[1]);
 		bus.setBusType(dataList[2]);
+		bus.setAccountId(userName);
 		model.addAttribute(new Bus());
 		busService.updateBus(bus);
 		return "busList";
@@ -398,6 +401,7 @@ ExtinctorService extinctorService;
 	
 	@RequestMapping(value="editBusDriver",method = RequestMethod.POST)
 	public String editBusDriver(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		String list = request.getParameter("list");
 		String [] dataList = list.split(",");
 		BusDriver busDriver = new BusDriver();
@@ -410,6 +414,7 @@ ExtinctorService extinctorService;
 		busDriver.setLicenseNo(dataList[4]);
 		busDriver.setExperiance(dataList[5]);
 		busDriver.setAge(age);
+		busDriver.setAccountId(userName);
 		model.addAttribute(new BusDriver());
 		busDriverService.updateBusDriver(busDriver);
 		return "driverList";

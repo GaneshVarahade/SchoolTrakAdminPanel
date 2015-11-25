@@ -52,6 +52,7 @@ public class ExtintorController {
 		String busNumber=extintor.getBus().getRegNumber();
 		Bus bus=busService.getBusRegNo(busNumber);
 		extintor.setBus(bus);
+		extintor.setAccountId(userName);
 		extinctorService.addExtintor(extintor);
 		List<Extintor> extintorList =extinctorService.getExtintorList(userName);
 		model.addAttribute("extintorList",extintorList);
@@ -61,6 +62,7 @@ public class ExtintorController {
 	
 	@RequestMapping(value="editExtintor",method = RequestMethod.POST)
 	public String editExtintor(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		String list = request.getParameter("list");
 		String [] dataList = list.split(",");
 		Extintor extintor = new Extintor();
@@ -82,6 +84,7 @@ public class ExtintorController {
 		extintor.setType(dataList[1]);
 		extintor.setStatus(status);
 		extintor.setBus(bus);
+		extintor.setAccountId(userName);
 		extinctorService.updateExtintor(extintor);
 		return "stopMap";
 	}

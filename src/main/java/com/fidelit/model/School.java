@@ -37,6 +37,8 @@ public class School implements Serializable{
 	
 	private String city;
 	
+	private String accountId;
+	
 	public School(){
 		
 	}
@@ -111,6 +113,15 @@ public class School implements Serializable{
 	}
 
 
+	@Column(name="accountId")
+	public String getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
+	}
+	
 }
 
 

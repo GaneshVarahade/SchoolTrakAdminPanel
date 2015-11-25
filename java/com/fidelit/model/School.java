@@ -37,6 +37,8 @@ public class School implements Serializable{
 	
 	private String city;
 	
+	private String accountId;
+	
 	public School(){
 		
 	}
