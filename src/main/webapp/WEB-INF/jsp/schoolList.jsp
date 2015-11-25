@@ -4,6 +4,9 @@
     
 
  
+<script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
+<script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
+ 
 <script type="text/javascript">
 
  function emailValidateUpdate() 
@@ -130,14 +133,11 @@ function password_length_registration()
  function showBtn(){
 
 	 if(saveKara == 0){
-		 alert("Please select Atleast one employee for delete");
+		 alert("Please select Atleast one School for delete");
 	 }
 	 else{
-		/*  bootbox.confirm("Are you sure?", function(result) {
-			  Example.show("Confirm result: "+result);
-			}); 
-		 */
-		 var result = confirm("want to delete?");
+	
+		 var result = confirm("Are you sure, you wan to delete school(s)?");
 		 if(result){
 			 window.location.href = "deleteSchoolList?list="+saveKara;	 
 		 }
@@ -253,7 +253,6 @@ function displayNote(evt){
 	  }
 	 
 }
-
 var saveKara = 0;
 function malaDeleteKara(id){
 	if(saveKara == 0){
@@ -277,6 +276,7 @@ console.log(saveKara);
 </script>
 
 <script type="text/javascript">
+
 
 
 
@@ -340,10 +340,12 @@ function sendDataForRegistration(){
 		    data : formData,
 		    success : function(response) {	       
 		
+		    	$("#schoolAdd").modal('hide');
 		       alert("School Added"+response);
+		       window.location.href="${pageContext.request.contextPath}/admin/schoolList";
 		    },
 		    error : function(e) {
-		       alert('Error: ' + e);
+		       
 		    }
 		});
 	}
@@ -397,9 +399,69 @@ function checkUsernameRegister(){
 	    }});
 	}
 
+$('#frm').submit(function(e) {
+    $('#messages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
+    $('#messages_content').html('<h4>MESSAGE HERE</h4>');
+    $('#modal').modal('show');
+    e.preventDefault();
+});
 
 
+
+$(document).ready(function() {
+    $('#frm').formValidation({
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	schoolName: {
+                validators: {
+                    notEmpty: {
+                        message: 'The schoolName is required'
+                    }
+                }
+            },
+            address: {
+                validators: {
+                    notEmpty: {
+                        message: 'The address is required'
+                    }
+                }
+            },
+            details: {
+                validators: {
+                    notEmpty: {
+                        message: 'The Details is required'
+                    }
+                }
+            },
+            
+            location: {
+                validators: {
+                    notEmpty: {
+                        message: 'The Location is required'
+                    }
+                }
+            },
+            
+            city: {
+                validators: {
+                    notEmpty: {
+                        message: 'The city is required'
+                    }
+                }
+            }
+            
+        }
+    });
+});
 </script>
+
+
 
 <div class="form-horizontal">
     <div class="row">
@@ -466,54 +528,50 @@ function checkUsernameRegister(){
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">School Details</h4>
+                <h4 class="modal-title"><center>School Details</center></h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" role="form" > 
+                <form class="form-horizontal" role="form" id="frm"> 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">School Name</label>
+                        <label class="col-sm-3 control-label">School Name &#42;</label>
                         <div class="col-sm-8">
-                       		<input type="text" name="schoolName" id="schoolName" value="" class="form-control" >
+                       		<input type="text" name="schoolName" id="schoolName" value="" class="form-control" maxlength="50" >
                        	</div>
                     </div>
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">Address</label>
+                        <label class="col-sm-3 control-label">Address &#42;</label>
                         <div class="col-sm-8">
-                            <input type="text" name="address" id="address" value="" class="form-control" >
+                            <input type="text" name="address" id="address" value="" class="form-control" maxlength="50">
                       	</div>
                    	</div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Details</label>
+                        <label class="col-sm-3 control-label">Details &#42;</label>
                         <div class="col-sm-8">
-                            <input type="text" name="details" id="details" value="" class="form-control" >
+                            <input type="text" name="details" id="details" value="" class="form-control" maxlength="60">
                       	</div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Location</label>
+                        <label class="col-sm-3 control-label">Location &#42;</label>
                         <div class="col-sm-8">
-                            <input type="text" name="location" id="location" value="" class="form-control">
+                            <input type="text" name="location" id="location" value="" class="form-control" maxlength="20">
                      	</div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">City</label>
+                        <label class="col-sm-3 control-label">City &#42;</label>
                      	<div class="col-sm-8">
-                            <input type="text" name="city" id="city1" value="" class="form-control" >
+                            <input type="text" name="city" id="city1" value="" class="form-control" maxlength="20">
                       	</div>
                     </div>
-                                            
-                  	<!--<div class="form-group">
-                    	<label class="col-sm-3 control-label">Sex</label>
-                      	<div class="col-sm-8">
-                            <input type="text" name="ssex" id="ssex" value="" class="form-control" >
-                       	</div>
-                 	</div>-->
-                </form>
-            </div>
-            <div class="modal-footer text-center">
+           
+           			 <div class="modal-footer text-center">
             	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            	<button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration()">Save</button>
+            	<input type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration()">
             </div>
-        </div>
+                                         
+                  
+           </form>
+          </div>
+        </div>  
 	</div>
 </div>
 

@@ -2,17 +2,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
+<script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
+
 <script>
+
+
 var saveKara = 0;
 
 function showBtn(){
 
 	 if(saveKara == 0){
-		 alert("Please select Atleast one client for delete");
+		 alert("Please select Atleast one School Admin");
 	 }
 	 else{
 		
-		 var result = confirm("want to delete?");
+		 var result = confirm("Are you sure, you wan to delete school(s)?");
 		 if(result){
 			 window.location.href = "deleteSchoolAdminList?list="+saveKara;	 
 		 }
@@ -135,10 +140,11 @@ function sendDataForRegistration(){
 		    url : "${pageContext.request.contextPath}/admin/addSchoolAdmin",
 		    data : formData,
 		    success : function(response) {	       
-		       alert("Client Profile Added");
+		       alert("SchoolAdmin Profile Added Successfully");
+		       window.location.href="${pageContext.request.contextPath}/admin//schoolAdmin";
 		    },
 		    error : function(e) {
-		       alert('Error: ' + e);
+		       alert("Please Enter Mandatory FIeld and UserName Should be Unique");
 		    }
 		});
 	}
@@ -290,6 +296,95 @@ function password_length_registration()
        return false;  	
      }  
 }
+
+
+$(document).ready(function() {
+    $('#registerForm').formValidation({
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	name: {
+                validators: {
+                    notEmpty: {
+                        message: 'The Admin Name is required'
+                    }
+                }
+            },
+            address: {
+                validators: {
+                    notEmpty: {
+                        message: 'The address is required'
+                    }
+                }
+            },
+            username: {
+                validators: {
+                    notEmpty: {
+                        message: 'UserName should be Unique'
+                    }
+                }
+            },
+            
+            password: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please Enter Password'
+                    }
+                }
+            },
+            
+            schoolName: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select School'
+                    }
+                }
+            },
+            
+            city: {
+                validators: {
+                    notEmpty: {
+                        message: 'The city is required'
+                    }
+                }
+            },
+            accountType: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select Account type'
+                    }
+                }
+            },
+            
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please Enter Valid Email'
+                    }
+                }
+            },
+            age: {
+                validators: {
+                    notEmpty: {
+                    	
+                    	
+                        message: 'Age should be a number'
+      
+                    }
+                }
+            }
+            
+            
+        }
+    });
+});
+
+
 </script>
 
 
@@ -366,35 +461,40 @@ function password_length_registration()
             </div>
             <div class="modal-body">
                 <form id="registerForm"  class="form-horizontal" role="form" name="registerForm">
-                    <div class="form-group">
-                       	<label class="col-sm-3 control-label">User Name</label>
+                
+                
+                <div class="form-group">
+                        <label class="col-sm-3 control-label">Admin Name &#42;</label>
                         <div class="col-sm-8">
-                            <input type="text" name="username" id="username" value="" class="form-control">
-                      	</div>
-                    </div>
+                        	<input type="text" name="name" id="aName" value="" class="form-control" maxlength="50">
+                        </div>
+                   	</div>
+              
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">Account Type</label>
+                        <label class="col-sm-3 control-label">Account Type &#42;</label>
                         <div class="col-sm-8">
                         	<select name="accountType" id="accountType" class="form-control" >
                             	<option value="SchoolAdmin">School Admin</option>
                             </select>
                      	</div>
                     </div>
-                  	<div class="form-group">
-                        <label class="col-sm-3 control-label">Admin Name</label>
+                    
+                    <div class="form-group">
+                       	<label class="col-sm-3 control-label">User Name &#42;</label>
                         <div class="col-sm-8">
-                        	<input type="text" name="name" id="aName" value="" class="form-control">
-                        </div>
-                   	</div>
+                            <input type="text" name="username" id="username" value="" class="form-control" maxlength="10">
+                      	</div>
+                    </div>
+                  	
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">Admin Password</label>
+                        <label class="col-sm-3 control-label">Admin Password &#42;</label>
                         <div class="col-sm-8">
-                        	<input type="text" name="password" id="aPassword" value="" class="form-control">
+                        	<input type="text" name="password" id="aPassword" value="" class="form-control" maxlength="10">
                         </div>
                     </div>
                     
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">School Name</label>
+                        <label class="col-sm-3 control-label">School Name &#42;</label>
                         <div class="col-sm-8">
                         	<select name="schoolName" id="schoolId" class="form-control" >
                             	<c:forEach var="school" items="${schoolList}">
@@ -405,40 +505,44 @@ function password_length_registration()
                     </div>
                     
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">Address</label>
+                        <label class="col-sm-3 control-label">Address &#42;</label>
                         <div class="col-sm-8">
                             <input type="text" name="address" id="aAddress" value="" class="form-control" >
                         </div>
                     </div>
                     
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">Email</label>
+                        <label class="col-sm-3 control-label">Email &#42;</label>
                         <div class="col-sm-8">
-                            <input type="text" name="email" id="aEmail" value="" class="form-control" >
+                            <input type="email" name="email" id="aEmail" value="" class="form-control" >
                         </div>
                    	</div>
                     
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">Age</label>
+                        <label class="col-sm-3 control-label">Age &#42;</label>
                         <div class="col-sm-8">
                         	<input type="text" name="age" id="aAge" value="" class="form-control" >
                         </div>
                     </div>
                     
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">City</label>
+                        <label class="col-sm-3 control-label">City &#42;</label>
                         <div class="col-sm-8">
                         	<input type="text" name="city" id="aCity" value="" class="form-control">
                         </div>
                     </div>
-				</form>
-       		</div>
-			<div class="modal-footer">
-            	<div class="modal-footer text-center">
+                    
+                   
+            		<div class="modal-footer text-center">
                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration();" data-dismiss="modal">Save</button>
-                </div>                
+                </div> 
+                </form>               
 			</div>
+                   
+				
+       		</div>
+			
 		</div>
 	</div>
 </div>

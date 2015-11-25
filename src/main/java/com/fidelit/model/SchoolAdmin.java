@@ -10,12 +10,19 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.Email;
+import org.springframework.beans.factory.annotation.Required;
 
 @Entity
 @Table(name="schoolAdmin")
 public class SchoolAdmin implements Serializable  {
 	
 	private Integer id;
+	
 	
 	private String name;
 	
@@ -54,6 +61,7 @@ public class SchoolAdmin implements Serializable  {
 		this.id = id;
 	}
 	
+	@Required
 	@Column(name="name")
 	public String getName() {
 		return name;
@@ -63,6 +71,7 @@ public class SchoolAdmin implements Serializable  {
 		this.name = name;
 	}
 
+	@Required
 	@Column(name="password")
 	public String getPassword() {
 		return password;
@@ -73,7 +82,7 @@ public class SchoolAdmin implements Serializable  {
 	}
 
 
-	
+	@Required
 	@Column(name="address")
 	public String getAddress() {
 		return address;
@@ -83,6 +92,8 @@ public class SchoolAdmin implements Serializable  {
 		this.address = address;
 	}
 
+	@Required
+	@Email
 	@Column(name="email")
 	public String getEmail() {
 		return email;
@@ -92,6 +103,7 @@ public class SchoolAdmin implements Serializable  {
 		this.email = email;
 	}
 	
+	@Required
 	@Column(name="age")
 	public Integer getAge() {
 		return age;
@@ -101,6 +113,7 @@ public class SchoolAdmin implements Serializable  {
 		this.age = age;
 	}
 
+	@Required
 	@Column(name="city")
 	public String getCity() {
 		return city;
@@ -110,6 +123,7 @@ public class SchoolAdmin implements Serializable  {
 		this.city = city;
 	}
 
+	@Required
 	@OneToOne
 	@JoinColumn(name="schoolId",nullable = true, insertable = true, updatable = true)
 	public School getSchool() {
@@ -120,6 +134,7 @@ public class SchoolAdmin implements Serializable  {
 		this.school = school;
 	}
 
+	@Required
 	@Column(name="username")
 	public String getUsername() {
 		return username;
@@ -129,6 +144,7 @@ public class SchoolAdmin implements Serializable  {
 		this.username = username;
 	}
 	
+	@Required
 	@Column(name="accountType")
 	public String getAccountType() {
 		return accountType;
@@ -138,6 +154,7 @@ public class SchoolAdmin implements Serializable  {
 		this.accountType = accountType;
 	}
 
+	@Required
 	@Column(name="enabled")
 	public Boolean getEnabled() {
 		return enabled;
@@ -147,6 +164,7 @@ public class SchoolAdmin implements Serializable  {
 		this.enabled = enabled;
 	}
 
+	@Required
 	@Column(name="role")
 	public String getRole() {
 		return role;
