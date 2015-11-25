@@ -89,6 +89,16 @@ function removeString(ch){
 //	showAlert(saveKara);
 }
 
+function deleteAllRow(source){  	
+		
+ 	 checkboxes = document.getElementsByName('myTextEditBox');
+ 	  for(var i=0, n=checkboxes.length;i<n;i++) {
+ 		var id = checkboxes[i].getAttribute('id' );
+ 	    checkboxes[i].checked = source.checked;
+ 	    malaDeleteKara(id);
+ 	  }	
+}
+
 function displayNote(evt){
 	
 	var el = evt.target || evt.srcElement;
@@ -296,7 +306,7 @@ function editStudents(){
                         <table id="example" class="table table-bordered table-striped table-hover">
                           <thead>
                             <tr>
-                            	<th width="3%" class="text-center no-sort"><input type="checkbox"></th>
+                            	<th width="3%" class="text-center no-sort"><input type="checkbox" onClick="deleteAllRow(this)"></th>
                               	<th width="10%">Name</th>
                               	<th width="10%">School Name</th>
                               	<th width="18%">Address</th>

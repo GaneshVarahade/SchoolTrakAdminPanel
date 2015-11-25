@@ -50,24 +50,25 @@ public class BusDriverServiceImpl implements BusDriverService{
 		
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-	@Override
-	public List<BusDriver> allBusDriverList(String userName) {
 	
-		Session session;
-		List<BusDriver> busDriverList = null;
-		try{
-			session = sessionFactory.getCurrentSession();
-			Query query = session.createSQLQuery("from busDriver where accountId= :accountId");
-			query.setParameter("accountId", userName);
-			busDriverList = query.list();
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		return busDriverList;
-		
-	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	 @Override
+	 public List<BusDriver> allBusDriverList(String userName) {
+	 
+	  Session session;
+	  List<BusDriver> busDriverList = null;
+	  try{
+	   session = sessionFactory.getCurrentSession();
+	   Query query = session.createQuery("from BusDriver where accountId =:accountId");
+	   query.setString("accountId", userName);
+	   busDriverList = query.list();
+	  }
+	  catch(Exception e){
+	   e.printStackTrace();
+	  }
+	  return busDriverList;
+	 }
 
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override

@@ -224,12 +224,7 @@ function setDateFormat(manu){
 }
 
 function deleteAllRow(source){
-	/* var count = 0;
-	<c:forEach var="school" items="${schoolList}">
-	 <td class="text-center"><input type="checkbox" id="${school.id}"  name="myTextEditBox" value="" onClick="displayNote(event)"/>
-  	</c:forEach> */
-  	
-  		
+		
   	 checkboxes = document.getElementsByName('myTextEditBox');
   	  for(var i=0, n=checkboxes.length;i<n;i++) {
   		var id = checkboxes[i].getAttribute( 'id' );

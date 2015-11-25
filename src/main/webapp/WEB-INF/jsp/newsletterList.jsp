@@ -104,6 +104,16 @@ function addStops(id){
 
 	}
 
+	function deleteAllRow(source){  	
+  		
+	  	 checkboxes = document.getElementsByName('myTextEditBox');
+	  	  for(var i=0, n=checkboxes.length;i<n;i++) {
+	  		var id = checkboxes[i].getAttribute('id' );
+	  	    checkboxes[i].checked = source.checked;
+	  	    malaDeleteKara(id);
+	  	  }	
+	}
+	
 	function displayNote(evt){
 		
 		var el = evt.target || evt.srcElement;
@@ -151,7 +161,7 @@ function addStops(id){
                         <table id="routeDataTable" class="table table-bordered table-striped table-hover">
                           <thead>
                             <tr>
-                            	<th width="10%" class="text-center no-sort"><input type="checkbox"></th>
+                            	<th width="10%" class="text-center no-sort"><input type="checkbox" onClick="deleteAllRow(this)"></th>
                                 <th width="60%">News</th>
                                 <th width="30%">Date</th>
                             </tr>
@@ -161,8 +171,7 @@ function addStops(id){
                                     <tr>
                                        <td class="text-center"><input type="checkbox" id="${newsletter.id}" name="myTextEditBox" value="" onClick="displayNote(event)"></td>
                                        <td>${newsletter.news}</td>  
-                                       <td>${newsletter.date}</td> 
-                                      
+                                       <td>${newsletter.date}</td>       
                                       </tr>
                                 </c:forEach>
                             </tbody>

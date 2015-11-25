@@ -388,6 +388,7 @@ ExtinctorService extinctorService;
 	@RequestMapping(value="addDriver",method = RequestMethod.POST)
 	public String addBusDriver(@ModelAttribute("busDriver") BusDriver driver,ModelMap model){
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		driver.setAccountId(userName);
 		busDriverService.addBusDriver(driver);
 		List<BusDriver> busDriverList = busDriverService.allBusDriverList(userName);
 		model.addAttribute("busDriverList",busDriverList);
