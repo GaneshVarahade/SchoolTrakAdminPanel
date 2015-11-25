@@ -17,5 +17,6 @@ public interface SchoolAdminService {
 	void deleteSchoolAdmin(int id);
 //	List<Employee> getEmployeeFirstName();
 	List<SchoolAdmin> getAllStudentList(String userName);
+	boolean getUniqueUserName(String userName);
 
 }

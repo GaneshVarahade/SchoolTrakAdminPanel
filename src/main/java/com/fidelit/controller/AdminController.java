@@ -114,6 +114,7 @@ public String addSchool(HttpServletRequest request,HttpServletResponse response,
 	school.setLocation(dataList[3]);
 	school.setCity(dataList[4]);
 
+	school.setAccountId(userName);
 	
 
 	schoolService.addSchool(school);
@@ -298,6 +299,16 @@ public String addClient(HttpServletRequest request,HttpServletResponse response,
 	
 }
 */
+@ResponseBody
+@RequestMapping(value="/checkUniqueUserName" , method=RequestMethod.POST)
+public boolean checkUniqueUserName(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+	
+	String userName = request.getParameter("userName");
+	System.out.println("userName:::"+userName);
+	boolean val = schoolAdminService.getUniqueUserName(userName);
+	return val;
+	
+}
 
 
 
@@ -307,6 +318,8 @@ public String addClient(HttpServletRequest request,HttpServletResponse response,
 	
 	String list = request.getParameter("accessList");
 	String SchoolName=request.getParameter("schoolName");
+	
+	
 	
 	String [] dataList = list.split(",");
 	for (int i = 0; i < dataList.length; i++) {

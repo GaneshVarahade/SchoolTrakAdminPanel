@@ -112,7 +112,7 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 		
 	}
 
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	
 	@Override
 	public List<SchoolAdmin> getAllStudentList(String userName) {
 		List<SchoolAdmin> schoolAdminList = new ArrayList<SchoolAdmin>();
@@ -130,6 +130,33 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 			}
 		// TODO Auto-generated method stub
 		return schoolAdminList;
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public boolean getUniqueUserName(String username) {
+		
+		List<SchoolAdmin> schoolAdminList = new ArrayList<SchoolAdmin>();
+		 Session session;
+			try {
+				session = sessionFactory.getCurrentSession();
+				String hql = "from SchoolAdmin where username =:username";
+				Query query = session.createQuery(hql);
+				
+				
+				query.setString("username", username);
+				schoolAdminList = query.list();
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			System.out.println("schoolAdminList.toString():"+schoolAdminList.toString());
+		if(schoolAdminList.isEmpty()){
+			return false;
+		}else{
+		return true;
+		}
+
 	}
 
 }
