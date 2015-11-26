@@ -1,6 +1,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
+<script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
+    
 <script>
 var saveKara = 0;
 
@@ -41,11 +45,29 @@ function deletel(id){
 }	
 
 
-
+function checkUniqueUsername(){
+	
+	var userName= "userName="+$("#username").val();
+	
+	$.ajax({
+	    type : "POST",
+	    url : "${pageContext.request.contextPath}/admin/checkUniqueUserName",
+	    data : userName,
+	    success : function(response) {	
+	    	
+	       
+	       if(response){
+	    	
+	       $("#username").val("");
+	       }
+	  
+	    },
+	    error : function(e) {
+	  
+	    }
+	});
+}
 function sendDataForRegistration(){
-	
-	
-	 
 	 var name=$("#aName").val();
 	 var address=$("#aAddress").val();
 	 var email=$("#aEmail").val();
@@ -55,6 +77,7 @@ function sendDataForRegistration(){
 	 var school=$("#schoolId").val();
 	 var username=$("#username").val();
 	 var accountType=$("#accountType").val();
+	 if(email != null && email != '' && username != null && username != ''){
 	 var allData = name+","+address+","+email+","+password+","+age+","+city+","+school+","+username+","+accountType;
 	 var formData = "accessList="+allData;
 	 $.ajax({
@@ -65,10 +88,15 @@ function sendDataForRegistration(){
 		       alert("Student Added");
 		    },
 		    error : function(e) {
-		       alert('Error: ' + e);
+		    	alert("Please Enter Mandatory FIeld and UserName Should be Unique");
 		    }
 		});
 	}
+	 else{
+		 alert("Please Enter Mandatory FIeld and UserName Should be Unique");
+	 }
+}
+	 
 
 
 function malaDeleteKara(id){
@@ -170,27 +198,17 @@ function phoneValidRegistration(inputtxt)
   }
 }
 
-function emailValidateUpdate() 
-{
-	 var mail = $("#clientEmail").val();
-     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
-     {
-       return (true)
-     }
-     alert("You have entered an invalid email address!")
-     $("#clientEmail").val("");
-     return (false)
-}
+
 
 function emailValidateRegistration() 
 {
-	 var mail = $("#cclientEmail").val();
+	 var mail = $("#aEmail").val();
      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
      {
        return (true)
      }
-     alert("You have entered an invalid email address!")
-     $("#cclientEmail").val("");
+     
+     $("#aEmail").val("");
      return (false)
 }
 
@@ -275,6 +293,95 @@ function editStudents(){
 	});   
 	
 }
+
+
+$(document).ready(function() {
+	
+    $('#registerForm').formValidation({
+    	
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	username: {
+                validators: {
+                    notEmpty: {
+                        message: 'The User Name is required'
+                    }
+                }
+            },
+            accountType: {
+                validators: {
+                    notEmpty: {
+                        message: 'The accountType is required'
+                    }
+                }
+            },
+            name: {
+                validators: {
+                    notEmpty: {
+                        message: 'name should be required'
+                    }
+                }
+            },
+            
+            password: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please Enter Password'
+                    }
+                }
+            },
+            
+            schoolName: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select School'
+                    }
+                }
+            },
+            
+            address: {
+                validators: {
+                    notEmpty: {
+                        message: 'The address is required'
+                    }
+                }
+            },
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please Enter Valid Email'
+                    }
+                }
+            },
+            
+            age: {
+                validators: {
+                    notEmpty: {
+                        message: 'Age should be a number '
+                    }
+                }
+            },
+            city: {
+                validators: {
+                    notEmpty: {
+                    	
+                        message: 'The city is required'
+      
+                    }
+                }
+            }
+            
+            
+        }
+    });
+});
+
 </script>
 <div class="form-horizontal">
     <div class="row">
@@ -351,7 +458,7 @@ function editStudents(){
          	<div class="form-group">
              	<label class="col-sm-3 control-label">User Name</label>
                 <div class="col-sm-8">
-            		<input type="text" name="username" id="username" value="" class="form-control">
+            		<input type="text" name="username" id="username" value="" class="form-control" onblur = "checkUniqueUsername()">
               	</div>
           	</div>
           	<div class="form-group">
@@ -393,13 +500,13 @@ function editStudents(){
           	<div class="form-group">
              	<label class="col-sm-3 control-label">Email</label>
              	<div class="col-sm-8">
-            		<input type="text" name="email" id="aEmail" value="" class="form-control" >
+            		<input type="email" name="email" id="aEmail" value="" class="form-control" onblur="emailValidateRegistration();">
              	</div>
           	</div>
           	<div class="form-group">
              	<label class="col-sm-3 control-label">Age</label>
                 <div class="col-sm-8">
-            		<input type="text" name="age" id="aAge" value="" class="form-control">
+            		<input type="number" name="age" id="aAge" value="" class="form-control">
              	</div>
           	</div>
           	<div class="form-group">
@@ -412,7 +519,7 @@ function editStudents(){
     	</div>
     	<div class="modal-footer text-center">
             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration();">Save</button>
+            <button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration();" data-dismiss="modal">Save</button>
         </div>
     </div>
   </div>

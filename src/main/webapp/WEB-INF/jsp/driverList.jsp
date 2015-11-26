@@ -1,6 +1,139 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
+<script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
+<script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
+
 <script type="text/javascript">
+
+$(document).ready(function() {
+    $('#registerForm').formValidation({
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	driverName: {
+                validators: {
+                    notEmpty: {
+                        message: 'Driver Name Should not be Empty'
+                    }
+                }
+            },
+            
+            address: {
+                validators: {
+                    notEmpty: {
+                        message: 'Address is Required'
+                    }
+                }
+            },
+            
+            city: {
+                validators: {
+                    notEmpty: {
+                        message: 'City is Required'
+                    }
+                }
+            },
+            
+            licenseNo: {
+                validators: {
+                    notEmpty: {
+                        message: 'License Number is Required'
+                    }
+                }
+            },
+            
+            
+            age: {
+                validators: {
+                    notEmpty: {
+                        message: 'Age should be number '
+                    }
+                }
+            },
+            
+            experiance: {
+                validators: {
+                    notEmpty: {
+                        message: 'Driver should have Experiance '
+                    }
+                }
+            },
+            
+        }     
+    });
+    
+    
+    $('#editForm').formValidation({
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	driverName: {
+                validators: {
+                    notEmpty: {
+                        message: 'Driver Name Should not be Empty'
+                    }
+                }
+            },
+            
+            address: {
+                validators: {
+                    notEmpty: {
+                        message: 'Address is Required'
+                    }
+                }
+            },
+            
+            city: {
+                validators: {
+                    notEmpty: {
+                        message: 'City is Required'
+                    }
+                }
+            },
+            
+            license: {
+                validators: {
+                    notEmpty: {
+                        message: 'License Number is Required'
+                    }
+                }
+            },
+            
+            
+            age: {
+                validators: {
+                    notEmpty: {
+                        message: 'Age should be number '
+                    }
+                }
+            },
+            
+            experiance: {
+                validators: {
+                    notEmpty: {
+                        message: 'Driver should have Experiance '
+                    }
+                }
+            },
+            
+        }     
+    });
+    
+    
+});
+
+
 var saveKara = 0;
 $(document).on("click", ".open-AddBookDialog", function () {
 	
@@ -109,13 +242,13 @@ function addStops(id){
 	    url : "${pageContext.request.contextPath}/route/editBusDriver",
 	    data : formData,
 	    success : function(response) {	 
-	    	 $("#edit").modal('hide');
+		   $("#edit").modal('hide');
 	       alert("Driver Updated Successfully!");
 	       location.reload();
 	      },
 	    error : function(e) {
 	    	 $("#edit").modal('hide');
-	       alert('Error: ' + e);
+	    	 location.reload();
 	    }
 	});   
 } 
@@ -175,7 +308,7 @@ function addStops(id){
             <div class="fixed-page-header">
                 <div class="page-header clearfix">
                     <h1 class="page-head-text pull-left"> Driver</h1>                    
-                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#forClientRegistration"><i class="fa fa-plus-circle"></i>  Add Bus Driver</button>                    
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addDriver"><i class="fa fa-plus-circle"></i>  Add Bus Driver</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>
@@ -231,6 +364,7 @@ function addStops(id){
     <!-- / row -->   
 </div>
 
+<form id="editForm">
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
    	<div class="modal-dialog">
         <div class="modal-content">
@@ -241,50 +375,50 @@ function addStops(id){
           <div class="modal-body">   
           	<div class="form-horizontal"> 			  
 				<div class="form-group">
-                    <label class="col-sm-3 control-label">Driver Id :</label>
+                    <label class="col-sm-3 control-label">* Driver Id :</label>
                     <div class="col-sm-8">
 						<input type="text" name="name" id="driverId" class="form-control" readOnly>
                   	</div>
 				</div>
 			  	<div class="form-group">
-                    <label class="col-sm-3 control-label">Driver Name :</label>
+                    <label class="col-sm-3 control-label">* Driver Name :</label>
                     <div class="col-sm-8">
 						<input type="text" name="driverName" id="driverName" class="form-control">
                   	</div>
 				</div>
 				
 				<div class="form-group">
-                    <label class="col-sm-3 control-label">Address:</label>
+                    <label class="col-sm-3 control-label">* Address:</label>
                     <div class="col-sm-8">
 						<input type="text" name="address" id="address" class="form-control">
                   	</div>
 				</div>
 				
 				<div class="form-group">
-                    <label class="col-sm-3 control-label">City :</label>
+                    <label class="col-sm-3 control-label">* City :</label>
                     <div class="col-sm-8">
 						<input type="text" name=city id="city" class="form-control">
                   	</div>
 				</div>
 				
 				<div class="form-group">
-                    <label class="col-sm-3 control-label">License :</label>
+                    <label class="col-sm-3 control-label">* License :</label>
                     <div class="col-sm-8">
 						<input type="text" name=license id="license" class="form-control">
                   	</div>
 				</div>
 				
 				<div class="form-group">
-                    <label class="col-sm-3 control-label">Experiance :</label>
+                    <label class="col-sm-3 control-label">* Experiance :</label>
                     <div class="col-sm-8">
 						<input type="text" name=experiance id="experiance" class="form-control">
                   	</div>
 				</div>
 				
 				<div class="form-group">
-                    <label class="col-sm-3 control-label">Age :</label>
+                    <label class="col-sm-3 control-label">* Age :</label>
                     <div class="col-sm-8">
-						<input type="text" name=age id="age" class="form-control">
+						<input type="number" name=age id="age" class="form-control">
                   	</div>
 				</div>
            	</div>
@@ -296,8 +430,9 @@ function addStops(id){
     </div>
   </div>
 </div>
+</form>
 
-<div class="modal fade" id="forClientRegistration" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
+<div class="modal fade" id="addDriver" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
    	<div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -308,43 +443,43 @@ function addStops(id){
        		<form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/route/addDriver" commandName="busDriver">
             <div class="modal-body">   
                 <div class="form-group">
-                    <form:label path="driverName" class="col-sm-3 control-label">Driver Name</form:label>
+                    <form:label path="driverName" class="col-sm-3 control-label">* Driver Name</form:label>
                     <div class="col-sm-8">
                     	<form:input  path="driverName" id="driverName" value="" class="form-control" />
                    	</div>
                 </div>
                 <div class="form-group">
-                    <form:label path="address" class="col-sm-3 control-label">Address</form:label>
+                    <form:label path="address" class="col-sm-3 control-label">* Address</form:label>
                     <div class="col-sm-8">
                     	<form:input path="address" id="address" value="" class="form-control" />
                    	</div>
               	</div>
 
                 <div class="form-group">
-                    <form:label path="city" class="col-sm-3 control-label">City</form:label>
+                    <form:label path="city" class="col-sm-3 control-label">* City</form:label>
                     <div class="col-sm-8">
                     	<form:input path="city" id="city" value="" class="form-control" />       
                    	</div>         
                 </div>
 
                 <div class="form-group">
-                    <form:label path="licenseNo" class="col-sm-3 control-label">License Number</form:label>
+                    <form:label path="licenseNo" class="col-sm-3 control-label">* License Number</form:label>
                     <div class="col-sm-8">
                     	<form:input path="licenseNo" id="licenseNo" value="" class="form-control" />
                    	</div>
                 </div>
                 
                 <div class="form-group">
-                    <form:label path="experiance" class="col-sm-3 control-label">Experiance</form:label>
+                    <form:label path="experiance" class="col-sm-3 control-label">* Experiance</form:label>
                     <div class="col-sm-8">
                    		<form:input path="experiance" id="experiance" value="" class="form-control" />
                    	</div>
                 </div>
                 
                 <div class="form-group">
-                    <form:label path="age" class="col-sm-3 control-label">Age</form:label>
+                    <form:label path="age" class="col-sm-3 control-label">* Age</form:label>
                     <div class="col-sm-8">
-                    	<form:input path="age" id="age" value="" class="form-control" />
+                    	<form:input path="age" type="number" id="age" value="" class="form-control" />
                    	</div>
                 </div>
             </div>

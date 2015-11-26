@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +23,7 @@ import com.fidelit.model.Bus;
 import com.fidelit.model.Extintor;
 import com.fidelit.model.Newsletter;
 import com.fidelit.model.Route;
+import com.fidelit.model.SchoolAdmin;
 import com.fidelit.service.NewsletterService;
 
 @Controller
@@ -32,9 +34,16 @@ public class NewsletterController {
 	NewsletterService newsletterService;
 	
 	@RequestMapping(value="newsletterList")
-	public String newsletterList(ModelMap model){
+	public String newsletterList(HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<Newsletter> newsletterList = newsletterService.getNewsletterList(userName);
+		
+
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
 		model.addAttribute("newsletterList",newsletterList);
 		model.addAttribute(new Newsletter());
 		return "newsletterList";
@@ -49,12 +58,19 @@ public class NewsletterController {
 		newsletter.setAccountId(userName);
 		newsletterService.addNewsletter(newsletter);
 		List<Newsletter> newsletterList =newsletterService.getNewsletterList(userName);
+		
+
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
 		model.addAttribute("newsletterList",newsletterList);
 		return "newsletterList";
 	}
 	
 	@RequestMapping(value = "/deleteNewsletterList")
-	public String deleteNewsletterList(@RequestParam("list") String str,ModelMap model){
+	public String deleteNewsletterList(@RequestParam("list") String str,HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		str = str.substring(0, str.length()-1);
 		String[] str1 = str.split(",");
 		
@@ -68,7 +84,14 @@ public class NewsletterController {
 		
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 	    List<Newsletter> newsletterList= newsletterService.getNewsletterList(userName);
-		model.addAttribute("newsletterList", newsletterList);
+		
+
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+	    
+	    model.addAttribute("newsletterList", newsletterList);
 		model.addAttribute(new Newsletter());
 		return "newsletterList";
 	}

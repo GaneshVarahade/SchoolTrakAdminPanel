@@ -1,6 +1,8 @@
  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
  <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%><head>
  
+    <script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
+<script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
  
 <script>
 var saveKara = 0;
@@ -44,6 +46,30 @@ var saveKara = 0;
 		window.location.href = "deleteClient?id="+id;
 	}	
 
+	function checkUniqueVehicleNo(){
+		
+		var regNo= "regNo="+$("#regNumber").val();
+		
+		$.ajax({
+		    type : "POST",
+		    url : "${pageContext.request.contextPath}/route/checkUniqueVehicleNo",
+		    data : regNo,
+		    success : function(response) {	
+		    	
+		       
+		       if(response){
+		    	
+		       $("#regNumber").val("");
+		       }
+		  
+		    },
+		    error : function(e) {
+		  
+		    }
+		});
+	}
+	
+	
 	function sendDataForUpdation(){
 	
 	
@@ -110,7 +136,7 @@ function addStops(id){
 	    success : function(response) {	 
 	    	 $("#edit").modal('hide');
 	       alert("Bus Updated Successfully!");
-	       location.reload();
+	     //  location.reload();
 	      },
 	    error : function(e) {
 	    	 $("#edit").modal('hide');
@@ -156,7 +182,40 @@ function addStops(id){
 		  }
 		 
 	}
-
+	$(document).ready(function() {
+	    $('#registerForm').formValidation({
+	        framework: 'bootstrap',
+	        excluded: ':disabled',
+	        icon: {
+	            valid: 'glyphicon glyphicon-ok',
+	            invalid: 'glyphicon glyphicon-remove',
+	            validating: 'glyphicon glyphicon-refresh'
+	        },
+	        fields: {
+	        	regNumber: {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'The Bus Name is required'
+	                    }
+	                }
+	            },
+	            busType: {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'The Bus Type is required'
+	                    }
+	                }
+	            },
+	            capacity: {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'The Capacity is number'
+	                    }
+	                }
+	            }
+	        }
+	    });
+	});
 	
 	
 </script>
@@ -228,9 +287,9 @@ function addStops(id){
           <div class="modal-body">   
           	<div class="form-horizontal">   
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">Vehicle Id :</label>
+            <!--         <label class="col-sm-3 control-label">Vehicle Id :</label> -->
                     <div class="col-sm-8">
-                        <input type="text" name="name" id="busId" class="form-control" readOnly>
+                        <input type="hidden" name="name" id="busId" class="form-control" readOnly>
                     </div>
                 </div>			  
                 <div class="form-group">
@@ -250,7 +309,7 @@ function addStops(id){
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Vehicle Capacity :</label>
                     <div class="col-sm-8">
-                        <input type="text" name="capacity" id="capacity" class="form-control">
+                        <input type="number" name="capacity" id="capacity" class="form-control">
                     </div>
                 </div>
             </div>
@@ -282,21 +341,21 @@ function addStops(id){
                 <div class="form-group">
                     <form:label  path="regNumber" class="col-sm-3 control-label">Vehicle Register Number</form:label>
                     <div class="col-sm-8">
-                        <form:input  path="regNumber" id="regNumber" class="form-control" />
+                        <form:input  path="regNumber" id="regNumber" name="regNumber" class="form-control" onblur = "checkUniqueVehicleNo()"/>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <form:label path="busType" class="col-sm-3 control-label">Vehicle Type</form:label>
                     <div class="col-sm-8">
-                        <form:input path="busType" id="busType"  class="form-control" />   
+                        <form:input path="busType" id="busType" name="busType" class="form-control" />   
                     </div>                 
                 </div>
 
                 <div class="form-group">
                     <form:label path="capacity" class="col-sm-3 control-label">Capacity</form:label>
                     <div class="col-sm-8">
-                        <form:input path="capacity" id="capacity" class="form-control" />
+                        <form:input path="capacity" type="number" id="capacity" name="capacity" class="form-control" />
                     </div>
                 </div>
             </div>

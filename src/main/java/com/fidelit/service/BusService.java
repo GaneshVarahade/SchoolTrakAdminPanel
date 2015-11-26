@@ -15,4 +15,5 @@ public interface BusService {
 	Bus getBusId(int id);
 	void deleteBus(int id);
 	Bus getBusRegNo(String regNo);
+	boolean getUniqueVehicleNo(String userName);
 }

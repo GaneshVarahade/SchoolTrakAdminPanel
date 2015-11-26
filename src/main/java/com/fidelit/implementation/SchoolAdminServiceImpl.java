@@ -112,7 +112,7 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 		
 	}
 
-	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
 	public List<SchoolAdmin> getAllStudentList(String userName) {
 		List<SchoolAdmin> schoolAdminList = new ArrayList<SchoolAdmin>();
@@ -128,7 +128,6 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 				
 				e.printStackTrace();
 			}
-		// TODO Auto-generated method stub
 		return schoolAdminList;
 	}
 

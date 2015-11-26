@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,7 @@ import com.fidelit.model.Bus;
 import com.fidelit.model.BusDriver;
 import com.fidelit.model.Extintor;
 import com.fidelit.model.Route;
+import com.fidelit.model.SchoolAdmin;
 import com.fidelit.service.BusService;
 import com.fidelit.service.ExtinctorService;
 import com.fidelit.service.GtsService;
@@ -35,10 +37,16 @@ public class ExtintorController {
 	BusService busService;
 		
 	@RequestMapping(value="extintorList")
-	public String extintorList(ModelMap model){
+	public String extintorList(HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<Extintor> extintorList = extinctorService.getExtintorList(userName);
 		List<Bus> busList=busService.allBusList(userName);
+		
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
 		model.addAttribute("extintorList",extintorList);
 		model.addAttribute("busList",busList);
 		model.addAttribute(new Extintor());
@@ -55,6 +63,13 @@ public class ExtintorController {
 		extintor.setAccountId(userName);
 		extinctorService.addExtintor(extintor);
 		List<Extintor> extintorList =extinctorService.getExtintorList(userName);
+		
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
+		
 		model.addAttribute("extintorList",extintorList);
 		model.addAttribute("busList",busList);
 		return "extintorList";
@@ -86,11 +101,18 @@ public class ExtintorController {
 		extintor.setBus(bus);
 		extintor.setAccountId(userName);
 		extinctorService.updateExtintor(extintor);
+		
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
+		
 		return "stopMap";
 	}
 	
 	@RequestMapping(value = "/deleteExtintorList")
-	public String deleteParentList(@RequestParam("list") String str,ModelMap model){
+	public String deleteParentList(@RequestParam("list") String str,HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		str = str.substring(0, str.length()-1);
 		String[] str1 = str.split(",");
 		
@@ -102,7 +124,14 @@ public class ExtintorController {
 		
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 	    List<Extintor> extintorList= extinctorService.getExtintorList(userName);
-		model.addAttribute("extintorList", extintorList);
+		
+	    HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
+	    
+	    model.addAttribute("extintorList", extintorList);
 		model.addAttribute(new Extintor());
 		return "extintorList";
 	}
