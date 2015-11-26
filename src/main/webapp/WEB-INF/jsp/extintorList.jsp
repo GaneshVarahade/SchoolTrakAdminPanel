@@ -160,7 +160,7 @@ function addStops(id){
 	      },
 	    error : function(e) {
 	    	 $("#edit").modal('hide');
-	       alert('Error: ' + e);
+	      
 	    }
 	});   
 } 
@@ -352,7 +352,6 @@ function addStops(id){
                     <form:label path="status" class="col-sm-3 control-label">* Status</form:label>
                     <div class="col-sm-8">
                         <form:select path="status" id="status" class="form-control">
-                        	
                             <form:option value="0">ON</form:option>
                             <form:option value="1">OFF</form:option>
                         </form:select>
