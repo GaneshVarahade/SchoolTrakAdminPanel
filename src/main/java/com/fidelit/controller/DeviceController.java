@@ -60,4 +60,22 @@ public class DeviceController {
 		model.addAttribute("device",new Device());
 		return "device";
 	}
+	
+	@RequestMapping(value="/deleteDevice")
+	String deleteDevice(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		String uniqueId = request.getParameter("uniqueIdList");
+		String uniqueIdList[] = uniqueId.split(",");
+		for (String string : uniqueIdList) {
+			 deviceService.deleteDeviceByUniqueIdAndAccountId(string,userName);
+		     gtsService.deleteDeviceByUniqueIdAndAccountIdInGts(string, userName);
+		}
+		System.out.println("**********"+uniqueId);
+		
+        List<Device> deviceList = deviceService.getAllDeviceByUsername(userName);
+		model.addAttribute("deviceList",deviceList);
+		model.addAttribute("device",new Device());
+		return "device";
+	}
+	
 }

@@ -9,4 +9,7 @@ public interface DeviceService {
 	List<Device> getAllDeviceByUsername(String userName);
 
 	void addDevice(Device device);
+
+	void deleteDeviceByUniqueIdAndAccountId(String uniqueId,
+			String userName);
 }

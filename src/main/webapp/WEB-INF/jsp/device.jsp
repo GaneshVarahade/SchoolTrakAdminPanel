@@ -2,6 +2,12 @@
  <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%><head>
  <script type="text/javascript">
  
+ var deleteList = [];
+ 
+ function addDeviceInDeleteList(uniqueID){
+	 deleteList.push(uniqueID);
+ }
+ 
  function editDevice(uniqueID,deviceID,status,description,allowNotify){
 	 
 		$("#uniqueID").val(uniqueID);
@@ -12,6 +18,17 @@
 		$("#editDevice").modal('show');
 	}
 
+ function deleteDevice(uniqueId){
+		
+		if(deleteList.length > 0){
+			 window.location.href = "deleteDevice?uniqueIdList="+deleteList;
+			 deleteList = [];
+		}else{
+			 alert("Please select at least one device ");
+		}
+		  
+	}	
+
  </script>
 <div class="form-horizontal">
     <div class="row">
@@ -20,7 +37,7 @@
                 <div class="page-header clearfix">
                     <h1 class="page-head-text pull-left">Device</h1>    
                     <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addExtintor"><i class="fa fa-plus-circle"></i>  Add Device</button>                    
-                    <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
+                    <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="deleteDevice('${device.uniqueID}')" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>
         </div>
@@ -54,7 +71,7 @@
                             <tbody>
                                 <c:forEach var="device" items="${deviceList}">
                                     <tr>
-                                       <td><input type="checkbox" id="${device.uniqueID}" name="myTextEditBox" value="" onClick="displayNote(event)"></td>
+                                       <td><input type="checkbox" id="${device.uniqueID}" name="myTextEditBox" value="" onClick="addDeviceInDeleteList('${device.uniqueID}')"></td>
                                        <td>${device.deviceID}</td>  
                                        <td>${device.uniqueID}</td>  
                                        <c:choose>

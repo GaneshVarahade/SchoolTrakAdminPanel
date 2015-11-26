@@ -3,6 +3,7 @@ package com.fidelit.implementation;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,23 @@ public class DeviceServiceImpl implements DeviceService{
 		Session session = sessionFactory.getCurrentSession();
 		session.saveOrUpdate(device);
 	}
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)  
+	@Override
+	public void deleteDeviceByUniqueIdAndAccountId(String uniqueId,
+			String userName) {
+		try{
+			   Session session = sessionFactory.openSession();
+			   String sql = "delete from Device where uniqueId='"+uniqueId+"' and accountID = '"+userName+"' ";
+			   SQLQuery query = session.createSQLQuery(sql);	
+			   query.executeUpdate();		
+			   session.close();
+			   
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		
+	}
+		
 
 }

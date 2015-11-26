@@ -160,4 +160,20 @@ public class GtsServiceImpl implements GtsService{
 		
 	}
 
+	@Transactional
+	@Override
+	public void deleteDeviceByUniqueIdAndAccountIdInGts(String uniqueId,
+			String userName) {
+		try{
+			   Session session = sessionFactory.openSession();
+			   String sql = "delete from Device where uniqueId='"+uniqueId+"' and accountID = '"+userName+"' ";
+			   SQLQuery query = session.createSQLQuery(sql);	
+			   query.executeUpdate();		
+			   session.close();
+			   
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		
+	}
 }

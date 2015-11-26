@@ -18,4 +18,7 @@ public interface GtsService {
 	void addDeviceInGts(Device device);
 
 	void updateDeviceInGts(Device device);
+
+	void deleteDeviceByUniqueIdAndAccountIdInGts(String uniqueId,
+			String userName);
 }
