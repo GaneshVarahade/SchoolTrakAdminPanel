@@ -1,6 +1,85 @@
  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
  <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%><head>
+ 
+<script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
+<script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
 <script type="text/javascript">
+
+$(document).ready(function() {
+    $('#registerForm').formValidation({
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	type: {
+                validators: {
+                    notEmpty: {
+                        message: 'Type is required'
+                    }
+                }
+            },
+            
+            status: {
+                validators: {
+                    notEmpty: {
+                        message: 'Type is required'
+                    }
+                }
+            },
+            
+            'bus.regNumber': {
+                validators: {
+                    notEmpty: {
+                        message: 'Type is required'
+                    }
+                }
+            }
+            
+        }
+    });
+    
+    $('#editForm').formValidation({
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	type1: {
+                validators: {
+                    notEmpty: {
+                        message: 'Type is required'
+                    }
+                }
+            },
+            
+            status: {
+                validators: {
+                    notEmpty: {
+                        message: 'Type is required'
+                    }
+                }
+            },
+            
+            regNumber: {
+                validators: {
+                    notEmpty: {
+                        message: 'Type is required'
+                    }
+                }
+            }
+            
+        }
+    });
+    
+});
+
 var saveKara = 0;
 
  
@@ -195,7 +274,8 @@ function addStops(id){
     </div>
 <!-- / row -->   
 </div>
-
+</head>
+<form id="editForm">
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
    	<div class="modal-dialog">
         <div class="modal-content">
@@ -206,28 +286,32 @@ function addStops(id){
           <div class="modal-body">   
           	<div class="form-horizontal">
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Extintor ID :</label>
+					<label class="col-sm-3 control-label">* Extintor ID :</label>
                     <div class="col-sm-8">
 						<input type="text" name="name" id="id" class="form-control" readOnly>
                   	</div>
 				</div>			  
 			  	<div class="form-group">
-					<label class="col-sm-3 control-label">Extintor TYPE :</label>
+					<label class="col-sm-3 control-label">* Extintor TYPE :</label>
                     <div class="col-sm-8">
-						<input type="text" name="name" id="type" class="form-control">
+						<input type="text" name="type1" id="type" class="form-control">
                   	</div>
 				</div>
+				
+				
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Status</label>
+					<label class="col-sm-3 control-label">* Status</label>
                     <div class="col-sm-8">
-						<select id="status" class="form-control">
+					 	<select name="status"  class="form-control" >  													
                             <option value="1">ON</option>
                             <option value="0">OFF</option>
-						</select>
-                  	</div>
-				</div>				
+				 		</select> 
+					</div>						
+				</div>
+				
+						
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Bus Number</label>
+					<label class="col-sm-3 control-label">* Bus Number</label>
                     <div class="col-sm-8">
 					 	<select name="regNumber" id="regNumber" class="form-control" >  													
                             <c:forEach var="bus" items="${busList}">
@@ -246,7 +330,7 @@ function addStops(id){
   </div>
 </div>
 </div>
-
+</form>
 
 <div class="modal fade" id="addExtintor" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
    	<div class="modal-dialog">
@@ -258,26 +342,28 @@ function addStops(id){
           	<form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/extintor/addExtintor" commandName="extintor">
           	<div class="modal-body"> 
                 <div class="form-group">
-                    <form:label path="type" class="col-sm-3 control-label">Type</form:label>
+                    <form:label path="type" class="col-sm-3 control-label">* Type</form:label>
                     <div class="col-sm-8">
                     	<form:input path="type" id="type" value="" class="form-control" />
                    	</div>
                 </div>
     
                 <div class="form-group">
-                    <form:label path="status" class="col-sm-3 control-label">Status</form:label>
+                    <form:label path="status" class="col-sm-3 control-label">* Status</form:label>
                     <div class="col-sm-8">
                         <form:select path="status" id="status" class="form-control">
-                            <form:option value="1">ON</form:option>
-                            <form:option value="0">OFF</form:option>
+                        	
+                            <form:option value="0">ON</form:option>
+                            <form:option value="1">OFF</form:option>
                         </form:select>
                    	</div>
                 </div>
     
                  <div class="form-group">
-                    <form:label path="bus.regNumber" class="col-sm-3 control-label">Bus Number</form:label>
+                    <form:label path="bus.regNumber" class="col-sm-3 control-label">* Bus Number</form:label>
                     <div class="col-sm-8">
-                        <form:select path="bus.regNumber" name="regNumber" id="bus.regNumber" class="form-control">                    
+                        <form:select path="bus.regNumber" name="regNumber" id="bus.regNumber" class="form-control">
+                        	<form:option value="">Please select Bus</form:option>                    
                             <c:forEach var="bus" items="${busList}">
                                 <form:option value="${bus.regNumber}">${bus.regNumber}</form:option>
                             </c:forEach>
@@ -287,7 +373,7 @@ function addStops(id){
            	</div>
 			<div class="modal-footer text-center">
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>                    
-                <button type="submit" class="btn btn-sky btn-sm" />Save</button>
+                <button type="submit" class="btn btn-sky btn-sm" >Save</button>
             </div>
          </form:form>
     	</div>
