@@ -81,18 +81,8 @@
         <put-attribute name="title" value="Hello Spring MVC" />  
         <put-attribute name="body" value="/WEB-INF/jsp/user_management.jsp" />  
     </definition>
-    <definition name="user_management" extends="schooladmin.definition">  
-        <put-attribute name="title" value="User Management" /> 
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/user_menu.jsp" /> -->  
-        <put-attribute name="body" value="/WEB-INF/jsp/user_management.jsp" />  
-    </definition>
-    
-    <definition name="admin_employee_management" extends="admin.definition">  
-        <put-attribute name="title" value="Employee Management" /> 
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />   -->
-        <put-attribute name="body" value="/WEB-INF/jsp/admin_employee_management.jsp" />  
-    </definition>
-    
+
+
      
     <definition name="student_home" extends="child.definition">  
         <put-attribute name="title" value="Admin" />   
@@ -110,90 +100,17 @@
        
         <put-attribute name="body" value="/WEB-INF/jsp/admin_home.jsp" />  
     </definition>
-    <definition name="admin_employee_registration" extends="admin.definition">  
-        <put-attribute name="title" value="Employee Management" />      
-    <!--     <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->   
-        <put-attribute name="body" value="/WEB-INF/jsp/admin_employee_registration.jsp" />  
-    </definition>
-    
-    <definition name="admin_client_registration" extends="admin.definition">  
-        <put-attribute name="title" value="Employee Management" />      
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />    -->
-        <put-attribute name="body" value="/WEB-INF/jsp/admin_client_registration.jsp" />  
-    </definition>
-    
-    <definition name="admin_project_registration" extends="admin.definition">  
-        <put-attribute name="title" value="Employee Management" />      
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->   
-        <put-attribute name="body" value="/WEB-INF/jsp/admin_project_registration.jsp" />  
-    </definition>
-    
-    <definition name="admin_holiday_creation" extends="admin.definition">  
-        <put-attribute name="title" value="Employee Management" />      
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />    -->
-        <put-attribute name="body" value="/WEB-INF/jsp/admin_holiday_creation.jsp" />  
-    </definition>
-    
-    <definition name="admin_empProject_registration" extends="admin.definition">  
-        <put-attribute name="title" value="Employee Management" />      
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->   
-        <put-attribute name="body" value="/WEB-INF/jsp/admin_empProject_registration.jsp" />  
-    </definition>
-    
-     <definition name="admin_employee_update_list" extends="admin.definition">  
-        <put-attribute name="title" value="Employee Management" />      
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />    -->
-        <put-attribute name="body" value="/WEB-INF/jsp/admin_employee_update_list.jsp" />  
-    </definition> 
-    
+   
+  
+   
      <definition name="schoolAdminHome" extends="schooladmin.definition">  
         <put-attribute name="title" value="User" />   
        
         <put-attribute name="body" value="/WEB-INF/jsp/schoolAdminHome.jsp" />  
     </definition>
     
-    
-    <definition name="leave_apply" extends="schooladmin.definition">  
-        <put-attribute name="title" value="User Management" />      
-       <!-- <put-attribute name="menu" value="/WEB-INF/layout/user_menu.jsp" /> -->   
-        <put-attribute name="body" value="/WEB-INF/jsp/leave_apply.jsp" />  
-    </definition>
-    
    
-    
-    <definition name="leaveBalance" extends="schooladmin.definition">  
-        <put-attribute name="title" value="User Management" />      
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/user_menu.jsp" />    -->
-        <put-attribute name="body" value="/WEB-INF/jsp/leave_Balance.jsp" />  
-    </definition>
-    
-    
-    <definition name="leaveHistory" extends="schooladmin.definition">  
-        <put-attribute name="title" value="User Management" />      
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/user_menu.jsp" /> -->   
-        <put-attribute name="body" value="/WEB-INF/jsp/leave_history.jsp" />  
-    </definition>
-    
-    <definition name="userProjectList" extends="schooladmin.definition">  
-        <put-attribute name="title" value="User Management" />      
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/user_menu.jsp" />    -->
-        <put-attribute name="body" value="/WEB-INF/jsp/userProjectList.jsp" />  
-    </definition>
-    
-    
-    
-     <definition name="client" extends="base.definition">  
-        <put-attribute name="title" value="Client Management" /> 
-        <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
-        <put-attribute name="logo" value="/WEB-INF/layout/logo.jsp" />
-        <!-- <put-attribute name="menu" value="/WEB-INF/jsp/client_menu.jsp" /> -->  
-        <put-attribute name="body" value="/WEB-INF/jsp/client.jsp" />  
-    </definition>
-      
-    <definition name="employeeList" extends="admin.definition" >  
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />   -->
-        <put-attribute name="body" value="/WEB-INF/jsp/employeeList.jsp"></put-attribute>  
-    </definition>  
+  
     
      <definition name="parentList" extends="schooladmin.definition" >  
         <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />   -->
@@ -210,10 +127,6 @@
         <put-attribute name="body" value="/WEB-INF/jsp/schoolList.jsp"></put-attribute>  
     </definition>  
     
-    <definition name="clientList" extends="admin.definition" >  
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->  
-        <put-attribute name="body" value="/WEB-INF/jsp/clientList.jsp"></put-attribute>  
-    </definition>  
     
     <definition name="projectList" extends="admin.definition" >  
         <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />   -->
@@ -224,52 +137,7 @@
         <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />   -->
         <put-attribute name="body" value="/WEB-INF/jsp/schoolAdmin.jsp"></put-attribute>  
     </definition> 
-    
-    <definition name="leaveList" extends="admin.definition" >  
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->  
-        <put-attribute name="body" value="/WEB-INF/jsp/leaveList.jsp"></put-attribute>  
-    </definition> 
-    
-    <definition name="holidayList" extends="admin.definition" >  
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->  
-        <put-attribute name="body" value="/WEB-INF/jsp/holidayList.jsp"></put-attribute>  
-    </definition> 
-    
-    <definition name="userHolidayList" extends="schooladmin.definition" >  
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/user_menu.jsp" />   -->
-        <put-attribute name="body" value="/WEB-INF/jsp/userHolidayList.jsp"></put-attribute>  
-    </definition> 
-    
-    <definition name="empProjectList" extends="admin.definition" >  
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->  
-        <put-attribute name="body" value="/WEB-INF/jsp/empProjectList.jsp"></put-attribute>  
-    </definition> 
-    
-    <definition name="admin_edit_employee" extends="admin.definition" >  
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->  
-        <put-attribute name="body" value="/WEB-INF/jsp/admin_edit_employee.jsp"></put-attribute>  
-    </definition>  
 
-	<definition name="admin_edit_client" extends="admin.definition" >  
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />   -->
-        <put-attribute name="body" value="/WEB-INF/jsp/admin_edit_client.jsp"></put-attribute>  
-    </definition>  
-    
-    <definition name="admin_edit_project" extends="admin.definition" >  
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->  
-        <put-attribute name="body" value="/WEB-INF/jsp/admin_edit_project.jsp"></put-attribute>  
-    </definition>  
-    
-    <definition name="admin_edit_holiday" extends="admin.definition" >  
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />   -->
-        <put-attribute name="body" value="/WEB-INF/jsp/admin_edit_holiday.jsp"></put-attribute>  
-    </definition>  
-	  
-	 <definition name="admin_edit_empProject" extends="admin.definition" >  
-        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->  
-        <put-attribute name="body" value="/WEB-INF/jsp/admin_edit_empProject.jsp"></put-attribute>  
-    </definition>   
-	
 	
     <definition name="reports" extends="admin.definition" >  
         <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" /> -->  
