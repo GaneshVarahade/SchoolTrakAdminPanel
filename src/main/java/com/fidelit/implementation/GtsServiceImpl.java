@@ -139,4 +139,25 @@ public class GtsServiceImpl implements GtsService{
 		}
 	}
 
+
+
+	@Transactional
+	@Override
+	public void updateDeviceInGts(Device device) {
+		try{
+			   Session session = sessionFactory.openSession();
+		
+			   String sql = "update Device set deviceID = '"+device.getAccountID()+"',allowNotify="+device.getAllowNotify()+",description = '"+ device.getDescription()+"',isActive ="+device.getIsActive()+" where uniqueId = '"+device.getUniqueID()+"';";
+					   
+			   SQLQuery query = session.createSQLQuery(sql);	
+			   query.executeUpdate();		
+			   System.out.println("In gts ");
+			   session.close();
+			   
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		
+	}
+
 }

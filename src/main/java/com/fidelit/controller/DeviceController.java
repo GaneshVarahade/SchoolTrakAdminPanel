@@ -43,8 +43,21 @@ public class DeviceController {
 		device.setAccountID(userName);
 		deviceService.addDevice(device);
 		gtsService.addDeviceInGts(device);
+        List<Device> deviceList = deviceService.getAllDeviceByUsername(userName);
+		model.addAttribute("deviceList",deviceList);
 		model.addAttribute("device",new Device());
 		return "device";
 	}
 	
+	@RequestMapping(value="/updateDevice")
+	String updateDevice(@ModelAttribute("device") Device device,HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		device.setAccountID(userName);
+		deviceService.addDevice(device);
+		gtsService.updateDeviceInGts(device);
+        List<Device> deviceList = deviceService.getAllDeviceByUsername(userName);
+		model.addAttribute("deviceList",deviceList);
+		model.addAttribute("device",new Device());
+		return "device";
+	}
 }

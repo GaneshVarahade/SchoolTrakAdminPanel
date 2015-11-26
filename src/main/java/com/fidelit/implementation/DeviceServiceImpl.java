@@ -44,7 +44,7 @@ public class DeviceServiceImpl implements DeviceService{
 	@Override
 	public void addDevice(Device device) {
 		Session session = sessionFactory.getCurrentSession();
-		session.save(device);
+		session.saveOrUpdate(device);
 	}
 
 }

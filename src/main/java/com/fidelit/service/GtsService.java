@@ -16,4 +16,6 @@ public interface GtsService {
 	void editCorridorInGtsList(String accountId, String corridorID,double latitude,double longitude,int stopID);
 
 	void addDeviceInGts(Device device);
+
+	void updateDeviceInGts(Device device);
 }
