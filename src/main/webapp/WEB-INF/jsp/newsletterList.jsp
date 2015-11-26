@@ -1,7 +1,32 @@
  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
  <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%><head>
  
+<script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
+<script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
+ 
 <script type="text/javascript">
+
+$(document).ready(function() {
+    $('#registerForm').formValidation({
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	news: {
+                validators: {
+                    notEmpty: {
+                        message: 'News Field Should not be Empty'
+                    }
+                }
+            }
+        }
+    });
+});
+
 var saveKara = 0;
 
  
@@ -190,12 +215,12 @@ function addStops(id){
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add NewsLetter</h4>
+                <h4 class="modal-title"> Add NewsLetter : </h4>
             </div>
             <form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/newsletter/addNewsletter" commandName="newsletter">
                 <div class="modal-body">            
                     <div class="form-group">
-                        <form:label path="news" class="col-sm-3 control-label">News</form:label>
+                        <form:label path="news" class="col-sm-3 control-label">* News :</form:label>
                         <div class="col-sm-8">
                             <form:input path="news" id="news" value="" class="form-control" />
                         </div>
