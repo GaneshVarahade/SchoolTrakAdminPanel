@@ -1,5 +1,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
+<script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
+<script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
 <script>
 var saveKara = 0;
 
@@ -79,6 +82,7 @@ function addStops(id){
 	var busNo=$("#regNumber").val();
 	var driverName=$("#driverName").val();
 	var corridorId=$("#corridorId").val();
+	alert("fvgb")
 	 var allData=routeId+","+routeName+","+status+","+start+","+stop+","+busNo+","+driverName+","+corridorId;
 	var formData="list="+allData;
 	 $.ajax({
@@ -140,6 +144,132 @@ function addStops(id){
 		 
 	}
 
+	
+	$(document).ready(function() {
+	    $('#registerForm').formValidation({
+	        framework: 'bootstrap',
+	        excluded: ':disabled',
+	        icon: {
+	            valid: 'glyphicon glyphicon-ok',
+	            invalid: 'glyphicon glyphicon-remove',
+	            validating: 'glyphicon glyphicon-refresh'
+	        },
+	        fields: {
+	        	'routeName': {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Route Name is required'
+	                    }
+	                }
+	            },
+	          
+	            'startStop': {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Start Stop is required'
+	                    }
+	                }
+	            },
+	            'endStop': {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'End Stop is required'
+	                    }
+	                }
+	            },
+	            'routeStatus' : {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Status is required'
+	                    }
+	                }
+	            },
+	            
+	            'bus.regNumber': {
+	                
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Please select Bus number'
+	                    }
+	                                    }
+	            },
+	           
+	            'busDriver.driverName': {
+	              
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Please select Driver Name'
+	                    }
+	            	}
+	            },
+	            
+	            
+	        }
+	    });
+	    
+	    
+	    $('#editForm').formValidation({
+	        framework: 'bootstrap',
+	        excluded: ':disabled',
+	        icon: {
+	            valid: 'glyphicon glyphicon-ok',
+	            invalid: 'glyphicon glyphicon-remove',
+	            validating: 'glyphicon glyphicon-refresh'
+	        },
+	        fields: {
+	        	'routeName': {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Route Name is required'
+	                    }
+	                }
+	            },
+	          
+	            'start': {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Start Stop is required'
+	                    }
+	                }
+	            },
+	            'stop': {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'End Stop is required'
+	                    }
+	                }
+	            },
+	            'status' : {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Status is required'
+	                    }
+	                }
+	            },
+	            
+	            'regNumber': {
+	                
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Please select Bus number'
+	                    }
+	                                    }
+	            },
+	           
+	            'driverName': {
+	              
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Please select Driver Name'
+	                    }
+	            	}
+	            },
+	            
+	            
+	        }
+	    });
+	    
+	});
 	
 	
 	
@@ -219,7 +349,7 @@ function addStops(id){
         <h4 class="modal-title">Edit Route </h4>
       </div>
       
-      <form method="post" action="${pageContext.request.contextPath}/route/editRoute">
+      <form id="editForm" method="post" action="${pageContext.request.contextPath}/route/editRoute">
       <div class="modal-body">
       	<div class="form-horizontal">
             <div class="form-group">
@@ -229,26 +359,26 @@ function addStops(id){
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">Route Name :</label>
+                <label class="col-sm-3 control-label">Route Name  : &#42;</label>
                 <div class="col-sm-8">
                   <input type="text" name="routeName" id="routeName" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">Route Status :</label>
+                <label class="col-sm-3 control-label">Route Status : &#42;</label>
                 <div class="col-sm-8">
                   <input type="text" name="status" id="status" class="form-control">
                 </div>
             </div>
             
             <div class="form-group">
-                <label class="col-sm-3 control-label">Start Stop :</label>
+                <label class="col-sm-3 control-label">Start Stop : &#42;</label>
                 <div class="col-sm-8">
                   <input type="text" name="start" id="start" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">End Stop :</label>
+                <label class="col-sm-3 control-label">End Stop : &#42;</label>
                 <div class="col-sm-8">
                   <input type="text" name="stop" id="stop" class="form-control">
                 </div>
@@ -260,7 +390,7 @@ function addStops(id){
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">Bus Number</label>
+                <label class="col-sm-3 control-label">Bus Number : &#42;</label>
                 <div class="col-sm-8">
                 	
                   <select name="regNumber" id="regNumber" class="form-control" >
@@ -271,9 +401,9 @@ function addStops(id){
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">Driver </label>
+                <label class="col-sm-3 control-label">Driver : &#42;</label>
                 <div class="col-sm-8">
-                  <select id="driverName" class="form-control" >
+                  <select id="driverName" name="driverName" class="form-control" >
                     <c:forEach var="busDriver" items="${busDriverList}">
                       <option value="${busDriver.driverName}">${busDriver.driverName}</option>
                     </c:forEach>
@@ -283,7 +413,7 @@ function addStops(id){
       	</div>
         <div class="modal-footer text-center">
             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            <input type="submit" class="btn btn-sky btn-sm"  value="Save">
+            <input type="submit" class="btn btn-sky btn-sm"  value="Save" >
         </div>
     </div>
     </form> 
@@ -304,34 +434,35 @@ function addStops(id){
             <div class="form-group">
               <%--   <form:label path="routeNo" class="col-sm-3 control-label">Route No.</form:label> --%>
                 <div class="col-sm-8">
-                	<form:input type="hidden" path="routeNo" id="routeNo" value="" class="form-control" />
+                	<form:input type="hidden" path="routeNo" id="routeNo"  class="form-control" />
                	</div>
            	</div>
             <div class="form-group">
-                <form:label  path="routeName" class="col-sm-3 control-label">Name</form:label>
+                <form:label  path="routeName" class="col-sm-3 control-label">&#42; Name : </form:label>
                 <div class="col-sm-8">
-                	<form:input  path="routeName" id="routeName" value="" class="form-control" />
+                	<form:input  path="routeName" id="routeName"  class="form-control" />
                	</div>
             </div>
             <div class="form-group">
-                <form:label path="routeStatus" class="col-sm-3 control-label">Status</form:label>
+                <form:label path="routeStatus" class="col-sm-3 control-label">&#42; Status : </form:label>
                 <div class="col-sm-8">
-                    <form:select path="routeStatus" id="routeStatus" class="form-control">
+                    <form:select  path="routeStatus" id="routeStatus" class="form-control">
+                      <form:option value="">Select</form:option>
                       <form:option value="1">isTrackON</form:option>
                       <form:option value="0">isTrackOFF</form:option>
                     </form:select>
                	</div>
             </div>
             <div class="form-group">
-                <form:label path="startStop" class="col-sm-3 control-label">Start Stop</form:label>
+                <form:label path="startStop" class="col-sm-3 control-label">&#42; Start Stop : </form:label>
                 <div class="col-sm-8">
-                	<form:input path="startStop" id="startStop" value="" class="form-control" />
+                	<form:input name="startStop1" path="startStop" id="startStop"  class="form-control" />
                	</div>
             </div>
             <div class="form-group">
-                <form:label path="endStop" class="col-sm-3 control-label">End Stop</form:label>
+                <form:label path="endStop" class="col-sm-3 control-label"> &#42; End Stop :</form:label>
                 <div class="col-sm-8">
-                	<form:input path="endStop" id="endStop" value="" class="form-control" />
+                	<form:input path="endStop" name="endStop1" id="endStop"  class="form-control" />
                	</div>
             </div>
             <div class="form-group">
@@ -341,9 +472,10 @@ function addStops(id){
                	</div>
             </div>
             <div class="form-group">
-                <form:label path="bus.regNumber" class="col-sm-3 control-label">Bus Number</form:label>
+                <form:label path="bus.regNumber" class="col-sm-3 control-label">&#42; Bus Number : </form:label>
                 <div class="col-sm-8">
-                    <form:select path="bus.regNumber" name="regNumber" id="bus.regNumber" class="form-control" >
+                    <form:select path="bus.regNumber" id="regNumber1" class="form-control" >
+                    	<form:option value="">Select Bus</form:option>
                       <c:forEach var="bus" items="${busList}">
                         <form:option value="${bus.regNumber}">${bus.regNumber}</form:option>
                       </c:forEach>
@@ -351,9 +483,10 @@ function addStops(id){
                	</div>
              </div>
              <div class="form-group">
-                <form:label path="busDriver.driverName" class="col-sm-3 control-label"> Driver </form:label>
+                <form:label path="busDriver.driverName" class="col-sm-3 control-label" id="driver1">&#42; Driver :  </form:label>
                 <div class="col-sm-8">
-                    <form:select path="busDriver.driverName" id="busDriver.driverName" class="form-control" >
+                    <form:select path="busDriver.driverName" id="driverName1" class="form-control" >
+                    	<form:option value="">Select Driver</form:option>
                       <c:forEach var="busDriver" items="${busDriverList}">
                         <form:option value="${busDriver.driverName}">${busDriver.driverName}</form:option>
                       </c:forEach>
@@ -361,10 +494,10 @@ function addStops(id){
                	</div>
               </div>
             </div>
-         	<div class="modal-footer text-center">
+         	 <div class="modal-footer text-center">
             	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            	<button type="submit" class="btn btn-sky btn-sm" >Save</button>
-            </div>          
+            	<button type="submit" name="submitButton" class="btn btn-primary">Submit</button>
+            </div>   
             
           </form:form>
         </div>

@@ -138,9 +138,9 @@ ExtinctorService extinctorService;
 		route.setBus(bus);
 		route.setAccountId(userName);
 		routeService.addRoute(route);
-		
+		String corridorId="Corridor"+route.getRouteNo();
 		System.out.println("userName:"+userName);
-		gtsService.addCorridorInGts(userName, route.getCorridorId(), route.getRouteName());
+		gtsService.addCorridorInGts(userName, corridorId, route.getRouteName());
 		System.out.println("AddRoute:After Adding Record");
 		List<Route> routes = routeService.getRouteList(userName);
 		model.addAttribute("routeList",routes);
@@ -183,7 +183,7 @@ ExtinctorService extinctorService;
 		String corridorId = null;
 		String regNumber = null;
 		String driverName = null;
-		
+		System.out.println("sdfxc");
 		if(request.getParameter("routeId") != null){
 			routeId = Integer.parseInt(request.getParameter("routeId"));
 			}
