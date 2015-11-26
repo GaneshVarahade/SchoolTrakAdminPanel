@@ -30,6 +30,32 @@
 <script src="${pageContext.request.contextPath}/resources/js/angular-resource.min.1.2.27.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.dataTables.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript">
+function showProfile(){
+	$.ajax({
+		type :"GET",
+		contentType : 'application/json',
+		url  :"${pageContext.request.contextPath}/admin/profile",
+		success :function(object){
+			$("#name").val(object.name);
+			$("#accountType").val(object.accountType);
+			$("#userName").val(object.userName);
+			$("#password").val(object.password);
+			$("#schoolId").val(object.school);
+			$("#address").val(object.address);
+			$("#email").val(object.email);
+			$("#age").val(object.age);
+			$("#city").val(object.city);
+			
+		},
+		error : function(e){
+			alert("Error");
+		}
+		
+	})
+	$("#schoolAdmin").modal('show');
+}
+</script>
 </head>
 <body>
 	<div id="wrapper">
@@ -51,8 +77,8 @@
 						<ul class="dropdown-menu dropdown-user">
 							<!-- <li><a href="#"><i class="fa fa-th-large"></i>&nbsp;
 									Portal</a></li> -->
-							<%-- <li><a href="#/user/detail/${appUser.id}"><i
-									class="fa fa-user fa-fw"></i> User Profile</a></li> --%>
+							<li><a  onclick="showProfile()"><i
+									class="fa fa-user fa-fw"></i> User Profile</a></li>
 							<li class="divider"></li>
 							<li><a href="${pageContext.request.contextPath}/j_spring_security_logout"><i class="fa fa-sign-out fa-fw"></i>
 									Logout</a></li>
@@ -100,5 +126,85 @@
         	Copyright 2015 Ciweb Tech LLC
       	</div>
         
+        
+ <div class="modal fade" id="schoolAdmin" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">School Admin Details</h4>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm"  class="form-horizontal" role="form" name="registerForm">
+                
+                
+                <div class="form-group">
+                        <label class="col-sm-3 control-label">Admin Name &#42;</label>
+                        <div class="col-sm-8">
+                        	<input type="text" name="name" id="name" value="" class="form-control" maxlength="50" readonly="readonly">
+                        </div>
+                   	</div>
+              
+                  	<div class="form-group">
+                        <label class="col-sm-3 control-label">Account Type &#42;</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="accountType" id="accountType" value="" class="form-control" maxlength="50" readonly="readonly">
+                     	</div>
+                    </div>
+                    
+                    <div class="form-group">
+                       	<label class="col-sm-3 control-label">User Name &#42;</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="username" id="userName" value="" class="form-control" maxlength="10" readonly="readonly">
+                      	</div>
+                    </div>
+                  	
+                    
+                  	<div class="form-group">
+                        <label class="col-sm-3 control-label">School Name &#42;</label>
+                        <div class="col-sm-8">
+                         <input type="text" name="schoolId" id="schoolId" value="" class="form-control" maxlength="10" readonly="readonly">
+                       </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <label class="col-sm-3 control-label">Address &#42;</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="address" id="address" value="" class="form-control" readonly="readonly" >
+                        </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <label class="col-sm-3 control-label">Email &#42;</label>
+                        <div class="col-sm-8">
+                            <input type="email" name="email" id="email" value="" class="form-control" readonly="readonly">
+                        </div>
+                   	</div>
+                    
+                  	<div class="form-group">
+                        <label class="col-sm-3 control-label">Age &#42;</label>
+                        <div class="col-sm-8">
+                        	<input type="number" name="age" id="age" value="" class="form-control" readonly="readonly">
+                        </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <label class="col-sm-3 control-label">City &#42;</label>
+                        <div class="col-sm-8">
+                        	<input type="text" name="city" id="city" value="" class="form-control" readonly="readonly">
+                        </div>
+                    </div>
+                    
+            		<div class="modal-footer text-center">
+                </div> 
+                </form>               
+			</div>
+                   
+				
+       		</div>
+			
+		</div>
+	</div>
+</div>
 	</body>
 </html>

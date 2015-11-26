@@ -1,12 +1,16 @@
 package com.fidelit.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,6 +42,8 @@ import com.fidelit.service.HolidayService;
 import com.fidelit.service.LeaveService;
 import com.fidelit.service.ProjectService;
 
+import flexjson.JSONSerializer;
+
 
 @Controller
 @RequestMapping({"/admin"})
@@ -66,6 +72,35 @@ public class AdminController {
   
   @Autowired
   private GtsService gtsService;
+  
+  
+  
+  @ResponseBody
+  @RequestMapping("/profile")
+  public void profile(HttpServletRequest request,HttpServletResponse response){
+  	
+   HttpSession session = request.getSession();	  
+   SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+   
+   response.setContentType("application/json; charset=UTF-8");
+   Map<String,Object> map = new HashMap<String,Object>();
+   map.put("accountId", currentUser.getAccountId());
+   map.put("accountType", currentUser.getAccountType());
+   map.put("name", currentUser.getName());
+   map.put("address", currentUser.getAddress());
+   map.put("email", currentUser.getEmail());
+   map.put("city", currentUser.getCity());
+   map.put("school", currentUser.getSchool());
+   map.put("userName", currentUser.getUsername());
+   map.put("age", currentUser.getAge());
+   
+	try {
+		response.getWriter().print(new JSONSerializer().exclude("class","*.class", "authorities").deepSerialize(map));
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+  }
+  
 @RequestMapping("/home")
 public String adminHome(){
 	
