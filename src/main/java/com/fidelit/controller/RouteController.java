@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.fidelit.model.Bus;
 import com.fidelit.model.BusDriver;
 import com.fidelit.model.Route;
+import com.fidelit.model.SchoolAdmin;
 import com.fidelit.model.Stop;
 import com.fidelit.service.BusDriverService;
 import com.fidelit.service.BusService;
@@ -101,6 +105,12 @@ ExtinctorService extinctorService;
 			coordinateList.append(",");
 		}
 		stopCounter++;
+		
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
 		model.addAttribute("stopCounter", stopCounter);
 		model.addAttribute("stopList", stopList);
 		model.addAttribute("routeId", routeId);
@@ -109,13 +119,19 @@ ExtinctorService extinctorService;
 	}
 	
 	@RequestMapping(value="routeMap")
-	public String route(ModelMap model){
+	public String route(HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<Route> routes = routeService.getRouteList(userName);
 		System.out.println(routes.toString());
 		
 		List<Bus> busList=busService.allBusList(userName);
 		List<BusDriver> busDriverList=busDriverService.allBusDriverList(userName);
+		
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
 		model.addAttribute("routeList",routes);
 		model.addAttribute("busList",busList);
 		model.addAttribute("busDriverList",busDriverList);
@@ -143,6 +159,12 @@ ExtinctorService extinctorService;
 		gtsService.addCorridorInGts(userName, corridorId, route.getRouteName());
 		System.out.println("AddRoute:After Adding Record");
 		List<Route> routes = routeService.getRouteList(userName);
+		
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
 		model.addAttribute("routeList",routes);
 		model.addAttribute("busList",busList);
 		model.addAttribute("busDriverList",busDriverList);
@@ -264,6 +286,12 @@ ExtinctorService extinctorService;
 		
 		List<Bus> busList=busService.allBusList(userName);
 		List<BusDriver> busDriverList=busDriverService.allBusDriverList(userName);
+		
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
 		model.addAttribute("routeList",routes);
 		model.addAttribute("busList",busList);
 		model.addAttribute("busDriverList",busDriverList);
@@ -294,11 +322,17 @@ ExtinctorService extinctorService;
 		stop.setStopNo(stopNo);
 		gtsService.editCorridorInGtsList(userName, corridorID, latitude, longitude, stopNo);
 		stopService.updateStop(stop);
+		
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
 		return "stopMap";
 	}
 	
 	@RequestMapping(value = "/deleteRouteList")
-	public String deleteParentList(@RequestParam("list") String str,ModelMap model){
+	public String deleteParentList(@RequestParam("list") String str,HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		str = str.substring(0, str.length()-1);
 		String[] str1 = str.split(",");
 		
@@ -314,7 +348,13 @@ ExtinctorService extinctorService;
 		
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 	    List<Route> routeList= routeService.getRouteList(userName);
-		model.addAttribute("routeList", routeList);
+		
+	    HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+	    
+	    model.addAttribute("routeList", routeList);
 		model.addAttribute(new Route());
 		return "routeMap";
 	}
@@ -324,25 +364,47 @@ ExtinctorService extinctorService;
 		
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<Bus> busList= busService.allBusList(userName);
+		
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
 		model.addAttribute("busList", busList);
 		model.addAttribute(new Bus());
 		return "busList";
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/checkUniqueVehicleNo" , method=RequestMethod.POST)
+	public boolean checkUniqueVehicleNo(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		
+		String regNumber = request.getParameter("regNo");
+		boolean val = busService.getUniqueVehicleNo(regNumber);
+		return val;
+		
+	}
+	
 	@RequestMapping(value="addBus",method = RequestMethod.POST)
-	public String addBus(@ModelAttribute("bus") Bus bus,ModelMap model){
+	public String addBus(@ModelAttribute("bus") Bus bus,HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		bus.setAccountId(userName);
 		busService.addBus(bus);
 		List<Bus> busList = busService.allBusList(userName);
+		
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
 		model.addAttribute("busList",busList);
 		model.addAttribute(new Bus());
 		return "busList";
 	}
 	
 	@RequestMapping(value = "/deleteBusList")
-	public String deleteBusList(@RequestParam("list") String str,ModelMap model){
+	public String deleteBusList(@RequestParam("list") String str,HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		str = str.substring(0, str.length()-1);
 		String[] str1 = str.split(",");
 		
@@ -354,6 +416,12 @@ ExtinctorService extinctorService;
 		}
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<Bus> busList= busService.allBusList(userName);
+		
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
 		model.addAttribute("busList", busList);
 		model.addAttribute(new Bus());
 		return "busList";
@@ -372,6 +440,12 @@ ExtinctorService extinctorService;
 		bus.setRegNumber(dataList[1]);
 		bus.setBusType(dataList[2]);
 		bus.setAccountId(userName);
+		
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
 		model.addAttribute(new Bus());
 		busService.updateBus(bus);
 		return "busList";
@@ -382,6 +456,12 @@ ExtinctorService extinctorService;
 		
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<BusDriver> busDriverList= busDriverService.allBusDriverList(userName);
+		
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
 		model.addAttribute("busDriverList", busDriverList);
 		model.addAttribute(new BusDriver());
 		return "driverList";
@@ -389,11 +469,17 @@ ExtinctorService extinctorService;
 	}
 	
 	@RequestMapping(value="addDriver",method = RequestMethod.POST)
-	public String addBusDriver(@ModelAttribute("busDriver") BusDriver driver,ModelMap model){
+	public String addBusDriver(@ModelAttribute("busDriver") BusDriver driver,HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		driver.setAccountId(userName);
 		busDriverService.addBusDriver(driver);
 		List<BusDriver> busDriverList = busDriverService.allBusDriverList(userName);
+		
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
 		model.addAttribute("busDriverList",busDriverList);
 		model.addAttribute(new BusDriver());
 		return "driverList";
@@ -415,13 +501,19 @@ ExtinctorService extinctorService;
 		busDriver.setExperiance(dataList[5]);
 		busDriver.setAge(age);
 		busDriver.setAccountId(userName);
+		
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
 		model.addAttribute(new BusDriver());
 		busDriverService.updateBusDriver(busDriver);
 		return "driverList";
 	}
 	
 	@RequestMapping(value = "/deleteBusDriverList")
-	public String deleteBusDriverList(@RequestParam("list") String str,ModelMap model){
+	public String deleteBusDriverList(@RequestParam("list") String str,HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		str = str.substring(0, str.length()-1);
 		String[] str1 = str.split(",");
 		
@@ -432,7 +524,13 @@ ExtinctorService extinctorService;
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 
 	    List<BusDriver> busDriverList= busDriverService.allBusDriverList(userName);
-		model.addAttribute("busDriverList", busDriverList);
+		
+	    HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+	    
+	    model.addAttribute("busDriverList", busDriverList);
 		model.addAttribute(new BusDriver());
 		return "driverList";
 	}

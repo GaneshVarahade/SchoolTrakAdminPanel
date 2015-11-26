@@ -52,6 +52,32 @@ public class BusServiceImpl implements BusService{
 		
 	}
 
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public boolean getUniqueVehicleNo(String regNumber) {
+		List<Bus> busList = new ArrayList<Bus>();
+		 Session session;
+			try {
+				session = sessionFactory.getCurrentSession();
+				String hql = "from Bus where regNumber =:regNumber";
+				Query query = session.createQuery(hql);
+				query.setString("regNumber", regNumber);
+				busList = query.list();
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			
+		if(busList.isEmpty()){
+			return false;
+		}else{
+		return true;
+		}
+
+	}
+
+	
 	@Override
 	public ArrayList<Bus> getAllBus() {
 		// TODO Auto-generated method stub

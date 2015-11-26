@@ -128,11 +128,11 @@ function sendDataForRegistration(){
 		       
 		    },
 		    error : function(e) {
-		    	alert("IN:Please Enter Mandatory FIeld and UserName Should be Unique");
+		    	alert("Please Enter Mandatory FIeld and UserName Should be Unique");
 		    }
 		});
 	}else{
-		alert("OUT:Please Enter Mandatory FIeld and UserName Should be Unique");
+		alert("Please Enter Mandatory FIeld and UserName Should be Unique");
 	}
 	}
 	 
@@ -245,22 +245,11 @@ function emailValidateUpdate()
      {
        return (true)
      }
-     alert("You have entered an invalid email address!")
-     $("#clientEmail").val("");
+    
+     $("#aEmail").val("");
      return (false)
 }
 
-function emailValidateRegistration() 
-{
-	 var mail = $("#cclientEmail").val();
-     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
-     {
-       return (true)
-     }
-     alert("You have entered an invalid email address!")
-     $("#cclientEmail").val("");
-     return (false)
-}
 
 
 function password_length_update()

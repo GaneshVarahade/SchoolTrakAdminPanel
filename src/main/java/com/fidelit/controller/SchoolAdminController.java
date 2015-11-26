@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.fidelit.model.Employee;
 import com.fidelit.model.Holidays;
 import com.fidelit.model.LeavesApplied;
@@ -66,6 +67,12 @@ public class SchoolAdminController {
 		for (School school : schoolList) {
 			System.out.println("schoolList:"+school.toString());
 		}
+		
+		
+		SchoolAdmin currentUserr = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUserr.getUsername();
+		model.addAttribute("userName", username);
+		
 		model.addAttribute("schoolList", schoolList);
 		return "parentList";
 	}
@@ -79,12 +86,18 @@ public class SchoolAdminController {
 		model.addAttribute("schoolAdminList", schoolAdminList);
 		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
 		List<School> schoolList=schoolService.allSchoolList(currentUser.getAccountId());
+		
+		
+		SchoolAdmin currentUserr = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUserr.getUsername();
+		model.addAttribute("userName", username);
+		
 		model.addAttribute("schoolList", schoolList);
 		return "studentList";
 	}
 	
 	@RequestMapping(value = "/deleteParentList")
-	public String deleteParentList(@RequestParam("list") String str,ModelMap model){
+	public String deleteParentList(@RequestParam("list") String str,HttpServletRequest request,ModelMap model){
 		str = str.substring(0, str.length()-1);
 		String[] str1 = str.split(",");
 		
@@ -95,12 +108,18 @@ public class SchoolAdminController {
 		
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 	    List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
-		model.addAttribute("schoolAdminList", schoolAdminList);
+		
+	    HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+	    
+	    model.addAttribute("schoolAdminList", schoolAdminList);
 		return "parentList";
 	}
 
 	@RequestMapping(value = "/deleteStudentList")
-	public String deleteStudentList(@RequestParam("list") String str,ModelMap model){
+	public String deleteStudentList(@RequestParam("list") String str,HttpServletRequest request,ModelMap model){
 		str = str.substring(0, str.length()-1);
 		String[] str1 = str.split(",");
 		
@@ -111,7 +130,13 @@ public class SchoolAdminController {
 
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 	    List<SchoolAdmin> schoolAdminList= schoolAdminService.getAllStudentList(userName);
-		model.addAttribute("schoolAdminList", schoolAdminList);
+		
+	    HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+	    
+	    model.addAttribute("schoolAdminList", schoolAdminList);
 		return "studentList";
 	}
 	

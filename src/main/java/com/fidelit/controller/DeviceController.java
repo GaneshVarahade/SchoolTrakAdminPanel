@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fidelit.model.Device;
+import com.fidelit.model.SchoolAdmin;
 import com.fidelit.service.DeviceService;
 import com.fidelit.service.GtsService;
 
@@ -32,6 +34,11 @@ public class DeviceController {
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<Device> deviceList = deviceService.getAllDeviceByUsername(userName);
 		
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
 		model.addAttribute("deviceList",deviceList);
 		model.addAttribute("device",new Device());
 		return "device";
@@ -44,7 +51,14 @@ public class DeviceController {
 		deviceService.addDevice(device);
 		gtsService.addDeviceInGts(device);
         List<Device> deviceList = deviceService.getAllDeviceByUsername(userName);
-		model.addAttribute("deviceList",deviceList);
+		
+        HttpSession session = request.getSession();
+    	SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+    	String username = currentUser.getUsername();
+    	model.addAttribute("userName", username);
+    	
+        
+        model.addAttribute("deviceList",deviceList);
 		model.addAttribute("device",new Device());
 		return "device";
 	}
@@ -56,7 +70,13 @@ public class DeviceController {
 		deviceService.addDevice(device);
 		gtsService.updateDeviceInGts(device);
         List<Device> deviceList = deviceService.getAllDeviceByUsername(userName);
-		model.addAttribute("deviceList",deviceList);
+		
+        HttpSession session = request.getSession();
+    	SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+    	String username = currentUser.getUsername();
+    	model.addAttribute("userName", username);
+    	
+        model.addAttribute("deviceList",deviceList);
 		model.addAttribute("device",new Device());
 		return "device";
 	}
@@ -73,7 +93,14 @@ public class DeviceController {
 		System.out.println("**********"+uniqueId);
 		
         List<Device> deviceList = deviceService.getAllDeviceByUsername(userName);
-		model.addAttribute("deviceList",deviceList);
+		
+        HttpSession session = request.getSession();
+    	SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+    	String username = currentUser.getUsername();
+    	model.addAttribute("userName", username);
+    	
+        
+        model.addAttribute("deviceList",deviceList);
 		model.addAttribute("device",new Device());
 		return "device";
 	}
