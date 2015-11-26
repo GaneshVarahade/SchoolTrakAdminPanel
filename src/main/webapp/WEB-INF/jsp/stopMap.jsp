@@ -1,8 +1,85 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
- 
+
+<script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
+<script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script> 
 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>    
 <script>
+
+$(document).ready(function() {
+    $('#formAdd').formValidation({
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	'stopName': {
+                validators: {
+                    notEmpty: {
+                        message: 'Stop Name is required'
+                    }
+                }
+            },
+          
+            'latitude': {
+                validators: {
+                    notEmpty: {
+                        message: 'Latitude Should be Decimal'
+                    }
+                }
+            },
+            'longitude': {
+                validators: {
+                    notEmpty: {
+                        message: 'Latitude Should be Decimal'
+                        	
+                    }
+                }
+            },
+              
+        }
+    });
+    
+    $('#editForm').formValidation({
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	'stopsName': {
+                validators: {
+                    notEmpty: {
+                        message: 'Stop Name is required'
+                    }
+                }
+            },
+          
+            'latitudes': {
+                validators: {
+                    notEmpty: {
+                        message: 'Latitude Should be Decimal'
+                    }
+                }
+            },
+            'longitudes': {
+                validators: {
+                    notEmpty: {
+                        message: 'Latitude Should be Decimal'
+                        	
+                    }
+                }
+            },
+              
+        }
+    });
+    
+});
   $(document).ready(function() {
 	// If the browser supports the Geolocation API
 	if (typeof navigator.geolocation == "undefined") {
@@ -181,10 +258,12 @@
 	<!-- / row -->   
 </div>
 
+ <form id="editForm">
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
    	<div class="modal-dialog">
 		<div class="modal-content">
 			  <div class="modal-header">
+			 
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Edit Bus Stop</h4>
 			  </div>
@@ -192,30 +271,30 @@
 			  <div class="modal-body">              	
         		<div class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Stop Number :</label>
+                        <label class="col-sm-3 control-label">* Stop Number :</label>
                         <div class="col-sm-8">
                             <input type="text" name="stopNumber" id="stopNumber" class="form-control" readOnly>
                         </div>
                     </div>
 				
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Stop Name :</label>
+                        <label class="col-sm-3 control-label">* Stop Name :</label>
                         <div class="col-sm-8">
                             <input type="text" name="stopsName" id="stopsName" class="form-control">
                         </div>
                     </div>
 				
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Latitude :</label>
+                        <label class="col-sm-3 control-label">* Latitude :</label>
                         <div class="col-sm-8">
-                            <input type="text" name="latitudes" id="latitudes" class="form-control">
+                            <input type="number" step="0.01" name="latitudes" id="latitudes" class="form-control">
                         </div>
                     </div>
 				
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Longitude :</label>
+                        <label class="col-sm-3 control-label">* Longitude :</label>
                         <div class="col-sm-8">
-                            <input type="text" name="longitudes" id="longitudes" class="form-control">
+                            <input type="number" step="0.01" name="longitudes" id="longitudes" class="form-control">
                         </div>
                     </div>
               	</div>
@@ -226,9 +305,9 @@
                 <button type="submit" class="btn btn-sky btn-sm" onClick="editStop()" data-dismiss="modal">Save</button>
             </div>				
      	</div>
-   	</div>
+     </div>
 </div>
-
+</form>
 <div class="modal fade" id="addStop" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
    	<div class="modal-dialog">
 		<div class="modal-content">
@@ -236,41 +315,41 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Add Bus Stop</h4>
 			  </div>
-              <form action="${pageContext.request.contextPath}/route/addNewStops">
+              <form id="formAdd"action="${pageContext.request.contextPath}/route/addNewStops">
 			  <div class="modal-body">              	
         		<div class="form-horizontal">
         		
 				    <div class="form-group">
-                        <label class="col-sm-3 control-label">Route Number :</label>
+                        <label class="col-sm-3 control-label">* Route Number :</label>
                         <div class="col-sm-8">
                             <input type="text" name="routeId" id="routeId" value= "${routeId}" class="form-control" readOnly>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Stop Number :</label>
+                        <label class="col-sm-3 control-label">* Stop Number :</label>
                         <div class="col-sm-8">
                             <input type="text" name="stopNo" id="stopNumber" value= "${stopCounter}" class="form-control" readOnly>
                         </div>
                     </div>
 				
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Stop Name :</label>
+                        <label class="col-sm-3 control-label">* Stop Name :</label>
                         <div class="col-sm-8">
                             <input type="text" name="stopName" id="stopsName" class="form-control">
                         </div>
                     </div>
 				
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Latitude :</label>
+                        <label class="col-sm-3 control-label">* Latitude :</label>
                         <div class="col-sm-8">
-                            <input type="text" name="latitude" id="latitudes" class="form-control">
+                            <input type="number" step="0.01" name="latitude" id="latitudes" class="form-control">
                         </div>
                     </div>
 				
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Longitude :</label>
+                        <label class="col-sm-3 control-label">* Longitude :</label>
                         <div class="col-sm-8">
-                            <input type="text" name="longitude" id="longitudes" class="form-control">
+                            <input type="number" step="0.01" name="longitude" id="longitudes" class="form-control">
                         </div>
                     </div>
                     <input type="hidden" id="stopId" name="id">
