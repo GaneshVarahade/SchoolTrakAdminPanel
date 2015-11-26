@@ -329,7 +329,7 @@ public String addClient(HttpServletRequest request,HttpServletResponse response,
 	School school=schoolService.getSchool(SchoolName1);
 	SchoolAdmin schoolAdmin = new SchoolAdmin();
 	
-	
+	//school.setSchoolName(SchoolName1);
 	schoolAdmin.setName(dataList[0]);
 	schoolAdmin.setAddress(dataList[1]);
 	schoolAdmin.setPassword(dataList[3]);

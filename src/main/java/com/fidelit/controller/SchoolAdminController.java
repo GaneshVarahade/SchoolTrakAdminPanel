@@ -60,7 +60,12 @@ public class SchoolAdminController {
 		List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
 		model.addAttribute("schoolAdminList", schoolAdminList);
 		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		System.out.println("currentUser"+currentUser.getAccountId());
 		List<School> schoolList=schoolService.allSchoolList(currentUser.getAccountId());
+		System.out.println("schoolList:"+schoolList.toString());
+		for (School school : schoolList) {
+			System.out.println("schoolList:"+school.toString());
+		}
 		model.addAttribute("schoolList", schoolList);
 		return "parentList";
 	}

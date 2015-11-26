@@ -138,7 +138,7 @@ function checkUniqueUsername(){
 	       //window.location.href="${pageContext.request.contextPath}/admin//schoolAdmin";
 	    },
 	    error : function(e) {
-	       alert("Please Enter Mandatory FIeld and UserName Should be Unique");
+	      /*  alert("Please Enter Mandatory FIeld and UserName Should be Unique"); */
 	    }
 	});
 }
@@ -294,7 +294,6 @@ function emailValidateRegistration()
      {
        return (true)
      }
-    /*  alert("You have entered an invalid email address!") */
      $("#aEmail").val("");
      return (false)
 }

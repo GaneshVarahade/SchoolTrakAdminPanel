@@ -2,6 +2,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
+<script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
+
+
 <script type="text/javascript">
 var saveKara = 0;
 
@@ -72,17 +76,43 @@ function sendDataForUpdation(){
 	}
 }
 
+function checkUniqueUsername(){
+	
+	var userName= "userName="+$("#username").val();
+	
+	$.ajax({
+	    type : "POST",
+	    url : "${pageContext.request.contextPath}/admin/checkUniqueUserName",
+	    data : userName,
+	    success : function(response) {	
+	    	
+	       
+	       if(response){
+	    	
+	       $("#username").val("");
+	       }
+	  
+	    },
+	    error : function(e) {
+	  
+	    }
+	});
+}
+
+
 function sendDataForRegistration(){
 
 	 
 	 var name=$("#aName").val();
 	 var address=$("#aAddress").val();
 	 var email=$("#aEmail").val();
+	 var username=$("#username").val();
+	 if(email != null && email != '' && username != null && username != ''){
 	 var password=$("#aPassword").val();
 	 var age=$("#aAge").val();
 	 var city=$("#aCity").val();
 	var school=$("#schoolId").val();
-	var username=$("#username").val();
+	
 	var accountType=$("#accountType").val();
 
 	 var allData = name+","+address+","+email+","+password+","+age+","+city+","+school+","+username+","+accountType;
@@ -98,10 +128,14 @@ function sendDataForRegistration(){
 		       
 		    },
 		    error : function(e) {
-		       alert('Error: ' + e);
+		    	alert("IN:Please Enter Mandatory FIeld and UserName Should be Unique");
 		    }
 		});
+	}else{
+		alert("OUT:Please Enter Mandatory FIeld and UserName Should be Unique");
 	}
+	}
+	 
 
 
 function malaDeleteKara(id){
@@ -308,6 +342,105 @@ function editParents(){
 	
 }
 
+function emailValidateRegistration() 
+{
+	 var mail = $("#aEmail").val();
+     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+     {
+       return (true)
+     }
+     $("#aEmail").val("");
+     return (false)
+}
+
+
+$(document).ready(function() {
+	
+    $('#registerForm').formValidation({
+    	
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	username: {
+                validators: {
+                    notEmpty: {
+                        message: 'The User Name is required'
+                    }
+                }
+            },
+            accountType: {
+                validators: {
+                    notEmpty: {
+                        message: 'The accountType is required'
+                    }
+                }
+            },
+            name: {
+                validators: {
+                    notEmpty: {
+                        message: 'name should be required'
+                    }
+                }
+            },
+            
+            password: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please Enter Password'
+                    }
+                }
+            },
+            
+            schoolName: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select School'
+                    }
+                }
+            },
+            
+            address: {
+                validators: {
+                    notEmpty: {
+                        message: 'The address is required'
+                    }
+                }
+            },
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please Enter Valid Email'
+                    }
+                }
+            },
+            
+            age: {
+                validators: {
+                    notEmpty: {
+                        message: 'Age should be a number '
+                    }
+                }
+            },
+            city: {
+                validators: {
+                    notEmpty: {
+                    	
+                        message: 'The city is required'
+      
+                    }
+                }
+            }
+            
+            
+        }
+    });
+});
+
 </script>
 <div class="form-horizontal">
     <div class="row">
@@ -387,7 +520,7 @@ function editParents(){
                     <div class="form-group">
                         <label class="col-sm-3 control-label">User Name</label>
                         <div class="col-sm-8">
-                        	<input type="text" name="username" id="username" value="" class="form-control">
+                        	<input type="text" name="username" id="username" value="" class="form-control" onblur = "checkUniqueUsername()">
                       	</div>
                     </div>
                     
@@ -435,14 +568,14 @@ function editParents(){
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Email</label>
                         <div class="col-sm-8">
-                        	<input type="text" name="email" id="aEmail" value="" class="form-control" >
+                        	<input type="email" name="email" id="aEmail" value="" class="form-control" onblur="emailValidateRegistration();">
                       	</div>
                     </div>
                     
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Age</label>
                         <div class="col-sm-8">
-                        	<input type="text" name="age" id="aAge" value="" class="form-control" >
+                        	<input type="number" name="age" id="aAge" value="" class="form-control" >
                        	</div>
                     </div>
                     
