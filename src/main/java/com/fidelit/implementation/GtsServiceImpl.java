@@ -54,6 +54,7 @@ public class GtsServiceImpl implements GtsService{
 	public void addCorridorInGts(String accountId,String corridorID,String description) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.openSession();
+		System.out.println("In add Corridor In Gts:"+corridorID);
 		String sql = "insert into GeoCorridor (accountID,corridorID,description) values('"+accountId +"','"+corridorID +"','"+description +"')";
 		Query query = session.createSQLQuery(sql);
 		query.executeUpdate();
@@ -105,6 +106,7 @@ public class GtsServiceImpl implements GtsService{
 		
 	}
 
+	@Transactional
 	@Override
 	public void deleteCorridor(String corridorID) {
 		
@@ -174,6 +176,42 @@ public class GtsServiceImpl implements GtsService{
 			}catch(Exception e){
 				e.printStackTrace();
 			}
+		
+	}
+	
+
+	@Transactional
+	@Override
+	public void deleteDeviceInGts(String accountID) {
+		try{
+			   Session session = sessionFactory.openSession();
+			   String sql = "delete from Account where accountID='"+accountID+"'";
+			   SQLQuery query = session.createSQLQuery(sql);	
+			   query.executeUpdate();		
+			   session.close();
+			   
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		
+	}
+
+	@Transactional
+	@Override
+	public void deleteAccountInGts(String accountId) {
+		
+		try{
+			System.out.println("IN gts delete Acc");
+			   Session session = sessionFactory.openSession();
+			   String sql = "delete from Account where accountID='"+accountId+"'";
+			   SQLQuery query = session.createSQLQuery(sql);	
+			   query.executeUpdate();		
+			   session.close();
+			   
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		
 		
 	}
 }

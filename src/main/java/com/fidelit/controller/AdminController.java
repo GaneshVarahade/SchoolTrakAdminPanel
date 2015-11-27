@@ -326,7 +326,9 @@ public String deleteEmployeeList(@RequestParam("list") String str,HttpServletReq
 	for (int i = 0; i < str1.length; i++) {
 		
 		int id = Integer.parseInt(str1[i]);
+		
 		schoolService.deleteSchool(id);
+		
 	}
 	
 	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -346,9 +348,16 @@ public String deleteEmployeeList(@RequestParam("list") String str,HttpServletReq
 public String deleteClientList(@RequestParam("list") String str,HttpServletRequest request,HttpServletResponse response,ModelMap model){
 	str = str.substring(0, str.length()-1);
 	String[] str1 = str.split(",");
-	
+	for (String string : str1) {
+		System.out.println("IN delete:"+string);
+	}
 	for (int i = 0; i < str1.length; i++) {
 		int id = Integer.parseInt(str1[i]);
+		String accountID = schoolAdminService.getNameFromId(id);
+		System.out.println("accountID:"+accountID);
+		
+		gtsService.deleteAccountInGts(accountID);
+		
 		schoolAdminService.deleteSchoolAdmin(id);
 	}
 	
@@ -364,10 +373,6 @@ public String deleteClientList(@RequestParam("list") String str,HttpServletReque
     model.addAttribute("schoolAdminList", schoolAdminList);
 	return "schoolAdmin";
 }
-
-
-
-
 
 }
 

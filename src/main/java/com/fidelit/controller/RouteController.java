@@ -153,8 +153,13 @@ ExtinctorService extinctorService;
 		route.setBusDriver(busDriver);
 		route.setBus(bus);
 		route.setAccountId(userName);
+		int id = routeService.getLastRouteId();
+		id = id + 1;
+		String corridorId="Corridor"+id;
+		route.setCorridorId(corridorId);
 		routeService.addRoute(route);
-		String corridorId="Corridor"+route.getRouteNo();
+		
+		System.out.println("corridorId:"+corridorId);
 		System.out.println("userName:"+userName);
 		gtsService.addCorridorInGts(userName, corridorId, route.getRouteName());
 		System.out.println("AddRoute:After Adding Record");
@@ -172,30 +177,7 @@ ExtinctorService extinctorService;
 	}
 	
 	@RequestMapping(value="editRoute",method = RequestMethod.POST)
-	public String editRoute(HttpServletRequest request,HttpServletResponse response,ModelMap model){
-		/*String list = request.getParameter("list");
-		System.out.println(list);
-		String [] dataList = list.split(",");
-		Route route = new Route();
-		String busNo=dataList[5];
-		String driver=dataList[6];
-		String corridorId=dataList[7];
-		Bus bus=busService.getBusRegNo(busNo);
-		BusDriver busDriver=busDriverService.getDriverByName(driver);
-		Integer routeId=Integer.parseInt(dataList[0]);
-		route.setRouteNo(routeId);
-		route.setRouteName(dataList[1]);
-		route.setRouteStatus(true);
-		route.setStartStop(dataList[3]);
-		route.setEndStop(dataList[4]);
-		route.setBus(bus);
-		route.setBusDriver(busDriver);
-		route.setCorridorId(corridorId);
-		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-		gtsService.editCorridorInGts(userName, corridorId, dataList[1]);
-		routeService.updateRoute(route);
-		return "stopMap";*/
-		
+	public String editRoute(HttpServletRequest request,HttpServletResponse response,ModelMap model){	
 
 		int routeId = 0;
 		String routeName = null;
