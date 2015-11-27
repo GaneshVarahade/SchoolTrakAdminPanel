@@ -70,7 +70,7 @@ $(document).ready(function() {
             'longitudes': {
                 validators: {
                     notEmpty: {
-                        message: 'Latitude Should be Decimal'
+                        message: 'Longitude Should be Decimal'
                         	
                     }
                 }
@@ -233,7 +233,7 @@ $(document).ready(function() {
                                 <th width="15%">Name</th>
                                 <th width="25%">Latitude</th>
                                 <th width="25%">Longitude</th>
-                                <th width="15%">Edit Stop</th>                 
+                                <th width="15%">Action</th>                 
                             </tr>
                           </thead>
                             <tbody>
@@ -315,7 +315,7 @@ $(document).ready(function() {
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Add Bus Stop</h4>
 			  </div>
-              <form id="formAdd"action="${pageContext.request.contextPath}/route/addNewStops">
+              <form id="formAdd"action="${pageContext.request.contextPath}/route/addNewStops" method="post">
 			  <div class="modal-body">              	
         		<div class="form-horizontal">
         		
