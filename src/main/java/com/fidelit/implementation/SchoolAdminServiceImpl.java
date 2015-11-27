@@ -73,9 +73,10 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 		 Session session;
 			try {
 				session = sessionFactory.getCurrentSession();
-				Criteria criteria = session.createCriteria(SchoolAdmin.class);
-				criteria.add(Restrictions.eq("accountId", userName));
-				schoolAdminList = criteria.list();
+				String hql = "from  SchoolAdmin where accountId =:accountId";
+				Query query = session.createQuery(hql);
+				query.setString("accountId", userName);
+				schoolAdminList = query.list();
 			} catch (Exception e) {
 				
 				e.printStackTrace();

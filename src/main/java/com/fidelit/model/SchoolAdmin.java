@@ -14,6 +14,8 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.beans.factory.annotation.Required;
 
@@ -125,6 +127,7 @@ public class SchoolAdmin implements Serializable  {
 
 	@Required
 	@OneToOne
+	@NotFound(action=NotFoundAction.IGNORE)
 	@JoinColumn(name="schoolId",nullable = true, insertable = true, updatable = true)
 	public School getSchool() {
 		return school;

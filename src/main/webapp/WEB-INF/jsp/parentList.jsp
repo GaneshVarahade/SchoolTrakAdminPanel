@@ -481,7 +481,7 @@ $(document).ready(function() {
                                         <td>${schoolAdmin.email}</td>
                                         <td>${schoolAdmin.age}</td>
                                         <td>${schoolAdmin.city}</td>
-                                        <td><input type="submit" class="button" value="Edit" onClick="editParent('${schoolAdmin.id}','${schoolAdmin.name}','${schoolAdmin.school.schoolName}','${schoolAdmin.address}','${schoolAdmin.email}','${schoolAdmin.age}','${schoolAdmin.city}','${schoolAdmin.password}','${schoolAdmin.username}','${schoolAdmin.accountType}');"></td>
+                                        <td><button type="submit"  class="btn btn-default btn-sm" value="Edit" onClick="editParent('${schoolAdmin.id}','${schoolAdmin.name}','${schoolAdmin.school.schoolName}','${schoolAdmin.address}','${schoolAdmin.email}','${schoolAdmin.age}','${schoolAdmin.city}','${schoolAdmin.password}','${schoolAdmin.username}','${schoolAdmin.accountType}');" ><i class="fa fa-pencil-square-o"></i>Edit</button></td>
                                    	</tr>  
                                    </c:if>                                      
                              </c:forEach>
