@@ -280,21 +280,21 @@ $(document).ready(function() {
                     <div class="form-group">
                         <label class="col-sm-3 control-label">* Stop Name :</label>
                         <div class="col-sm-8">
-                            <input type="text" name="stopsName" id="stopsName" class="form-control">
+                            <input type="text" name="stopsName" id="stopsName" class="form-control" maxlength="20">
                         </div>
                     </div>
 				
                     <div class="form-group">
                         <label class="col-sm-3 control-label">* Latitude :</label>
                         <div class="col-sm-8">
-                            <input type="number" step="0.01" name="latitudes" id="latitudes" class="form-control">
+                            <input type="number" step="0.01" name="latitudes" id="latitudes" class="form-control" maxlength="10">
                         </div>
                     </div>
 				
                     <div class="form-group">
                         <label class="col-sm-3 control-label">* Longitude :</label>
                         <div class="col-sm-8">
-                            <input type="number" step="0.01" name="longitudes" id="longitudes" class="form-control">
+                            <input type="number" step="0.01" name="longitudes" id="longitudes" class="form-control" maxlength="10">
                         </div>
                     </div>
               	</div>
@@ -335,21 +335,21 @@ $(document).ready(function() {
                     <div class="form-group">
                         <label class="col-sm-3 control-label">* Stop Name :</label>
                         <div class="col-sm-8">
-                            <input type="text" name="stopName" id="stopsName" class="form-control">
+                            <input type="text" name="stopName" id="stopsName" class="form-control" maxlength="20">
                         </div>
                     </div>
 				
                     <div class="form-group">
                         <label class="col-sm-3 control-label">* Latitude :</label>
                         <div class="col-sm-8">
-                            <input type="number" step="0.01" name="latitude" id="latitudes" class="form-control">
+                            <input type="number" step="0.01" name="latitude" id="latitudes" class="form-control" maxlength="10">
                         </div>
                     </div>
 				
                     <div class="form-group">
                         <label class="col-sm-3 control-label">* Longitude :</label>
                         <div class="col-sm-8">
-                            <input type="number" step="0.01" name="longitude" id="longitudes" class="form-control">
+                            <input type="number" step="0.01" name="longitude" id="longitudes" class="form-control" maxlength="10">
                         </div>
                     </div>
                     <input type="hidden" id="stopId" name="id">

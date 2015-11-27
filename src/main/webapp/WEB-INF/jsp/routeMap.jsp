@@ -371,7 +371,7 @@ function addStops(id){
             <div class="form-group">
                 <label class="col-sm-3 control-label">&#42; Route Name  : </label>
                 <div class="col-sm-8">
-                  <input type="text" name="routeName" id="routeName" class="form-control">
+                  <input type="text" name="routeName" id="routeName" class="form-control" maxlength="20">
                 </div>
             </div>
             <div class="form-group">
@@ -388,13 +388,13 @@ function addStops(id){
             <div class="form-group">
                 <label class="col-sm-3 control-label">&#42; Start Stop : </label>
                 <div class="col-sm-8">
-                  <input type="text" name="start" id="start" class="form-control">
+                  <input type="text" name="start" id="start" class="form-control" maxlength="20">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">&#42; End Stop : </label>
                 <div class="col-sm-8">
-                  <input type="text" name="stop" id="stop" class="form-control">
+                  <input type="text" name="stop" id="stop" class="form-control" maxlength="20">
                 </div>
             </div>
             <div class="form-group">
@@ -457,7 +457,7 @@ function addStops(id){
             <div class="form-group">
                 <form:label  path="routeName" class="col-sm-3 control-label">&#42; Route Name : </form:label>
                 <div class="col-sm-8">
-                	<form:input  path="routeName" id="routeName"  class="form-control" />
+                	<form:input  path="routeName" id="routeName"  class="form-control" maxlength="20" />
                	</div>
             </div>
             <div class="form-group">
@@ -473,13 +473,13 @@ function addStops(id){
             <div class="form-group">
                 <form:label path="startStop" class="col-sm-3 control-label">&#42; Start Stop : </form:label>
                 <div class="col-sm-8">
-                	<form:input name="startStop1" path="startStop" id="startStop"  class="form-control" />
+                	<form:input name="startStop1" path="startStop" id="startStop"  class="form-control" maxlength="20" />
                	</div>
             </div>
             <div class="form-group">
                 <form:label path="endStop" class="col-sm-3 control-label"> &#42; End Stop :</form:label>
                 <div class="col-sm-8">
-                	<form:input path="endStop" name="endStop1" id="endStop"  class="form-control" />
+                	<form:input path="endStop" name="endStop1" id="endStop"  class="form-control" maxlength="20"/>
                	</div>
             </div>
             <div class="form-group">
