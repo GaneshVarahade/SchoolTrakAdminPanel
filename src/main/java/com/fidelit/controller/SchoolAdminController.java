@@ -30,6 +30,7 @@ import com.fidelit.model.SchoolAdmin;
 import com.fidelit.model.SuperVisor;
 import com.fidelit.model.empLeavesTaken;
 import com.fidelit.service.EmployeeService;
+import com.fidelit.service.GtsService;
 import com.fidelit.service.HolidayService;
 import com.fidelit.service.LeaveService;
 import com.fidelit.service.SchoolAdminService;
@@ -46,6 +47,9 @@ public class SchoolAdminController {
 	
 	@Autowired
 		private SchoolAdminService schoolAdminService;
+	
+	@Autowired	
+	  private GtsService gtsService;
 	
 	
 	@RequestMapping(value="/home" )
@@ -103,6 +107,11 @@ public class SchoolAdminController {
 		
 		for (int i = 0; i < str1.length; i++) {
 			int id = Integer.parseInt(str1[i]);
+	
+			String accountID = schoolAdminService.getNameFromId(id);
+			System.out.println("accountID:"+accountID);			
+			gtsService.deleteAccountInGts(accountID);
+
 			schoolAdminService.deleteSchoolAdmin(id);
 		}
 		
@@ -125,6 +134,11 @@ public class SchoolAdminController {
 		
 		for (int i = 0; i < str1.length; i++) {
 			int id = Integer.parseInt(str1[i]);
+			
+			String accountID = schoolAdminService.getNameFromId(id);
+			System.out.println("accountID:"+accountID);			
+			gtsService.deleteAccountInGts(accountID);
+			
 			schoolAdminService.deleteSchoolAdmin(id);
 		}
 

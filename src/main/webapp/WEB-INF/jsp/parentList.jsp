@@ -123,8 +123,10 @@ function sendDataForRegistration(){
 		    type : "POST",
 		    url : "${pageContext.request.contextPath}/admin/addSchoolAdmin",
 		    data : formData,
-		    success : function(response) {	       
-		       alert("Parent Added");
+		    success : function(response) {	
+		    	
+		    	$("#forClientRegistration").modal('hide');
+		       alert("Parent Admin Added Successfully ");
 		       
 		    },
 		    error : function(e) {
@@ -507,7 +509,7 @@ $(document).ready(function() {
                 <form id="registerForm"  class="form-horizontal" role="form" name="registerForm">
                     			
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">User Name</label>
+                        <label class="col-sm-3 control-label">Username</label>
                         <div class="col-sm-8">
                         	<input type="text" name="username" id="username" value="" class="form-control" onblur = "checkUniqueUsername()">
                       	</div>
@@ -579,7 +581,7 @@ $(document).ready(function() {
                 
                 <div class="modal-footer text-center">
                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration()" data-dismiss="modal">Save</button>
+                    <button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration()" >Save</button>
                 </div>
             </div>
         </div>
@@ -611,7 +613,7 @@ $(document).ready(function() {
 			  </div>
 			  
 			  <div class="form-group">
-                	<label class="col-sm-3 control-label">User Name</label>
+                	<label class="col-sm-3 control-label">Username</label>
                     <div class="col-sm-8">
 						<input type="text" name="username1" id="username1" value="" class="form-control">
                    	</div>
@@ -655,7 +657,7 @@ $(document).ready(function() {
 			  <div class="form-group">
                 <label class="col-sm-3 control-label">Age</label>
                 <div class="col-sm-8">
-					<input type="text" name="city" id="age1" value="" class="form-control">
+					<input type="number" name="age" id="age1" value="" class="form-control">
                 </div>
 			  </div>
 			  

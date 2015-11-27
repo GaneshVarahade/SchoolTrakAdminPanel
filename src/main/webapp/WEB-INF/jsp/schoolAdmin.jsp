@@ -165,14 +165,14 @@ function sendDataForRegistration(){
 		    data : formData,
 		    success : function(response) {	       
 		       alert("SchoolAdmin Profile Added Successfully");
-		       window.location.href="${pageContext.request.contextPath}/admin//schoolAdmin";
+		       window.location.href="${pageContext.request.contextPath}/admin/schoolAdmin";
 		    },
 		    error : function(e) {
-		       alert("Please Enter Mandatory FIeld and UserName Should be Unique");
+		       /* alert("Please Enter Mandatory FIeld and UserName Should be Unique"); */
 		    }
 		});
 	}else{
-		 alert("Please Enter Mandatory FIeld and UserName Should be Unique");
+		/*  alert("Please Enter Mandatory FIeld and UserName Should be Unique"); */
 	}
 }
 
@@ -512,7 +512,7 @@ $(document).ready(function() {
                     </div>
                     
                     <div class="form-group">
-                       	<label class="col-sm-3 control-label">User Name &#42;</label>
+                       	<label class="col-sm-3 control-label">Username &#42;</label>
                         <div class="col-sm-8">
                             <input type="text" name="username" id="username" value="" class="form-control" maxlength="10" onblur = "checkUniqueUsername()">
                       	</div>
@@ -528,7 +528,7 @@ $(document).ready(function() {
                   	<div class="form-group">
                         <label class="col-sm-3 control-label">School Name &#42;</label>
                         <div class="col-sm-8">
-                        	<select name="schoolName" id="schoolId" class="form-control" >
+                        	<select name="schoolName" id="schoolId" class="form-control">
                             	<c:forEach var="school" items="${schoolList}">
                                	<option value="${school.schoolName}">${school.schoolName}</option>
                         		</c:forEach>
@@ -539,35 +539,35 @@ $(document).ready(function() {
                   	<div class="form-group">
                         <label class="col-sm-3 control-label">Address &#42;</label>
                         <div class="col-sm-8">
-                            <input type="text" name="address" id="aAddress" value="" class="form-control" >
+                            <input type="text" name="address" id="aAddress" value="" class="form-control" maxlength="80">
                         </div>
                     </div>
                     
                   	<div class="form-group">
                         <label class="col-sm-3 control-label">Email &#42;</label>
                         <div class="col-sm-8">
-                            <input type="email" name="email" id="aEmail" value="" class="form-control" onblur="emailValidateRegistration();">
+                            <input type="email" name="email" id="aEmail" value="" class="form-control" onblur="emailValidateRegistration();" maxlength="30">
                         </div>
                    	</div>
                     
                   	<div class="form-group">
                         <label class="col-sm-3 control-label">Age &#42;</label>
                         <div class="col-sm-8">
-                        	<input type="number" name="age" id="aAge" value="" class="form-control" >
+                        	<input type="number" min="1" step="1" name="age" id="aAge" value="" class="form-control" >
                         </div>
                     </div>
                     
                   	<div class="form-group">
                         <label class="col-sm-3 control-label">City &#42;</label>
                         <div class="col-sm-8">
-                        	<input type="text" name="city" id="aCity" value="" class="form-control">
+                        	<input type="text" name="city" id="aCity" value="" class="form-control" maxlength="40">
                         </div>
                     </div>
                     
                    
             		<div class="modal-footer text-center">
                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration();" data-dismiss="modal">Save</button>
+                    <button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration();">Save</button>
                 </div> 
                 </form>               
 			</div>

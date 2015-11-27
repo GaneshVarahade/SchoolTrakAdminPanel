@@ -33,6 +33,22 @@
       return (false)
  }
  
+
+ function editSchool(id,schoolName,address,details,location,city){
+	 
+		$("#routeId").val(id);
+		$("#routeName").val(schoolName);
+		$("#status").val(address);
+		$("#start").val(details);
+		$("#stop").val(location);
+		$("#regNumber").val(city);
+		
+		$("#edit").modal('show');
+		
+		
+	}
+ 
+ 
  function phoneValidUpdate(inputtxt)
  {
    var phoneno = /^\d{10}$/;
@@ -494,6 +510,7 @@ $(document).ready(function() {
                                 <th width="22%">Details</th>
                                 <th width="15%">City</th>
                                 <th width="15%">Location</th>                                
+                                <th width="15%">Edit</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -505,6 +522,7 @@ $(document).ready(function() {
                                     <td>${school.details}</td>
                                     <td>${school.location}</td>
                                     <td>${school.city}</td>
+                                    <td><button type="submit" class="btn btn-default btn-sm" onClick="editSchool('${school.id}','${school.schoolName}','${school.address}','${school.details}','${school.location}','${school.city}');"><i class="fa fa-pencil-square-o"></i> Edit</button></td>
                                  </tr>
                           	</c:forEach>                                                                                    
                           </tbody>
@@ -570,5 +588,62 @@ $(document).ready(function() {
 	</div>
 </div>
 
-
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Edit School </h4>
+      </div>
+      
+      <form id="editForm" method="post" action="${pageContext.request.contextPath}/route/editRoute">
+      <div class="modal-body">
+      	<div class="form-horizontal">
+            <div class="form-group">
+             <!-- 	<label class="col-sm-3 control-label">Route Number :</label> -->
+                <div class="col-sm-8">
+                  <input type="hidden" name="Id" id="Id" class="form-control" readOnly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">School Name</label>
+                <div class="col-sm-8">
+                  <input type="text" name="schoolName" id="schoolName" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Location : &#42;</label>
+                <div class="col-sm-8">
+                  <input type="text" name="location" id="location" class="form-control">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Details : &#42;</label>
+                <div class="col-sm-8">
+                  <input type="text" name="details" id="details" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">City : &#42;</label>
+                <div class="col-sm-8">
+                  <input type="text" name="city" id="city" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                 <label class="col-sm-3 control-label">Address :</label> 
+                <div class="col-sm-8">
+                  <input type="text" name="address" id="address" class="form-control">
+                </div>
+            </div>
+            </div>
+        <div class="modal-footer text-center">
+            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+            <input type="submit" class="btn btn-sky btn-sm"  value="Save" >
+        </div>
+    </div>
+    </form> 
+  </div>
+</div>
+</div>
 	

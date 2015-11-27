@@ -119,7 +119,123 @@ ExtinctorService extinctorService;
 	}
 	
 	@RequestMapping(value="routeMap")
-	public String route(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+	public String route(@ModelAttribute("route") Route route,HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		String action="action";
+		if(request.getParameter("action")!=null){
+			action=request.getParameter("action");
+		}
+		System.out.println("Action :"+action);
+		if(action.equals("edit")){
+			System.out.println("Calling : ");
+			int routeId = 0;
+			String routeName = null;
+			boolean status = false;
+			String start = null;
+			String stop = null;
+			String corridorId = null;
+			String regNumber = null;
+			String driverName = null;
+			System.out.println("sdfxc");
+			if(request.getParameter("routeId") != null){
+				routeId = Integer.parseInt(request.getParameter("routeId"));
+				}
+				
+			if(request.getParameter("routeName") != null){
+					routeName = request.getParameter("routeName");
+					System.out.println("routeName:"+routeName);
+				}
+				
+			if(request.getParameter("status") != null){
+					if(request.getParameter("status").equals("true")){
+						status = true;
+					}else{
+						status = false;
+					}
+					
+				}
+				
+			if(request.getParameter("start") != null){
+					start = request.getParameter("start");
+					
+			}
+			
+			if(request.getParameter("stop") != null){
+				stop = request.getParameter("stop");
+			}
+			
+			if(request.getParameter("corridorId") != null){
+				corridorId = request.getParameter("corridorId");
+				System.out.println("corridorID:"+corridorId);
+			}
+			
+			if(request.getParameter("regNumber") != null){
+				regNumber = request.getParameter("regNumber");
+			}
+			
+			if(request.getParameter("driverName") != null){
+				driverName = request.getParameter("driverName");
+			}
+			Route route1 = new Route();
+
+			Bus bus=busService.getBusRegNo(regNumber);
+			BusDriver busDriver=busDriverService.getDriverByName(driverName);
+			route1.setRouteNo(routeId);
+			route1.setRouteName(routeName);
+		
+
+			route1.setRouteStatus(status);
+			
+			route1.setStartStop(start);
+			route1.setEndStop(stop);
+			route1.setBus(bus);
+			route1.setBusDriver(busDriver);
+			route1.setCorridorId(corridorId);
+			String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+			route1.setAccountId(userName);
+			gtsService.editCorridorInGts(userName, corridorId, routeName);
+			routeService.updateRoute(route1);
+			
+		//	List<Route> routes = routeService.getRouteList(userName);
+		//	System.out.println(routes.toString());
+			
+		//	List<Bus> busList=busService.allBusList(userName);
+		//	List<BusDriver> busDriverList=busDriverService.allBusDriverList(userName);
+			
+		//	HttpSession session = request.getSession();
+		//	SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		}
+		if(action.equals("add")){
+			
+			System.out.println("Just In AddRoute");
+			String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+			List<Bus> busList=busService.allBusList(userName);
+			String busNumber=route.getBus().getRegNumber();
+			String driverName=route.getBusDriver().getDriverName();
+			List<BusDriver> busDriverList=busDriverService.allBusDriverList(userName);
+			Bus bus=busService.getBusRegNo(busNumber);
+			BusDriver busDriver=busDriverService.getDriverByName(driverName);
+			
+			route.setBusDriver(busDriver);
+			route.setBus(bus);
+			route.setAccountId(userName);
+			int id = routeService.getLastRouteId();
+			id = id + 1;
+			String corridorId="Corridor"+id;
+			route.setCorridorId(corridorId);
+			routeService.addRoute(route);
+			
+			System.out.println("corridorId:"+corridorId);
+			System.out.println("userName:"+userName);
+			gtsService.addCorridorInGts(userName, corridorId, route.getRouteName());
+			System.out.println("AddRoute:After Adding Record");
+			List<Route> routes = routeService.getRouteList(userName);
+			
+			HttpSession session = request.getSession();
+			SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+			String username = currentUser.getUsername();
+			model.addAttribute("userName", username);
+			
+		}	
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<Route> routes = routeService.getRouteList(userName);
 		System.out.println(routes.toString());
@@ -153,8 +269,13 @@ ExtinctorService extinctorService;
 		route.setBusDriver(busDriver);
 		route.setBus(bus);
 		route.setAccountId(userName);
+		int id = routeService.getLastRouteId();
+		id = id + 1;
+		String corridorId="Corridor"+id;
+		route.setCorridorId(corridorId);
 		routeService.addRoute(route);
-		String corridorId="Corridor"+route.getRouteNo();
+		
+		System.out.println("corridorId:"+corridorId);
 		System.out.println("userName:"+userName);
 		gtsService.addCorridorInGts(userName, corridorId, route.getRouteName());
 		System.out.println("AddRoute:After Adding Record");
@@ -172,30 +293,7 @@ ExtinctorService extinctorService;
 	}
 	
 	@RequestMapping(value="editRoute",method = RequestMethod.POST)
-	public String editRoute(HttpServletRequest request,HttpServletResponse response,ModelMap model){
-		/*String list = request.getParameter("list");
-		System.out.println(list);
-		String [] dataList = list.split(",");
-		Route route = new Route();
-		String busNo=dataList[5];
-		String driver=dataList[6];
-		String corridorId=dataList[7];
-		Bus bus=busService.getBusRegNo(busNo);
-		BusDriver busDriver=busDriverService.getDriverByName(driver);
-		Integer routeId=Integer.parseInt(dataList[0]);
-		route.setRouteNo(routeId);
-		route.setRouteName(dataList[1]);
-		route.setRouteStatus(true);
-		route.setStartStop(dataList[3]);
-		route.setEndStop(dataList[4]);
-		route.setBus(bus);
-		route.setBusDriver(busDriver);
-		route.setCorridorId(corridorId);
-		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-		gtsService.editCorridorInGts(userName, corridorId, dataList[1]);
-		routeService.updateRoute(route);
-		return "stopMap";*/
-		
+	public String editRoute(HttpServletRequest request,HttpServletResponse response,ModelMap model){	
 
 		int routeId = 0;
 		String routeName = null;

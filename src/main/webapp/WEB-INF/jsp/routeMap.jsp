@@ -23,7 +23,7 @@ function showBtn(){
 		 alert("Please select Atleast one Route for delete");
 	 }
 	 else{
-		 var result = confirm("want to delete?");
+		 var result = confirm("Are you sure, you wan to delete Route(s)?");
 		 if(result){
 			 window.location.href = "deleteRouteList?list="+saveKara;	 
 		 }
@@ -59,7 +59,7 @@ function addStops(id){
 }
 
  function editRoute(id,name,status,start,stop,regNo,driverName,corridorId){
-	 
+	
 	$("#routeId").val(id);
 	$("#routeName").val(name);
 	$("#status").val(status);
@@ -313,7 +313,7 @@ function addStops(id){
                               <th width="10%">Bus Number</th>
                               <th width="15%">Driver Name</th>
                               <th width="10%">Add Stop</th>
-                              <th width="10%">Edit Route</th>
+                              <th width="10%">Action</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -321,7 +321,16 @@ function addStops(id){
                               <tr>
                                 <td class="text-center"><input type="checkbox" id="${route.routeNo}" name="myTextEditBox" value="" onClick="displayNote(event)"></td>
                                 <td>${route.routeName}</td>
-                                <td>${route.routeStatus}</td>
+                              
+                                	 <c:choose>
+                                        <c:when test="${route.routeStatus=='1'}">
+                                        	<td>ON</td>
+                                        </c:when>    
+                                        <c:otherwise>
+                                        	<td>OFF</td>
+                                        </c:otherwise>
+                                      </c:choose>
+                                
                                 <td>${route.startStop}</td>
                                 <td>${route.endStop}</td>
                                 <td>${route.corridorId}</td>
@@ -349,7 +358,7 @@ function addStops(id){
         <h4 class="modal-title">Edit Route </h4>
       </div>
       
-      <form id="editForm" method="post" action="${pageContext.request.contextPath}/route/editRoute">
+      <form id="editForm" method="post" action="${pageContext.request.contextPath}/route/routeMap">
       <div class="modal-body">
       	<div class="form-horizontal">
             <div class="form-group">
@@ -358,27 +367,32 @@ function addStops(id){
                   <input type="hidden" name="routeId" id="routeId" class="form-control" readOnly>
                 </div>
             </div>
+            <input type="hidden" name="action" value="edit" />
             <div class="form-group">
-                <label class="col-sm-3 control-label">Route Name  : &#42;</label>
+                <label class="col-sm-3 control-label">&#42; Route Name  : </label>
                 <div class="col-sm-8">
                   <input type="text" name="routeName" id="routeName" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">Route Status : &#42;</label>
+                <label class="col-sm-3 control-label">&#42; Status : </label>
                 <div class="col-sm-8">
-                  <input type="text" name="status" id="status" class="form-control">
+                	
+                  <select name="status" id="status" class="form-control" >
+               			<option value="false">isTrackON</option>
+                        <option value="true">isTrackOFF</option>
+                  </select>
                 </div>
             </div>
             
             <div class="form-group">
-                <label class="col-sm-3 control-label">Start Stop : &#42;</label>
+                <label class="col-sm-3 control-label">&#42; Start Stop : </label>
                 <div class="col-sm-8">
                   <input type="text" name="start" id="start" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">End Stop : &#42;</label>
+                <label class="col-sm-3 control-label">&#42; End Stop : </label>
                 <div class="col-sm-8">
                   <input type="text" name="stop" id="stop" class="form-control">
                 </div>
@@ -390,10 +404,11 @@ function addStops(id){
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">Bus Number : &#42;</label>
+                <label class="col-sm-3 control-label">&#42; Bus Number : </label>
                 <div class="col-sm-8">
                 	
                   <select name="regNumber" id="regNumber" class="form-control" >
+              
                     <c:forEach var="bus" items="${busList}">
                       <option value="${bus.regNumber}">${bus.regNumber}</option>
                     </c:forEach>
@@ -401,7 +416,7 @@ function addStops(id){
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">Driver : &#42;</label>
+                <label class="col-sm-3 control-label">&#42; Driver : </label>
                 <div class="col-sm-8">
                   <select id="driverName" name="driverName" class="form-control" >
                     <c:forEach var="busDriver" items="${busDriverList}">
@@ -428,17 +443,19 @@ function addStops(id){
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Add Route</h4>
       </div>
-      	 <form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/route/addRoute" commandName="route">            
+      	 <form:form id="registerForm" class="form-horizontal" method="POST" name="registerForm" action="${pageContext.request.contextPath}/route/routeMap" commandName="route">            
       	<div class="modal-body">
             
             <div class="form-group">
               <%--   <form:label path="routeNo" class="col-sm-3 control-label">Route No.</form:label> --%>
                 <div class="col-sm-8">
                 	<form:input type="hidden" path="routeNo" id="routeNo"  class="form-control" />
+                	
                	</div>
            	</div>
+           	<input type="hidden" name="action" value="add" />
             <div class="form-group">
-                <form:label  path="routeName" class="col-sm-3 control-label">&#42; Name : </form:label>
+                <form:label  path="routeName" class="col-sm-3 control-label">&#42; Route Name : </form:label>
                 <div class="col-sm-8">
                 	<form:input  path="routeName" id="routeName"  class="form-control" />
                	</div>

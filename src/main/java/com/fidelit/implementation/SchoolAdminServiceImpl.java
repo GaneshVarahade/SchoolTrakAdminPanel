@@ -159,4 +159,28 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)  
+	@Override
+	public String getNameFromId(int id) {
+		List<SchoolAdmin> schoolAdminList = new ArrayList<SchoolAdmin>();
+		 Session session;
+		 String name = null;
+			try {
+				session = sessionFactory.getCurrentSession();
+				String hql = "from SchoolAdmin where id =:id";
+				Query query = session.createQuery(hql);
+				
+				query.setInteger("id", id);
+				schoolAdminList = query.list();
+				for (SchoolAdmin schoolAdmin : schoolAdminList) {
+					name = schoolAdmin.getName();
+				}
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+		
+		return name;
+	}
+
 }
