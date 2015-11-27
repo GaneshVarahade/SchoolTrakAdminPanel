@@ -23,7 +23,7 @@ function showBtn(){
 		 alert("Please select Atleast one Route for delete");
 	 }
 	 else{
-		 var result = confirm("want to delete?");
+		 var result = confirm("Are you sure, you wan to delete Route(s)?");
 		 if(result){
 			 window.location.href = "deleteRouteList?list="+saveKara;	 
 		 }

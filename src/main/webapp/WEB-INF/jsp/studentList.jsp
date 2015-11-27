@@ -426,7 +426,7 @@ $(document).ready(function() {
                           <tbody>          
                             <c:forEach var="schoolAdmin" items="${schoolAdminList}">
                               <tr>
-                                <td class="text-center"><input type="checkbox" id="${schoolAdmin.id}"  name="myTextEditBox" value="" onClick="displayNote(event)"/></td>
+                                <td class="text-center no-sort"><input type="checkbox" id="${schoolAdmin.id}"  name="myTextEditBox" value="" onClick="displayNote(event)"/></td>
                                 <td>${schoolAdmin.name}</td>
                                 <td>${schoolAdmin.school.schoolName}</td>
                                 <td>${schoolAdmin.address}</td>
@@ -456,7 +456,7 @@ $(document).ready(function() {
       <div class="modal-body">
       	<form id="registerForm" class="form-horizontal" role="form" name="registerForm">
          	<div class="form-group">
-             	<label class="col-sm-3 control-label">User Name</label>
+             	<label class="col-sm-3 control-label">Username</label>
                 <div class="col-sm-8">
             		<input type="text" name="username" id="username" value="" class="form-control" onblur = "checkUniqueUsername()">
               	</div>
@@ -550,7 +550,7 @@ $(document).ready(function() {
                	</div>
             </div>
             <div class="form-group">
-             	<label class="col-sm-3 control-label">User Name</label>
+             	<label class="col-sm-3 control-label">Username</label>
                 <div class="col-sm-8">
               		<input type="text" name="username1" id="username1" value="" class="form-control">
               	</div>

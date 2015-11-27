@@ -119,7 +119,7 @@ $(document).ready(function() {
                 }
             },
             
-            experiance: {
+            experience: {
                 validators: {
                     notEmpty: {
                         message: 'Driver should have Experiance '
@@ -148,7 +148,7 @@ function showBtn(){
 		 alert("Please select Atleast one Driver for delete");
 	 }
 	 else{
-		 var result = confirm("want to delete?");
+		 var result = confirm("Are you sure, you want to delete driver(s)?");
 		 if(result){
 			 window.location.href = "deleteBusDriverList?list="+saveKara;	 
 		 }
@@ -336,9 +336,9 @@ function addStops(id){
                                 <th width="20%">Address</th>
                                 <th width="10%">City</th>
                                 <th width="10%">License Number</th>
-                                <th width="15%">Experiance</th>
+                                <th width="15%">Experience</th>
                                 <th width="10%">Age</th>
-                                <th width="15%">Edit Driver</th>                  
+                                <th width="15%">Action</th>                  
                             </tr>
                           </thead>
                         	<tbody>
@@ -370,16 +370,16 @@ function addStops(id){
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Edit Driver</h4>
+            <h4 class="modal-title"><center>Edit Driver</center></h4>
           </div>
           <div class="modal-body">   
           	<div class="form-horizontal"> 			  
-				<div class="form-group">
+				<!-- <div class="form-group">
                     <label class="col-sm-3 control-label">* Driver Id :</label>
-                    <div class="col-sm-8">
-						<input type="text" name="name" id="driverId" class="form-control" readOnly>
-                  	</div>
-				</div>
+                    <div class="col-sm-8"> -->
+						<input type="hidden" name="name" id="driverId" class="form-control" readOnly>
+                 <!--  	</div>
+				</div> -->
 			  	<div class="form-group">
                     <label class="col-sm-3 control-label">* Driver Name :</label>
                     <div class="col-sm-8">
@@ -409,7 +409,7 @@ function addStops(id){
 				</div>
 				
 				<div class="form-group">
-                    <label class="col-sm-3 control-label">* Experiance :</label>
+                    <label class="col-sm-3 control-label">* Experience :</label>
                     <div class="col-sm-8">
 						<input type="text" name=experiance id="experiance" class="form-control">
                   	</div>
@@ -437,47 +437,47 @@ function addStops(id){
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Add Driver</h4>
+            <h4 class="modal-title"><center>Add Driver</center></h4>
           </div>                
  
        		<form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/route/addDriver" commandName="busDriver">
             <div class="modal-body">   
                 <div class="form-group">
-                    <form:label path="driverName" class="col-sm-3 control-label">* Driver Name</form:label>
+                    <form:label path="driverName" class="col-sm-3 control-label">* Driver Name : </form:label>
                     <div class="col-sm-8">
-                    	<form:input  path="driverName" id="driverName" value="" class="form-control" />
+                    	<form:input  path="driverName" id="driverName" value="" class="form-control" maxlength="50" />
                    	</div>
                 </div>
                 <div class="form-group">
-                    <form:label path="address" class="col-sm-3 control-label">* Address</form:label>
+                    <form:label path="address" class="col-sm-3 control-label">* Address : </form:label>
                     <div class="col-sm-8">
-                    	<form:input path="address" id="address" value="" class="form-control" />
+                    	<form:input path="address" id="address" value="" class="form-control" maxlength="80"/>
                    	</div>
               	</div>
 
                 <div class="form-group">
-                    <form:label path="city" class="col-sm-3 control-label">* City</form:label>
+                    <form:label path="city" class="col-sm-3 control-label">* City :</form:label>
                     <div class="col-sm-8">
-                    	<form:input path="city" id="city" value="" class="form-control" />       
+                    	<form:input path="city" id="city" value="" class="form-control" maxlength="25" />       
                    	</div>         
                 </div>
 
                 <div class="form-group">
-                    <form:label path="licenseNo" class="col-sm-3 control-label">* License Number</form:label>
+                    <form:label path="licenseNo" class="col-sm-3 control-label">* License :</form:label>
                     <div class="col-sm-8">
-                    	<form:input path="licenseNo" id="licenseNo" value="" class="form-control" />
+                    	<form:input path="licenseNo" id="licenseNo" value="" class="form-control" maxlength="15"/>
                    	</div>
                 </div>
                 
                 <div class="form-group">
-                    <form:label path="experiance" class="col-sm-3 control-label">* Experiance</form:label>
+                    <form:label path="experiance" class="col-sm-3 control-label">* Experience :</form:label>
                     <div class="col-sm-8">
-                   		<form:input path="experiance" id="experiance" value="" class="form-control" />
+                   		<form:input path="experiance" id="experiance" value="" class="form-control" maxlength="10"/>
                    	</div>
                 </div>
                 
                 <div class="form-group">
-                    <form:label path="age" class="col-sm-3 control-label">* Age</form:label>
+                    <form:label path="age" class="col-sm-3 control-label">* Age :</form:label>
                     <div class="col-sm-8">
                     	<form:input path="age" type="number" id="age" value="" class="form-control" />
                    	</div>
