@@ -1,14 +1,14 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 
- 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
+
 <script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
 <script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
-<script src="http:////code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+
 
  
 <script type="text/javascript">
@@ -358,34 +358,7 @@ function editSchool(id,schoolname,address,deatils,city,location){
 	$("#edit").modal('show');
 }
 
-function editSchooll(){
-	
-	var Idd=$("#Idd").val();
-	var schoolNamee=$("#schoolNamee").val();
-	var addresss=$("#addresss").val();
-	var detailss=$("#detailss").val();
-	var city11=$("#city11").val();
-	var locationn=$("#locationn").val();
-	
-	var allData=Idd+","+schoolNamee+","+addresss+","+detailss+","+city11+","+locationn;
-	var formData="list="+allData;
-	 $.ajax({
-	    type : "POST",
-	    url : "${pageContext.request.contextPath}/admin/editSchool",
-	    data : formData,
-	    success : function(response) {	 
-	    	 $("#edit").modal('hide');
-	       alert("School Updated Successfully!");
-	       window.location.href="${pageContext.request.contextPath}/admin/schoolList";
-	      },
-	    error : function(e) {
-	    	$("#edit").modal('hide');
-		       alert("Error"+e);
-		       
-	    }
-	});   
-	
-}
+
 
 
 function sendDataForRegistration(){
@@ -535,21 +508,21 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-        	schoolNamee: {
+        	schoolName: {
                 validators: {
                     notEmpty: {
                         message: 'The schoolName is required'
                     }
                 }
             },
-            addresss: {
+            address: {
                 validators: {
                     notEmpty: {
                         message: 'The address is required'
                     }
                 }
             },
-            detailss: {
+            details: {
                 validators: {
                     notEmpty: {
                         message: 'The Details is required'
@@ -557,7 +530,7 @@ $(document).ready(function() {
                 }
             },
             
-            locationn: {
+            location: {
                 validators: {
                     notEmpty: {
                         message: 'The Location is required'
@@ -565,7 +538,7 @@ $(document).ready(function() {
                 }
             },
             
-            city11: {
+            city: {
                 validators: {
                     notEmpty: {
                         message: 'The city is required'
@@ -688,7 +661,7 @@ $(document).ready(function() {
            			<input type="hidden" name="action" value="add" />
            			 <div class="modal-footer text-center">
             	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            	<button type="submit" name="submitButton" class="btn btn-primary">Submit</button>
+            	<button type="submit" name="submitButton" class="btn btn-primary">Save</button>
             </div>
                                          
                 
@@ -708,56 +681,55 @@ $(document).ready(function() {
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Edit School </h4>
       </div>
-	 <form id="editForm">      
-      <%-- <form id="editForm" method="post" action="${pageContext.request.contextPath}/route/editSchool"> --%>
-      <div class="modal-body">
-      	<div class="form-horizontal">
-            <div class="form-group">
-             <!-- 	<label class="col-sm-3 control-label">Route Number :</label> -->
-                <div class="col-sm-8">
-                  <input type="hidden" name="Idd" id="Idd" class="form-control" readOnly>
-                </div>
+	   
+	        <form:form id="editForm" class="form-horizontal" method="POST" name="frm" action="${pageContext.request.contextPath}/admin/schoolList" commandName="school">
+            <div class="modal-body">
+                
+                     <input type="hidden" name="schoolID" id="Idd" />
+                    <div class="form-group">
+                        <form:label path="schoolName" class="col-sm-3 control-label">School Name &#42;</form:label>
+                        <div class="col-sm-8">
+                       		<form:input type="text" path="schoolName" id="schoolNamee" value="" class="form-control" maxlength="50" />
+                       	</div>
+                    </div>
+                  	<div class="form-group">
+                        <form:label path="address" class="col-sm-3 control-label">Address &#42;</form:label>
+                        <div class="col-sm-8">
+                            <form:input type="text" path="address" id="addresss" value="" class="form-control" maxlength="50" />
+                      	</div>
+                   	</div>
+                    <div class="form-group">
+                        <form:label path="details" class="col-sm-3 control-label">Details &#42;</form:label>
+                        <div class="col-sm-8">
+                            <form:input type="text" path="details" id="detailss" value="" class="form-control" maxlength="60" />
+                      	</div>
+                    </div>
+                    <div class="form-group">
+                        <form:label path="location" class="col-sm-3 control-label">Location &#42;</form:label>
+                        <div class="col-sm-8">
+                            <form:input type="text" path="location" id="locationn" value="" class="form-control" maxlength="20" />
+                     	</div>
+                    </div>
+                    <div class="form-group">
+                        <form:label path="city" class="col-sm-3 control-label">City &#42;</form:label>
+                     	<div class="col-sm-8">
+                            <form:input type="text" path="city" id="city11" value="" class="form-control" maxlength="20" />
+                      	</div>
+                    </div>
+           			<input type="hidden" name="action" value="edit" />
+           			 <div class="modal-footer text-center">
+            	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+            	<button type="submit" name="submitButton" class="btn btn-primary">Save</button>
             </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">School Name</label>
-                <div class="col-sm-8">
-                  <input type="text" name="schoolNamee" id="schoolNamee" class="form-control">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Address : &#42;</label>
-                <div class="col-sm-8">
-                  <input type="text" name="addresss" id="addresss" class="form-control">
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Details : &#42;</label>
-                <div class="col-sm-8">
-                  <input type="text" name="detailss" id="detailss" class="form-control">
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label class="col-sm-3 control-label">City : &#42;</label>
-                <div class="col-sm-8">
-                  <input type="text" name="city11" id="city11" class="form-control">
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Location : &#42;</label>
-                <div class="col-sm-8">
-                  <input type="text" name="locationn" id="locationn" class="form-control">
-                </div>
-            </div>
-         
-        <div class="modal-footer text-center">
-            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            <input type="submit" class="btn btn-sky btn-sm"  value="Save" data-dismiss="modal" onClick = "editSchooll()">
-        </div>
-    </div>
-    </form>	
+                                         
+                
+           
+          </div>
+        </form:form>   
+	   
+	   
+	   
+	   
     <!-- </form> --> 
   </div>
 </div>

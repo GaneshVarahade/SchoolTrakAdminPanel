@@ -337,8 +337,14 @@ public String allSchoolList(@ModelAttribute("school") School school,HttpServletR
 	for (School school2 : schoolList) {
 		System.out.println("School    "+school2.getSchoolName());
 	}
-	String action=null;
-	action=request.getParameter("action");
+	System.out.println("School"+school.getAddress());
+	
+	System.out.println("School"+school.getSchoolName());
+	String action="action";
+	if(request.getParameter("action")!=null){
+		action=request.getParameter("action");
+	}
+	
 	System.out.println("Action: "+action);
 	if(action!=null){
 		if(action.equals("add")){
@@ -352,6 +358,17 @@ public String allSchoolList(@ModelAttribute("school") School school,HttpServletR
 		model.addAttribute("schoolList", schoolList);
 	
 		}
+	}
+	if(action.equals("edit")){
+		
+		int id=Integer.parseInt(request.getParameter("schoolID"));
+		school.setId(id);
+		school.setAccountId(userName);
+		schoolService.updateSchool(school);
+
+	    schoolList= schoolService.allSchoolList(userName);
+	    model.addAttribute(new School());
+		model.addAttribute("schoolList", schoolList);
 	}
 	HttpSession session = request.getSession();
 	SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
@@ -403,6 +420,7 @@ public String allSchoolAdminList(@ModelAttribute("schoolAdmin") SchoolAdmin scho
 		schoolAdminService.addSchoolAdmin(schoolAdmin);
 		model.addAttribute(new SchoolAdmin());
 	}
+	  
 	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 	List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
 	model.addAttribute("schoolAdminList", schoolAdminList);
