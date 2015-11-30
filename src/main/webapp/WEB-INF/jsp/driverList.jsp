@@ -387,42 +387,42 @@ function addStops(id){
 			  	<div class="form-group">
                     <label class="col-sm-3 control-label">* Driver Name :</label>
                     <div class="col-sm-8">
-						<input type="text" name="driverName" id="driverName" class="form-control">
+						<input type="text" name="driverName" id="driverName" class="form-control" maxlength="50">
                   	</div>
 				</div>
 				
 				<div class="form-group">
                     <label class="col-sm-3 control-label">* Address:</label>
                     <div class="col-sm-8">
-						<input type="text" name="address" id="address" class="form-control">
+						<input type="text" name="address" id="address" class="form-control" maxlength="50">
                   	</div>
 				</div>
 				
 				<div class="form-group">
                     <label class="col-sm-3 control-label">* City :</label>
                     <div class="col-sm-8">
-						<input type="text" name=city id="city" class="form-control">
+						<input type="text" name=city id="city" class="form-control" maxlength="25">
                   	</div>
 				</div>
 				
 				<div class="form-group">
                     <label class="col-sm-3 control-label">* License :</label>
                     <div class="col-sm-8">
-						<input type="text" name=license id="license" class="form-control">
+						<input type="text" name=license id="license" class="form-control" maxlength="15">
                   	</div>
 				</div>
 				
 				<div class="form-group">
                     <label class="col-sm-3 control-label">* Experience :</label>
                     <div class="col-sm-8">
-						<input type="text" name=experiance id="experiance" class="form-control">
+						<input type="text" name=experiance id="experiance" class="form-control" maxlength="10">
                   	</div>
 				</div>
 				
 				<div class="form-group">
                     <label class="col-sm-3 control-label">* Age :</label>
                     <div class="col-sm-8">
-						<input type="number" name=age id="age" class="form-control">
+						<input type="number" min="1" step="1" name=age id="age" class="form-control" maxlength="4" />
                   	</div>
 				</div>
            	</div>
@@ -483,7 +483,7 @@ function addStops(id){
                 <div class="form-group">
                     <form:label path="age" class="col-sm-3 control-label">* Age :</form:label>
                     <div class="col-sm-8">
-                    	<form:input path="age" type="number" id="age" value="" class="form-control" />
+                    	<form:input path="age" type="number" min="1" step="1"  id="age" value="" class="form-control" maxlength="4"/>
                    	</div>
                 </div>
             </div>
