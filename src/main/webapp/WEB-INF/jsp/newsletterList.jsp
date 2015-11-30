@@ -7,6 +7,16 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
+	var arrayList='${newsletterList}';
+	if(arrayList.length==2){
+		document.getElementById("deleteButton").disabled = true;  	
+	}
+	else
+		{
+		document.getElementById("deleteButton").enabled = true;  
+		}
+	
+	
     $('#registerForm').formValidation({
         framework: 'bootstrap',
         excluded: ':disabled',
@@ -163,8 +173,9 @@ function addStops(id){
             <div class="fixed-page-header">
                 <div class="page-header clearfix">
                     <h1 class="page-head-text pull-left">Newsletter</h1>
-                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addNewsletter"><i class="fa fa-plus-circle"></i>  Add Newsletter</button>                    
-                    <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addNewsletter"><i class="fa fa-plus-circle"></i>  Add Newsletter</button> 
+                                     
+                    <button type="submit" id="deleteButton" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>
         </div>
