@@ -384,8 +384,8 @@ function addStops(id){
                 <div class="col-sm-8">
                 	
                   <select name="status" id="status" class="form-control" >
-               			<option value="false">isTrackON</option>
-                        <option value="true">isTrackOFF</option>
+               			<option value="false">ON</option>
+                        <option value="true">OFF</option>
                   </select>
                 </div>
             </div>
@@ -470,8 +470,8 @@ function addStops(id){
                 <div class="col-sm-8">
                     <form:select  path="routeStatus" id="routeStatus" class="form-control">
                       <form:option value="">Select</form:option>
-                      <form:option value="1">isTrackON</form:option>
-                      <form:option value="0">isTrackOFF</form:option>
+                      <form:option value="1">ON</form:option>
+                      <form:option value="0">OFF</form:option>
                     </form:select>
                	</div>
             </div>

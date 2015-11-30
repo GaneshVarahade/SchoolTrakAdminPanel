@@ -34,22 +34,36 @@ public class NewsletterController {
 	NewsletterService newsletterService;
 	
 	@RequestMapping(value="newsletterList")
-	public String newsletterList(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+	public String newsletterList(@ModelAttribute("newsletter") Newsletter newsletter,HttpServletRequest request,HttpServletResponse response,ModelMap model) throws ParseException{
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-		List<Newsletter> newsletterList = newsletterService.getNewsletterList(userName);
 		
-
+		String action="action";
 		HttpSession session = request.getSession();
 		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
-		String username = currentUser.getUsername();
-		model.addAttribute("userName", username);
 		
+		String username = currentUser.getUsername();
+		if(request.getParameter("action")!=null){
+			 action=request.getParameter("action");
+		}
+			if(action.equals("add")){
+			
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			newsletter.setDate(dateFormat.parse(dateFormat.format(date)));
+			newsletter.setAccountId(userName);
+			newsletterService.addNewsletter(newsletter);
+			model.addAttribute("userName", username);
+			List<Newsletter> newsletterList = newsletterService.getNewsletterList(userName);
+			model.addAttribute("newsletterList",newsletterList);
+			}
+		List<Newsletter> newsletterList = newsletterService.getNewsletterList(userName);
+		model.addAttribute("userName", username);
 		model.addAttribute("newsletterList",newsletterList);
 		model.addAttribute(new Newsletter());
 		return "newsletterList";
 	}
 	
-	@RequestMapping(value="addNewsletter",method = RequestMethod.POST)
+	/*@RequestMapping(value="addNewsletter",method = RequestMethod.POST)
 	public String addExtintor(@ModelAttribute("newsletter") Newsletter newsletter,HttpServletRequest request,HttpServletResponse response,ModelMap model) throws ParseException{
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
@@ -67,7 +81,7 @@ public class NewsletterController {
 		
 		model.addAttribute("newsletterList",newsletterList);
 		return "newsletterList";
-	}
+	}*/
 	
 	@RequestMapping(value = "/deleteNewsletterList")
 	public String deleteNewsletterList(@RequestParam("list") String str,HttpServletRequest request,HttpServletResponse response,ModelMap model){

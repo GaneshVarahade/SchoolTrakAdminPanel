@@ -217,13 +217,19 @@ function addStops(id){
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title"> Add NewsLetter : </h4>
             </div>
-            <form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/newsletter/addNewsletter" commandName="newsletter">
+            <form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/newsletter/newsletterList" commandName="newsletter">
                 <div class="modal-body">            
                     <div class="form-group">
                         <form:label path="news" class="col-sm-3 control-label">* News :</form:label>
+                        <%-- <div class="col-sm-8">
+                            <form:input path="news" id="news" value="" class="form-control" maxlength="100" />
+                        </div> --%>
+                         <input type="hidden" name=action value="add" />
+                       
                         <div class="col-sm-8">
-                            <form:input path="news" id="news" value="" class="form-control" />
+                      <form:textarea path="news" rows="2" cols="50" maxlength="100"/>
                         </div>
+                        
                     </div>
                	</div>
                 <div class="modal-footer text-center">                
