@@ -348,6 +348,7 @@ public String allSchoolList(@ModelAttribute("school") School school,HttpServletR
 		school.setAccountId(userName);
 		schoolService.addSchool(school);
 		schoolList= schoolService.allSchoolList(userName);
+		model.addAttribute(new School());
 		model.addAttribute("schoolList", schoolList);
 	
 		}
@@ -382,7 +383,26 @@ public String allClientList(HttpServletRequest request,HttpServletResponse respo
 
 
 @RequestMapping(value="/schoolAdmin")
-public String allSchoolAdminList(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+public String allSchoolAdminList(@ModelAttribute("schoolAdmin") SchoolAdmin schoolAdmin,HttpServletRequest request,HttpServletResponse response,ModelMap model){
+	
+	   String action="action";
+	   if(request.getParameter("action")!=null){
+		    action=request.getParameter("action");
+	   }
+	   if(action.equals("add")){
+		
+		 schoolAdmin.setRole("ROLE_SCHOOLADMIN");
+		School school=schoolService.getSchool(schoolAdmin.getSchool().getSchoolName());
+		schoolAdmin.setEnabled(true);
+		gtsService.addAccountInGts(schoolAdmin.getUsername(),schoolAdmin.getPassword(),schoolAdmin.getAccountType());
+		
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		schoolAdmin.setAccountId(userName);
+		schoolAdmin.setSchool(school);
+		schoolAdmin.setAccountType("SchoolAdmin");
+		schoolAdminService.addSchoolAdmin(schoolAdmin);
+		model.addAttribute(new SchoolAdmin());
+	}
 	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 	List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
 	model.addAttribute("schoolAdminList", schoolAdminList);
@@ -393,7 +413,7 @@ public String allSchoolAdminList(HttpServletRequest request,HttpServletResponse 
 	SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
 	String username = currentUser.getUsername();
 	model.addAttribute("userName", username);
-	
+	model.addAttribute(new SchoolAdmin());
 	model.addAttribute("schoolList", schoolList);
 	return "schoolAdmin";
 }
@@ -437,6 +457,7 @@ public String deleteEmployeeList(@RequestParam("list") String str,HttpServletReq
 		int id = Integer.parseInt(str1[i]);
 		
 		schoolService.deleteSchool(id);
+		model.addAttribute(new School());
 		
 	}
 	
@@ -466,7 +487,7 @@ public String deleteClientList(@RequestParam("list") String str,HttpServletReque
 		System.out.println("accountID:"+accountID);
 		
 		gtsService.deleteAccountInGts(accountID);
-		
+		model.addAttribute(new SchoolAdmin());
 		schoolAdminService.deleteSchoolAdmin(id);
 	}
 	

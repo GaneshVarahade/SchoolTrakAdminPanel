@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -383,7 +384,7 @@ function password_length_registration()
 
 
 $(document).ready(function() {
-    $('#registerForm').formValidation({
+    $('#frm').formValidation({
         framework: 'bootstrap',
         excluded: ':disabled',
         icon: {
@@ -422,7 +423,7 @@ $(document).ready(function() {
                 }
             },
             
-            schoolName: {
+            'school.schoolName': {
                 validators: {
                     notEmpty: {
                         message: 'Please select School'
@@ -632,84 +633,86 @@ $(document).ready(function() {
                 <h4 class="modal-title">School Admin Details</h4>
             </div>
             <div class="modal-body">
-                <form id="registerForm"  class="form-horizontal" role="form" name="registerForm">
+                <form:form id="frm" class="form-horizontal" method="POST" name="frm" action="${pageContext.request.contextPath}/admin/schoolAdmin" commandName="schoolAdmin">
                 
-                
+                <input type="hidden" name="action" value="add">
                 <div class="form-group">
-                        <label class="col-sm-3 control-label">Admin Name &#42;</label>
+                        <form:label path="name" class="col-sm-3 control-label">Admin Name &#42;</form:label>
                         <div class="col-sm-8">
-                        	<input type="text" name="name" id="aName" value="" class="form-control" maxlength="50">
+                        	<form:input path="name" type="text" id="aName" value="" class="form-control" maxlength="50" />
                         </div>
                    	</div>
               
-                  	<div class="form-group">
-                        <label class="col-sm-3 control-label">Account Type &#42;</label>
+               <%--    	<div class="form-group">
+                        <form:label path="SchoolAdmin" class="col-sm-3 control-label">Account Type &#42;</form:label>
                         <div class="col-sm-8">
-                        	<select name="accountType" id="accountType" class="form-control" >
-                            	<option value="SchoolAdmin">School Admin</option>
-                            </select>
+                        	<form:select path="accountType" id="accountType" class="form-control" >
+                            	<form:option value="SchoolAdmin">School Admin</form:option>
+                            </form:select>
                      	</div>
                     </div>
-                    
+                     --%>
+                     
                     <div class="form-group">
-                       	<label class="col-sm-3 control-label">Username &#42;</label>
+                       	<form:label path="username" class="col-sm-3 control-label">Username &#42;</form:label>
                         <div class="col-sm-8">
-                            <input type="text" name="username" id="username" value="" class="form-control" maxlength="10" onblur = "checkUniqueUsername()">
+                            <form:input type="text" path="username" id="username" value="" class="form-control" maxlength="10" onblur = "checkUniqueUsername()" />
                       	</div>
                     </div>
                   	
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">Admin Password &#42;</label>
+                        <form:label path="password" class="col-sm-3 control-label">Admin Password &#42;</form:label>
                         <div class="col-sm-8">
-                        	<input type="text" name="password" id="aPassword" value="" class="form-control" maxlength="10">
+                        	<form:input type="text" path="password" id="aPassword" value="" class="form-control" maxlength="10" />
                         </div>
                     </div>
                     
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">School Name &#42;</label>
+                        <form:label path="school.schoolName" class="col-sm-3 control-label">School Name &#42;</form:label>
                         <div class="col-sm-8">
-                        	<select name="schoolName" id="schoolId" class="form-control">
+                        	<form:select path="school.schoolName" id="schoolId" class="form-control">
+                        		<form:option value="">Select</form:option>
                             	<c:forEach var="school" items="${schoolList}">
-                               	<option value="${school.schoolName}">${school.schoolName}</option>
+                               	<form:option value="${school.schoolName}">${school.schoolName}</form:option>
                         		</c:forEach>
-                        	</select>
+                        	</form:select>
                        </div>
                     </div>
                     
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">Address &#42;</label>
+                        <form:label path="address" class="col-sm-3 control-label">Address &#42;</form:label>
                         <div class="col-sm-8">
-                            <input type="text" name="address" id="aAddress" value="" class="form-control" maxlength="80">
+                            <form:input  path="address" type="text" id="aAddress" value="" class="form-control" maxlength="80" />
                         </div>
                     </div>
                     
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">Email &#42;</label>
+                        <form:label path="email" class="col-sm-3 control-label">Email &#42;</form:label>
                         <div class="col-sm-8">
-                            <input type="email" name="email" id="aEmail" value="" class="form-control" onblur="emailValidateRegistration();" maxlength="30">
+                            <form:input path="email" type="email" id="aEmail" value="" class="form-control" onblur="emailValidateRegistration();" maxlength="30" />
                         </div>
                    	</div>
                     
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">Age &#42;</label>
+                        <form:label path="age" class="col-sm-3 control-label">Age &#42;</form:label>
                         <div class="col-sm-8">
-                        	<input type="number" min="1" step="1" name="age" id="aAge" value="" class="form-control" >
+                        	<form:input path="age" type="number" min="1" step="1"  id="aAge" value="" class="form-control" />
                         </div>
                     </div>
                     
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">City &#42;</label>
+                        <form:label path="city" class="col-sm-3 control-label">City &#42;</form:label>
                         <div class="col-sm-8">
-                        	<input type="text" name="city" id="aCity" value="" class="form-control" maxlength="40">
+                        	<form:input path="city" type="text"  id="aCity" value="" class="form-control" maxlength="40" />
                         </div>
                     </div>
                     
                    
             		<div class="modal-footer text-center">
                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration();">Save</button>
+                    <input type="submit" class="btn btn-sky btn-sm"  >
                 </div> 
-                </form>               
+                </form:form>               
 			</div>
        		</div>
 		</div>
