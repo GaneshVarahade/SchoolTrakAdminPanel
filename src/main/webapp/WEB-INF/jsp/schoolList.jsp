@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -407,9 +408,10 @@ function sendDataForRegistration(){
 		       alert("School Added"+response);
 		       window.location.href="${pageContext.request.contextPath}/admin/parentList";
 		       window.location.href="${pageContext.request.contextPath}/admin/schoolList";
-		       window.location.reload();
+		       //	window.location.reload();
 		    },
 		    error : function(e) {
+		    	alert(e);
 		       
 		    }
 		});
@@ -649,48 +651,52 @@ $(document).ready(function() {
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title"><center>School Details</center></h4>
             </div>
+             <form:form id="frm" class="form-horizontal" method="POST" name="frm" action="${pageContext.request.contextPath}/admin/schoolList" commandName="school">
             <div class="modal-body">
-                <form class="form-horizontal" role="form" id="frm"> 
+                
+                      	
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">School Name &#42;</label>
+                        <form:label path="schoolName" class="col-sm-3 control-label">School Name &#42;</form:label>
                         <div class="col-sm-8">
-                       		<input type="text" name="schoolName" id="schoolName" value="" class="form-control" maxlength="50" >
+                       		<form:input type="text" path="schoolName" id="schoolName" value="" class="form-control" maxlength="50" />
                        	</div>
                     </div>
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">Address &#42;</label>
+                        <form:label path="address" class="col-sm-3 control-label">Address &#42;</form:label>
                         <div class="col-sm-8">
-                            <input type="text" name="address" id="address" value="" class="form-control" maxlength="50">
+                            <form:input type="text" path="address" id="address" value="" class="form-control" maxlength="50" />
                       	</div>
                    	</div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Details &#42;</label>
+                        <form:label path="details" class="col-sm-3 control-label">Details &#42;</form:label>
                         <div class="col-sm-8">
-                            <input type="text" name="details" id="details" value="" class="form-control" maxlength="60">
+                            <form:input type="text" path="details" id="details" value="" class="form-control" maxlength="60" />
                       	</div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Location &#42;</label>
+                        <form:label path="location" class="col-sm-3 control-label">Location &#42;</form:label>
                         <div class="col-sm-8">
-                            <input type="text" name="location" id="location" value="" class="form-control" maxlength="20">
+                            <form:input type="text" path="location" id="location" value="" class="form-control" maxlength="20" />
                      	</div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">City &#42;</label>
+                        <form:label path="city" class="col-sm-3 control-label">City &#42;</form:label>
                      	<div class="col-sm-8">
-                            <input type="text" name="city" id="city1" value="" class="form-control" maxlength="20">
+                            <form:input type="text" path="city" id="city" value="" class="form-control" maxlength="20" />
                       	</div>
                     </div>
-           
+           			<input type="hidden" name="action" value="add" />
            			 <div class="modal-footer text-center">
             	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            	<input type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration()">
+            	<button type="submit" name="submitButton" class="btn btn-primary">Submit</button>
             </div>
                                          
-                  
-           </form>
+                
+           
           </div>
-        </div>  
+        </form:form>    
+        </div>
+          
 	</div>
 </div>
 

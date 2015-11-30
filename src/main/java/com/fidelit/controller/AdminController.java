@@ -28,6 +28,7 @@ import com.fidelit.model.EmployeeProject;
 import com.fidelit.model.Holidays;
 import com.fidelit.model.LeavesApplied;
 import com.fidelit.model.Project;
+import com.fidelit.model.Route;
 import com.fidelit.model.School;
 import com.fidelit.model.SchoolAdmin;
 import com.fidelit.model.SuperVisor;
@@ -136,19 +137,45 @@ public @ResponseBody String checkClientUsername(HttpServletRequest request){
 
 @ResponseBody
 @RequestMapping(value="/addSchool" , method=RequestMethod.POST)
-public String addSchool(HttpServletRequest request,HttpServletResponse response,ModelMap model) throws ParseException{
+public String addSchool(@ModelAttribute("school") School school,HttpServletRequest request,HttpServletResponse response,ModelMap model) throws ParseException{
 	System.out.println("HII IN School");
 	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-	String list = request.getParameter("accessList");
 	
-	String [] dataList = list.split(",");
-	School school = new School();
-	school.setSchoolName(dataList[0]); 
-	school.setAddress(dataList[1]);
-	school.setDetails(dataList[2]);
-	school.setLocation(dataList[3]);
-	school.setCity(dataList[4]);
-
+	String schoolName = null;
+	String address = null;
+	String details = null;
+	String location = null;
+	String city1 = null;
+	
+	if(request.getParameter("schoolName") != null){
+		schoolName = request.getParameter("schoolName");
+			System.out.println("schoolName:"+schoolName);
+		}
+	if(request.getParameter("address") != null){
+		address = request.getParameter("address");
+			System.out.println("address:"+schoolName);
+		}
+		if(request.getParameter("details") != null){
+			details = request.getParameter("details");
+				System.out.println("details:"+details);
+			}	
+			if(request.getParameter("location") != null){
+				location = request.getParameter("location");
+					System.out.println("location:"+location);
+				}
+				
+				if(request.getParameter("city1") != null){
+					city1 = request.getParameter("city1");
+						System.out.println("city1:"+city1);
+					}
+	
+	/*School school = new School();
+	school.setSchoolName(schoolName); 
+	school.setAddress(address);
+	school.setDetails(details);
+	school.setLocation(location);
+	school.setCity(city1);
+*/
 	school.setAccountId(userName);
 	
 
@@ -158,7 +185,7 @@ public String addSchool(HttpServletRequest request,HttpServletResponse response,
 	SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
 	String username = currentUser.getUsername();
 	model.addAttribute("userName", username);
-	
+	model.addAttribute(new School());
 	model.addAttribute("schoolList", schoolList);
 	return "schoolList";	
 
@@ -301,20 +328,37 @@ public String editSchoolAdmin(HttpServletRequest request,HttpServletResponse res
 
 
 @RequestMapping(value="/schoolList")
-public String allSchoolList(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+public String allSchoolList(@ModelAttribute("school") School school,HttpServletRequest request,HttpServletResponse response,ModelMap model){
+	
+	
 	
 	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 	List<School> schoolList= schoolService.allSchoolList(userName);
 	for (School school2 : schoolList) {
 		System.out.println("School    "+school2.getSchoolName());
 	}
+	String action=null;
+	action=request.getParameter("action");
+	System.out.println("Action: "+action);
+	if(action!=null){
+		if(action.equals("add")){
+		
+		
+		
+		school.setAccountId(userName);
+		schoolService.addSchool(school);
+		schoolList= schoolService.allSchoolList(userName);
+		model.addAttribute("schoolList", schoolList);
 	
+		}
+	}
 	HttpSession session = request.getSession();
 	SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
 	String username = currentUser.getUsername();
 	model.addAttribute("userName", username);
 	
 	model.addAttribute("schoolList", schoolList);
+	model.addAttribute(new School());
 	return "schoolList";
 }
 
