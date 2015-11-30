@@ -6,6 +6,9 @@
  
 <script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
 <script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
+<script src="http:////code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+
  
 <script type="text/javascript">
 
@@ -176,7 +179,12 @@ $(document).ready(function() {
 }); */
 
 
+ $(document).ready(function() {
 
+    $('#example').dataTable( {
+        "aaSorting": [[1,'asc']]
+      } );
+} ); 
 
 
 $(document).on("click", ".open-AddBookDialog", function () {
@@ -229,9 +237,11 @@ $(document).on("click", ".open-AddBookDialog", function () {
 
 $(document).ready(function() {
 
-jQuery("#birthDate").datepicker({ dateFormat: 'yy-mm-dd'});
-jQuery("#bbirthDate").datepicker({ dateFormat: 'yy-mm-dd'});
     $('#example').DataTable();
+    /* $('#example').DataTable( {
+        
+        "order": [[ 0, "asc" ]]
+    } ); */
 } );
 
 function setDateFormat(manu){
@@ -395,7 +405,9 @@ function sendDataForRegistration(){
 		
 		    	$("#schoolAdd").modal('hide');
 		       alert("School Added"+response);
+		       window.location.href="${pageContext.request.contextPath}/admin/parentList";
 		       window.location.href="${pageContext.request.contextPath}/admin/schoolList";
+		       window.location.reload();
 		    },
 		    error : function(e) {
 		       
@@ -599,12 +611,12 @@ $(document).ready(function() {
                           <thead>
                             <tr>
                             	<th width="3%" class="text-center no-sort"><input type="checkbox"  onClick="deleteAllRow(this)" ></th>
-                                <th width="20%">School Name</th>
+                                <th width="15%">School Name</th>
                                 <th width="25%">Address</th>
-                                <th width="22%">Details</th>
-                                <th width="15%">City</th>
-                                <th width="15%">Location</th>                                
-                                <th width="15%">Edit</th>
+                                <th width="25%">Details</th>
+                                <th width="10%">City</th>
+                                <th width="11%">Location</th>                                
+                                <th width="11%">Edit</th>
                             </tr>
                           </thead>
                           <tbody>

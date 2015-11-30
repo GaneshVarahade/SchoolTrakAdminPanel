@@ -211,16 +211,17 @@ function sendDataForRegistration(){
 		       window.location.href="${pageContext.request.contextPath}/admin/schoolAdmin";
 		    },
 		    error : function(e) {
-		    	if(e.status == '200'){
+		   
+		    	if(e.status == '200' || e.status == '0'){
 		    		alert("SchoolAdmin Profile Added Successfully");
 		    	}else{
-		        alert("Please Enter Mandatory FIeld and UserName Should be Unique");
+		        alert("IN:Please Enter Mandatory FIeld and UserName Should be Unique");
 		    	}
 		         
 		    }
 		});
 	}else{
-		  alert("Please Enter Mandatory FIeld and UserName Should be Unique"); 
+		  alert("OUT:Please Enter Mandatory FIeld and UserName Should be Unique"); 
 	}
 }
 
