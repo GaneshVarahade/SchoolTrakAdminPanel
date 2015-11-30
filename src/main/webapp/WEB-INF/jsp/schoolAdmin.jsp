@@ -142,6 +142,22 @@ function checkUniqueUsername(){
 	});
 }
 
+function useHTML(id,data){
+	 var id = "#" + id;
+	var text = "";
+	for (i = 0; i < data.length; i++) { 
+		if(data[i] == "<"){
+   	text += "<<span>";
+		}else if(data[i] == ">"){
+			text += "</span>>";
+		}
+		else{
+			text += data[i];
+		}
+	}
+	 $(id).val(text);
+}
+
 function editSchoolAdmin(id,name,school,address,email,age,city,password,username){
 	$("#schoolAdminId").val(id);
 	$("#aNamee").val(name);
@@ -639,7 +655,7 @@ $(document).ready(function() {
                 <div class="form-group">
                         <form:label path="name" class="col-sm-3 control-label">Admin Name &#42;</form:label>
                         <div class="col-sm-8">
-                        	<form:input path="name" type="text" id="aName" value="" class="form-control" maxlength="50" />
+                        	<form:input path="name" type="text" id="aName" value="" class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('aName').value)"/>
                         </div>
                    	</div>
               
@@ -656,21 +672,21 @@ $(document).ready(function() {
                     <div class="form-group">
                        	<form:label path="username" class="col-sm-3 control-label">Username &#42;</form:label>
                         <div class="col-sm-8">
-                            <form:input type="text" path="username" id="username" value="" class="form-control" maxlength="10" onblur = "checkUniqueUsername()" />
+                            <form:input type="text" path="username" id="username" value="" class="form-control" maxlength="10" onblur = "checkUniqueUsername(); useHTML(this.id,document.getElementById('username').value);" />
                       	</div>
                     </div>
                   	
                   	<div class="form-group">
                         <form:label path="password" class="col-sm-3 control-label">Admin Password &#42;</form:label>
                         <div class="col-sm-8">
-                        	<form:input type="text" path="password" id="aPassword" value="" class="form-control" maxlength="10" />
+                        	<form:input type="text" path="password" id="aPassword" value="" class="form-control" maxlength="10" onblur = "useHTML(this.id,document.getElementById('aPassword').value)"/>
                         </div>
                     </div>
                     
                   	<div class="form-group">
                         <form:label path="school.schoolName" class="col-sm-3 control-label">School Name &#42;</form:label>
                         <div class="col-sm-8">
-                        	<form:select path="school.schoolName" id="schoolId" class="form-control">
+                        	<form:select path="school.schoolName" id="schoolId" class="form-control" >
                         		<form:option value="">Select</form:option>
                             	<c:forEach var="school" items="${schoolList}">
                                	<form:option value="${school.schoolName}">${school.schoolName}</form:option>
@@ -682,7 +698,7 @@ $(document).ready(function() {
                   	<div class="form-group">
                         <form:label path="address" class="col-sm-3 control-label">Address &#42;</form:label>
                         <div class="col-sm-8">
-                            <form:input  path="address" type="text" id="aAddress" value="" class="form-control" maxlength="80" />
+                            <form:input  path="address" type="text" id="aAddress" value="" class="form-control" maxlength="80" onblur = "useHTML(this.id,document.getElementById('aAddress').value)"/>
                         </div>
                     </div>
                     
@@ -703,7 +719,7 @@ $(document).ready(function() {
                   	<div class="form-group">
                         <form:label path="city" class="col-sm-3 control-label">City &#42;</form:label>
                         <div class="col-sm-8">
-                        	<form:input path="city" type="text"  id="aCity" value="" class="form-control" maxlength="40" />
+                        	<form:input path="city" type="text"  id="aCity" value="" class="form-control" maxlength="40" onblur = "useHTML(this.id,document.getElementById('aCity').value)"/>
                         </div>
                     </div>
                     

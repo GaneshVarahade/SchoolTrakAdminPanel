@@ -44,6 +44,21 @@ function deletel(id){
 	window.location.href = "deleteClient?id="+id;
 }	
 
+function useHTML(id,data){
+	 var id = "#" + id;
+	var text = "";
+	for (i = 0; i < data.length; i++) { 
+		if(data[i] == "<"){
+   	text += "<<span>";
+		}else if(data[i] == ">"){
+			text += "</span>>";
+		}
+		else{
+			text += data[i];
+		}
+	}
+	 $(id).val(text);
+}
 
 function checkUniqueUsername(){
 	
@@ -53,11 +68,8 @@ function checkUniqueUsername(){
 	    type : "POST",
 	    url : "${pageContext.request.contextPath}/admin/checkUniqueUserName",
 	    data : userName,
-	    success : function(response) {	
-	    	
-	       
+	    success : function(response) {		       
 	       if(response){
-	    	
 	       $("#username").val("");
 	       }
 	  
@@ -108,13 +120,13 @@ function malaDeleteKara(id){
 		saveKara = saveKara + id + ",";	
 	
 	}
-	//showAlert(saveKara);
+
 }
 
 function removeString(ch){
 	ch = ch + ",";
 	saveKara = saveKara.replace(ch,'');
-//	showAlert(saveKara);
+
 }
 
 function deleteAllRow(source){  	
@@ -461,13 +473,13 @@ $(document).ready(function() {
          	<div class="form-group">
              	<label class="col-sm-3 control-label">Username</label>
                 <div class="col-sm-8">
-            		<input type="text" name="username" id="username" value="" class="form-control" onblur = "checkUniqueUsername()">
+            		<input type="text" name="username" id="username" value="" class="form-control" onblur = "checkUniqueUsername(); useHTML(this.id,document.getElementById('username').value);" >
               	</div>
           	</div>
           	<div class="form-group">
              	<label class="col-sm-3 control-label">Account Type</label>
                 <div class="col-sm-8">
-                    <select name="accountType" id="accountType" class="form-control" >
+                    <select name="accountType" id="accountType" class="form-control" onblur = "useHTML(this.id,document.getElementById('accountType').value)" >
                       <option value="Student">Student</option>
                     </select>
                	</div>
@@ -475,13 +487,13 @@ $(document).ready(function() {
           	<div class="form-group">
              	<label class="col-sm-3 control-label">Student Name</label>
                 <div class="col-sm-8">
-            		<input type="text" name="name" id="aName" value="" class="form-control">
+            		<input type="text" name="name" id="aName" value="" class="form-control" onblur = "useHTML(this.id,document.getElementById('aName').value)">
                	</div>
           	</div>
           	<div class="form-group">
              	<label class="col-sm-3 control-label">Student Password</label>
             	<div class="col-sm-8">
-                	<input type="text" name="password" id="aPassword" value="" class="form-control">
+                	<input type="text" name="password" id="aPassword" value="" class="form-control" onblur = "useHTML(this.id,document.getElementById('aPassword').value)">
                	</div>
           	</div>
           	<div class="form-group">
@@ -497,7 +509,7 @@ $(document).ready(function() {
           	<div class="form-group">
              	<label class="col-sm-3 control-label">Address</label>
                 <div class="col-sm-8">
-            		<input type="text" name="address" id="aAddress" value="" class="form-control" >
+            		<input type="text" name="address" id="aAddress" value="" class="form-control" onblur = "useHTML(this.id,document.getElementById('aAddress').value)">
               	</div>
           	</div>
           	<div class="form-group">
@@ -515,7 +527,7 @@ $(document).ready(function() {
           	<div class="form-group">
              	<label class="col-sm-3 control-label">City</label>
                 <div class="col-sm-8">
-            		<input type="text" name="city" id="aCity" value="" class="form-control">
+            		<input type="text" name="city" id="aCity" value="" class="form-control" onblur = "useHTML(this.id,document.getElementById('aCity').value)">
              	</div>
           	</div>            
     	</form>
@@ -555,7 +567,7 @@ $(document).ready(function() {
             <div class="form-group">
              	<label class="col-sm-3 control-label">Username</label>
                 <div class="col-sm-8">
-              		<input type="text" name="username1" id="username1" value="" class="form-control">
+              		<input type="text" name="username1" id="username1" value="" class="form-control" >
               	</div>
             </div>
             <div class="form-group">

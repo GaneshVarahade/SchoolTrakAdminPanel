@@ -358,7 +358,21 @@ function editSchool(id,schoolname,address,deatils,city,location){
 	$("#edit").modal('show');
 }
 
-
+function useHTML(id,data){
+	 var id = "#" + id;
+	var text = "";
+	for (i = 0; i < data.length; i++) { 
+		if(data[i] == "<"){
+   	text += "<<span>";
+		}else if(data[i] == ">"){
+			text += "</span>>";
+		}
+		else{
+			text += data[i];
+		}
+	}
+	 $(id).val(text);
+}
 
 
 function sendDataForRegistration(){
@@ -631,31 +645,31 @@ $(document).ready(function() {
                     <div class="form-group">
                         <form:label path="schoolName" class="col-sm-3 control-label">School Name &#42;</form:label>
                         <div class="col-sm-8">
-                       		<form:input type="text" path="schoolName" id="schoolName" value="" class="form-control" maxlength="50" />
+                       		<form:input type="text" path="schoolName" id="schoolName" value="" class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('schoolName').value)"/>
                        	</div>
                     </div>
                   	<div class="form-group">
                         <form:label path="address" class="col-sm-3 control-label">Address &#42;</form:label>
                         <div class="col-sm-8">
-                            <form:input type="text" path="address" id="address" value="" class="form-control" maxlength="50" />
+                            <form:input type="text" path="address" id="address" value="" class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('address').value)"/>
                       	</div>
                    	</div>
                     <div class="form-group">
                         <form:label path="details" class="col-sm-3 control-label">Details &#42;</form:label>
                         <div class="col-sm-8">
-                            <form:input type="text" path="details" id="details" value="" class="form-control" maxlength="60" />
+                            <form:input type="text" path="details" id="details" value="" class="form-control" maxlength="60" onblur = "useHTML(this.id,document.getElementById('details').value)"/>
                       	</div>
                     </div>
                     <div class="form-group">
                         <form:label path="location" class="col-sm-3 control-label">Location &#42;</form:label>
                         <div class="col-sm-8">
-                            <form:input type="text" path="location" id="location" value="" class="form-control" maxlength="20" />
+                            <form:input type="text" path="location" id="location" value="" class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('location').value)"/>
                      	</div>
                     </div>
                     <div class="form-group">
                         <form:label path="city" class="col-sm-3 control-label">City &#42;</form:label>
                      	<div class="col-sm-8">
-                            <form:input type="text" path="city" id="city" value="" class="form-control" maxlength="20" />
+                            <form:input type="text" path="city" id="city" value="" class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('city').value)"/>
                       	</div>
                     </div>
            			<input type="hidden" name="action" value="add" />

@@ -122,7 +122,21 @@ function addStops(id){
 	});   
 } 
 
-
+ function useHTML(id,data){
+	 var id = "#" + id;
+	var text = "";
+	for (i = 0; i < data.length; i++) { 
+		if(data[i] == "<"){
+    	text += "<<span>";
+		}else if(data[i] == ">"){
+			text += "</span>>";
+		}
+		else{
+			text += data[i];
+		}
+	}
+	 $(id).val(text);
+ }
 
  function malaDeleteKara(id){
 		if(saveKara == 0){
@@ -238,7 +252,7 @@ function addStops(id){
                          <input type="hidden" name=action value="add" />
                        
                         <div class="col-sm-8">
-                      <form:textarea path="news" rows="2" cols="50" maxlength="100"/>
+                      <form:textarea path="news" rows="2" id="news" cols="50" maxlength="100" onblur = "useHTML(this.id,document.getElementById('news').value)"/>
                         </div>
                         
                     </div>

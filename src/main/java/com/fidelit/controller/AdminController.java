@@ -169,16 +169,8 @@ public String addSchool(@ModelAttribute("school") School school,HttpServletReque
 						System.out.println("city1:"+city1);
 					}
 	
-	/*School school = new School();
-	school.setSchoolName(schoolName); 
-	school.setAddress(address);
-	school.setDetails(details);
-	school.setLocation(location);
-	school.setCity(city1);
-*/
-	school.setAccountId(userName);
 	
-
+	school.setAccountId(userName);
 	schoolService.addSchool(school);
 	List<School> schoolList= schoolService.allSchoolList(userName);
 	HttpSession session = request.getSession();
@@ -187,6 +179,7 @@ public String addSchool(@ModelAttribute("school") School school,HttpServletReque
 	model.addAttribute("userName", username);
 	model.addAttribute(new School());
 	model.addAttribute("schoolList", schoolList);
+	model.addAttribute(new School());	
 	return "schoolList";	
 
 }
@@ -225,6 +218,7 @@ public String editSchool(HttpServletRequest request,HttpServletResponse response
 	model.addAttribute("userName", username);
 	
 	model.addAttribute("schoolList", schoolList);
+	
 	return "schoolList";	
 }
 

@@ -32,12 +32,41 @@ function showBtn(){
 	 
 }
 
-
+function useHTML(id,data){
+	 var id = "#" + id;
+	var text = "";
+	for (i = 0; i < data.length; i++) { 
+		if(data[i] == "<"){
+   	text += "<<span>";
+		}else if(data[i] == ">"){
+			text += "</span>>";
+		}
+		else{
+			text += data[i];
+		}
+	}
+	 $(id).val(text);
+}
 
 $(document).ready(function() {
     $('#routeDataTable').DataTable();
 } );
 
+function useHTML(id,data){
+	 var id = "#" + id;
+	var text = "";
+	for (i = 0; i < data.length; i++) { 
+		if(data[i] == "<"){
+   	text += "<<span>";
+		}else if(data[i] == ">"){
+			text += "</span>>";
+		}
+		else{
+			text += data[i];
+		}
+	}
+	 $(id).val(text);
+}
 
 function edit(id){
 	var id = id;
@@ -376,7 +405,7 @@ function addStops(id){
             <div class="form-group">
                 <label class="col-sm-3 control-label">&#42; Route Name  : </label>
                 <div class="col-sm-8">
-                  <input type="text" name="routeName" id="routeName" class="form-control" maxlength="20">
+                  <input type="text" name="routeName" id="routeName" class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('routeName').value)">
                 </div>
             </div>
             <div class="form-group">
@@ -393,13 +422,13 @@ function addStops(id){
             <div class="form-group">
                 <label class="col-sm-3 control-label">&#42; Start Stop : </label>
                 <div class="col-sm-8">
-                  <input type="text" name="start" id="start" class="form-control" maxlength="20">
+                  <input type="text" name="start" id="start" class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('start').value)">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">&#42; End Stop : </label>
                 <div class="col-sm-8">
-                  <input type="text" name="stop" id="stop" class="form-control" maxlength="20">
+                  <input type="text" name="stop" id="stop" class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('stop').value)">
                 </div>
             </div>
             <div class="form-group">
@@ -462,7 +491,7 @@ function addStops(id){
             <div class="form-group">
                 <form:label  path="routeName" class="col-sm-3 control-label">&#42; Route Name : </form:label>
                 <div class="col-sm-8">
-                	<form:input  path="routeName" id="routeName"  class="form-control" maxlength="20" />
+                	<form:input  path="routeName" id="routeName"  class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('routeName').value)"/>
                	</div>
             </div>
             <div class="form-group">
@@ -478,13 +507,13 @@ function addStops(id){
             <div class="form-group">
                 <form:label path="startStop" class="col-sm-3 control-label">&#42; Start Stop : </form:label>
                 <div class="col-sm-8">
-                	<form:input name="startStop1" path="startStop" id="startStop"  class="form-control" maxlength="20" />
+                	<form:input name="startStop1" path="startStop" id="startStop"  class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('startStop').value)"/>
                	</div>
             </div>
             <div class="form-group">
                 <form:label path="endStop" class="col-sm-3 control-label"> &#42; End Stop :</form:label>
                 <div class="col-sm-8">
-                	<form:input path="endStop" name="endStop1" id="endStop"  class="form-control" maxlength="20"/>
+                	<form:input path="endStop" name="endStop1" id="endStop"  class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('endStop').value)"/>
                	</div>
             </div>
             <div class="form-group">
