@@ -186,14 +186,18 @@ function addStops(id){
 	}
 
 	
+
 	function deleteAllRow(source){  	
-  		
-	  	 checkboxes = document.getElementsByName('myTextEditBox');
-	  	  for(var i=0, n=checkboxes.length;i<n;i++) {
-	  		var id = checkboxes[i].getAttribute('id' );
-	  	    checkboxes[i].checked = source.checked;
-	  	    malaDeleteKara(id);
-	  	  }	
+	 	 checkboxes = document.getElementsByName('myTextEditBox');
+	 	  for(var i=0, n=checkboxes.length;i<n;i++) {
+	 		var id = checkboxes[i].getAttribute('id' );
+	 	    checkboxes[i].checked = source.checked;
+	 	    if(source.checked){
+	 	    malaDeleteKara(id);
+	 	    }else{
+	 	    	removeString(id);
+	 	    }
+	 	  }	
 	}
 	
 	function displayNote(evt){
