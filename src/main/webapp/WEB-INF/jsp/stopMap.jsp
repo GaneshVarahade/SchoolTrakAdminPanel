@@ -315,7 +315,7 @@ $(document).ready(function() {
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Add Bus Stop</h4>
 			  </div>
-              <form id="formAdd"action="${pageContext.request.contextPath}/route/addNewStops" method="post">
+              <form id="formAdd" action="${pageContext.request.contextPath}/route/addNewStops" method="post">
 			  <div class="modal-body">              	
         		<div class="form-horizontal">
         		

@@ -457,6 +457,91 @@ $(document).ready(function() {
             
         }
     });
+    
+    $('#editForm').formValidation({
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	namee: {
+                validators: {
+                    notEmpty: {
+                        message: 'The Admin Name is required'
+                    }
+                }
+            },
+            addresss: {
+                validators: {
+                    notEmpty: {
+                        message: 'The address is required'
+                    }
+                }
+            },
+            usernamee: {
+                validators: {
+                    notEmpty: {
+                        message: 'UserName should be Unique'
+                    }
+                }
+            },
+            
+            passwordd: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please Enter Password'
+                    }
+                }
+            },
+            
+            schoolNamee: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select School'
+                    }
+                }
+            },
+            
+            cityy: {
+                validators: {
+                    notEmpty: {
+                        message: 'The city is required'
+                    }
+                }
+            },
+            accountType1: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select Account type'
+                    }
+                }
+            },
+            
+            emaill: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please Enter Valid Email'
+                    }
+                }
+            },
+            agee: {
+                validators: {
+                    notEmpty: {
+                    	
+                    	
+                        message: 'Age should be a number'
+      
+                    }
+                }
+            }
+            
+            
+        }
+    });
+    
 });
 
 
@@ -631,7 +716,7 @@ $(document).ready(function() {
                 <h4 class="modal-title">School Admin Edit</h4>
             </div>
             <div class="modal-body">
-                <form id="registerFormm"  class="form-horizontal" role="form" name="registerFormm">
+                <form id="editForm"  class="form-horizontal" role="form" name="editForm">
                 
                 <div class="form-group">
                 <!--  <label class="col-sm-3 control-label">School Admin Id</label> -->

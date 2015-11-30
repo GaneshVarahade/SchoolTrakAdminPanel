@@ -348,17 +348,11 @@ function editSchool(id,schoolname,address,deatils,city,location){
 function editSchooll(){
 	
 	var Idd=$("#Idd").val();
-	alert("Idd"+Idd);
 	var schoolNamee=$("#schoolNamee").val();
-	alert("schoolNamee"+schoolNamee);
 	var addresss=$("#addresss").val();
-	alert("addresss"+addresss);
 	var detailss=$("#detailss").val();
-	alert("detailss"+detailss);
 	var city11=$("#city11").val();
-	alert("city11"+city11);
 	var locationn=$("#locationn").val();
-	alert("locationn"+locationn);
 	
 	var allData=Idd+","+schoolNamee+","+addresss+","+detailss+","+city11+","+locationn;
 	var formData="list="+allData;
@@ -515,6 +509,58 @@ $(document).ready(function() {
             
         }
     });
+    
+    $('#editForm').formValidation({
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	schoolNamee: {
+                validators: {
+                    notEmpty: {
+                        message: 'The schoolName is required'
+                    }
+                }
+            },
+            addresss: {
+                validators: {
+                    notEmpty: {
+                        message: 'The address is required'
+                    }
+                }
+            },
+            detailss: {
+                validators: {
+                    notEmpty: {
+                        message: 'The Details is required'
+                    }
+                }
+            },
+            
+            locationn: {
+                validators: {
+                    notEmpty: {
+                        message: 'The Location is required'
+                    }
+                }
+            },
+            
+            city11: {
+                validators: {
+                    notEmpty: {
+                        message: 'The city is required'
+                    }
+                }
+            }
+            
+        }
+    });
+    
+    
 });
 </script>
 
@@ -634,6 +680,7 @@ $(document).ready(function() {
 	</div>
 </div>
 
+
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -641,7 +688,7 @@ $(document).ready(function() {
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Edit School </h4>
       </div>
-      
+	 <form id="editForm">      
       <%-- <form id="editForm" method="post" action="${pageContext.request.contextPath}/route/editSchool"> --%>
       <div class="modal-body">
       	<div class="form-horizontal">
@@ -690,8 +737,8 @@ $(document).ready(function() {
             <input type="submit" class="btn btn-sky btn-sm"  value="Save" data-dismiss="modal" onClick = "editSchooll()">
         </div>
     </div>
+    </form>	
     <!-- </form> --> 
   </div>
 </div>
 </div>
-	
