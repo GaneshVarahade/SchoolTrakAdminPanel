@@ -94,10 +94,10 @@ var saveKara = 0;
 function showBtn(){
 
 	 if(saveKara == 0){
-		 alert("Please select Atleast one Extintor for delete");
+		 alert("Please select Atleast one Extintor");
 	 }
 	 else{
-		 var result = confirm("want to delete?");
+		 var result = confirm("Are you sure, you want to delete extintor(s)?");
 		 if(result){
 			 window.location.href = "deleteExtintorList?list="+saveKara;	 
 		 }
@@ -245,17 +245,17 @@ function addStops(id){
                         <table id="routeDataTable" class="table table-bordered table-striped table-hover">
                           <thead>
                             <tr>
-                            	<th width="10%" class="text-center no-sort"><input type="checkbox" onClick="deleteAllRow(this)"></th>
-                                <th width="10%">Type</th>
+                            	<th width="2%" class="text-center no-sort"><input type="checkbox" onClick="deleteAllRow(this)"></th>
+                                <th width="10%">Extintor Type</th>
                                 <th width="20%">Status</th>
                                 <th width="20%">Bus Number</th>
-                                <th width="30%">Edit Extintor</th>
+                                <th width="30%">Action</th>
                             </tr>
                           </thead>
                             <tbody>
                                 <c:forEach var="extintor" items="${extintorList}">
                                     <tr>
-                                       <td><input type="checkbox" id="${extintor.id}" name="myTextEditBox" value="" onClick="displayNote(event)"></td>
+                                       <td><input type="checkbox" id="${extintor.id}" name="myTextEditBox" value="" onClick="displayNote(event)" style="width: 27px;"></td>
                                        <td>${extintor.type}</td>  
                                        <c:choose>
                                         <c:when test="${extintor.status=='1'}">
@@ -343,10 +343,10 @@ function addStops(id){
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Add Extintor</h4>
           </div>            
-          	<form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/extintor/addExtintor" commandName="extintor">
+          	<form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/extintor/extintorList" commandName="extintor">
           	<div class="modal-body"> 
                 <div class="form-group">
-                    <form:label path="type" class="col-sm-3 control-label">* Type</form:label>
+                    <form:label path="type" class="col-sm-3 control-label">* Extintor Type</form:label>
                     <div class="col-sm-8">
                     	<form:input path="type" id="type" value="" class="form-control" />
                    	</div>
