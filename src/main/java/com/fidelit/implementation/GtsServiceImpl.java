@@ -49,6 +49,39 @@ public class GtsServiceImpl implements GtsService{
 	
 	}
 	
+
+	@Override
+	public void editAccountInGts(String accountId, String password,
+			String description) {
+		 Session session = sessionFactory.openSession();
+		   String sql = "delete from Account where accountID='"+accountId+"'";
+		   SQLQuery query = session.createSQLQuery(sql);	
+		   query.executeUpdate();		
+		  
+
+	        StringBuilder builder = new StringBuilder();		
+	        builder.append(" INSERT INTO `gts`.`Account`(`accountID`,`accountType`,`notifyEmail`,`allowNotify`,`speedUnits`,`distanceUnits`,`volumeUnits`,`pressureUnits`,`economyUnits`,`temperatureUnits`,");
+	        builder.append("`currencyUnits`,`fuelCostPerLiter`,`latLonFormat`,`geocoderMode`,`privateLabelName`, `isBorderCrossing`,`retainedEventAge`,`maximumDevices`,`totalPingCount`,");
+	        builder.append("`maxPingCount`,`autoAddDevices`,`dcsPropertiesID`,`smsEnabled`,`smsProperties`,`emailProperties`,`expirationTime`,`allowWebService`,`defaultUser`,`password`,");
+			builder.append("`contactName`,`contactPhone`,`contactEmail`,`timeZone`,`passwdChangeTime`,`passwdQueryTime`,`lastLoginTime`,`isActive`,`displayName`,`description`, `notes`,");
+			builder.append("`lastUpdateTime`,`creationTime`,`mapLegendDevice`,`mapLegendGroup`,`isAccountManager`,`managerID`,`requestPassCode`,`requestIPAddress`,`dataPushURL`,");
+		    builder.append("`lastDataRequestTime`,`lastDataPushTime`)");
+		    
+		    builder.append(" VALUES('"+accountId +"',0,'',1,0,0,0,0,0,0,");
+		    builder.append("'',0,0,3,' *', 0,0,0,0,");
+		    builder.append("0,0,'',1,'','',0,0,'','"+password +"',");
+		    builder.append("'','','',0,0,0,0,1,'','System Administrator', '',");
+		    builder.append("0,0,'','',0,'','','','',");
+		    builder.append("'0','0');");
+		    
+			System.out.println("builder.toString()"+builder.toString());
+		    Query queryy = session.createSQLQuery(builder.toString());
+			queryy.executeUpdate();
+		
+			session.close();
+		
+	}
+
 	
 	@Override
 	public void addCorridorInGts(String accountId,String corridorID,String description) {
@@ -87,6 +120,7 @@ public class GtsServiceImpl implements GtsService{
 			String description) {
 		
 		Session session = sessionFactory.openSession();
+		System.out.println("ON editcorridor");
 		String sql = "update GeoCorridor set accountID = '"+accountId+"', corridorID ='"+corridorID+"' , description ='"+description+"' where corridorID = '"+corridorID+"'";
 		Query query = session.createSQLQuery(sql);
 		query.executeUpdate();
@@ -99,6 +133,7 @@ public class GtsServiceImpl implements GtsService{
 			double latitude, double longitude, int stopID) {
 		
 		Session session = sessionFactory.openSession();
+		System.out.println("ON editcorridorList");
 		String  sql="update GeoCorridorList set latitude"+stopID+" = "+latitude +", longitude"+stopID+" ="+longitude +"where corridorID = '"+corridorID +"'" ;
 		Query query = session.createSQLQuery(sql);
 		query.executeUpdate();

@@ -36,6 +36,7 @@ public String defaultUrl(ModelMap model,HttpServletRequest req,SecurityContextHo
 	model.addAttribute("userName",userName);
 	if(userName != null){
 		SchoolAdmin currentUser = authenticationService.authenticateUser(userName);
+		session.setAttribute("currentUser", currentUser);
 		Object accountType = session.getAttribute("currentAccountType");
 	
 	if(accountType == null)	{
@@ -47,7 +48,7 @@ public String defaultUrl(ModelMap model,HttpServletRequest req,SecurityContextHo
 				 model.addAttribute("message", "Account Type Wrong");
 			  return "login";  
 		}
-		session.setAttribute("currentUser", currentUser);
+		
 	}else{
 		 model.addAttribute("message", "Authentication Failed");
 		 return "login";

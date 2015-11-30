@@ -133,15 +133,58 @@ function checkUniqueUsername(){
 	       if(response){
 	    	
 	       $("#username").val("");
-	       }
-	    
-	       //window.location.href="${pageContext.request.contextPath}/admin//schoolAdmin";
+	       } 
 	    },
 	    error : function(e) {
-	      /*  alert("Please Enter Mandatory FIeld and UserName Should be Unique"); */
+	 
 	    }
 	});
 }
+
+function editSchoolAdmin(id,name,school,address,email,age,city,password,username){
+	$("#schoolAdminId").val(id);
+	$("#aNamee").val(name);
+	$("#usernamee").val(username);
+	$("#aPasswordd").val(password);
+	$("#schoolNamee").val(school);
+	$("#aAddresss").val(address);
+	$("#aEmaill").val(email);
+	$("#aAgee").val(age);
+	$("#aCityy").val(city);
+	$("#edit").modal('show');
+	
+}
+
+function editSchoolAdminn(){
+	var id=$("#schoolAdminId").val();
+	var name=$("#aNamee").val();
+	var school=$("#schoolNamee").val();
+	var address=$("#aAddresss").val();
+	var email=$("#aEmaill").val();
+	var age=$("#aAgee").val();
+	var city=$("#aCityy").val();
+	var password=$("#aPasswordd").val();
+	var username=$("#usernamee").val();
+	var allData=id+","+name+","+school+","+address+","+email+","+age+","+city+","+password+","+username;
+	var formData="list="+allData;
+	 $.ajax({
+	    type : "POST",
+	    url : "${pageContext.request.contextPath}/admin/editSchoolAdmin",
+	    data : formData,
+	    success : function(response) {	 
+	    	 $("#edit").modal('hide');
+	       alert("SchoolAdmin Updated Successfully!");
+	       location.reload();
+	      },
+	    error : function(e) {
+	    	$("#edit").modal('hide');
+		       alert("Error"+e);
+		       
+	    }
+	});   
+	
+}
+
 
 function sendDataForRegistration(){
 	 var email=$("#aEmail").val();
@@ -168,11 +211,11 @@ function sendDataForRegistration(){
 		       window.location.href="${pageContext.request.contextPath}/admin/schoolAdmin";
 		    },
 		    error : function(e) {
-		       /* alert("Please Enter Mandatory FIeld and UserName Should be Unique"); */
+		        alert("Please Enter Mandatory FIeld and UserName Should be Unique"); 
 		    }
 		});
 	}else{
-		/*  alert("Please Enter Mandatory FIeld and UserName Should be Unique"); */
+		  alert("Please Enter Mandatory FIeld and UserName Should be Unique"); 
 	}
 }
 
@@ -451,12 +494,14 @@ $(document).ready(function() {
                           <thead>
                             <tr>
                             	<th width="3%" class="text-center no-sort"><input type="checkbox" onClick="deleteAllRow(this)"></th>
-                            	<th width="20%">Name</th>
+                            	<th width="15%">Name</th>
+                            	<th width="15%">User Name</th>
                                 <th width="20%">School Name</th>
                                 <th width="25%">Address</th>
                                 <th width="15%">Email</th>
                                 <th width="10%">Age</th>
-                                <th width="10%">City</th>                               
+                                <th width="10%">City</th>    
+                                <th width="10%">Edit</th>                           
                             </tr>
                           </thead>
                           <tbody>
@@ -465,12 +510,13 @@ $(document).ready(function() {
                                     <tr>
                                         <td class="text-center"><input type="checkbox" id="${schoolAdmin.id}"  name="myTextEditBox" value="" onClick="displayNote(event)"/></td>
                                         <td>${schoolAdmin.name}</td>
+                                        <td>${schoolAdmin.username}</td>
                                         <td>${schoolAdmin.school.schoolName}</td>
                                         <td>${schoolAdmin.address}</td>
                                         <td>${schoolAdmin.email}</td>
                                         <td>${schoolAdmin.age}</td>
                                         <td>${schoolAdmin.city}</td>
-                                        
+                                        <td><input type="submit" class="button" value="Edit"  onClick="editSchoolAdmin('${schoolAdmin.id}','${schoolAdmin.name}','${schoolAdmin.school.schoolName}','${schoolAdmin.address}','${schoolAdmin.email}','${schoolAdmin.age}','${schoolAdmin.city}','${schoolAdmin.password}','${schoolAdmin.username}');"></td>
                                     </tr>
                                 </c:if>
                              </c:forEach>                                                                  
@@ -568,6 +614,105 @@ $(document).ready(function() {
             		<div class="modal-footer text-center">
                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration();">Save</button>
+                </div> 
+                </form>               
+			</div>
+       		</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="edit" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">School Admin Edit</h4>
+            </div>
+            <div class="modal-body">
+                <form id="registerFormm"  class="form-horizontal" role="form" name="registerFormm">
+                
+                <div class="form-group">
+                <!--  <label class="col-sm-3 control-label">School Admin Id</label> -->
+               	<div class="col-sm-8">
+					<input type="hidden" name="schoolAdminId" id="schoolAdminId" value="" class="form-control" readonly>
+                 </div>
+			  </div>
+                
+                <div class="form-group">
+                        <label class="col-sm-3 control-label">Admin Name &#42;</label>
+                        <div class="col-sm-8">
+                        	<input type="text" name="namee" id="aNamee" value="" class="form-control" maxlength="50">
+                        </div>
+                   	</div>
+              
+                  	<div class="form-group">
+                        <label class="col-sm-3 control-label">Account Type &#42;</label>
+                        <div class="col-sm-8">
+                        	<select name="accountTypee" id="accountTypee" class="form-control" >
+                            	<option value="SchoolAdmin">School Admin</option>
+                            </select>
+                     	</div>
+                    </div>
+                    
+                    <div class="form-group">
+                       	<label class="col-sm-3 control-label">User Name &#42;</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="usernamee" id="usernamee" value="" class="form-control" maxlength="10" onblur = "checkUniqueUsernameEdit()">
+                      	</div>
+                    </div>
+                  	
+                  	<div class="form-group">
+                        <label class="col-sm-3 control-label">Admin Password &#42;</label>
+                        <div class="col-sm-8">
+                        	<input type="text" name="passwordd" id="aPasswordd" value="" class="form-control" maxlength="10">
+                        </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <label class="col-sm-3 control-label">School Name &#42;</label>
+                        <div class="col-sm-8">
+                        	<select name="schoolNamee" id="schoolNamee" class="form-control" >
+                            	<c:forEach var="school" items="${schoolList}">
+                               	<option value="${school.schoolName}">${school.schoolName}</option>
+                        		</c:forEach>
+                        	</select>
+                       </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <label class="col-sm-3 control-label">Address &#42;</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="addresss" id="aAddresss" value="" class="form-control" >
+                        </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <label class="col-sm-3 control-label">Email &#42;</label>
+                        <div class="col-sm-8">
+                            <input type="email" name="emaill" id="aEmaill" value="" class="form-control" onblur="emailValidateRegistration();">
+                        </div>
+                   	</div>
+                    
+                  	<div class="form-group">
+                        <label class="col-sm-3 control-label">Age &#42;</label>
+                        <div class="col-sm-8">
+                        	<input type="number" name="agee" id="aAgee" value="" class="form-control" >
+                        </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <label class="col-sm-3 control-label">City &#42;</label>
+                        <div class="col-sm-8">
+                        	<input type="text" name="cityy" id="aCityy" value="" class="form-control">
+                        </div>
+                    </div>
+                    
+                   
+            		<div class="modal-footer text-center">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-sky btn-sm" onClick="editSchoolAdminn();" data-dismiss="modal">Save</button>
                 </div> 
                 </form>               
 			</div>

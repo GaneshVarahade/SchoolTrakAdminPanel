@@ -164,6 +164,42 @@ public String addSchool(HttpServletRequest request,HttpServletResponse response,
 
 }
 
+@ResponseBody
+@RequestMapping(value="/editSchool",method = RequestMethod.POST)
+public String editSchool(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+	
+	System.out.println("In edit school");
+	String list = request.getParameter("list");
+	String [] dataList = list.split(",");
+	
+	for (String string : dataList) {
+		System.out.println("DataList:"+string);
+	}
+	School school = new School();
+	
+	Integer Id=Integer.parseInt(dataList[0]);
+	school.setId(Id);
+	school.setSchoolName(dataList[1]);
+	school.setAddress(dataList[2]);
+	school.setDetails(dataList[3]);
+	school.setCity(dataList[4]);
+	school.setLocation(dataList[5]);
+	
+	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+	
+	school.setAccountId(userName);
+	model.addAttribute(new SchoolAdmin());
+	schoolService.updateSchool(school);
+	
+	List<School> schoolList= schoolService.allSchoolList(userName);
+	HttpSession session = request.getSession();
+	SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+	String username = currentUser.getUsername();
+	model.addAttribute("userName", username);
+	
+	model.addAttribute("schoolList", schoolList);
+	return "schoolList";	
+}
 
 
 
@@ -178,26 +214,15 @@ public boolean checkUniqueUserName(HttpServletRequest request,HttpServletRespons
 	
 }
 
-
-
 @ResponseBody
 @RequestMapping(value="/addSchoolAdmin" , method=RequestMethod.POST)
 public String addClient(HttpServletRequest request,HttpServletResponse response,ModelMap model){
-	
 	String list = request.getParameter("accessList");
 	String SchoolName=request.getParameter("schoolName");
-	
-	
-	
 	String [] dataList = list.split(",");
-	for (int i = 0; i < dataList.length; i++) {
-		System.out.println("i"+i+"="+dataList[i]);
-	}
 	String SchoolName1=dataList[6];
 	School school=schoolService.getSchool(SchoolName1);
 	SchoolAdmin schoolAdmin = new SchoolAdmin();
-	
-	//school.setSchoolName(SchoolName1);
 	schoolAdmin.setName(dataList[0]);
 	schoolAdmin.setAddress(dataList[1]);
 	schoolAdmin.setPassword(dataList[3]);
@@ -222,17 +247,57 @@ public String addClient(HttpServletRequest request,HttpServletResponse response,
 	schoolAdmin.setAccountId(userName);
 	schoolAdminService.addSchoolAdmin(schoolAdmin);
 	List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
-	
 	HttpSession session = request.getSession();
 	SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
 	String username = currentUser.getUsername();
 	model.addAttribute("userName", username);
-	
-	
 	model.addAttribute("schoolAdminList", schoolAdminList);
 	return "schoolAdmin";
 }
 
+@ResponseBody
+@RequestMapping(value="/editSchoolAdmin" , method=RequestMethod.POST)
+public String editSchoolAdmin(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+	System.out.println("in schooladmin edit");
+	String list = request.getParameter("list");
+	String SchoolName=request.getParameter("schoolName");
+	String [] dataList = list.split(",");
+	int cnt = 0;
+	for (String string : dataList) {
+		
+		System.out.println("cnt:"+cnt+":"+string);
+			cnt++;
+	}
+	
+	SchoolAdmin schoolAdmin = new SchoolAdmin();
+	schoolAdmin.setId(Integer.parseInt(dataList[0]));
+	schoolAdmin.setName(dataList[1]);
+	String SchoolName1=dataList[2];
+	School school=schoolService.getSchool(SchoolName1);
+	schoolAdmin.setAddress(dataList[3]);
+	schoolAdmin.setEmail(dataList[4]);
+	schoolAdmin.setAge(Integer.parseInt(dataList[5]));
+	schoolAdmin.setCity(dataList[6]);
+	schoolAdmin.setAccountType("SchoolAdmin");
+	schoolAdmin.setPassword(dataList[7]);
+	schoolAdmin.setUsername(dataList[8]);
+	schoolAdmin.setSchool(school);
+	schoolAdmin.setEnabled(true);
+	gtsService.editAccountInGts(schoolAdmin.getUsername(),schoolAdmin.getPassword(),schoolAdmin.getAccountType());
+	
+		schoolAdmin.setRole("ROLE_SCHOOLADMIN");
+	
+	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+	schoolAdmin.setAccountId(userName);
+	schoolAdminService.updateSchoolAdmin(schoolAdmin);
+	List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
+	HttpSession session = request.getSession();
+	SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+	String username = currentUser.getUsername();
+	model.addAttribute("userName", username);
+	model.addAttribute("schoolAdminList", schoolAdminList);
+	return "schoolAdmin";
+}
 
 
 @RequestMapping(value="/schoolList")

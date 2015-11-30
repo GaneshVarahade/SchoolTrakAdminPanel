@@ -25,4 +25,6 @@ public interface GtsService {
 	void deleteDeviceInGts(String accountID);
 	
 	void deleteAccountInGts(String accountId);
+
+	void editAccountInGts(String accountId, String password, String description);
 }

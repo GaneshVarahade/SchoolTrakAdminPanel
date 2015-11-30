@@ -273,7 +273,7 @@ function password_length_update()
 function password_length_registration()
 {  	
   var userInput = $("#cclientPassword").val().length;  
-  //alert(userInput);
+
   if(userInput >= 6 )
      {  	
        return true;  	

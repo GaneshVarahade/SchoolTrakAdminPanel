@@ -30,6 +30,7 @@ import com.fidelit.model.SchoolAdmin;
 import com.fidelit.model.SuperVisor;
 import com.fidelit.model.empLeavesTaken;
 import com.fidelit.service.EmployeeService;
+import com.fidelit.service.GtsService;
 import com.fidelit.service.HolidayService;
 import com.fidelit.service.LeaveService;
 import com.fidelit.service.SchoolAdminService;
@@ -56,6 +57,8 @@ public class UserController {
 	@Autowired
 		private SchoolAdminService schoolAdminService;
 	
+	@Autowired
+	private GtsService gtsService;
 	
 	@RequestMapping(value="/home" )
 	public String userHome(){
@@ -309,6 +312,8 @@ public class UserController {
 		schoolAdmin.setAccountId(userName);
 		model.addAttribute(new SchoolAdmin());
 		schoolAdminService.updateSchoolAdmin(schoolAdmin);
+		gtsService.editAccountInGts(dataList[1], dataList[7], dataList[9]);
+		
 		return "Ok";
 	}
 
@@ -318,6 +323,9 @@ public class UserController {
 	public String editParent(HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		String list = request.getParameter("list");
 		String [] dataList = list.split(",");
+		for (String string : dataList) {
+			System.out.println("datalist:"+string);
+		}
 		SchoolAdmin schoolAdmin = new SchoolAdmin();
 		School school =schoolService.getSchool(dataList[2]);
 		Integer parentId=Integer.parseInt(dataList[0]);
@@ -336,6 +344,7 @@ public class UserController {
 		schoolAdmin.setAccountId(userName);
 		model.addAttribute(new SchoolAdmin());
 		schoolAdminService.updateSchoolAdmin(schoolAdmin);
+		gtsService.editAccountInGts(dataList[1], dataList[7], dataList[9]);
 		return "Ok";
 	}
 

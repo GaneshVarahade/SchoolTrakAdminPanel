@@ -334,6 +334,52 @@ function sendDataForUpdation(){
 	}
 }
 
+function editSchool(id,schoolname,address,deatils,city,location){
+	
+	$("#Idd").val(id)
+	$("#schoolNamee").val(schoolname);
+	$("#addresss").val(address);
+	$("#detailss").val(deatils);
+	$("#city11").val(city);
+	$("#locationn").val(location);
+	$("#edit").modal('show');
+}
+
+function editSchooll(){
+	
+	var Idd=$("#Idd").val();
+	alert("Idd"+Idd);
+	var schoolNamee=$("#schoolNamee").val();
+	alert("schoolNamee"+schoolNamee);
+	var addresss=$("#addresss").val();
+	alert("addresss"+addresss);
+	var detailss=$("#detailss").val();
+	alert("detailss"+detailss);
+	var city11=$("#city11").val();
+	alert("city11"+city11);
+	var locationn=$("#locationn").val();
+	alert("locationn"+locationn);
+	
+	var allData=Idd+","+schoolNamee+","+addresss+","+detailss+","+city11+","+locationn;
+	var formData="list="+allData;
+	 $.ajax({
+	    type : "POST",
+	    url : "${pageContext.request.contextPath}/admin/editSchool",
+	    data : formData,
+	    success : function(response) {	 
+	    	 $("#edit").modal('hide');
+	       alert("School Updated Successfully!");
+	       window.location.href="${pageContext.request.contextPath}/admin/schoolList";
+	      },
+	    error : function(e) {
+	    	$("#edit").modal('hide');
+		       alert("Error"+e);
+		       
+	    }
+	});   
+	
+}
+
 
 function sendDataForRegistration(){
 	 var name=$("#schoolName").val();
@@ -520,9 +566,9 @@ $(document).ready(function() {
                                     <td>${school.schoolName}</td>
                                     <td>${school.address}</td>
                                     <td>${school.details}</td>
-                                    <td>${school.location}</td>
                                     <td>${school.city}</td>
-                                    <td><button type="submit" class="btn btn-default btn-sm" onClick="editSchool('${school.id}','${school.schoolName}','${school.address}','${school.details}','${school.location}','${school.city}');"><i class="fa fa-pencil-square-o"></i> Edit</button></td>
+                                    <td>${school.location}</td>
+                                    <td><button type="submit" class="btn btn-default btn-sm" onClick="editSchool('${school.id}','${school.schoolName}','${school.address}','${school.details}','${school.city}','${school.location}');"><i class="fa fa-pencil-square-o"></i> Edit</button></td>
                                  </tr>
                           	</c:forEach>                                                                                    
                           </tbody>
@@ -596,53 +642,55 @@ $(document).ready(function() {
         <h4 class="modal-title">Edit School </h4>
       </div>
       
-      <form id="editForm" method="post" action="${pageContext.request.contextPath}/route/editRoute">
+      <%-- <form id="editForm" method="post" action="${pageContext.request.contextPath}/route/editSchool"> --%>
       <div class="modal-body">
       	<div class="form-horizontal">
             <div class="form-group">
              <!-- 	<label class="col-sm-3 control-label">Route Number :</label> -->
                 <div class="col-sm-8">
-                  <input type="hidden" name="Id" id="Id" class="form-control" readOnly>
+                  <input type="hidden" name="Idd" id="Idd" class="form-control" readOnly>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">School Name</label>
                 <div class="col-sm-8">
-                  <input type="text" name="schoolName" id="schoolName" class="form-control">
+                  <input type="text" name="schoolNamee" id="schoolNamee" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">Location : &#42;</label>
+                <label class="col-sm-3 control-label">Address : &#42;</label>
                 <div class="col-sm-8">
-                  <input type="text" name="location" id="location" class="form-control">
+                  <input type="text" name="addresss" id="addresss" class="form-control">
                 </div>
             </div>
             
             <div class="form-group">
                 <label class="col-sm-3 control-label">Details : &#42;</label>
                 <div class="col-sm-8">
-                  <input type="text" name="details" id="details" class="form-control">
+                  <input type="text" name="detailss" id="detailss" class="form-control">
                 </div>
             </div>
+            
             <div class="form-group">
                 <label class="col-sm-3 control-label">City : &#42;</label>
                 <div class="col-sm-8">
-                  <input type="text" name="city" id="city" class="form-control">
+                  <input type="text" name="city11" id="city11" class="form-control">
                 </div>
             </div>
+            
             <div class="form-group">
-                 <label class="col-sm-3 control-label">Address :</label> 
+                <label class="col-sm-3 control-label">Location : &#42;</label>
                 <div class="col-sm-8">
-                  <input type="text" name="address" id="address" class="form-control">
+                  <input type="text" name="locationn" id="locationn" class="form-control">
                 </div>
             </div>
-            </div>
+         
         <div class="modal-footer text-center">
             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            <input type="submit" class="btn btn-sky btn-sm"  value="Save" >
+            <input type="submit" class="btn btn-sky btn-sm"  value="Save" data-dismiss="modal" onClick = "editSchooll()">
         </div>
     </div>
-    </form> 
+    <!-- </form> --> 
   </div>
 </div>
 </div>
