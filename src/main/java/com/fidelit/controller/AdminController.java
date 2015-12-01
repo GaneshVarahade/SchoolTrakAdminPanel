@@ -179,6 +179,7 @@ public String addSchool(@ModelAttribute("school") School school,HttpServletReque
 	model.addAttribute("userName", username);
 	model.addAttribute(new School());
 	model.addAttribute("schoolList", schoolList);
+	model.addAttribute("schoolsActive", "schoolsActive");
 	model.addAttribute(new School());	
 	return "schoolList";	
 
@@ -216,7 +217,7 @@ public String editSchool(HttpServletRequest request,HttpServletResponse response
 	SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
 	String username = currentUser.getUsername();
 	model.addAttribute("userName", username);
-	
+	model.addAttribute("schoolsActive", "schoolsActive");
 	model.addAttribute("schoolList", schoolList);
 	
 	return "schoolList";	
@@ -273,6 +274,7 @@ public String addClient(HttpServletRequest request,HttpServletResponse response,
 	String username = currentUser.getUsername();
 	model.addAttribute("userName", username);
 	model.addAttribute("schoolAdminList", schoolAdminList);
+	model.addAttribute("schoolAdminActive", "schoolAdminActive");
 	return "schoolAdmin";
 }
 
@@ -317,6 +319,7 @@ public String editSchoolAdmin(HttpServletRequest request,HttpServletResponse res
 	String username = currentUser.getUsername();
 	model.addAttribute("userName", username);
 	model.addAttribute("schoolAdminList", schoolAdminList);
+	model.addAttribute("schoolAdminActive", "schoolAdminActive");
 	return "schoolAdmin";
 }
 
@@ -371,6 +374,8 @@ public String allSchoolList(@ModelAttribute("school") School school,HttpServletR
 	
 	model.addAttribute("schoolList", schoolList);
 	model.addAttribute(new School());
+	model.addAttribute("schoolsActive", "schoolsActive");
+	
 	return "schoolList";
 }
 
@@ -386,7 +391,7 @@ public String allClientList(HttpServletRequest request,HttpServletResponse respo
 	SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
 	String username = currentUser.getUsername();
 	model.addAttribute("userName", username);
-	
+	model.addAttribute("reportActive", "reportActive");
 	return "reports";
 }
 
@@ -427,6 +432,7 @@ public String allSchoolAdminList(@ModelAttribute("schoolAdmin") SchoolAdmin scho
 	model.addAttribute("userName", username);
 	model.addAttribute(new SchoolAdmin());
 	model.addAttribute("schoolList", schoolList);
+	model.addAttribute("schoolAdminActive", "schoolAdminActive");
 	return "schoolAdmin";
 }
 
@@ -454,7 +460,7 @@ public String allHolidayList(HttpServletRequest request,HttpServletResponse resp
 	SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
 	String username = currentUser.getUsername();
 	model.addAttribute("userName", username);
-	
+	model.addAttribute("settingActive", "settingActive");
 	return "settings";
 }
 
@@ -481,7 +487,7 @@ public String deleteEmployeeList(@RequestParam("list") String str,HttpServletReq
 	SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
 	String username = currentUser.getUsername();
 	model.addAttribute("userName", username);
-	
+	model.addAttribute("schoolsActive", "schoolsActive");
 	model.addAttribute("schoolList", schoolList);
 	return "schoolList";
 }
