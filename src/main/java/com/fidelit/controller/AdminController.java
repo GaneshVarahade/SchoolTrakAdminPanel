@@ -71,7 +71,7 @@ public class AdminController {
   private SchoolAdminService schoolAdminService;
   
   @Autowired
-  RouteService routeService;
+  private RouteService routeService;
   
   @Autowired
   private GtsService gtsService;
@@ -267,8 +267,6 @@ public String addClient(HttpServletRequest request,HttpServletResponse response,
 	}else if(dataList[8].equalsIgnoreCase("Admin")){
 		schoolAdmin.setRole("ROLE_ADMIN");
 	}
-	Route route = routeService.getRouteId(Integer.parseInt(dataList[9]));
-	schoolAdmin.setRoute(route);
 	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 	schoolAdmin.setAccountId(userName);
 	schoolAdminService.addSchoolAdmin(schoolAdmin);
@@ -468,6 +466,27 @@ public String allHolidayList(HttpServletRequest request,HttpServletResponse resp
 	return "settings";
 }
 
+@RequestMapping(value = "/checkDriverInRoute")
+public String checkDriverInRoute(@RequestParam("deleteData") String str,HttpServletRequest request,HttpServletResponse response,ModelMap model){
+	System.out.println("IN Driver Route");
+	boolean status = false;
+	String result = null;
+	str = str.substring(0, str.length()-1);
+	String[] str1 = str.split(",");
+	for (int i = 0; i < str1.length; i++) {
+		int id = Integer.parseInt(str1[i]);
+		 status = routeService.getDriverName(id);
+		if(status == true){
+			break;
+		}
+	}
+	if(status == true){
+		result = "false";
+	}else{
+		result = "true";
+	}
+	return result;
+}
 
 @RequestMapping(value = "/deleteSchoolList")
 public String deleteEmployeeList(@RequestParam("list") String str,HttpServletRequest request,HttpServletResponse response,ModelMap model){
@@ -478,7 +497,10 @@ public String deleteEmployeeList(@RequestParam("list") String str,HttpServletReq
 		
 		int id = Integer.parseInt(str1[i]);
 		
-		schoolService.deleteSchool(id);
+		
+			schoolService.deleteSchool(id);
+	
+		
 		model.addAttribute(new School());
 		
 	}

@@ -70,10 +70,14 @@ function showBtn(){
 <script type="text/javascript">
 
 $(document).ready(function() {
-    $('#example').DataTable(
+    $('#example').DataTable({
 
-    			
-    );
+    		"columnDefs" : [{
+    		  	                      bSortable: false,
+    		  	                      aTargets: [ -1 ]
+    		  	                   }
+    		  	                 ]		
+    });
 } );
 
 
