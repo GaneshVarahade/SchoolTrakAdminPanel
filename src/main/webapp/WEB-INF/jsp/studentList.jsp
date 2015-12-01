@@ -105,7 +105,8 @@ function sendDataForRegistration(){
 		    url : "${pageContext.request.contextPath}/admin/addSchoolAdmin",
 		    data : formData,
 		    success : function(response) {	       
-		       alert("Student Added");
+		       alert("Student Added Successfully");
+		       location.reload();
 		    },
 		    error : function(e) {
 		    	alert("Please Enter Mandatory FIeld and UserName Should be Unique");
@@ -403,6 +404,91 @@ $(document).ready(function() {
             
         }
     });
+    
+    
+    $('#editForm').formValidation({
+    	
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	username1: {
+                validators: {
+                    notEmpty: {
+                        message: 'The User Name is required'
+                    }
+                }
+            },
+            accountType1: {
+                validators: {
+                    notEmpty: {
+                        message: 'The accountType is required'
+                    }
+                }
+            },
+            name1: {
+                validators: {
+                    notEmpty: {
+                        message: 'name should be required'
+                    }
+                }
+            },
+            
+            password1: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please Enter Password'
+                    }
+                }
+            },
+            
+            schoolName1: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select School'
+                    }
+                }
+            },
+            
+            address1: {
+                validators: {
+                    notEmpty: {
+                        message: 'The address is required'
+                    }
+                }
+            },
+            email1: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please Enter Valid Email'
+                    }
+                }
+            },
+            
+            age1: {
+                validators: {
+                    notEmpty: {
+                        message: 'Age should be a number '
+                    }
+                }
+            },
+            city1: {
+                validators: {
+                    notEmpty: {
+                    	
+                        message: 'The city is required'
+      
+                    }
+                }
+            }
+            
+            
+        }
+    });
 });
 
 </script>
@@ -443,7 +529,7 @@ $(document).ready(function() {
                               	<th width="18%">Email</th>
                               	<th width="10%">Age</th>
                               	<th width="10%">City</th>
-                                <th width="10%">Edit</th>                          
+                                <th width="10%">Action</th>                          
                             </tr>
                           </thead>
                           <tbody>          
@@ -476,8 +562,9 @@ $(document).ready(function() {
        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Add Student</h4>
       </div>
+      <form id="registerForm" class="form-horizontal" role="form" name="registerForm">
       <div class="modal-body">
-      	<form id="registerForm" class="form-horizontal" role="form" name="registerForm">
+      	
          	<div class="form-group">
              	<label class="col-sm-3 control-label">Username</label>
                 <div class="col-sm-8">
@@ -538,15 +625,17 @@ $(document).ready(function() {
             		<input type="text" name="city" id="aCity" value="" class="form-control" onblur = "useHTML(this.id,document.getElementById('aCity').value)">
              	</div>
           	</div>            
-    	</form>
+    	
     	</div>
     	<div class="modal-footer text-center">
             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration();" data-dismiss="modal">Save</button>
         </div>
+        </form>
     </div>
   </div>
 </div>
+
 
 
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
@@ -557,6 +646,7 @@ $(document).ready(function() {
         <h4 class="modal-title">Edit Student</h4>
       </div>
       <div class="modal-body">
+      	<form id="editForm" class="form-horizontal" role="form" name="editForm">
       	<div class="form-horizontal">            
             <div class="form-group">
              	<label class="col-sm-3 control-label">Student Id</label>
@@ -605,13 +695,13 @@ $(document).ready(function() {
             <div class="form-group">
              	<label class="col-sm-3 control-label">City</label>
                 <div class="col-sm-8">
-              		<input type="text" name="city" id="city1" value="" class="form-control">
+              		<input type="text" name="city1" id="city1" value="" class="form-control">
                	</div>
             </div>
             <div class="form-group">
              	<label class="col-sm-3 control-label">Age</label>
                 <div class="col-sm-8">
-              		<input type="text" name="city" id="age1" min="1" step="1" value="" class="form-control">
+              		<input type="text" name="age1" id="age1" value="" class="form-control">
                	</div>
             </div>
             <div class="form-group">
@@ -624,11 +714,13 @@ $(document).ready(function() {
                   </select>
              	</div>
             </div>
+            
        	</div>
     	<div class="modal-footer text-center">
             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-sky btn-sm" onClick="editStudents();">Save</button>
         </div>
+        </form>
     </div>
   </div>
 </div> 
