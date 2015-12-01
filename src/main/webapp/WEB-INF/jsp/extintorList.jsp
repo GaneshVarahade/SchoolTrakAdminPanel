@@ -12,6 +12,15 @@ function clearData() {
 
 $(document).ready(function() {
 	
+	var arrayList='${extintorList}';
+	if(arrayList.length==2){
+		document.getElementById("deleteButton").disabled = true;  	
+	}
+	else
+		{
+		document.getElementById("deleteButton").enabled = true;  
+		}
+	
 	
 	 
     $('#registerForm').formValidation({
@@ -251,7 +260,7 @@ function addStops(id){
                 <div class="page-header clearfix">
                     <h1 class="page-head-text pull-left">Extintor</h1>    
                     <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" onclick="clearData()" data-target="#addExtintor"><i class="fa fa-plus-circle"></i>  Add Extintor</button>                    
-                    <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
+                    <button type="submit" class="btn btn-brown btn-sm pull-right" id = "deleteButton" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>
         </div>
