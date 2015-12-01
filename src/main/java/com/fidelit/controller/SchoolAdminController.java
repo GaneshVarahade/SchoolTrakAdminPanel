@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fidelit.model.Employee;
 import com.fidelit.model.Holidays;
 import com.fidelit.model.LeavesApplied;
+import com.fidelit.model.Route;
 import com.fidelit.model.School;
 import com.fidelit.model.SchoolAdmin;
 import com.fidelit.model.SuperVisor;
@@ -33,6 +34,7 @@ import com.fidelit.service.EmployeeService;
 import com.fidelit.service.GtsService;
 import com.fidelit.service.HolidayService;
 import com.fidelit.service.LeaveService;
+import com.fidelit.service.RouteService;
 import com.fidelit.service.SchoolAdminService;
 import com.fidelit.service.SchoolService;
 import com.fidelit.service.UserService;
@@ -43,14 +45,16 @@ import com.fidelit.service.UserService;
 public class SchoolAdminController {
 	
 	@Autowired	
-	  private SchoolService schoolService;
+	private SchoolService schoolService;
 	
 	@Autowired
-		private SchoolAdminService schoolAdminService;
+	private SchoolAdminService schoolAdminService;
 	
 	@Autowired	
-	  private GtsService gtsService;
+    private GtsService gtsService;
 	
+	@Autowired
+	RouteService routeService;
 	
 	@RequestMapping(value="/home" )
 	public String userHome(ModelMap model){
@@ -96,9 +100,12 @@ public class SchoolAdminController {
 		
 		
 		SchoolAdmin currentUserr = (SchoolAdmin) session.getAttribute("currentUser");
+		List<Route> routeList = routeService.getRouteList(userName);
+		
 		String username = currentUserr.getUsername();
 		model.addAttribute("userName", username);
 		
+		model.addAttribute("routeList", routeList);
 		model.addAttribute("schoolList", schoolList);
 		model.addAttribute("studentActive", "studentActive");
 		return "studentList";

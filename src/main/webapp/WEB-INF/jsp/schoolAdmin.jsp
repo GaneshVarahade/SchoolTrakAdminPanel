@@ -72,12 +72,7 @@ function showBtn(){
 $(document).ready(function() {
     $('#example').DataTable(
 
-    		aoColumnDefs: [
-    		  	                   {
-    		  	                      bSortable: false,
-    		  	                      aTargets: [ -1 ]
-    		  	                   }
-    		  	                 ]		
+    			
     );
 } );
 

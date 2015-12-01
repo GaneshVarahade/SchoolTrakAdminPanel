@@ -2,6 +2,7 @@ package com.fidelit.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -50,7 +51,7 @@ public class SchoolAdmin implements Serializable  {
 	
 	private String accountId;
 	
-   
+    private Route route;
     
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -184,6 +185,17 @@ public class SchoolAdmin implements Serializable  {
 
 	public void setAccountId(String accountId) {
 		this.accountId = accountId;
+	}
+
+	@OneToOne(cascade = {CascadeType.MERGE})
+	@NotFound(action=NotFoundAction.IGNORE)
+	@JoinColumn(name="routId",nullable = true, insertable = true, updatable = true)
+	public Route getRoute() {
+		return route;
+	}
+
+	public void setRoute(Route route) {
+		this.route = route;
 	} 
 	
 	

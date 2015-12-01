@@ -97,16 +97,16 @@ function sendDataForRegistration(){
 	 var school=$("#schoolId").val();
 	 var username=$("#username").val();
 	 var accountType=$("#accountType").val();
+	 var routeId = $("#routeId").val();
 	 if(email != null && email != '' && username != null && username != ''){
-	 var allData = name+","+address+","+email+","+password+","+age+","+city+","+school+","+username+","+accountType;
+	 var allData = name+","+address+","+email+","+password+","+age+","+city+","+school+","+username+","+accountType+","+routeId;
 	 var formData = "accessList="+allData;
 	 $.ajax({
 		    type : "POST",
 		    url : "${pageContext.request.contextPath}/admin/addSchoolAdmin",
 		    data : formData,
 		    success : function(response) {	       
-		       alert("Student Added Successfully");
-		       location.reload();
+		       alert("Student Added");
 		    },
 		    error : function(e) {
 		    	alert("Please Enter Mandatory FIeld and UserName Should be Unique");
@@ -118,7 +118,6 @@ function sendDataForRegistration(){
 	 }
 }
 	 
-
 
 function malaDeleteKara(id){
 	if(saveKara == 0){
@@ -268,8 +267,7 @@ function password_length_registration()
        return false;  	
      }  
 }
-
-function editStudent(id,name,school,address,email,age,city,password,username,accountType){
+function editStudent(id,name,school,address,email,age,city,password,username,accountType,routeName){
 	
 	$("#studentId").val(id);
 	$("#name1").val(name);
@@ -281,6 +279,7 @@ function editStudent(id,name,school,address,email,age,city,password,username,acc
 	$("#password1").val(password);
 	$("#username1").val(username);
 	$("#accountType1").val(accountType);
+	$("#routeId").val(routeName);
 	$("#edit").modal('show');
 	
 }
@@ -297,8 +296,9 @@ function editStudents(){
 	var password=$("#password1").val();
 	var username=$("#username1").val();
 	var accountType=$("#accountType1").val();
-	
-	var allData=id+","+name+","+school+","+address+","+email+","+age+","+city+","+password+","+username+","+accountType;
+	var routeId = $("#routeEditId").val();
+	alert(routeId);
+	var allData=id+","+name+","+school+","+address+","+email+","+age+","+city+","+password+","+username+","+accountType+","+routeId;
 	var formData="list="+allData;
 	 $.ajax({
 	    type : "POST",
@@ -404,91 +404,6 @@ $(document).ready(function() {
             
         }
     });
-    
-    
-    $('#editForm').formValidation({
-    	
-        framework: 'bootstrap',
-        excluded: ':disabled',
-        icon: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-        	username1: {
-                validators: {
-                    notEmpty: {
-                        message: 'The User Name is required'
-                    }
-                }
-            },
-            accountType1: {
-                validators: {
-                    notEmpty: {
-                        message: 'The accountType is required'
-                    }
-                }
-            },
-            name1: {
-                validators: {
-                    notEmpty: {
-                        message: 'name should be required'
-                    }
-                }
-            },
-            
-            password1: {
-                validators: {
-                    notEmpty: {
-                        message: 'Please Enter Password'
-                    }
-                }
-            },
-            
-            schoolName1: {
-                validators: {
-                    notEmpty: {
-                        message: 'Please select School'
-                    }
-                }
-            },
-            
-            address1: {
-                validators: {
-                    notEmpty: {
-                        message: 'The address is required'
-                    }
-                }
-            },
-            email1: {
-                validators: {
-                    notEmpty: {
-                        message: 'Please Enter Valid Email'
-                    }
-                }
-            },
-            
-            age1: {
-                validators: {
-                    notEmpty: {
-                        message: 'Age should be a number '
-                    }
-                }
-            },
-            city1: {
-                validators: {
-                    notEmpty: {
-                    	
-                        message: 'The city is required'
-      
-                    }
-                }
-            }
-            
-            
-        }
-    });
 });
 
 </script>
@@ -521,7 +436,7 @@ $(document).ready(function() {
                     <div class="table-responsive">
                         <table id="example" class="table table-bordered table-striped table-hover">
                           <thead>
-                            <tr>
+                           <tr>
                             	<th width="3%" class="text-center no-sort"><input type="checkbox" onClick="deleteAllRow(this)"></th>
                               	<th width="10%">Name</th>
                               	<th width="10%">School Name</th>
@@ -529,7 +444,8 @@ $(document).ready(function() {
                               	<th width="18%">Email</th>
                               	<th width="10%">Age</th>
                               	<th width="10%">City</th>
-                                <th width="10%">Action</th>                          
+                              	<th width="10%">Route</th>
+                                <th width="10%">Edit</th>                          
                             </tr>
                           </thead>
                           <tbody>          
@@ -542,7 +458,8 @@ $(document).ready(function() {
                                 <td>${schoolAdmin.email}</td>
                                 <td>${schoolAdmin.age}</td>
                                 <td>${schoolAdmin.city}</td>
-                                <td><button type="button" class="btn btn-default btn-sm" onClick="editStudent('${schoolAdmin.id}','${schoolAdmin.name}','${schoolAdmin.school.schoolName}','${schoolAdmin.address}','${schoolAdmin.email}','${schoolAdmin.age}','${schoolAdmin.city}','${schoolAdmin.password}','${schoolAdmin.username}','${schoolAdmin.accountType}');"> <i class="fa fa-pencil-square-o"></i> Edit</button></td>
+                                 <td>${schoolAdmin.route.routeName}</td>
+                                <td><button type="button" class="btn btn-default btn-sm" onClick="editStudent('${schoolAdmin.id}','${schoolAdmin.name}','${schoolAdmin.school.schoolName}','${schoolAdmin.address}','${schoolAdmin.email}','${schoolAdmin.age}','${schoolAdmin.city}','${schoolAdmin.password}','${schoolAdmin.username}','${schoolAdmin.accountType}','${schoolAdmin.route.routeName}');"> <i class="fa fa-pencil-square-o"></i> Edit</button></td>
                               </tr>
     						</c:forEach>
                       	</tbody>
@@ -562,9 +479,8 @@ $(document).ready(function() {
        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Add Student</h4>
       </div>
-      <form id="registerForm" class="form-horizontal" role="form" name="registerForm">
       <div class="modal-body">
-      	
+      	<form id="registerForm" class="form-horizontal" role="form" name="registerForm">
          	<div class="form-group">
              	<label class="col-sm-3 control-label">Username</label>
                 <div class="col-sm-8">
@@ -624,18 +540,26 @@ $(document).ready(function() {
                 <div class="col-sm-8">
             		<input type="text" name="city" id="aCity" value="" class="form-control" onblur = "useHTML(this.id,document.getElementById('aCity').value)">
              	</div>
-          	</div>            
-    	
+          	</div>   
+          	<div class="form-group">
+             	<label class="col-sm-3 control-label">Route Name</label>
+                 <div class="col-sm-8">
+                  <select name="route" id="routeId" class="form-control" >
+                    <c:forEach var="route" items="${routeList}">
+                      <option value="${route.routeNo}">${route.routeName}</option>
+                    </c:forEach>
+                  </select>
+                 </div>
+            </div>            
+    	</form>
     	</div>
     	<div class="modal-footer text-center">
             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration();" data-dismiss="modal">Save</button>
         </div>
-        </form>
     </div>
   </div>
 </div>
-
 
 
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
@@ -646,7 +570,6 @@ $(document).ready(function() {
         <h4 class="modal-title">Edit Student</h4>
       </div>
       <div class="modal-body">
-      	<form id="editForm" class="form-horizontal" role="form" name="editForm">
       	<div class="form-horizontal">            
             <div class="form-group">
              	<label class="col-sm-3 control-label">Student Id</label>
@@ -695,13 +618,13 @@ $(document).ready(function() {
             <div class="form-group">
              	<label class="col-sm-3 control-label">City</label>
                 <div class="col-sm-8">
-              		<input type="text" name="city1" id="city1" value="" class="form-control">
+              		<input type="text" name="city" id="city1" value="" class="form-control">
                	</div>
             </div>
             <div class="form-group">
              	<label class="col-sm-3 control-label">Age</label>
                 <div class="col-sm-8">
-              		<input type="text" name="age1" id="age1" value="" class="form-control">
+              		<input type="text" name="city" id="age1" min="1" step="1" value="" class="form-control">
                	</div>
             </div>
             <div class="form-group">
@@ -714,13 +637,21 @@ $(document).ready(function() {
                   </select>
              	</div>
             </div>
-            
+            <div class="form-group">
+             	<label class="col-sm-3 control-label">Route Name</label>
+                 <div class="col-sm-8">
+                  <select name="route" id="routeEditId" class="form-control" >
+                    <c:forEach var="route" items="${routeList}">
+                      <option value="${route.routeNo}">${route.routeName}</option>
+                    </c:forEach>
+                  </select>
+                 </div>
+            </div> 
        	</div>
     	<div class="modal-footer text-center">
             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-sky btn-sm" onClick="editStudents();">Save</button>
         </div>
-        </form>
     </div>
   </div>
 </div> 

@@ -25,6 +25,7 @@ import com.fidelit.model.BusDriver;
 import com.fidelit.model.Employee;
 import com.fidelit.model.Holidays;
 import com.fidelit.model.LeavesApplied;
+import com.fidelit.model.Route;
 import com.fidelit.model.School;
 import com.fidelit.model.SchoolAdmin;
 import com.fidelit.model.SuperVisor;
@@ -33,6 +34,7 @@ import com.fidelit.service.EmployeeService;
 import com.fidelit.service.GtsService;
 import com.fidelit.service.HolidayService;
 import com.fidelit.service.LeaveService;
+import com.fidelit.service.RouteService;
 import com.fidelit.service.SchoolAdminService;
 import com.fidelit.service.SchoolService;
 import com.fidelit.service.UserService;
@@ -59,6 +61,9 @@ public class UserController {
 	
 	@Autowired
 	private GtsService gtsService;
+	
+	@Autowired
+	RouteService routeService;
 	
 	@RequestMapping(value="/home" )
 	public String userHome(){
@@ -308,6 +313,8 @@ public class UserController {
 		schoolAdmin.setPassword(dataList[7]);
 		schoolAdmin.setUsername(dataList[8]);
 		schoolAdmin.setAccountType(dataList[9]);
+		Route route = routeService.getRouteId(Integer.parseInt(dataList[10]));
+		schoolAdmin.setRoute(route);
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		schoolAdmin.setAccountId(userName);
 		model.addAttribute(new SchoolAdmin());

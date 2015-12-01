@@ -37,6 +37,7 @@ import com.fidelit.service.ClientService;
 import com.fidelit.service.EmployeeProjectService;
 import com.fidelit.service.EmployeeService;
 import com.fidelit.service.GtsService;
+import com.fidelit.service.RouteService;
 import com.fidelit.service.SchoolAdminService;
 import com.fidelit.service.SchoolService;
 import com.fidelit.service.HolidayService;
@@ -69,7 +70,8 @@ public class AdminController {
   @Autowired
   private SchoolAdminService schoolAdminService;
   
-  
+  @Autowired
+  RouteService routeService;
   
   @Autowired
   private GtsService gtsService;
@@ -265,6 +267,8 @@ public String addClient(HttpServletRequest request,HttpServletResponse response,
 	}else if(dataList[8].equalsIgnoreCase("Admin")){
 		schoolAdmin.setRole("ROLE_ADMIN");
 	}
+	Route route = routeService.getRouteId(Integer.parseInt(dataList[9]));
+	schoolAdmin.setRoute(route);
 	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 	schoolAdmin.setAccountId(userName);
 	schoolAdminService.addSchoolAdmin(schoolAdmin);
