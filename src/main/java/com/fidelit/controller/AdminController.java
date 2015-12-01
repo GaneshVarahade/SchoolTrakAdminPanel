@@ -103,8 +103,8 @@ public class AdminController {
   }
   
 @RequestMapping("/home")
-public String adminHome(){
-	
+public String adminHome(ModelMap model){
+	model.addAttribute("homeActive", "homeActive");
 	return "admin_home";
 }
 @RequestMapping(value = "/employeeManagement")

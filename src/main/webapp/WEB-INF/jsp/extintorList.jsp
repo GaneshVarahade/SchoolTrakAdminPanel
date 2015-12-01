@@ -5,7 +5,15 @@
 <script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
 <script type="text/javascript">
 
+function clearData() {
+	 $('input').val('');
+	 $('select').val('');
+}
+
 $(document).ready(function() {
+	
+	
+	 
     $('#registerForm').formValidation({
         framework: 'bootstrap',
         excluded: ':disabled',
@@ -111,6 +119,26 @@ function showBtn(){
 $(document).ready(function() {
     $('#routeDataTable').DataTable();
 } );
+
+function useHTML(id,data){
+	alert(id);
+	alert(data);
+	 var id = "#" + id;
+	var text = "";
+	for (i = 0; i < data.length; i++) { 
+		if(data[i] == "<"){
+  	text += "<<span>";
+		}else if(data[i] == ">"){
+			text += "</span>>";
+		}
+		else{
+			text += data[i];
+		}
+	}
+	alert(text);
+	 $(id).val(text);
+}
+
 
 
 function edit(id){
@@ -222,7 +250,7 @@ function addStops(id){
             <div class="fixed-page-header">
                 <div class="page-header clearfix">
                     <h1 class="page-head-text pull-left">Extintor</h1>    
-                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addExtintor"><i class="fa fa-plus-circle"></i>  Add Extintor</button>                    
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" onclick="clearData()" data-target="#addExtintor"><i class="fa fa-plus-circle"></i>  Add Extintor</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>
@@ -246,10 +274,10 @@ function addStops(id){
                           <thead>
                             <tr>
                             	<th width="2%" class="text-center no-sort"><input type="checkbox" onClick="deleteAllRow(this)"></th>
-                                <th width="10%">Extintor Type</th>
+                                <th width="20%">Extintor Type</th>
                                 <th width="20%">Status</th>
                                 <th width="20%">Bus Number</th>
-                                <th width="30%">Action</th>
+                                <th width="20%">Action</th>
                             </tr>
                           </thead>
                             <tbody>
@@ -298,7 +326,7 @@ function addStops(id){
 			  	<div class="form-group">
 					<label class="col-sm-3 control-label">* Extintor TYPE :</label>
                     <div class="col-sm-8">
-						<input type="text" name="type1" id="type" class="form-control">
+						<input type="text" name="type1" id="type" maxlength="50" class="form-control" onblur = "useHTML(this.id,document.getElementById('type').value)">
                   	</div>
 				</div>
 				
@@ -343,12 +371,12 @@ function addStops(id){
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Add Extintor</h4>
           </div>            
-          	<form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/extintor/extintorList" commandName="extintor">
+          	<form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/extintor/addExtintor" commandName="extintor">
           	<div class="modal-body"> 
                 <div class="form-group">
                     <form:label path="type" class="col-sm-3 control-label">* Extintor Type</form:label>
                     <div class="col-sm-8">
-                    	<form:input path="type" id="type" value="" class="form-control" />
+                    	<form:input path="type" id="type1" value="" maxlength="50" class="form-control" onblur = "useHTML(this.id,document.getElementById('type1').value)"/>
                    	</div>
                 </div>
     
@@ -356,6 +384,7 @@ function addStops(id){
                     <form:label path="status" class="col-sm-3 control-label">* Status</form:label>
                     <div class="col-sm-8">
                         <form:select path="status" id="status" class="form-control">
+                        	  
                             <form:option value="0">ON</form:option>
                             <form:option value="1">OFF</form:option>
                         </form:select>

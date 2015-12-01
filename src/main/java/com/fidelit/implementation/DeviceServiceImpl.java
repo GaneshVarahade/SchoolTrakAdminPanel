@@ -43,7 +43,7 @@ public class DeviceServiceImpl implements DeviceService{
 
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)  
 	@Override
-	public void addDevice(Device device) {
+	public void addOrUpdateDevice(Device device) {
 		Session session = sessionFactory.getCurrentSession();
 		session.saveOrUpdate(device);
 	}
@@ -63,6 +63,30 @@ public class DeviceServiceImpl implements DeviceService{
 				e.printStackTrace();
 			}
 		
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)  
+	@Override
+	public List<Device> getDeviceListByUsername(String userName) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Device where accountID = :accountID and isDeviceUsed = :isDeviceUsed";
+		Query query = session.createQuery(hql);
+		query.setString("accountID", userName);
+		query.setBoolean("isDeviceUsed", false);
+		List<Device> deviceList  = query.list();
+		return deviceList;
+		
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)  
+	@Override
+	public Device getDeviceByUniqueId(String uniqueID) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Device where uniqueID = :uniqueID";
+		Query query = session.createQuery(hql);
+		query.setString("uniqueID", uniqueID);
+		Device device  = (Device) query.uniqueResult();
+		return device;
 	}
 		
 

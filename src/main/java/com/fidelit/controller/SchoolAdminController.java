@@ -53,7 +53,9 @@ public class SchoolAdminController {
 	
 	
 	@RequestMapping(value="/home" )
-	public String userHome(){
+	public String userHome(ModelMap model){
+		
+		model.addAttribute("homeActive", "homeActive");
 		return "schoolAdminHome";
 	}
 	

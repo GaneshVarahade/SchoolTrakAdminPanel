@@ -157,6 +157,7 @@ public class Device implements Serializable{
 	private Integer storageExpiration;
 	private Integer vehicleYear;
 	private String activeCorridor;
+	private Boolean isDeviceUsed = false;
 	
 	@Id
 	public String getUniqueID() {
@@ -1043,6 +1044,12 @@ public class Device implements Serializable{
 	}
 	public void setActiveCorridor(String activeCorridor) {
 		this.activeCorridor = activeCorridor;
+	}
+	public Boolean getIsDeviceUsed() {
+		return isDeviceUsed;
+	}
+	public void setIsDeviceUsed(Boolean isDeviceUsed) {
+		this.isDeviceUsed = isDeviceUsed;
 	}
 	
 	

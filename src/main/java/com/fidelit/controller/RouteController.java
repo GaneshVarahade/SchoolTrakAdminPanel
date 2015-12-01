@@ -19,11 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fidelit.model.Bus;
 import com.fidelit.model.BusDriver;
+import com.fidelit.model.Device;
 import com.fidelit.model.Route;
 import com.fidelit.model.SchoolAdmin;
 import com.fidelit.model.Stop;
 import com.fidelit.service.BusDriverService;
 import com.fidelit.service.BusService;
+import com.fidelit.service.DeviceService;
 import com.fidelit.service.ExtinctorService;
 import com.fidelit.service.GtsService;
 import com.fidelit.service.RouteService;
@@ -50,6 +52,9 @@ GtsService gtsService;
 
 @Autowired
 ExtinctorService extinctorService;
+
+@Autowired
+DeviceService deviceService;
 
 
 	
@@ -466,9 +471,12 @@ ExtinctorService extinctorService;
 		HttpSession session = request.getSession();
 		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
 		String username = currentUser.getUsername();
-		model.addAttribute("userName", username);
 		
+		List<Device> deviceList = deviceService.getDeviceListByUsername(username);
+	  
+		model.addAttribute("userName", username);
 		model.addAttribute("busList", busList);
+		model.addAttribute("deviceList",deviceList);
 		model.addAttribute(new Bus());
 		return "busList";
 		
@@ -486,16 +494,19 @@ ExtinctorService extinctorService;
 	
 	@RequestMapping(value="addBus",method = RequestMethod.POST)
 	public String addBus(@ModelAttribute("bus") Bus bus,HttpServletRequest request,HttpServletResponse response,ModelMap model){
-		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-		bus.setAccountId(userName);
-		busService.addBus(bus);
-		List<Bus> busList = busService.allBusList(userName);
-		
 		HttpSession session = request.getSession();
 		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
-		String username = currentUser.getUsername();
-		model.addAttribute("userName", username);
-		
+		String userName = currentUser.getUsername();
+		Device device = deviceService.getDeviceByUniqueId(bus.getDevice().getUniqueID());
+		device.setIsDeviceUsed(true);
+		bus.setAccountId(userName);
+		bus.setDevice(device);
+		deviceService.addOrUpdateDevice(device);
+		busService.addBus(bus);
+		List<Bus> busList = busService.allBusList(userName);
+		List<Device> deviceList = deviceService.getDeviceListByUsername(userName);
+		model.addAttribute("deviceList",deviceList);
+		model.addAttribute("userName", userName);
 		model.addAttribute("busList",busList);
 		model.addAttribute(new Bus());
 		return "busList";
@@ -509,17 +520,24 @@ ExtinctorService extinctorService;
 		for (int i = 0; i < str1.length; i++) {
 			int id = Integer.parseInt(str1[i]);
 			routeService.deleteBusInRoute(id);
+			Bus bus =busService.getBusId(id);
+			Device device = bus.getDevice();
+			device.setIsDeviceUsed(false);
+			deviceService.addOrUpdateDevice(device);
 			extinctorService.deleteBusInExtinctor(id);
 			busService.deleteBus(id);
 		}
+		
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<Bus> busList= busService.allBusList(userName);
 		
 		HttpSession session = request.getSession();
 		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
 		String username = currentUser.getUsername();
-		model.addAttribute("userName", username);
+		List<Device> deviceList = deviceService.getDeviceListByUsername(userName);
+		model.addAttribute("deviceList",deviceList);
 		
+		model.addAttribute("userName", username);
 		model.addAttribute("busList", busList);
 		model.addAttribute(new Bus());
 		return "busList";
@@ -533,12 +551,16 @@ ExtinctorService extinctorService;
 		Bus bus = new Bus();
 		Integer busId=Integer.parseInt(dataList[0]);
 		Integer capacity=Integer.parseInt(dataList[3]);
+		String uniqueId = dataList[4];
 		bus.setBusId(busId);
 		bus.setCapacity(capacity);
 		bus.setRegNumber(dataList[1]);
 		bus.setBusType(dataList[2]);
 		bus.setAccountId(userName);
 		
+		Device device = deviceService.getDeviceByUniqueId(uniqueId);
+		bus.setDevice(device);
+		device.setIsDeviceUsed(true);
 		HttpSession session = request.getSession();
 		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
 		String username = currentUser.getUsername();

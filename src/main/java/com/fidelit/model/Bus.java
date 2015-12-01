@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -15,11 +16,12 @@ import javax.persistence.Table;
 public class Bus {
 	
 	Integer busId;
-	String regNumber;
-	String busType;
+	String  regNumber;
+	String  busType;
 	Integer capacity;
 	Route   route;
-	String accountId;
+	String  accountId;
+	Device  device;
 	
 
 	@Id
@@ -76,6 +78,16 @@ public class Bus {
 
 	public void setAccountId(String accountId) {
 		this.accountId = accountId;
+	}
+
+	@OneToOne(fetch=FetchType.EAGER, cascade = {CascadeType.MERGE})
+	@JoinColumn(name="deviceUniqueId")
+	public Device getDevice() {
+		return device;
+	}
+
+	public void setDevice(Device device) {
+		this.device = device;
 	}
 	
 	

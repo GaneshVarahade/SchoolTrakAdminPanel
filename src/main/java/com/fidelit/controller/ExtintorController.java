@@ -55,6 +55,7 @@ public class ExtintorController {
 	
 	@RequestMapping(value="addExtintor",method = RequestMethod.POST)
 	public String addExtintor(@ModelAttribute("extintor") Extintor extintor,HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		System.out.println("IN extintor");
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<Bus> busList=busService.allBusList(userName);
 		String busNumber=extintor.getBus().getRegNumber();

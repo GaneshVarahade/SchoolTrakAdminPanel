@@ -46,18 +46,17 @@ public class DeviceController {
 	
 	@RequestMapping(value="/addDevice")
 	String addDevice(@ModelAttribute("device") Device device,HttpServletRequest request,HttpServletResponse response,ModelMap model){
-		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+    	String userName = currentUser.getUsername();
+    	
 		device.setAccountID(userName);
-		deviceService.addDevice(device);
+		deviceService.addOrUpdateDevice(device);
 		gtsService.addDeviceInGts(device);
         List<Device> deviceList = deviceService.getAllDeviceByUsername(userName);
 		
-        HttpSession session = request.getSession();
-    	SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
-    	String username = currentUser.getUsername();
-    	model.addAttribute("userName", username);
-    	
-        
+    	model.addAttribute("userName", userName);
         model.addAttribute("deviceList",deviceList);
 		model.addAttribute("device",new Device());
 		return "device";
@@ -67,7 +66,7 @@ public class DeviceController {
 	String updateDevice(@ModelAttribute("device") Device device,HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		device.setAccountID(userName);
-		deviceService.addDevice(device);
+		deviceService.addOrUpdateDevice(device);
 		gtsService.updateDeviceInGts(device);
         List<Device> deviceList = deviceService.getAllDeviceByUsername(userName);
 		
