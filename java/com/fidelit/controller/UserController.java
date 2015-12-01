@@ -306,31 +306,6 @@ public class UserController {
 		schoolAdminService.updateSchool(schoolAdmin);
 		return "Ok";
 	}
-
-
-	@ResponseBody
-	@RequestMapping(value="/editParent",method = RequestMethod.POST)
-	public String editParent(HttpServletRequest request,HttpServletResponse response,ModelMap model){
-		String list = request.getParameter("list");
-		String [] dataList = list.split(",");
-		SchoolAdmin schoolAdmin = new SchoolAdmin();
-		School school =schoolService.getSchool(dataList[2]);
-		Integer parentId=Integer.parseInt(dataList[0]);
-		Integer age=Integer.parseInt(dataList[5]);
-		schoolAdmin.setId(parentId);
-		schoolAdmin.setName(dataList[1]);
-		schoolAdmin.setSchool(school);
-		schoolAdmin.setAddress(dataList[3]);
-		schoolAdmin.setEmail(dataList[4]);
-		schoolAdmin.setAge(age);
-		schoolAdmin.setCity(dataList[6]);
-		schoolAdmin.setPassword(dataList[7]);
-		schoolAdmin.setUsername(dataList[8]);
-		schoolAdmin.setAccountType(dataList[9]);
-		model.addAttribute(new SchoolAdmin());
-		schoolAdminService.updateSchool(schoolAdmin);
-		return "Ok";
-	}
-
+	
 	
 }

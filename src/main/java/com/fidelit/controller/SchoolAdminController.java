@@ -64,7 +64,30 @@ public class SchoolAdminController {
 	}
 	
 	@RequestMapping(value="/parentList")
-	public String allParentList(HttpServletRequest request,ModelMap model){
+	public String allParentList(@ModelAttribute("schoolAdmin") SchoolAdmin schoolAdmin,HttpServletRequest request,HttpServletResponse response,ModelMap model) throws ParseException{
+		
+		
+		
+		String action="action";
+		if(request.getParameter("action")!=null){
+			action=request.getParameter("action");
+		}
+		System.out.println("Action:"+action);
+		if(action.equals("add")){
+			
+			System.out.println("Add Controller");
+			 schoolAdmin.setRole("ROLE_PARENT");
+				School school=schoolService.getSchool(schoolAdmin.getSchool().getSchoolName());
+				schoolAdmin.setEnabled(true);
+				gtsService.addAccountInGts(schoolAdmin.getUsername(),schoolAdmin.getPassword(),schoolAdmin.getAccountType());
+				
+				String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+				schoolAdmin.setAccountId(userName);
+				schoolAdmin.setSchool(school);
+				schoolAdmin.setAccountType("Parent");
+				schoolAdminService.addSchoolAdmin(schoolAdmin);
+				model.addAttribute(new SchoolAdmin());
+		}
 		
 		HttpSession session = request.getSession();
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -167,5 +190,34 @@ public class SchoolAdminController {
 		return "studentList";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/editParent",method = RequestMethod.POST)
+	public String editParent(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		String list = request.getParameter("list");
+		String [] dataList = list.split(",");
+		SchoolAdmin schoolAdmin = new SchoolAdmin();
+		School school =schoolService.getSchool(dataList[2]);
+		Integer parentId=Integer.parseInt(dataList[0]);
+		Integer age=Integer.parseInt(dataList[5]);
+		schoolAdmin.setId(parentId);
+		schoolAdmin.setName(dataList[1]);
+		schoolAdmin.setSchool(school);
+		schoolAdmin.setAddress(dataList[3]);
+		schoolAdmin.setEmail(dataList[4]);
+		schoolAdmin.setAge(age);
+		schoolAdmin.setCity(dataList[6]);
+		schoolAdmin.setPassword(dataList[7]);
+		schoolAdmin.setUsername(dataList[8]);
+		schoolAdmin.setAccountType("Parent");
+		model.addAttribute(new SchoolAdmin());
+		schoolAdmin.setRole("ROLE_PARENT");
+		schoolAdmin.setEnabled(true);
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		schoolAdmin.setAccountId(userName);
+		schoolAdmin.setSchool(school);
+		schoolAdminService.updateSchoolAdmin(schoolAdmin);
+		return "parentList";
+	}
+
 	
 }

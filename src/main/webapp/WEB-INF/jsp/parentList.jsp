@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -325,7 +326,7 @@ function editParents(){
 	var formData="list="+allData;
 	 $.ajax({
 	    type : "POST",
-	    url : "${pageContext.request.contextPath}/user/editParent",
+	    url : "${pageContext.request.contextPath}/schoolAdmin/editParent",
 	    data : formData,
 	    success : function(response) {	 
 	    	 $("#edit").modal('hide');
@@ -355,7 +356,7 @@ function emailValidateRegistration()
 
 $(document).ready(function() {
 	
-    $('#registerForm').formValidation({
+    $('#frm').formValidation({
     	
         framework: 'bootstrap',
         excluded: ':disabled',
@@ -395,7 +396,7 @@ $(document).ready(function() {
                 }
             },
             
-            schoolName: {
+            'school.schoolName': {
                 validators: {
                     notEmpty: {
                         message: 'Please select School'
@@ -438,6 +439,92 @@ $(document).ready(function() {
             
         }
     });
+    
+ $('#editForm').formValidation({
+    	
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	username1: {
+                validators: {
+                    notEmpty: {
+                        message: 'The User Name is required'
+                    }
+                }
+            },
+            accountType: {
+                validators: {
+                    notEmpty: {
+                        message: 'The accountType is required'
+                    }
+                }
+            },
+            name1: {
+                validators: {
+                    notEmpty: {
+                        message: 'name should be required'
+                    }
+                }
+            },
+            
+            password1: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please Enter Password'
+                    }
+                }
+            },
+            
+            school: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select School'
+                    }
+                }
+            },
+            
+            address1: {
+                validators: {
+                    notEmpty: {
+                        message: 'The address is required'
+                    }
+                }
+            },
+            email1: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please Enter Valid Email'
+                    }
+                }
+            },
+            
+            age1: {
+                validators: {
+                    notEmpty: {
+                        message: 'Age should be a number '
+                    }
+                }
+            },
+            city: {
+                validators: {
+                    notEmpty: {
+                    	
+                        message: 'The city is required'
+      
+                    }
+                }
+            }
+            
+            
+        }
+    });
+    
+    
 });
 
 </script>
@@ -508,96 +595,99 @@ $(document).ready(function() {
 <div class="modal fade" id="forClientRegistration" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
     <div class="modal-dialog">
     	<!-- Modal content-->
-        <div class="modal-content">
+      
+            
+             <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add Parent</h4>
+                <h4 class="modal-title">Parent Details</h4>
             </div>
             <div class="modal-body">
-                <form id="registerForm"  class="form-horizontal" role="form" name="registerForm">
-                    			
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Username</label>
-                        <div class="col-sm-8">
-                        	<input type="text" name="username" id="username" value="" class="form-control" onblur = "checkUniqueUsername()">
-                      	</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Account Type</label>
-                        <div class="col-sm-8">
-                            <select name="accountType" id="accountType" class="form-control" >                            
-                            	<option value="Parent">Parent</option>                            
-                            </select>
-                      	</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Parent Name</label>
-                        <div class="col-sm-8">
-                        	<input type="text" name="name" id="aName" value="" class="form-control">
-                      	</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Parent Password</label>
-                        <div class="col-sm-8">
-                       		<input type="text" name="password" id="aPassword" value="" class="form-control">
-                       	</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">School Name</label>
-                        <div class="col-sm-8">
-                            <select name="schoolName" id="schoolId" class="form-control" >                        
-                                <c:forEach var="school" items="${schoolList}">
-                                    <option value="${school.schoolName}">${school.schoolName}</option>
-                                </c:forEach>
-                            </select>
-                      	</div>
-                  	</div>
-                            
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Address</label>
-                        <div class="col-sm-8">
-                        	<input type="text" name="address" id="aAddress" value="" class="form-control">
-                      	</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Email</label>
-                        <div class="col-sm-8">
-                        	<input type="email" name="email" id="aEmail" value="" class="form-control" onblur="emailValidateRegistration();">
-                      	</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Age</label>
-                        <div class="col-sm-8">
-                        	<input type="number" name="age" min="1" step="1" id="aAge" value="" class="form-control" >
-                       	</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">City</label>
-                        <div class="col-sm-8">
-                        	<input type="text" name="city" id="aCity" value="" class="form-control">
-                      	</div>
-                    </div>
-              	</form>
-                </div>
+                <form:form id="frm" class="form-horizontal" method="POST" name="frm" action="${pageContext.request.contextPath}/schoolAdmin/parentList" commandName="schoolAdmin">
                 
-                <div class="modal-footer text-center">
-                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration()" >Save</button>
-                </div>
-            </div>
+                <input type="hidden" name="action" value="add">
+                <div class="form-group">
+                        <form:label path="name" class="col-sm-3 control-label">Admin Name &#42;</form:label>
+                        <div class="col-sm-8">
+                        	<form:input path="name" type="text" id="aName" value="" class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('aName').value)"/>
+                        </div>
+                   	</div>
+              
+               
+                    
+                     
+                    <div class="form-group">
+                       	<form:label path="username" class="col-sm-3 control-label">Username &#42;</form:label>
+                        <div class="col-sm-8">
+                            <form:input type="text" path="username" id="username" value="" class="form-control" maxlength="10" onblur = "checkUniqueUsername(); useHTML(this.id,document.getElementById('username').value);" />
+                      	</div>
+                    </div>
+                  	
+                  	<div class="form-group">
+                        <form:label path="password" class="col-sm-3 control-label">Admin Password &#42;</form:label>
+                        <div class="col-sm-8">
+                        	<form:input type="text" path="password" id="aPassword" value="" class="form-control" maxlength="10" onblur = "useHTML(this.id,document.getElementById('aPassword').value)"/>
+                        </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <form:label path="school.schoolName" class="col-sm-3 control-label">School Name &#42;</form:label>
+                        <div class="col-sm-8">
+                        	<form:select path="school.schoolName" id="schoolId" class="form-control" >
+                        		<form:option value="">Select</form:option>
+                            	<c:forEach var="school" items="${schoolList}">
+                               	<form:option value="${school.schoolName}">${school.schoolName}</form:option>
+                        		</c:forEach>
+                        	</form:select>
+                       </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <form:label path="address" class="col-sm-3 control-label">Address &#42;</form:label>
+                        <div class="col-sm-8">
+                            <form:input  path="address" type="text" id="aAddress" value="" class="form-control" maxlength="80" onblur = "useHTML(this.id,document.getElementById('aAddress').value)"/>
+                        </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <form:label path="email" class="col-sm-3 control-label">Email &#42;</form:label>
+                        <div class="col-sm-8">
+                            <form:input path="email" type="email" id="aEmail" value="" class="form-control" onblur="emailValidateRegistration();" maxlength="30" />
+                        </div>
+                   	</div>
+                    
+                  	<div class="form-group">
+                        <form:label path="age" class="col-sm-3 control-label">Age &#42;</form:label>
+                        <div class="col-sm-8">
+                        	<form:input path="age" type="number" min="1" step="1"  id="aAge" value="" class="form-control" />
+                        </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <form:label path="city" class="col-sm-3 control-label">City &#42;</form:label>
+                        <div class="col-sm-8">
+                        	<form:input path="city" type="text"  id="aCity" value="" class="form-control" maxlength="40" onblur = "useHTML(this.id,document.getElementById('aCity').value)"/>
+                        </div>
+                    </div>
+                    
+                   
+            		<div class="modal-footer text-center">
+                    	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                    	<button type="submit" class="btn btn-sky btn-sm" >Save</button>
+                	</div> 
+                </form:form>               
+			</div>
+       		</div>
+            
+            
+            
         </div>
     </div>
     
     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       	<div class="modal-dialog">
 			<div class="modal-content">
+			<form id="editForm">
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Edit </h4>
@@ -606,19 +696,19 @@ $(document).ready(function() {
 			  
 			  <div class="form-group">
                  <label class="col-sm-3 control-label">Parent Id</label>
-               	<div class="col-sm-8">
-					<input type="text" name="id" id="parentId" value="" class="form-control" readonly>
+               		<div class="col-sm-8">
+						<input type="text" name="id" id="parentId" value="" class="form-control" readonly>
                  </div>
 			  </div>
 			  
-			  <div class="form-group">
+			 <!--  <div class="form-group">
                 <label class="col-sm-3 control-label">Account Type</label>
                 <div class="col-sm-8">
 					<select name="accountType1" id="accountType1" class="form-control" >
 						<option value="Parent">Parent</option>
 					</select>
                  </div>
-			  </div>
+			  </div> -->
 			  
 			  <div class="form-group">
                 	<label class="col-sm-3 control-label">Username</label>
@@ -628,7 +718,7 @@ $(document).ready(function() {
 			  </div>
 			  
 			  <div class="form-group">
-                <label class="col-sm-3 control-label">Passoword</label>
+                <label class="col-sm-3 control-label">Password</label>
                 <div class="col-sm-8">
 					<input type="text" name="password1" id="password1" value="" class="form-control">
                	</div>
@@ -685,6 +775,7 @@ $(document).ready(function() {
                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>                    
                     <button type="submit" class="btn btn-sky btn-sm" onClick="editParents();" data-dismiss="modal">Save</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
