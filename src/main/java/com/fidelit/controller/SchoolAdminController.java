@@ -80,6 +80,7 @@ public class SchoolAdminController {
 		model.addAttribute("userName", username);
 		
 		model.addAttribute("schoolList", schoolList);
+		model.addAttribute("parentActive", "parentActive");
 		return "parentList";
 	}
 	
@@ -99,6 +100,7 @@ public class SchoolAdminController {
 		model.addAttribute("userName", username);
 		
 		model.addAttribute("schoolList", schoolList);
+		model.addAttribute("studentActive", "studentActive");
 		return "studentList";
 	}
 	
@@ -126,6 +128,7 @@ public class SchoolAdminController {
 		model.addAttribute("userName", username);
 	    
 	    model.addAttribute("schoolAdminList", schoolAdminList);
+		model.addAttribute("parentActive", "parentActive");
 		return "parentList";
 	}
 
@@ -153,6 +156,7 @@ public class SchoolAdminController {
 		model.addAttribute("userName", username);
 	    
 	    model.addAttribute("schoolAdminList", schoolAdminList);
+	    model.addAttribute("studentActive", "studentActive");
 		return "studentList";
 	}
 	

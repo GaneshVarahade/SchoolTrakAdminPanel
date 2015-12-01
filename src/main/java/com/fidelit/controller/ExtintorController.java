@@ -50,6 +50,7 @@ public class ExtintorController {
 		model.addAttribute("extintorList",extintorList);
 		model.addAttribute("busList",busList);
 		model.addAttribute(new Extintor());
+		model.addAttribute("extintorActive","extintorActive");
 		return "extintorList";
 	}
 	
@@ -73,6 +74,7 @@ public class ExtintorController {
 		
 		model.addAttribute("extintorList",extintorList);
 		model.addAttribute("busList",busList);
+		model.addAttribute("extintorActive","extintorActive");
 		return "extintorList";
 	}
 	
@@ -108,7 +110,7 @@ public class ExtintorController {
 		String username = currentUser.getUsername();
 		model.addAttribute("userName", username);
 		
-		
+		model.addAttribute("extintorActive","extintorActive");
 		return "stopMap";
 	}
 	
@@ -134,6 +136,7 @@ public class ExtintorController {
 	    
 	    model.addAttribute("extintorList", extintorList);
 		model.addAttribute(new Extintor());
+		model.addAttribute("extintorActive","extintorActive");
 		return "extintorList";
 	}
 	

@@ -41,6 +41,7 @@ public class DeviceController {
 		
 		model.addAttribute("deviceList",deviceList);
 		model.addAttribute("device",new Device());
+		model.addAttribute("deviceActive", "deviceActive");
 		return "device";
 	}
 	
@@ -59,6 +60,7 @@ public class DeviceController {
     	model.addAttribute("userName", userName);
         model.addAttribute("deviceList",deviceList);
 		model.addAttribute("device",new Device());
+		model.addAttribute("deviceActive", "deviceActive");
 		return "device";
 	}
 	
@@ -77,6 +79,7 @@ public class DeviceController {
     	
         model.addAttribute("deviceList",deviceList);
 		model.addAttribute("device",new Device());
+		model.addAttribute("deviceActive", "deviceActive");
 		return "device";
 	}
 	
@@ -101,6 +104,7 @@ public class DeviceController {
         
         model.addAttribute("deviceList",deviceList);
 		model.addAttribute("device",new Device());
+		model.addAttribute("deviceActive", "deviceActive");
 		return "device";
 	}
 	

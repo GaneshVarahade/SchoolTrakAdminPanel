@@ -60,6 +60,7 @@ public class NewsletterController {
 		model.addAttribute("userName", username);
 		model.addAttribute("newsletterList",newsletterList);
 		model.addAttribute(new Newsletter());
+		model.addAttribute("newsSletterActive","newsSletterActive");
 		return "newsletterList";
 	}
 	
@@ -107,6 +108,7 @@ public class NewsletterController {
 	    
 	    model.addAttribute("newsletterList", newsletterList);
 		model.addAttribute(new Newsletter());
+		model.addAttribute("newsSletterActive","newsSletterActive");
 		return "newsletterList";
 	}
 	

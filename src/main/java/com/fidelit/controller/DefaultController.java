@@ -67,6 +67,9 @@ public String defaultUrl(ModelMap model,HttpServletRequest req,SecurityContextHo
 	}else{
 		url = "schoolAdminHome";
 	}
+	
+	 model.addAttribute("homeActive", "homeActive");
+	
 	return url;	
 }
 }

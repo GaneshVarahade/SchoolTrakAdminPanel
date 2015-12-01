@@ -120,6 +120,7 @@ DeviceService deviceService;
 		model.addAttribute("stopList", stopList);
 		model.addAttribute("routeId", routeId);
 		model.addAttribute("coordinateList", coordinateList);
+		model.addAttribute("routesActive", "routesActive");
 		return "stopMap";
 	}
 	
@@ -257,6 +258,7 @@ DeviceService deviceService;
 		model.addAttribute("busList",busList);
 		model.addAttribute("busDriverList",busDriverList);
 		model.addAttribute(new Route());
+		model.addAttribute("routesActive", "routesActive");
 		return "routeMap";
 	}
 
@@ -294,6 +296,7 @@ DeviceService deviceService;
 		model.addAttribute("routeList",routes);
 		model.addAttribute("busList",busList);
 		model.addAttribute("busDriverList",busDriverList);
+		model.addAttribute("routesActive", "routesActive");
 		return "routeMap";
 	}
 	
@@ -399,6 +402,7 @@ DeviceService deviceService;
 		model.addAttribute("busList",busList);
 		model.addAttribute("busDriverList",busDriverList);
 		model.addAttribute(new Route());
+		model.addAttribute("routesActive", "routesActive");
 		return "routeMap";
 	}
 
@@ -430,7 +434,7 @@ DeviceService deviceService;
 		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
 		String username = currentUser.getUsername();
 		model.addAttribute("userName", username);
-		
+		model.addAttribute("routesActive", "routesActive");
 		return "stopMap";
 	}
 	
@@ -459,6 +463,7 @@ DeviceService deviceService;
 	    
 	    model.addAttribute("routeList", routeList);
 		model.addAttribute(new Route());
+		model.addAttribute("routesActive", "routesActive");
 		return "routeMap";
 	}
 	
@@ -478,6 +483,7 @@ DeviceService deviceService;
 		model.addAttribute("busList", busList);
 		model.addAttribute("deviceList",deviceList);
 		model.addAttribute(new Bus());
+		model.addAttribute("vehicleActive","vehicleActive");
 		return "busList";
 		
 	}
@@ -509,6 +515,7 @@ DeviceService deviceService;
 		model.addAttribute("userName", userName);
 		model.addAttribute("busList",busList);
 		model.addAttribute(new Bus());
+		model.addAttribute("vehicleActive","vehicleActive");
 		return "busList";
 	}
 	
@@ -540,6 +547,7 @@ DeviceService deviceService;
 		model.addAttribute("userName", username);
 		model.addAttribute("busList", busList);
 		model.addAttribute(new Bus());
+		model.addAttribute("vehicleActive","vehicleActive");
 		return "busList";
 	}
 	
@@ -568,6 +576,7 @@ DeviceService deviceService;
 		
 		model.addAttribute(new Bus());
 		busService.updateBus(bus);
+		model.addAttribute("vehicleActive","vehicleActive");
 		return "busList";
 	}
 	
@@ -584,6 +593,7 @@ DeviceService deviceService;
 		
 		model.addAttribute("busDriverList", busDriverList);
 		model.addAttribute(new BusDriver());
+		model.addAttribute("driverActive", "driverActive");
 		return "driverList";
 		
 	}
@@ -602,6 +612,7 @@ DeviceService deviceService;
 		
 		model.addAttribute("busDriverList",busDriverList);
 		model.addAttribute(new BusDriver());
+		model.addAttribute("driverActive", "driverActive");
 		return "driverList";
 	}
 	
@@ -629,6 +640,7 @@ DeviceService deviceService;
 		
 		model.addAttribute(new BusDriver());
 		busDriverService.updateBusDriver(busDriver);
+		model.addAttribute("driverActive", "driverActive");
 		return "driverList";
 	}
 	
@@ -652,6 +664,7 @@ DeviceService deviceService;
 	    
 	    model.addAttribute("busDriverList", busDriverList);
 		model.addAttribute(new BusDriver());
+		model.addAttribute("driverActive", "driverActive");
 		return "driverList";
 	}
 
