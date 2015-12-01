@@ -59,7 +59,7 @@
                         <table id="routeDataTable" class="table table-bordered table-striped table-hover">
                           <thead>
                             <tr>
-                            	<th width="10%" class="text-center no-sort"><input type="checkbox" onClick="deleteAllRow(this)"></th>
+                            	<th width="2%" class="text-center no-sort"><input type="checkbox" onClick="deleteAllRow(this)"></th>
                                 <th width="20%">Device Id</th>
                                 <th width="20%">Unique Id</th>
                                 <th width="10%">Status</th>

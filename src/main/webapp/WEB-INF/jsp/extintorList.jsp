@@ -11,6 +11,20 @@ function clearData() {
 }
 
 $(document).ready(function() {
+
+
+    $('#routeDataTable').dataTable( {
+        "aaSorting": [[1,'asc']],
+         aoColumnDefs: [
+                   {
+                      bSortable: false,
+                      aTargets: [ -1 ]
+                   }
+                 ]
+      } );
+} ); 
+
+$(document).ready(function() {
 	
 	var arrayList='${extintorList}';
 	if(arrayList.length==2){
@@ -130,8 +144,6 @@ $(document).ready(function() {
 } );
 
 function useHTML(id,data){
-	alert(id);
-	alert(data);
 	 var id = "#" + id;
 	var text = "";
 	for (i = 0; i < data.length; i++) { 
@@ -144,7 +156,6 @@ function useHTML(id,data){
 			text += data[i];
 		}
 	}
-	alert(text);
 	 $(id).val(text);
 }
 

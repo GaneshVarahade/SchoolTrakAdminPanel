@@ -266,7 +266,7 @@ function addStops(id){
 							class="table table-bordered table-striped table-hover">
 							<thead>
 								<tr>
-									<th width="5%" class="text-center no-sort"><input
+									<th width="2%" class="text-center no-sort"><input
 										type="checkbox" onClick="deleteAllRow(this)"></th>
 									<th width="25%">Vehicle Number</th>
 									<th width="25%">Vehicle Type</th>

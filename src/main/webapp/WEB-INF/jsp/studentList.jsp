@@ -29,7 +29,15 @@ function showBtn(){
 <script type="text/javascript">
 
 $(document).ready(function() {
-    $('#example').DataTable();
+    
+    $('#example').dataTable( {
+    	 aoColumnDefs: [
+    	                   {
+    	                      bSortable: false,
+    	                      aTargets: [ -1 ]
+    	                   }
+    	                 ]
+      } );
 });
 
 
@@ -521,7 +529,7 @@ $(document).ready(function() {
           	<div class="form-group">
              	<label class="col-sm-3 control-label">Age</label>
                 <div class="col-sm-8">
-            		<input type="number" name="age" id="aAge" value="" class="form-control">
+            		<input type="number" name="age" id="aAge" min="1" step="1" value="" class="form-control">
              	</div>
           	</div>
           	<div class="form-group">
@@ -603,7 +611,7 @@ $(document).ready(function() {
             <div class="form-group">
              	<label class="col-sm-3 control-label">Age</label>
                 <div class="col-sm-8">
-              		<input type="text" name="city" id="age1" value="" class="form-control">
+              		<input type="text" name="city" id="age1" min="1" step="1" value="" class="form-control">
                	</div>
             </div>
             <div class="form-group">

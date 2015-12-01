@@ -335,7 +335,7 @@ function addStops(id){
                         <table id="example" class="table table-bordered table-striped table-hover">
                           <thead>
                             <tr>
-                            	<th width="5%" class="text-center no-sort"><input type="checkbox" onClick="deleteAllRow(this)"></th>
+                            	<th width="2%" class="text-center no-sort"><input type="checkbox" onClick="deleteAllRow(this)"></th>
                                 <th width="10%">Name</th>
                                 <th width="20%">Address</th>
                                 <th width="10%">City</th>

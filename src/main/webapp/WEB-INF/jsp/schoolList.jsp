@@ -183,7 +183,13 @@ $(document).ready(function() {
  $(document).ready(function() {
 
     $('#example').dataTable( {
-        "aaSorting": [[1,'asc']]
+        "aaSorting": [[1,'asc']],
+    aoColumnDefs: [
+	                   {
+	                      bSortable: false,
+	                      aTargets: [ -1 ]
+	                   }
+	                 ]
       } );
 } ); 
 
@@ -239,10 +245,8 @@ $(document).on("click", ".open-AddBookDialog", function () {
 $(document).ready(function() {
 
     $('#example').DataTable();
-    /* $('#example').DataTable( {
-        
-        "order": [[ 0, "asc" ]]
-    } ); */
+    
+    
 } );
 
 function setDateFormat(manu){

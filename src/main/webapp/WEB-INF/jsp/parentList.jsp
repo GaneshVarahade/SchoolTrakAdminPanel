@@ -30,7 +30,12 @@ $(function(){
 
 	$(document).ready(function() {
       $('#example').DataTable({
-    	  "paging":   false
+    	  "responsive": true,
+    	  "paging":   false,
+    	  "columnDefs": [
+    	                 { className: "dt-body-left", "targets": [ 0 ] }
+    	               ],
+    	   
      	}); 
 	});
 
@@ -465,7 +470,7 @@ $(document).ready(function() {
                         <table id="example" class="table table-bordered table-striped table-hover">
                           <thead>
                             <tr>
-                            	<th width="3%" class="text-center no-sort"><input type="checkbox" onClick="deleteAllRow(this)"/></th>
+                            	<th width="2%" class="text-center no-sort"><input type="checkbox" onClick="deleteAllRow(this)"/></th>
                                 <th width="10%">Name</th>
                                 <th width="15%">School Name</th>
                                 <th width="20%">Address</th>
@@ -569,7 +574,7 @@ $(document).ready(function() {
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Age</label>
                         <div class="col-sm-8">
-                        	<input type="number" name="age" id="aAge" value="" class="form-control" >
+                        	<input type="number" name="age" min="1" step="1" id="aAge" value="" class="form-control" >
                        	</div>
                     </div>
                     
@@ -660,7 +665,7 @@ $(document).ready(function() {
 			  <div class="form-group">
                 <label class="col-sm-3 control-label">Age</label>
                 <div class="col-sm-8">
-					<input type="number" name="age" id="age1" value="" class="form-control">
+					<input type="number" name="age" id="age1" min="1" step="1" value="" class="form-control">
                 </div>
 			  </div>
 			  
