@@ -96,7 +96,7 @@ function checkUniqueUsername(){
 	       if(response){
 	    	
 	      
-	       alert("User already registered with this Username: ")
+	       alert("User already registered with this Username")
 	       
 	       }
 	  

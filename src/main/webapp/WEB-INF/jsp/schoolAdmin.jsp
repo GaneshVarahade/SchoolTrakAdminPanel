@@ -70,6 +70,16 @@ function showBtn(){
 <script type="text/javascript">
 
 $(document).ready(function() {
+	
+	var arrayList='${schoolAdminList}';
+	if(arrayList.length==2){
+		document.getElementById("deleteButton").disabled = true;  	
+	}
+	else
+		{
+		document.getElementById("deleteButton").enabled = true;  
+		}
+	
     $('#example').DataTable({
 
     		"columnDefs" : [{
@@ -140,7 +150,7 @@ function checkUniqueUsername(){
 	       
 	       if(response){
 	    	
-	       $("#username").val("");
+	    	   alert("User already registered with this Username")
 	       } 
 	    },
 	    error : function(e) {
@@ -589,7 +599,7 @@ $(document).ready(function() {
                     <h1 class="page-head-text pull-left">School Admin </h1>
                     
                     <button type="submit" class="btn btn-inverse btn-sm pull-right" data-id=""  data-toggle="modal" data-target="#schoolAdminId"><i class="fa fa-plus-circle"></i>  Add School Admin</button>                    
-                    <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
+                    <button id="deleteButton" type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>
         </div>
@@ -733,7 +743,7 @@ $(document).ready(function() {
                    
             		<div class="modal-footer text-center">
                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-                    <input type="submit" class="btn btn-sky btn-sm"  >
+                    <button type="submit" class="btn btn-sky btn-sm"  >Save</button>
                 </div> 
                 </form:form>               
 			</div>
