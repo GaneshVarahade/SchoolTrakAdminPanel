@@ -466,7 +466,7 @@ DeviceService deviceService;
 			
 		}
 		
-		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		/*String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 	    List<Route> routeList= routeService.getRouteList(userName);
 		
 	    HttpSession session = request.getSession();
@@ -477,7 +477,27 @@ DeviceService deviceService;
 	    model.addAttribute("routeList", routeList);
 		model.addAttribute(new Route());
 		model.addAttribute("routesActive", "routesActive");
+		return "routeMap";*/
+	
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<Route> routes = routeService.getRouteList(userName);
+		System.out.println(routes.toString());
+		
+		List<Bus> busList=busService.allBusList(userName);
+		List<BusDriver> busDriverList=busDriverService.allBusDriverList(userName);
+		
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
+		model.addAttribute("routeList",routes);
+		model.addAttribute("busList",busList);
+		model.addAttribute("busDriverList",busDriverList);
+		model.addAttribute(new Route());
+		model.addAttribute("routesActive", "routesActive");
 		return "routeMap";
+		
 	}
 	
 	@RequestMapping(value = "/busList")
@@ -683,7 +703,4 @@ DeviceService deviceService;
 	}
 
 	
-	
-	
-
 }

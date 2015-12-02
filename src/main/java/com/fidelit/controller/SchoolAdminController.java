@@ -149,7 +149,7 @@ public class SchoolAdminController {
 			schoolAdminService.deleteSchoolAdmin(id);
 		}
 		
-		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		/*String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 	    List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
 		
 	    HttpSession session = request.getSession();
@@ -159,7 +159,31 @@ public class SchoolAdminController {
 	    
 	    model.addAttribute("schoolAdminList", schoolAdminList);
 		model.addAttribute("parentActive", "parentActive");
+		model.addAttribute(new SchoolAdmin());
 		return "parentList";
+	    */
+		HttpSession session = request.getSession();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
+		model.addAttribute("schoolAdminList", schoolAdminList);
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		System.out.println("currentUser"+currentUser.getAccountId());
+		List<School> schoolList=schoolService.allSchoolList(currentUser.getAccountId());
+		System.out.println("schoolList:"+schoolList.toString());
+		for (School school : schoolList) {
+			System.out.println("schoolList:"+school.toString());
+		}
+		
+		
+		SchoolAdmin currentUserr = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUserr.getUsername();
+		model.addAttribute("userName", username);
+		
+		model.addAttribute("schoolList", schoolList);
+		model.addAttribute("parentActive", "parentActive");
+		model.addAttribute(new SchoolAdmin());
+		return "parentList";
+	    
 	}
 
 	@RequestMapping(value = "/deleteStudentList")
