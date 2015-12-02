@@ -13,10 +13,10 @@ var saveKara = 0;
 function showBtn(){
 
 	 if(saveKara == 0){
-		 alert("Please select Atleast one Parent for delete");
+		 alert("Please select Atleast one Parent");
 	 }
 	 else{		
-		 var result = confirm("want to delete?");
+		 var result = confirm("Are you sure, you want to delete parent(s)?");
 		 if(result){
 			 window.location.href = "deleteParentList?list="+saveKara;	 
 		 } 
@@ -95,7 +95,9 @@ function checkUniqueUsername(){
 	       
 	       if(response){
 	    	
-	       $("#username").val("");
+	      
+	       alert("User already registered with this Username: ")
+	       
 	       }
 	  
 	    },
@@ -367,10 +369,23 @@ $(document).ready(function() {
         },
         fields: {
         	username: {
+        		verbose: false,
                 validators: {
+                	
                     notEmpty: {
+                    
                         message: 'The User Name is required'
-                    }
+                    },
+        			stringLength: {
+            				min: 6,
+            				max: 20,
+            		message: 'The username must be more than 6 and less than 20 characters long'
+        			},
+        		regexp: {
+            		regexp: /^[a-zA-Z0-9_\.]+$/,
+            		message: 'The username can only consist of alphabetical, number, dot and underscore'
+        			},
+        			
                 }
             },
             accountType: {
@@ -413,9 +428,10 @@ $(document).ready(function() {
             },
             email: {
                 validators: {
-                    notEmpty: {
-                        message: 'Please Enter Valid Email'
-                    }
+                	emailAddress: {
+                        message: 'The value is not a valid email address'
+                    },
+                   
                 }
             },
             
@@ -534,7 +550,7 @@ $(document).ready(function() {
             <div class="fixed-page-header">
                 <div class="page-header clearfix">
                     <h1 class="page-head-text pull-left">Parent</h1>                    
-                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal"  data-target="#forClientRegistration"><i class="fa fa-plus-circle"></i>  Add Parent</button>                    
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal"  data-target="#forClientRegistration" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  Add Parent</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>
@@ -619,14 +635,14 @@ $(document).ready(function() {
                     <div class="form-group">
                        	<form:label path="username" class="col-sm-3 control-label">Username &#42;</form:label>
                         <div class="col-sm-8">
-                            <form:input type="text" path="username" id="username" value="" class="form-control" maxlength="10" onblur = "checkUniqueUsername(); useHTML(this.id,document.getElementById('username').value);" />
+                            <form:input type="text" path="username" id="username" value="" class="form-control" maxlength="20" onblur = "checkUniqueUsername(); useHTML(this.id,document.getElementById('username').value);" />
                       	</div>
                     </div>
                   	
                   	<div class="form-group">
                         <form:label path="password" class="col-sm-3 control-label">Admin Password &#42;</form:label>
                         <div class="col-sm-8">
-                        	<form:input type="text" path="password" id="aPassword" value="" class="form-control" maxlength="10" onblur = "useHTML(this.id,document.getElementById('aPassword').value)"/>
+                        	<form:input type="text" path="password" id="aPassword" value="" class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('aPassword').value)"/>
                         </div>
                     </div>
                     
@@ -652,12 +668,12 @@ $(document).ready(function() {
                   	<div class="form-group">
                         <form:label path="email" class="col-sm-3 control-label">Email &#42;</form:label>
                         <div class="col-sm-8">
-                            <form:input path="email" type="email" id="aEmail" value="" class="form-control" onblur="emailValidateRegistration();" maxlength="30" />
+                            <form:input path="email" type="text" id="aEmail" class="form-control"  maxlength="30" />
                         </div>
                    	</div>
                     
                   	<div class="form-group">
-                        <form:label path="age" class="col-sm-3 control-label">Age &#42;</form:label>
+                        <form:label path="age" class="col-sm-3 control-label">Age (Years) &#42;</form:label>
                         <div class="col-sm-8">
                         	<form:input path="age" type="number" min="1" step="1"  id="aAge" value="" class="form-control" />
                         </div>
