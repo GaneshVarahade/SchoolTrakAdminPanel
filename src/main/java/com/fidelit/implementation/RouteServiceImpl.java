@@ -192,6 +192,25 @@ public class RouteServiceImpl implements RouteService{
 		return routeList;
 	}
 
-	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false) 
+	@Override
+	public List<Route> allRouteListDriver(String driverName) {
+		
+		Session session;
+		List<Route> routeList = null;
+		try{
+			session = sessionFactory.getCurrentSession();
+			System.out.println("IN Service:"+driverName);
+			SQLQuery query = session.createSQLQuery(
+					"select * from route r where r.driverName ='"+driverName+"'");		
+			routeList = query.list();
+			System.out.println("In RouteService:"+routeList.toString());
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return routeList;
+	}
+
 
 }

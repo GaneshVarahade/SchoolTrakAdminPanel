@@ -161,18 +161,38 @@ function useHTML(id,data){
 
 var saveKara = 0;
 function showBtn(){
+	
 	 if(saveKara == 0){
 		 alert("Please select Atleast one driver");
 	 }
 	 else{
 		 var result = confirm("Are you sure, you want to delete driver(s)?");
 		 if(result){
-			 window.location.href = "deleteBusDriverList?list="+saveKara;	 
+				 
+				 var formData="list="+saveKara;
+				 $.ajax({
+				    type : "POST",
+				    url : "${pageContext.request.contextPath}/route/checkDependancyDriver",
+				    data : formData,
+				    success : function(response) {
+				    	
+				    	if(response == "true"){
+				    		alert("Dependency Exit , can't delete.");
+				    	}else{
+				    		 window.location.href = "deleteBusDriverList?list="+saveKara;
+				    	}
+					   
+				      },
+				    error : function(e) {
+				    	
+				    }
+				});
+				 
 		 }
 		 	 
-	 }
-	 
+	 }	 
 }
+
 
 $(document).ready(function() {
     $('#routeDataTable').DataTable();
