@@ -185,6 +185,7 @@ function editSchoolAdmin(id,name,school,address,email,age,city,password,username
 	$("#aEmaill").val(email);
 	$("#aAgee").val(age);
 	$("#aCityy").val(city);
+	$('#edit').modal({backdrop: 'static', keyboard: false})
 	$("#edit").modal('show');
 	
 }
@@ -417,6 +418,7 @@ function password_length_registration()
 
 
 $(document).ready(function() {
+	
     $('#frm').formValidation({
         framework: 'bootstrap',
         excluded: ':disabled',
@@ -440,11 +442,24 @@ $(document).ready(function() {
                     }
                 }
             },
-            username: {
+        	username: {
+        		verbose: false,
                 validators: {
+                	
                     notEmpty: {
-                        message: 'UserName should be Unique'
-                    }
+                    
+                        message: 'The User Name is required'
+                    },
+        			stringLength: {
+            				min: 6,
+            				max: 20,
+            		message: 'The username must be more than 6 and less than 20 characters long'
+        			},
+        		regexp: {
+            		regexp: /^[a-zA-Z0-9_\.]+$/,
+            		message: 'The username can only consist of alphabetical, number, dot and underscore'
+        			},
+        			
                 }
             },
             
@@ -598,7 +613,7 @@ $(document).ready(function() {
                 <div class="page-header clearfix">
                     <h1 class="page-head-text pull-left">School Admin </h1>
                     
-                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-id=""  data-toggle="modal" data-target="#schoolAdminId"><i class="fa fa-plus-circle"></i>  Add School Admin</button>                    
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-id=""  data-toggle="modal" data-target="#schoolAdminId" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  Add School Admin</button>                    
                     <button id="deleteButton" type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>
@@ -689,14 +704,14 @@ $(document).ready(function() {
                     <div class="form-group">
                        	<form:label path="username" class="col-sm-3 control-label">Username &#42;</form:label>
                         <div class="col-sm-8">
-                            <form:input type="text" path="username" id="username" value="" class="form-control" maxlength="10" onblur = "checkUniqueUsername(); useHTML(this.id,document.getElementById('username').value);" />
+                            <form:input type="text" path="username" id="username" value="" class="form-control" maxlength="20" onblur = "checkUniqueUsername(); useHTML(this.id,document.getElementById('username').value);" />
                       	</div>
                     </div>
                   	
                   	<div class="form-group">
                         <form:label path="password" class="col-sm-3 control-label">Admin Password &#42;</form:label>
                         <div class="col-sm-8">
-                        	<form:input type="text" path="password" id="aPassword" value="" class="form-control" maxlength="10" onblur = "useHTML(this.id,document.getElementById('aPassword').value)"/>
+                        	<form:input type="text" path="password" id="aPassword" value="" class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('aPassword').value)"/>
                         </div>
                     </div>
                     

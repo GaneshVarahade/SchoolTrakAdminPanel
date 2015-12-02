@@ -359,6 +359,7 @@ function editSchool(id,schoolname,address,deatils,city,location){
 	$("#detailss").val(deatils);
 	$("#city11").val(city);
 	$("#locationn").val(location);
+	$('#edit').modal({backdrop: 'static', keyboard: false});
 	$("#edit").modal('show');
 }
 
@@ -580,7 +581,7 @@ $(document).ready(function() {
                 <div class="page-header clearfix">
                     <h1 class="page-head-text pull-left">Schools</h1>
                     
-                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#schoolAdd"><i class="fa fa-plus-circle"></i>  Add School</button>                    
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#schoolAdd" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle" ></i>  Add School</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>
