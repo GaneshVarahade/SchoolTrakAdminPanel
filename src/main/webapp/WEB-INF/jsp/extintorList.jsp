@@ -49,7 +49,7 @@ $(document).ready(function() {
         	type: {
                 validators: {
                     notEmpty: {
-                        message: 'Type is required'
+                        message: 'Extintor Type is required'
                     }
                 }
             },
@@ -57,7 +57,7 @@ $(document).ready(function() {
             status: {
                 validators: {
                     notEmpty: {
-                        message: 'Type is required'
+                        message: 'Extintor is required'
                     }
                 }
             },
@@ -65,7 +65,7 @@ $(document).ready(function() {
             'bus.regNumber': {
                 validators: {
                     notEmpty: {
-                        message: 'Type is required'
+                        message: 'Extintor is required'
                     }
                 }
             }
@@ -85,7 +85,7 @@ $(document).ready(function() {
         	type1: {
                 validators: {
                     notEmpty: {
-                        message: 'Type is required'
+                        message: 'Extintor Type is required'
                     }
                 }
             },
@@ -93,7 +93,7 @@ $(document).ready(function() {
             status: {
                 validators: {
                     notEmpty: {
-                        message: 'Type is required'
+                        message: 'Please select Status'
                     }
                 }
             },
@@ -101,7 +101,7 @@ $(document).ready(function() {
             regNumber: {
                 validators: {
                     notEmpty: {
-                        message: 'Type is required'
+                        message: 'Please select Vehicle'
                     }
                 }
             }
@@ -180,11 +180,11 @@ function addStops(id){
 	
 }
 
- function editExtintors(id,type,status){
-	 
+ function editExtintors(id,type,status,regNumber){
 	$("#id").val(id);
 	$("#type").val(type);
-	$("#status").val(status);
+	$("#status1").val(status);
+	$("#regNumber1").val(regNumber);
 	$("#edit").modal('show');
 	
 	
@@ -193,8 +193,8 @@ function addStops(id){
  function editExtintor(){
 	var id = $("#id").val();
 	var type=$("#type").val();
-	var status=$("#status").val();
-	var busNo=$("#regNumber").val();
+	var status=$("#status1").val();
+	var busNo=$("#regNumber1").val();
 	 var allData=id+","+type+","+status+","+busNo;
 	var formData="list="+allData;
 	 $.ajax({
@@ -306,7 +306,7 @@ function addStops(id){
                                        <td><input type="checkbox" id="${extintor.id}" name="myTextEditBox" value="" onClick="displayNote(event)" style="width: 27px;"></td>
                                        <td>${extintor.type}</td>  
                                        <c:choose>
-                                        <c:when test="${extintor.status=='1'}">
+                                        <c:when test="${extintor.status==true}">
                                         	<td>ON</td>
                                         </c:when>    
                                         <c:otherwise>
@@ -314,7 +314,7 @@ function addStops(id){
                                         </c:otherwise>
                                       </c:choose>
                                        <td>${extintor.bus.regNumber}</td> 
-                                       <td><button type="submit" class="btn btn-default btn-sm" onClick="editExtintors('${extintor.id}','${extintor.type}','${extintor.status}');"><i class="fa fa-pencil-square-o"></i> Edit</button></td>
+                                       <td><button type="submit" class="btn btn-default btn-sm" onClick="editExtintors('${extintor.id}','${extintor.type}','${extintor.status}','${extintor.bus.regNumber}');"><i class="fa fa-pencil-square-o"></i> Edit</button></td>
                                       </tr>
                                 </c:forEach>
                             </tbody>
@@ -354,10 +354,10 @@ function addStops(id){
 				<div class="form-group">
 					<label class="col-sm-3 control-label">* Status</label>
                     <div class="col-sm-8">
-					 	<select name="status"  class="form-control" >  													
-                            <option value="1">ON</option>
-                            <option value="0">OFF</option>
-				 		</select> 
+					 	<select name="status" id="status1" class="form-control" >
+               			<option value="true">ON</option>
+                        <option value="false">OFF</option>
+                  </select>
 					</div>						
 				</div>
 				
@@ -365,7 +365,7 @@ function addStops(id){
 				<div class="form-group">
 					<label class="col-sm-3 control-label">* Bus Number</label>
                     <div class="col-sm-8">
-					 	<select name="regNumber" id="regNumber" class="form-control" >  													
+					 	<select name="regNumber" id="regNumber1" class="form-control" >  													
                             <c:forEach var="bus" items="${busList}">
                                 <option value="${bus.regNumber}">${bus.regNumber}</option>
                             </c:forEach>
@@ -404,7 +404,7 @@ function addStops(id){
                     <form:label path="status" class="col-sm-3 control-label">* Status</form:label>
                     <div class="col-sm-8">
                         <form:select path="status" id="status" class="form-control">
-                        	  
+                        	<option value="">Select</option>  
                             <form:option value="0">ON</form:option>
                             <form:option value="1">OFF</form:option>
                         </form:select>

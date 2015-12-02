@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fidelit.model.Bus;
 import com.fidelit.model.BusDriver;
@@ -78,6 +79,8 @@ public class ExtintorController {
 		return "extintorList";
 	}
 	
+	
+	@ResponseBody
 	@RequestMapping(value="editExtintor",method = RequestMethod.POST)
 	public String editExtintor(HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -86,14 +89,14 @@ public class ExtintorController {
 		Extintor extintor = new Extintor();
 		Boolean status;
 	//	System.out.println("Status"+dataList[2]);
-		if(dataList[2].equals("1")){
+		if(dataList[2].equals("true")){
 			
 			System.out.println("Status : "+dataList[2]);
-			status=false;
+			status=true;
 		}
 		else{
 			System.out.println("Status1 :"+dataList[2]);
-			status=true;
+			status=false;
 		}
 		String busNo=dataList[3];
 		Bus bus=busService.getBusRegNo(busNo);

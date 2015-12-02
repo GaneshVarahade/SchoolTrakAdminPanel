@@ -547,7 +547,7 @@ function addStops(id){
             </div>
          	 <div class="modal-footer text-center">
             	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            	<button type="submit" name="submitButton" class="btn btn-primary">Submit</button>
+            	<button type="submit"  class="btn btn-primary">Save</button>
             </div>   
             
           </form:form>
