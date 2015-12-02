@@ -102,7 +102,7 @@ $(document).ready(function() {
                 }
             },
             
-            license: {
+            licenseNo: {
                 validators: {
                     notEmpty: {
                         message: 'License Number is Required'
@@ -141,11 +141,28 @@ $(document).on("click", ".open-AddBookDialog", function () {
 </script>
 
 <script type="text/javascript">
-var saveKara = 0;
 
+function useHTML(id,data){
+	 var id = "#" + id;
+	var text = "";
+	for (i = 0; i < data.length; i++) { 
+		if(data[i] == "<"){
+   	text += "<<span>";
+		}else if(data[i] == ">"){
+			text += "</span>>";
+		}
+		else{
+			text += data[i];
+		}
+	}
+	 $(id).val(text);
+}
+
+
+var saveKara = 0;
 function showBtn(){
 	 if(saveKara == 0){
-		 alert("Please select Atleast one Driver for delete");
+		 alert("Please select Atleast one driver");
 	 }
 	 else{
 		 var result = confirm("Are you sure, you want to delete driver(s)?");
@@ -368,10 +385,11 @@ function addStops(id){
     <!-- / row -->   
 </div>
 
-<form id="editForm">
+
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
    	<div class="modal-dialog">
         <div class="modal-content">
+        <form:form id="editForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/route/driverList" commandName="busDriver">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title"><center>Edit Driver</center></h4>
@@ -381,60 +399,60 @@ function addStops(id){
 				<!-- <div class="form-group">
                     <label class="col-sm-3 control-label">* Driver Id :</label>
                     <div class="col-sm-8"> -->
-						<input type="hidden" name="name" id="driverId" class="form-control" readOnly>
+						<form:input  path="driverId" id="driverId" type="hidden"  />
+						<input type="hidden" name="action" value="edit">
                  <!--  	</div>
 				</div> -->
-			  	<div class="form-group">
-                    <label class="col-sm-3 control-label">* Driver Name :</label>
+			  <div class="form-group">
+                    <form:label path="driverName" class="col-sm-3 control-label">* Driver Name : </form:label>
                     <div class="col-sm-8">
-						<input type="text" name="driverName" id="driverName" class="form-control" maxlength="50">
-                  	</div>
-				</div>
-				
-				<div class="form-group">
-                    <label class="col-sm-3 control-label">* Address:</label>
+                    	<form:input  path="driverName" id="driverName" value="" class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('driverName').value)"/>
+                   	</div>
+                </div>
+                <div class="form-group">
+                    <form:label path="address" class="col-sm-3 control-label">* Address : </form:label>
                     <div class="col-sm-8">
-						<input type="text" name="address" id="address" class="form-control" maxlength="50">
-                  	</div>
-				</div>
-				
-				<div class="form-group">
-                    <label class="col-sm-3 control-label">* City :</label>
+                    	<form:input path="address" id="address" value="" class="form-control" maxlength="80" onblur = "useHTML(this.id,document.getElementById('address').value)"/>
+                   	</div>
+              	</div>
+
+                <div class="form-group">
+                    <form:label path="city" class="col-sm-3 control-label">* City :</form:label>
                     <div class="col-sm-8">
-						<input type="text" name=city id="city" class="form-control" maxlength="25">
-                  	</div>
-				</div>
-				
-				<div class="form-group">
-                    <label class="col-sm-3 control-label">* License :</label>
+                    	<form:input path="city" id="city" value="" class="form-control" maxlength="25" onblur = "useHTML(this.id,document.getElementById('city').value)"/>       
+                   	</div>         
+                </div>
+
+                <div class="form-group">
+                    <form:label path="licenseNo" class="col-sm-3 control-label">* License :</form:label>
                     <div class="col-sm-8">
-						<input type="text" name=license id="license" class="form-control" maxlength="15">
-                  	</div>
-				</div>
-				
-				<div class="form-group">
-                    <label class="col-sm-3 control-label">* Experience :</label>
+                    	<form:input path="licenseNo" id="license" value="" class="form-control" maxlength="15" onblur = "useHTML(this.id,document.getElementById('license').value)"/>
+                   	</div>
+                </div>
+                
+                <div class="form-group">
+                    <form:label path="experiance" class="col-sm-3 control-label">* Experience :</form:label>
                     <div class="col-sm-8">
-						<input type="text" name=experiance id="experiance" class="form-control" maxlength="10">
-                  	</div>
-				</div>
-				
-				<div class="form-group">
-                    <label class="col-sm-3 control-label">* Age :</label>
+                   		<form:input path="experiance" id="experiance" value="" class="form-control" maxlength="10" onblur = "useHTML(this.id,document.getElementById('experiance').value)"/>
+                   	</div>
+                </div>
+                
+                <div class="form-group">
+                    <form:label path="age" class="col-sm-3 control-label">* Age :</form:label>
                     <div class="col-sm-8">
-						<input type="number" min="1" step="1" name=age id="age" class="form-control" maxlength="4" />
-                  	</div>
-				</div>
+                    	<form:input path="age" type="number" min="1" step="1"  id="age" value="" class="form-control" maxlength="4"/>
+                   	</div>
+                </div>
            	</div>
       	</div>
     	<div class="modal-footer text-center">
             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-sky btn-sm" onClick="editDriver();">Save</button>
-        </div>
+            <button type="submit" class="btn btn-sky btn-sm" >Save</button>
+        </div></form:form>
     </div>
   </div>
 </div>
-</form>
+
 
 <div class="modal fade" id="addDriver" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
    	<div class="modal-dialog">
@@ -444,46 +462,47 @@ function addStops(id){
             <h4 class="modal-title"><center>Add Driver</center></h4>
           </div>                
  
-       		<form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/route/addDriver" commandName="busDriver">
+       		<form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/route/driverList" commandName="busDriver">
             <div class="modal-body">   
                 <div class="form-group">
                     <form:label path="driverName" class="col-sm-3 control-label">* Driver Name : </form:label>
                     <div class="col-sm-8">
-                    	<form:input  path="driverName" id="driverName" value="" class="form-control" maxlength="50" />
+                    	<form:input  path="driverName" id="driverName1" value="" class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('driverName1').value)" />
                    	</div>
                 </div>
+                <input type="hidden" name="action" value="add">
                 <div class="form-group">
                     <form:label path="address" class="col-sm-3 control-label">* Address : </form:label>
                     <div class="col-sm-8">
-                    	<form:input path="address" id="address" value="" class="form-control" maxlength="80"/>
+                    	<form:input path="address" id="address1" class="form-control" maxlength="80" onblur = "useHTML(this.id,document.getElementById('address1').value)"/>
                    	</div>
               	</div>
 
                 <div class="form-group">
                     <form:label path="city" class="col-sm-3 control-label">* City :</form:label>
                     <div class="col-sm-8">
-                    	<form:input path="city" id="city" value="" class="form-control" maxlength="25" />       
+                    	<form:input path="city" id="city1" class="form-control" maxlength="25" onblur = "useHTML(this.id,document.getElementById('city1').value)"/>       
                    	</div>         
                 </div>
 
                 <div class="form-group">
                     <form:label path="licenseNo" class="col-sm-3 control-label">* License :</form:label>
                     <div class="col-sm-8">
-                    	<form:input path="licenseNo" id="licenseNo" value="" class="form-control" maxlength="15"/>
+                    	<form:input path="licenseNo" id="licenseNo1"  class="form-control" maxlength="15" onblur = "useHTML(this.id,document.getElementById('licenseNo1').value)"/>
                    	</div>
                 </div>
                 
                 <div class="form-group">
                     <form:label path="experiance" class="col-sm-3 control-label">* Experience :</form:label>
                     <div class="col-sm-8">
-                   		<form:input path="experiance" id="experiance" value="" class="form-control" maxlength="10"/>
+                   		<form:input path="experiance" id="experiance1" class="form-control" maxlength="10" onblur = "useHTML(this.id,document.getElementById('experiance1').value)"/>
                    	</div>
                 </div>
                 
                 <div class="form-group">
                     <form:label path="age" class="col-sm-3 control-label">* Age :</form:label>
                     <div class="col-sm-8">
-                    	<form:input path="age" type="number" min="1" step="1"  id="age" value="" class="form-control" maxlength="4"/>
+                    	<form:input path="age" type="number" min="1" step="1"  id="age1"  class="form-control" maxlength="4" />
                    	</div>
                 </div>
             </div>

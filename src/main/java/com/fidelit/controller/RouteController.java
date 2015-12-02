@@ -614,9 +614,26 @@ DeviceService deviceService;
 	}
 	
 	@RequestMapping(value = "/driverList")
-	public String busDriverList( HttpServletRequest request,HttpServletResponse response,ModelMap model){
+	public String busDriverList(@ModelAttribute("busDriver") BusDriver busDriver, HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		
+		String action="action";
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		if(request.getParameter("action")!=null){
+			action=request.getParameter("action");
+		}
+		System.out.println("OutSide If :"+action);
+		if(action.equals("edit")){
+			System.out.println("Inside If :");
+			busDriver.setAccountId(userName);
+			busDriverService.updateBusDriver(busDriver);
+			
+		}
+		if(action.equals("add")){
+			busDriver.setAccountId(userName);
+			busDriverService.addBusDriver(busDriver);
+			
+		}
+		
 		List<BusDriver> busDriverList= busDriverService.allBusDriverList(userName);
 		
 		HttpSession session = request.getSession();
@@ -630,6 +647,7 @@ DeviceService deviceService;
 		return "driverList";
 		
 	}
+	
 	
 	@RequestMapping(value="addDriver",method = RequestMethod.POST)
 	public String addBusDriver(@ModelAttribute("busDriver") BusDriver driver,HttpServletRequest request,HttpServletResponse response,ModelMap model){
