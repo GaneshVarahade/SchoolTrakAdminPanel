@@ -552,8 +552,36 @@ DeviceService deviceService;
 	}
 	
 	@RequestMapping(value = "/busList")
-	public String busList( HttpServletRequest request,HttpServletResponse response,ModelMap model){
+	public String busList(@ModelAttribute("bus") Bus bus, HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		
+		String action="action";
+		if(request.getParameter("action")!=null){
+			action=request.getParameter("action");
+		}
+		if(action.equals("add")){
+			
+			HttpSession session = request.getSession();
+			SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+			String userName = currentUser.getUsername();
+			Device device = deviceService.getDeviceByUniqueId(bus.getDevice().getUniqueID());
+			device.setIsDeviceUsed(true);
+			bus.setAccountId(userName);
+			bus.setDevice(device);
+			deviceService.addOrUpdateDevice(device);
+			busService.addBus(bus);
+		}
+		if(action.equals("edit")){
+			
+			String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+			bus.setAccountId(userName);
+			Device device = deviceService.getDeviceByUniqueId(bus.getDevice().getUniqueID());
+			bus.setDevice(device);
+			device.setIsDeviceUsed(true);
+
+			busService.updateBus(bus);
+			
+			
+		}
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<Bus> busList= busService.allBusList(userName);
 		
@@ -562,7 +590,7 @@ DeviceService deviceService;
 		String username = currentUser.getUsername();
 		
 		List<Device> deviceList = deviceService.getDeviceListByUsername(username);
-	  
+		System.out.println(deviceList);
 		model.addAttribute("userName", username);
 		model.addAttribute("busList", busList);
 		model.addAttribute("deviceList",deviceList);

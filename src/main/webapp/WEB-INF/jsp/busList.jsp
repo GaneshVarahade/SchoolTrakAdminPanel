@@ -19,7 +19,7 @@ var saveKara = 0;
 	function showBtn(){
 	
 		 if(saveKara == 0){
-			 alert("Please select Atleast one Vehicle for delete");
+			 alert("Please select Atleast one Vehicle");
 		 }
 		 else{
 			 var result = confirm("want to delete?");
@@ -82,7 +82,7 @@ var saveKara = 0;
 		       
 		       if(response){
 		    	
-		       $("#regNumber").val("");
+		       alert("Vehicle Registration Number Should be Unique:")
 		       }
 		  
 		    },
@@ -137,7 +137,7 @@ function addStops(id){
 
  function editBus(id,regNo,type,capacity,deviceId){
 	$("#busId").val(id);
-	$("#regNo").val(regNo);
+	$("#regNumber").val(regNo);
 	$("#type").val(type);
 	$("#capacity").val(capacity);
 	$("#deviceID").val(deviceId);
@@ -244,6 +244,46 @@ function addStops(id){
 	            }
 	        }
 	    });
+	    
+	    $('#editForm').formValidation({
+	        framework: 'bootstrap',
+	        excluded: ':disabled',
+	        icon: {
+	            valid: 'glyphicon glyphicon-ok',
+	            invalid: 'glyphicon glyphicon-remove',
+	            validating: 'glyphicon glyphicon-refresh'
+	        },
+	        fields: {
+	        	regNumber: {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'The Bus Name is required'
+	                    }
+	                }
+	            },
+	            busType: {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'The Bus Type is required'
+	                    }
+	                }
+	            },
+	            'device.uniqueID':{
+	            	validators: {
+	                    notEmpty: {
+	                        message: 'Device ID is required'
+	                    }
+	                }
+	            },
+	            capacity: {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'The Capacity is number'
+	                    }
+	                }
+	            }
+	        }
+	    });
 	});
 	
 	
@@ -332,98 +372,38 @@ function addStops(id){
 				</button>
 				<h4 class="modal-title">Edit Vehicle</h4>
 			</div>
-			<div class="modal-body">
-				<div class="form-horizontal">
-					<div class="form-group">
-						<!--         <label class="col-sm-3 control-label">Vehicle Id :</label> -->
-						<div class="col-sm-8">
-							<input type="hidden" name="name" id="busId" class="form-control"
-								readOnly>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">Vehicle Register
-							Number :</label>
-						<div class="col-sm-8">
-							<input type="text" name="regNo" id="regNo" class="form-control">
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-sm-3 control-label">Vehicle Type:</label>
-						<div class="col-sm-8">
-							<input type="text" name="type" id="type" class="form-control">
-						</div>
-					</div>
-                    <div class="form-group">
-						<label class="col-sm-3 control-label">DeviceID</label>
-						<div class="col-sm-8">
-							<select  name="deviceId" id="uniqueId" class="form-control">
-								<c:forEach var="device" items="${deviceList}">
-									<option value="${device.uniqueID}">${device.deviceID}</option>
-								</c:forEach>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">Vehicle Capacity :</label>
-						<div class="col-sm-8">
-							<input type="number" name="capacity" id="capacity"
-								class="form-control">
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer text-center">
-				<button type="button" class="btn btn-default btn-sm"
-					data-dismiss="modal">Cancel</button>
-				<button type="submit" class="btn btn-sky btn-sm"
-					onClick="editBuses();">Save</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<div class="modal fade" id="forClientRegistration" tabindex="-1"
-	role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Add Vehicle</h4>
-			</div>
-			<form:form id="registerForm" class="form-horizontal" method="post"
+			<form:form id="editForm" class="form-horizontal" method="post"
 				name="registerForm"
-				action="${pageContext.request.contextPath}/route/addBus"
+				action="${pageContext.request.contextPath}/route/busList"
 				commandName="bus">
 				<div class="modal-body">
 					<div class="form-group">
 						<%--   <form:label path="busId" class="col-sm-3 control-label">Vehicle ID.</form:label> --%>
 						<div class="col-sm-8">
-							<form:input type="hidden" path="busId" id="routeNo"
+							<form:input type="hidden" path="busId" id="busId"
 								class="form-control" />
 						</div>
 					</div>
+					<input type="hidden" name="action" value="edit">
 					<div class="form-group">
-						<form:label path="regNumber" class="col-sm-3 control-label">Vehicle Register Number</form:label>
+						<form:label path="regNumber" class="col-sm-3 control-label">Vehicle Registration Number</form:label>
 						<div class="col-sm-8">
 							<form:input path="regNumber" id="regNumber" name="regNumber"
-								class="form-control" onblur="checkUniqueVehicleNo()" />
+								class="form-control" onblur="checkUniqueVehicleNo()" maxlength="20"/>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<form:label path="busType" class="col-sm-3 control-label">Vehicle Type</form:label>
 						<div class="col-sm-8">
-							<form:input path="busType" id="busType" name="busType"
-								class="form-control" />
+							<form:input path="busType" id="type" name="busType"
+								class="form-control" maxlength="20"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<form:label path="device.uniqueID" class="col-sm-3 control-label">DeviceID</form:label>
 						<div class="col-sm-8">
-							<form:select  path="device.uniqueID" name="uniqueID" id="uniqueID" class="form-control">
+							<form:select  path="device.uniqueID"  id="uniqueID" class="form-control">
 								<c:forEach var="device" items="${deviceList}">
 									<option value="${device.uniqueID}">${device.deviceID}</option>
 								</c:forEach>
@@ -434,7 +414,72 @@ function addStops(id){
 						<form:label path="capacity" class="col-sm-3 control-label">Capacity</form:label>
 						<div class="col-sm-8">
 							<form:input path="capacity" type="number" id="capacity"
-								name="capacity" class="form-control" />
+								name="capacity" class="form-control" maxlength="10"/>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer text-center">
+					<button type="button" class="btn btn-default btn-sm"
+						data-dismiss="modal">Cancel</button>
+					<input type="submit" class="btn btn-sky btn-sm" value="Save">
+				</div>
+			</form:form>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="forClientRegistration" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Add Vehicle</h4>
+			</div>
+			<form:form id="registerForm" class="form-horizontal" method="post"
+				name="registerForm"
+				action="${pageContext.request.contextPath}/route/busList"
+				commandName="bus">
+				<div class="modal-body">
+					<div class="form-group">
+						<%--   <form:label path="busId" class="col-sm-3 control-label">Vehicle ID.</form:label> --%>
+						<div class="col-sm-8">
+							<form:input type="hidden" path="busId" id="routeNo"
+								class="form-control" />
+						</div>
+					</div>
+					<input type="hidden" name="action" value="add">
+					<div class="form-group">
+						<form:label path="regNumber" class="col-sm-3 control-label">Vehicle Registration Number</form:label>
+						<div class="col-sm-8">
+							<form:input path="regNumber" id="regNumber" name="regNumber"
+								class="form-control" onblur="checkUniqueVehicleNo()" maxlength="20"/>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<form:label path="busType" class="col-sm-3 control-label">Vehicle Type</form:label>
+						<div class="col-sm-8">
+							<form:input path="busType" id="busType" name="busType"
+								class="form-control" maxlength="20"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<form:label path="device.uniqueID" class="col-sm-3 control-label">DeviceID</form:label>
+						<div class="col-sm-8">
+							<form:select  path="device.uniqueID"  id="uniqueID" class="form-control">
+								<option value="">Select</option>
+								<c:forEach var="device" items="${deviceList}">
+									<option value="${device.uniqueID}">${device.deviceID}</option>
+								</c:forEach>
+							</form:select>
+						</div>
+					</div>
+					<div class="form-group">
+						<form:label path="capacity" class="col-sm-3 control-label">Capacity</form:label>
+						<div class="col-sm-8">
+							<form:input path="capacity" type="number" id="capacity"
+								name="capacity" class="form-control" maxlength="10"/>
 						</div>
 					</div>
 				</div>

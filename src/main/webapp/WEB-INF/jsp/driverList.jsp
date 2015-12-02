@@ -60,7 +60,7 @@ $(document).ready(function() {
             experiance: {
                 validators: {
                     notEmpty: {
-                        message: 'Driver should have Experiance '
+                        message: 'Driver should have Experiance in Year '
                     }
                 }
             },
@@ -122,7 +122,7 @@ $(document).ready(function() {
             experience: {
                 validators: {
                     notEmpty: {
-                        message: 'Driver should have Experiance '
+                        message: 'Driver should have Experiance in Year '
                     }
                 }
             },
@@ -161,7 +161,6 @@ function useHTML(id,data){
 
 var saveKara = 0;
 function showBtn(){
-	
 	 if(saveKara == 0){
 		 alert("Please select Atleast one driver");
 	 }
@@ -190,9 +189,9 @@ function showBtn(){
 				 
 		 }
 		 	 
-	 }	 
+	 }
+	 
 }
-
 
 $(document).ready(function() {
     $('#routeDataTable').DataTable();
@@ -259,6 +258,7 @@ function addStops(id){
 	$("#license").val(license);
 	$("#experiance").val(experiance);
 	$("#age").val(age);
+	$('#edit').modal({backdrop: 'static', keyboard: false});
 	$("#edit").modal('show');
 	
 }
@@ -349,7 +349,7 @@ function addStops(id){
             <div class="fixed-page-header">
                 <div class="page-header clearfix">
                     <h1 class="page-head-text pull-left"> Driver</h1>                    
-                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addDriver"><i class="fa fa-plus-circle"></i>  Add Bus Driver</button>                    
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addDriver" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  Add Bus Driver</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>
@@ -369,7 +369,7 @@ function addStops(id){
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <table id="example" class="table table-bordered table-striped table-hover">
+                        <table id="routeDataTable" class="table table-bordered table-striped table-hover">
                           <thead>
                             <tr>
                             	<th width="2%" class="text-center no-sort"><input type="checkbox" onClick="deleteAllRow(this)"></th>
@@ -451,16 +451,16 @@ function addStops(id){
                 </div>
                 
                 <div class="form-group">
-                    <form:label path="experiance" class="col-sm-3 control-label">* Experience :</form:label>
+                    <form:label path="experiance" class="col-sm-3 control-label">* Experience(Year):</form:label>
                     <div class="col-sm-8">
-                   		<form:input path="experiance" id="experiance" value="" class="form-control" maxlength="10" onblur = "useHTML(this.id,document.getElementById('experiance').value)"/>
+                   		<form:input path="experiance" id="experiance" type="number" step="0.01" class="form-control" maxlength="10" onblur = "useHTML(this.id,document.getElementById('experiance').value)"/>
                    	</div>
                 </div>
                 
                 <div class="form-group">
-                    <form:label path="age" class="col-sm-3 control-label">* Age :</form:label>
+                    <form:label path="age" class="col-sm-3 control-label">* Age (Year) :</form:label>
                     <div class="col-sm-8">
-                    	<form:input path="age" type="number" min="1" step="1"  id="age" value="" class="form-control" maxlength="4"/>
+                    	<form:input path="age" type="number" step="0.01"  id="age" value="" class="form-control" maxlength="4"/>
                    	</div>
                 </div>
            	</div>
@@ -513,16 +513,16 @@ function addStops(id){
                 </div>
                 
                 <div class="form-group">
-                    <form:label path="experiance" class="col-sm-3 control-label">* Experience :</form:label>
+                    <form:label path="experiance" class="col-sm-3 control-label">* Experience(Year):</form:label>
                     <div class="col-sm-8">
-                   		<form:input path="experiance" id="experiance1" class="form-control" maxlength="10" onblur = "useHTML(this.id,document.getElementById('experiance1').value)"/>
+                   		<form:input path="experiance" id="experiance1" type="number" step="0.01" class="form-control" maxlength="10" onblur = "useHTML(this.id,document.getElementById('experiance1').value)"/>
                    	</div>
                 </div>
                 
                 <div class="form-group">
-                    <form:label path="age" class="col-sm-3 control-label">* Age :</form:label>
+                    <form:label path="age" class="col-sm-3 control-label">* Age (Year):</form:label>
                     <div class="col-sm-8">
-                    	<form:input path="age" type="number" min="1" step="1"  id="age1"  class="form-control" maxlength="4" />
+                    	<form:input path="age" type="number" step="0.01"  id="age1"  class="form-control" maxlength="4" />
                    	</div>
                 </div>
             </div>
