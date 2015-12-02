@@ -12,5 +12,6 @@ public interface BusDriverService {
 	BusDriver getBusDriverId(int id);
 	void deleteBusDriver(int id);
 	BusDriver getDriverByName(String driverName);
+	BusDriver getDriverById(int id);
 
 }

@@ -128,4 +128,24 @@ public class BusDriverServiceImpl implements BusDriverService{
 		
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public BusDriver getDriverById(int driverId) {
+		
+		Session session;
+		BusDriver  busDriver = null;
+		try{
+			session = sessionFactory.getCurrentSession();
+			Criteria criteria = session.createCriteria(BusDriver.class);
+			 criteria.add(Restrictions.eq("driverId", driverId));
+			 Object result=criteria.uniqueResult();
+			 busDriver = (BusDriver)result;
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return busDriver;
+	}
+
 }

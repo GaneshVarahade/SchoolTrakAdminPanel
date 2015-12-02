@@ -133,6 +133,7 @@ DeviceService deviceService;
 		System.out.println("Action :"+action);
 		if(action.equals("edit")){
 			System.out.println("Calling : ");
+			int busDriverId = 0;
 			int routeId = 0;
 			String routeName = null;
 			boolean status = false;
@@ -180,11 +181,18 @@ DeviceService deviceService;
 			
 			if(request.getParameter("driverName") != null){
 				driverName = request.getParameter("driverName");
+				System.out.println("driverName:"+driverName);
+				//driverName = driverName.substring(0, driverName.length()-1);
+				
+					busDriverId = Integer.parseInt(driverName);
+				
 			}
 			Route route1 = new Route();
 
 			Bus bus=busService.getBusRegNo(regNumber);
-			BusDriver busDriver=busDriverService.getDriverByName(driverName);
+			//BusDriver busDriver=busDriverService.getDriverByName(driverName);
+			System.out.println("busDriverId:"+busDriverId);
+			BusDriver busDriver=busDriverService.getDriverById(busDriverId);
 			route1.setRouteNo(routeId);
 			route1.setRouteName(routeName);
 		
@@ -200,15 +208,7 @@ DeviceService deviceService;
 			route1.setAccountId(userName);
 			gtsService.editCorridorInGts(userName, corridorId, routeName);
 			routeService.updateRoute(route1);
-			
-		//	List<Route> routes = routeService.getRouteList(userName);
-		//	System.out.println(routes.toString());
-			
-		//	List<Bus> busList=busService.allBusList(userName);
-		//	List<BusDriver> busDriverList=busDriverService.allBusDriverList(userName);
-			
-		//	HttpSession session = request.getSession();
-		//	SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		
 		}
 		if(action.equals("add")){
 			
@@ -217,9 +217,21 @@ DeviceService deviceService;
 			List<Bus> busList=busService.allBusList(userName);
 			String busNumber=route.getBus().getRegNumber();
 			String driverName=route.getBusDriver().getDriverName();
+			
+			System.out.println("driverName:"+driverName);
+			
+			
+			int busDriverId = 0;
+			
+				busDriverId = Integer.parseInt(driverName);
+			
+			System.out.println("busDriverId:"+busDriverId);
+		//	System.out.println("route.getBusDriver().getDriverId():"+route.getBusDriver().getDriverId());
+			//int driverId = route.getBusDriver().getDriverId();
 			List<BusDriver> busDriverList=busDriverService.allBusDriverList(userName);
 			Bus bus=busService.getBusRegNo(busNumber);
-			BusDriver busDriver=busDriverService.getDriverByName(driverName);
+			//BusDriver busDriver=busDriverService.getDriverByName(driverName);
+			BusDriver busDriver=busDriverService.getDriverById(busDriverId);
 			
 			route.setBusDriver(busDriver);
 			route.setBus(bus);
@@ -262,7 +274,7 @@ DeviceService deviceService;
 		return "routeMap";
 	}
 
-	@RequestMapping(value="addRoute",method = RequestMethod.POST)
+	/*@RequestMapping(value="addRoute",method = RequestMethod.POST)
 	public String addRoute(@ModelAttribute("route") Route route,HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		System.out.println("Just In AddRoute");
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -271,7 +283,8 @@ DeviceService deviceService;
 		String driverName=route.getBusDriver().getDriverName();
 		List<BusDriver> busDriverList=busDriverService.allBusDriverList(userName);
 		Bus bus=busService.getBusRegNo(busNumber);
-		BusDriver busDriver=busDriverService.getDriverByName(driverName);
+		//BusDriver busDriver=busDriverService.getDriverByName(driverName);
+		BusDriver busDriver=busDriverService.getDriverById(busDriverId);
 		
 		route.setBusDriver(busDriver);
 		route.setBus(bus);
@@ -299,7 +312,7 @@ DeviceService deviceService;
 		model.addAttribute("routesActive", "routesActive");
 		return "routeMap";
 	}
-	
+*/	
 	@RequestMapping(value="editRoute",method = RequestMethod.POST)
 	public String editRoute(HttpServletRequest request,HttpServletResponse response,ModelMap model){	
 
@@ -651,6 +664,7 @@ DeviceService deviceService;
 		
 		for (int i = 0; i < str1.length; i++) {
 			int id = Integer.parseInt(str1[i]);
+			routeService.deleteDriverInRoute(id);
 			busDriverService.deleteBusDriver(id);
 		}
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();

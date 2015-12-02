@@ -475,7 +475,7 @@ public String checkDriverInRoute(@RequestParam("deleteData") String str,HttpServ
 	String[] str1 = str.split(",");
 	for (int i = 0; i < str1.length; i++) {
 		int id = Integer.parseInt(str1[i]);
-		 status = routeService.getDriverName(id);
+		 //status = routeService.getDriverName(id);
 		if(status == true){
 			break;
 		}

@@ -87,7 +87,7 @@ function addStops(id){
 	
 }
 
- function editRoute(id,name,status,start,stop,regNo,driverName,corridorId){
+ function editRoute(id,name,status,start,stop,regNo,driverId,corridorId){
 	
 	$("#routeId").val(id);
 	$("#routeName").val(name);
@@ -95,7 +95,7 @@ function addStops(id){
 	$("#start").val(start);
 	$("#stop").val(stop);
 	$("#regNumber").val(regNo);
-	$("#driverName").val(driverName);
+	$("#driverName").val(driverId);
 	$("#corridorId").val(corridorId);
 	$("#edit").modal('show');
 	
@@ -371,7 +371,7 @@ function addStops(id){
                                 <td>${route.bus.regNumber}</td>
                                 <td>${route.busDriver.driverName}</td>
                                 <td><button type="submit" class="btn btn-default btn-sm" onClick="addStops(${route.routeNo})"><i class="fa fa-plus-circle"></i> Add Stops</button></td>
-                                <td><button type="submit" class="btn btn-default btn-sm" onClick="editRoute('${route.routeNo}','${route.routeName}','${route.routeStatus}','${route.startStop}','${route.endStop}','${route.bus.regNumber}','${route.busDriver.driverName}','${route.corridorId}');"><i class="fa fa-pencil-square-o"></i> Edit</button></td>
+                                <td><button type="submit" class="btn btn-default btn-sm" onClick="editRoute('${route.routeNo}','${route.routeName}','${route.routeStatus}','${route.startStop}','${route.endStop}','${route.bus.regNumber}','${route.busDriver.driverId}','${route.corridorId}');"><i class="fa fa-pencil-square-o"></i> Edit</button></td>
                               </tr>
                             </c:forEach>
                           </tbody>
@@ -454,7 +454,7 @@ function addStops(id){
                 <div class="col-sm-8">
                   <select id="driverName" name="driverName" class="form-control" >
                     <c:forEach var="busDriver" items="${busDriverList}">
-                      <option value="${busDriver.driverName}">${busDriver.driverName}</option>
+                      <option value="${busDriver.driverId}">${busDriver.driverId},${busDriver.driverName},${busDriver.address},${busDriver.city}</option>
                     </c:forEach>
                   </select>
                 </div>
@@ -539,7 +539,7 @@ function addStops(id){
                     <form:select path="busDriver.driverName" id="driverName1" class="form-control" >
                     	<form:option value="">Select Driver</form:option>
                       <c:forEach var="busDriver" items="${busDriverList}">
-                        <form:option value="${busDriver.driverName}">${busDriver.driverName}</form:option>
+                        <form:option value="${busDriver.driverId}">${busDriver.driverId},${busDriver.driverName},${busDriver.address},${busDriver.city}</form:option>
                       </c:forEach>
                     </form:select>
                	</div>

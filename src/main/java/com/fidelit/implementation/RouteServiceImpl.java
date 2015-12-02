@@ -153,6 +153,22 @@ public class RouteServiceImpl implements RouteService{
        
 
 	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public void deleteDriverInRoute(int driverId) {
+		 Session session = sessionFactory.getCurrentSession();
+		String hql = "UPDATE route set driverName = null "  + 
+	             "WHERE driverName = "+driverId;
+		try{
+		Query query = session.createSQLQuery(hql);
+		System.out.println("update :"+query.executeUpdate());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+       
+
+	}
 
 	
 	
