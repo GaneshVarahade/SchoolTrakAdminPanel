@@ -15,5 +15,6 @@ public interface RouteService {
 	void deleteBusInRoute(int id);
 	int getLastRouteId();
 	void deleteDriverInRoute(int driverId);
+	List<Route> allRouteList(String userName);
 	
 }

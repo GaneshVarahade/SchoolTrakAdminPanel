@@ -451,6 +451,32 @@ DeviceService deviceService;
 		return "stopMap";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/checkDependancy",method = RequestMethod.POST)
+	public String checkDependancy(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		String status = null;
+		
+		String dataList = request.getParameter("list");
+		dataList = dataList.substring(0, dataList.length()-1);
+		String[] str1 = dataList.split(",");
+		System.out.println("dataList:"+dataList);
+		List<Route> routeList = null;
+		for (int i = 0; i < str1.length; i++) {
+			routeList=routeService.allRouteList(str1[i]);
+			System.out.println("RouteList:"+routeList.toString());
+			System.out.println("RouteList1:"+routeList.isEmpty());
+		if(routeList.isEmpty()){
+			status = "false";
+		}else{
+			status = "true";
+			break;
+		}
+		
+		}
+		return status;
+	}
+	
+	
 	@RequestMapping(value = "/deleteRouteList")
 	public String deleteParentList(@RequestParam("list") String str,HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		str = str.substring(0, str.length()-1);

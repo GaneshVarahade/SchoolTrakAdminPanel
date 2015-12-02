@@ -24,7 +24,27 @@ var saveKara = 0;
 		 else{
 			 var result = confirm("want to delete?");
 			 if(result){
-				 window.location.href = "deleteBusList?list="+saveKara;	 
+				 
+				 var formData="list="+saveKara;
+				 $.ajax({
+				    type : "POST",
+				    url : "${pageContext.request.contextPath}/route/checkDependancy",
+				    data : formData,
+				    success : function(response) {
+				    	
+				    	if(response == "true"){
+				    		alert("Dependency Exit , can't delete.");
+				    	}else{
+				    		window.location.href = "deleteBusList?list="+saveKara;
+				    	}
+					   
+				      },
+				    error : function(e) {
+				    	
+				    }
+				});
+				 
+				 	 
 			 }
 				 
 		 }

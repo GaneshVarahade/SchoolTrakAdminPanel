@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
@@ -170,7 +171,27 @@ public class RouteServiceImpl implements RouteService{
 
 	}
 
-	
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false) 
+	@Override
+	public List<Route> allRouteList(String userName) {
+		
+		Session session;
+		List<Route> routeList = null;
+		try{
+			session = sessionFactory.getCurrentSession();
+			System.out.println("IN Service:"+userName);
+			SQLQuery query = session.createSQLQuery(
+					"select * from route r where r.regNumber ='"+userName+"'");		
+			routeList = query.list();
+			System.out.println("In RouteService:"+routeList.toString());
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return routeList;
+	}
+
 	
 
 }
