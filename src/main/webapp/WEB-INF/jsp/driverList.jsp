@@ -515,14 +515,14 @@ function addStops(id){
                 <div class="form-group">
                     <form:label path="experiance" class="col-sm-3 control-label">* Experience(Year):</form:label>
                     <div class="col-sm-8">
-                   		<form:input path="experiance" id="experiance1" type="number" step="0.01" class="form-control" maxlength="10" onblur = "useHTML(this.id,document.getElementById('experiance1').value)"/>
+                   		<form:input path="experiance" id="experiance1" type="number" min="1" step="0.1" class="form-control" maxlength="10" onblur = "useHTML(this.id,document.getElementById('experiance1').value)"/>
                    	</div>
                 </div>
                 
                 <div class="form-group">
                     <form:label path="age" class="col-sm-3 control-label">* Age (Year):</form:label>
                     <div class="col-sm-8">
-                    	<form:input path="age" type="number" step="0.01"  id="age1"  class="form-control" maxlength="4" />
+                    	<form:input path="age" type="number" min="1" step="0.1"  id="age1"  class="form-control" maxlength="4" />
                    	</div>
                 </div>
             </div>

@@ -1,4 +1,5 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -320,7 +321,10 @@ function editStudents(){
 
 $(document).ready(function() {
 	
-    $('#registerForm').formValidation({
+	$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+	    $("#success-alert").alert('close');
+	});
+    $('#frm').formValidation({
     	
         framework: 'bootstrap',
         excluded: ':disabled',
@@ -331,10 +335,23 @@ $(document).ready(function() {
         },
         fields: {
         	username: {
+        		verbose: false,
                 validators: {
+                	
                     notEmpty: {
+                    
                         message: 'The User Name is required'
-                    }
+                    },
+        			stringLength: {
+            				min: 6,
+            				max: 20,
+            		message: 'The username must be more than 6 and less than 20 characters long'
+        			},
+        		regexp: {
+            		regexp: /^[a-zA-Z0-9_\.]+$/,
+            		message: 'The username can only consist of alphabetical, number, dot and underscore'
+        			},
+        			
                 }
             },
             accountType: {
@@ -360,7 +377,7 @@ $(document).ready(function() {
                 }
             },
             
-            schoolName: {
+            'school.schoolName': {
                 validators: {
                     notEmpty: {
                         message: 'Please select School'
@@ -403,6 +420,104 @@ $(document).ready(function() {
             
         }
     });
+    
+ $('#editForm').formValidation({
+    	
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	username: {
+        		verbose: false,
+                validators: {
+                	
+                    notEmpty: {
+                    
+                        message: 'The User Name is required'
+                    },
+        			stringLength: {
+            				min: 6,
+            				max: 20,
+            		message: 'The username must be more than 6 and less than 20 characters long'
+        			},
+        		regexp: {
+            		regexp: /^[a-zA-Z0-9_\.]+$/,
+            		message: 'The username can only consist of alphabetical, number, dot and underscore'
+        			},
+        			
+                }
+            },
+            accountType: {
+                validators: {
+                    notEmpty: {
+                        message: 'The accountType is required'
+                    }
+                }
+            },
+            name: {
+                validators: {
+                    notEmpty: {
+                        message: 'name should be required'
+                    }
+                }
+            },
+            
+            password: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please Enter Password'
+                    }
+                }
+            },
+            
+            'school.schoolName': {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select School'
+                    }
+                }
+            },
+            
+            address: {
+                validators: {
+                    notEmpty: {
+                        message: 'The address is required'
+                    }
+                }
+            },
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: 'Please Enter Valid Email'
+                    }
+                }
+            },
+            
+            age: {
+                validators: {
+                    notEmpty: {
+                        message: 'Age should be a number '
+                    }
+                }
+            },
+            city: {
+                validators: {
+                    notEmpty: {
+                    	
+                        message: 'The city is required'
+      
+                    }
+                }
+            }
+            
+            
+        }
+    });
+    
 });
 
 </script>
@@ -412,6 +527,17 @@ $(document).ready(function() {
             <div class="fixed-page-header">
                 <div class="page-header clearfix">
                     <h1 class="page-head-text pull-left">Students</h1>
+                    
+                    <c:if test="${success == 'success'}">
+                    <div class="alert alert-success" id="success-alert">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    						<strong>Success! </strong>
+   								 Student Added Successfully
+					</div>                    	
+                    </c:if>    
+                                       
+                    
+                    
                     
                     <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#forClientRegistration"><i class="fa fa-plus-circle"></i>  Add Student</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
@@ -477,77 +603,80 @@ $(document).ready(function() {
         <h4 class="modal-title">Add Student</h4>
       </div>
       <div class="modal-body">
-      	<form id="registerForm" class="form-horizontal" role="form" name="registerForm">
-         	<div class="form-group">
-             	<label class="col-sm-3 control-label">Username</label>
-                <div class="col-sm-8">
-            		<input type="text" name="username" id="username" value="" class="form-control" onblur = "checkUniqueUsername(); useHTML(this.id,document.getElementById('username').value);" >
-              	</div>
-          	</div>
-          	<div class="form-group">
-             	<label class="col-sm-3 control-label">Account Type</label>
-                <div class="col-sm-8">
-                    <select name="accountType" id="accountType" class="form-control" onblur = "useHTML(this.id,document.getElementById('accountType').value)" >
-                      <option value="Student">Student</option>
-                    </select>
-               	</div>
-          	</div>
-          	<div class="form-group">
-             	<label class="col-sm-3 control-label">Student Name</label>
-                <div class="col-sm-8">
-            		<input type="text" name="name" id="aName" value="" class="form-control" onblur = "useHTML(this.id,document.getElementById('aName').value)">
-               	</div>
-          	</div>
-          	<div class="form-group">
-             	<label class="col-sm-3 control-label">Student Password</label>
-            	<div class="col-sm-8">
-                	<input type="text" name="password" id="aPassword" value="" class="form-control" onblur = "useHTML(this.id,document.getElementById('aPassword').value)">
-               	</div>
-          	</div>
-          	<div class="form-group">
-             	<label class="col-sm-3 control-label">School Name</label>
-                <div class="col-sm-8">
-                    <select name="schoolName" id="schoolId" class="form-control" >
-                      <c:forEach var="school" items="${schoolList}">
-                        <option value="${school.schoolName}">${school.schoolName}</option>
-                      </c:forEach>
-                    </select>
-              	</div>
-          	</div>
-          	<div class="form-group">
-             	<label class="col-sm-3 control-label">Address</label>
-                <div class="col-sm-8">
-            		<input type="text" name="address" id="aAddress" value="" class="form-control" onblur = "useHTML(this.id,document.getElementById('aAddress').value)">
-              	</div>
-          	</div>
-          	<div class="form-group">
-             	<label class="col-sm-3 control-label">Email</label>
-             	<div class="col-sm-8">
-            		<input type="email" name="email" id="aEmail" value="" class="form-control" onblur="emailValidateRegistration();">
-             	</div>
-          	</div>
-          	<div class="form-group">
-             	<label class="col-sm-3 control-label">Age</label>
-                <div class="col-sm-8">
-            		<input type="number" name="age" id="aAge" min="1" step="1" value="" class="form-control">
-             	</div>
-          	</div>
-          	<div class="form-group">
-             	<label class="col-sm-3 control-label">City</label>
-                <div class="col-sm-8">
-            		<input type="text" name="city" id="aCity" value="" class="form-control" onblur = "useHTML(this.id,document.getElementById('aCity').value)">
-             	</div>
-          	</div>            
-    	</form>
-    	</div>
-    	<div class="modal-footer text-center">
-            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-sky btn-sm" onClick="sendDataForRegistration();" data-dismiss="modal">Save</button>
-        </div>
+      	 <form:form id="frm" class="form-horizontal" method="POST" name="frm" action="${pageContext.request.contextPath}/schoolAdmin/studentList" commandName="schoolAdmin">
+                
+                <input type="hidden" name="action" value="add">
+                <div class="form-group">
+                        <form:label path="name" class="col-sm-3 control-label">&#42; Student Name </form:label>
+                        <div class="col-sm-8">
+                        	<form:input path="name" type="text" id="aName" value="" class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('aName').value)"/>
+                        </div>
+                   	</div>
+  
+                    <div class="form-group">
+                       	<form:label path="username" class="col-sm-3 control-label">&#42; Username </form:label>
+                        <div class="col-sm-8">
+                            <form:input type="text" path="username" id="username" value="" class="form-control" maxlength="20" onblur = "checkUniqueUsername(); useHTML(this.id,document.getElementById('username').value);" />
+                      	</div>
+                    </div>
+                  	
+                  	<div class="form-group">
+                        <form:label path="password" class="col-sm-3 control-label"> &#42;Password </form:label>
+                        <div class="col-sm-8">
+                        	<form:input type="text" path="password" id="aPassword" value="" class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('aPassword').value)"/>
+                        </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <form:label path="school.schoolName" class="col-sm-3 control-label">&#42; School Name</form:label>
+                        <div class="col-sm-8">
+                        	<form:select path="school.schoolName" id="schoolId" class="form-control" >
+                        		<form:option value="">Select</form:option>
+                            	<c:forEach var="school" items="${schoolList}">
+                               	<form:option value="${school.schoolName}">${school.schoolName}</form:option>
+                        		</c:forEach>
+                        	</form:select>
+                       </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <form:label path="address" class="col-sm-3 control-label">&#42; Address </form:label>
+                        <div class="col-sm-8">
+                            <form:input  path="address" type="text" id="aAddress" value="" class="form-control" maxlength="80" onblur = "useHTML(this.id,document.getElementById('aAddress').value)"/>
+                        </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <form:label path="email" class="col-sm-3 control-label">&#42; Email </form:label>
+                        <div class="col-sm-8">
+                            <form:input path="email" type="email" id="aEmail" class="form-control"  maxlength="30" />
+                        </div>
+                   	</div>
+                    
+                  	<div class="form-group">
+                        <form:label path="age" class="col-sm-3 control-label">&#42; Age (Years) </form:label>
+                        <div class="col-sm-8">
+                        	<form:input path="age" type="number" min="1" step="1"  id="aAge" value="" class="form-control" />
+                        </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <form:label path="city" class="col-sm-3 control-label">&#42; City </form:label>
+                        <div class="col-sm-8">
+                        	<form:input path="city" type="text"  id="aCity" value="" class="form-control" maxlength="40"/>
+                        </div>
+                    </div>
+                    
+                   
+            		<div class="modal-footer text-center">
+                    	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                    	<button type="submit" class="btn btn-sky btn-sm" >Save</button>
+                	</div> 
+                </form:form>               
     </div>
   </div>
 </div>
-
+</div>
 
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
   <div class="modal-dialog">
@@ -557,78 +686,78 @@ $(document).ready(function() {
         <h4 class="modal-title">Edit Student</h4>
       </div>
       <div class="modal-body">
-      	<div class="form-horizontal">            
-            <div class="form-group">
-             	<label class="col-sm-3 control-label">Student Id</label>
-                <div class="col-sm-8">
-             		<input type="text" name="id" id="studentId" value="" class="form-control" readonly>
-               	</div>
-            </div>
-            <div class="form-group">
-             	<label class="col-sm-3 control-label">Account Type</label>
-                <div class="col-sm-8">
-                  <select name="accountType1" id="accountType1" class="form-control" >
-                    <option value="Student">Student</option>
-                  </select>
-               	</div>
-            </div>
-            <div class="form-group">
-             	<label class="col-sm-3 control-label">Username</label>
-                <div class="col-sm-8">
-              		<input type="text" name="username1" id="username1" value="" class="form-control" >
-              	</div>
-            </div>
-            <div class="form-group">
-             	<label class="col-sm-3 control-label">Passoword</label>
-                <div class="col-sm-8">
-              		<input type="text" name="password1" id="password1" value="" class="form-control">
-               	</div>
-            </div>
-            <div class="form-group">
-             	<label class="col-sm-3 control-label">Student Name</label>
-                <div class="col-sm-8">
-              		<input type="text" name="name1" id="name1" value="" class="form-control">
-              	</div>
-            </div>
-            <div class="form-group">
-             	<label class="col-sm-3 control-label">Address</label>
-                <div class="col-sm-8">
-              		<input type="text" name="address1" id="address1" value="" class="form-control">
-              	</div>
-            </div>
-            <div class="form-group">
-             	<label class="col-sm-3 control-label">Email</label>
-                <div class="col-sm-8">
-              		<input type="text" name="email1" id="email1" value="" class="form-control">
-              	</div>
-            </div>
-            <div class="form-group">
-             	<label class="col-sm-3 control-label">City</label>
-                <div class="col-sm-8">
-              		<input type="text" name="city" id="city1" value="" class="form-control">
-               	</div>
-            </div>
-            <div class="form-group">
-             	<label class="col-sm-3 control-label">Age</label>
-                <div class="col-sm-8">
-              		<input type="text" name="city" id="age1" min="1" step="1" value="" class="form-control">
-               	</div>
-            </div>
-            <div class="form-group">
-             	<label class="col-sm-3 control-label">School Name</label>
-                <div class="col-sm-8">
-                  <select name="school" id="school1" class="form-control" >
-                    <c:forEach var="school" items="${schoolList}">
-                      <option value="${school.schoolName}">${school.schoolName}</option>
-                    </c:forEach>
-                  </select>
-             	</div>
-            </div>
-       	</div>
-    	<div class="modal-footer text-center">
-            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-sky btn-sm" onClick="editStudents();">Save</button>
-        </div>
+       <form:form id="editForm" class="form-horizontal" method="POST" name="frm" action="${pageContext.request.contextPath}/schoolAdmin/studentList" commandName="schoolAdmin">
+                
+      
+            <form:input path="id" id="studentId" class="form-control" type="hidden" />
+           <input type="hidden" name="action" value="edit">
+                <div class="form-group">
+                        <form:label path="name" class="col-sm-3 control-label">&#42; Student Name</form:label>
+                        <div class="col-sm-8">
+                        	<form:input path="name" type="text" id="name1" value="" class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('aName').value)"/>
+                        </div>
+                   	</div>
+  
+                    <div class="form-group">
+                       	<form:label path="username" class="col-sm-3 control-label">&#42; Username</form:label>
+                        <div class="col-sm-8">
+                            <form:input type="text" path="username" id="username1" value="" class="form-control" maxlength="20" onblur = "checkUniqueUsername(); useHTML(this.id,document.getElementById('username').value);" />
+                      	</div>
+                    </div>
+                  	
+                  	<div class="form-group">
+                        <form:label path="password" class="col-sm-3 control-label">&#42; Password </form:label>
+                        <div class="col-sm-8">
+                        	<form:input type="text" path="password" id="password1" value="" class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('aPassword').value)"/>
+                        </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <form:label path="school.schoolName" class="col-sm-3 control-label">&#42; School Name </form:label>
+                        <div class="col-sm-8">
+                        	<form:select path="school.schoolName" id="school1" class="form-control" >
+                        		<form:option value="">Select</form:option>
+                            	<c:forEach var="school" items="${schoolList}">
+                               	<form:option value="${school.schoolName}">${school.schoolName}</form:option>
+                        		</c:forEach>
+                        	</form:select>
+                       </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <form:label path="address" class="col-sm-3 control-label">&#42; Address </form:label>
+                        <div class="col-sm-8">
+                            <form:input  path="address" type="text" id="address1" value="" class="form-control" maxlength="80" onblur = "useHTML(this.id,document.getElementById('aAddress').value)"/>
+                        </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <form:label path="email" class="col-sm-3 control-label">&#42; Email </form:label>
+                        <div class="col-sm-8">
+                            <form:input path="email" type="email" id="email1" class="form-control"  maxlength="30" />
+                        </div>
+                   	</div>
+                    
+                  	<div class="form-group">
+                        <form:label path="age" class="col-sm-3 control-label">&#42; Age (Years) </form:label>
+                        <div class="col-sm-8">
+                        	<form:input path="age" type="number" min="1" step="1"  id="age1" value="" class="form-control" />
+                        </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <form:label path="city" class="col-sm-3 control-label">&#42; City </form:label>
+                        <div class="col-sm-8">
+                        	<form:input path="city" type="text"  id="city1" value="" class="form-control" maxlength="20" />
+                        </div>
+                    </div>
+                    
+                   
+            		<div class="modal-footer text-center">
+                    	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                    	<button type="submit" class="btn btn-sky btn-sm" >Save</button>
+                	</div> 
+        </form:form>
     </div>
   </div>
 </div> 

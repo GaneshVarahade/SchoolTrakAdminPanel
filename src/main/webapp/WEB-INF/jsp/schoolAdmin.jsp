@@ -539,11 +539,24 @@ $(document).ready(function() {
                     }
                 }
             },
-            usernamee: {
+            username: {
+        		verbose: false,
                 validators: {
+                	
                     notEmpty: {
-                        message: 'UserName should be Unique'
-                    }
+                    
+                        message: 'The User Name is required'
+                    },
+        			stringLength: {
+            				min: 6,
+            				max: 20,
+            		message: 'The username must be more than 6 and less than 20 characters long'
+        			},
+        		regexp: {
+            		regexp: /^[a-zA-Z0-9_\.]+$/,
+            		message: 'The username can only consist of alphabetical, number, dot and underscore'
+        			},
+        			
                 }
             },
             

@@ -112,7 +112,38 @@ public class SchoolAdminController {
 	}
 	
 	@RequestMapping(value="/studentList")
-	public String allStudentList(HttpServletRequest request,ModelMap model){
+	public String allStudentList(@ModelAttribute("schoolAdmin") SchoolAdmin schoolAdmin,HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		
+		   String action="action";
+		   if(request.getParameter("action")!=null){
+			    action=request.getParameter("action");
+		   }
+		   if(action.equals("add")){
+			
+			schoolAdmin.setRole("ROLE_STUDENT");
+			schoolAdmin.setEnabled(true);
+			gtsService.addAccountInGts(schoolAdmin.getUsername(),schoolAdmin.getPassword(),schoolAdmin.getAccountType());
+			String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+			schoolAdmin.setAccountId(userName);
+			schoolAdmin.setAccountType("Student");
+			model.addAttribute("success", "success");
+			schoolAdminService.addSchoolAdmin(schoolAdmin);
+			model.addAttribute(new SchoolAdmin());
+			
+		}
+		if(action.equals("edit")){
+		//	School school =schoolAdmin.getSchool();
+			schoolAdmin.setAccountType("Student");
+			model.addAttribute(new SchoolAdmin());
+			schoolAdmin.setRole("ROLE_STUDENT");
+			schoolAdmin.setEnabled(true);
+			String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+			schoolAdmin.setAccountId(userName);
+		//	schoolAdmin.setSchool(school);
+			schoolAdminService.updateSchoolAdmin(schoolAdmin);
+			
+		}
+		
 		
 		HttpSession session = request.getSession();
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
