@@ -207,7 +207,10 @@ function addStops(id){
 	       location.reload();
 	      },
 	    error : function(e) {
-	    	 $("#edit").modal('hide');
+	    	$("#edit").modal('hide');
+	    	 alert("Extintor Updated Successfully!");
+		       location.reload();
+	    	 
 	      
 	    }
 	});   
@@ -326,7 +329,7 @@ function addStops(id){
     </div>
 <!-- / row -->   
 </div>
-</head>
+
 <form id="editForm">
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
    	<div class="modal-dialog">
@@ -349,7 +352,6 @@ function addStops(id){
 						<input type="text" name="type1" id="type" maxlength="50" class="form-control" onblur = "useHTML(this.id,document.getElementById('type').value)">
                   	</div>
 				</div>
-				
 				
 				<div class="form-group">
 					<label class="col-sm-3 control-label">* Status</label>
@@ -391,15 +393,17 @@ function addStops(id){
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Add Extintor</h4>
           </div>            
-          	<form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/extintor/addExtintor" commandName="extintor">
+          	<form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/extintor/extintorList" commandName="extintor">
+				      
           	<div class="modal-body"> 
                 <div class="form-group">
                     <form:label path="type" class="col-sm-3 control-label">* Extintor Type</form:label>
                     <div class="col-sm-8">
+                    	
                     	<form:input path="type" id="type1" value="" maxlength="50" class="form-control" onblur = "useHTML(this.id,document.getElementById('type1').value)"/>
                    	</div>
                 </div>
-    
+    			
                 <div class="form-group">
                     <form:label path="status" class="col-sm-3 control-label">* Status</form:label>
                     <div class="col-sm-8">
@@ -432,5 +436,4 @@ function addStops(id){
 	</div>
 </div>
 
-<script src="script.js" type="text/javascript" defer="defer"></script>
 

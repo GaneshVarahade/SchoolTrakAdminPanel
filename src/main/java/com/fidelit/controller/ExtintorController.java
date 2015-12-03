@@ -38,7 +38,25 @@ public class ExtintorController {
 	BusService busService;
 		
 	@RequestMapping(value="extintorList")
-	public String extintorList(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+	public String extintorList(@ModelAttribute("extintor") Extintor extintor,HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		
+		String action="action";
+		
+		if(request.getParameter("action")!=null){
+			action=request.getParameter("action");
+		}
+		System.out.println("Calling Inpout :"+request.getParameter("action"));
+		System.out.println("Calling Ouut :");
+		if(extintor.getType()!=null){
+			System.out.println("Calling");
+			String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+			String busNumber=extintor.getBus().getRegNumber();
+			Bus bus=busService.getBusRegNo(busNumber);
+			extintor.setBus(bus);
+			extintor.setAccountId(userName);
+			extinctorService.addExtintor(extintor);
+						
+		}
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<Extintor> extintorList = extinctorService.getExtintorList(userName);
 		List<Bus> busList=busService.allBusList(userName);
