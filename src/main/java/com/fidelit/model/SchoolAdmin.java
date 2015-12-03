@@ -127,7 +127,7 @@ public class SchoolAdmin implements Serializable  {
 	}
 
 	@Required
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@NotFound(action=NotFoundAction.IGNORE)
 	@JoinColumn(name="schoolId",nullable = true, insertable = true, updatable = true)
 	public School getSchool() {
