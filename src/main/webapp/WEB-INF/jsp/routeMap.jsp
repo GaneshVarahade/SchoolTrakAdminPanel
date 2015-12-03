@@ -180,6 +180,10 @@ function addStops(id){
 
 	
 	$(document).ready(function() {
+		$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+		    $("#success-alert").alert('close');
+		});
+		
 	    $('#registerForm').formValidation({
 	        framework: 'bootstrap',
 	        excluded: ':disabled',
@@ -314,7 +318,24 @@ function addStops(id){
         <div class="col-lg-12">
             <div class="fixed-page-header">
                 <div class="page-header clearfix">
-                    <h1 class="page-head-text pull-left">Route</h1>                    
+                    <h1 class="page-head-text pull-left">Route</h1>   
+                    
+                     <c:if test="${success == 'success'}">
+                    <div class="alert alert-success" id="success-alert">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    						<strong>Success! </strong>
+   								 Route Added Successfully
+					</div>                    	
+                    </c:if>    
+                    
+                     <c:if test="${edit == 'edit'}">
+                    <div class="alert alert-info" id="success-alert">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    						<strong>Success! </strong>
+   								 Route Updated Successfully
+					</div>                    	
+                    </c:if>    
+                                     
                     <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addRoutes"><i class="fa fa-plus-circle"></i>  Add Route</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    

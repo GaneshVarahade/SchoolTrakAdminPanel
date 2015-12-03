@@ -209,7 +209,7 @@ DeviceService deviceService;
 			route1.setAccountId(userName);
 			gtsService.editCorridorInGts(userName, corridorId, routeName);
 			routeService.updateRoute(route1);
-		
+			model.addAttribute("edit", "edit");
 		}
 		if(action.equals("add")){
 			
@@ -253,6 +253,7 @@ DeviceService deviceService;
 			SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
 			String username = currentUser.getUsername();
 			model.addAttribute("userName", username);
+			model.addAttribute("success", "success");
 			
 		}	
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();

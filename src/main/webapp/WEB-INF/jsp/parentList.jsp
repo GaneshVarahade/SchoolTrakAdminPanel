@@ -682,7 +682,7 @@ $(document).ready(function() {
                   	<div class="form-group">
                         <form:label path="email" class="col-sm-3 control-label">Email &#42;</form:label>
                         <div class="col-sm-8">
-                            <form:input path="email" type="text" id="aEmail" class="form-control"  maxlength="30" />
+                            <form:input path="email" type="email" id="aEmail" class="form-control"  maxlength="30" />
                         </div>
                    	</div>
                     
@@ -771,7 +771,7 @@ $(document).ready(function() {
 			  <div class="form-group">
                 <label class="col-sm-3 control-label">Email</label>
                 <div class="col-sm-8">
-					<input type="text" name="email1" id="email1" value="" class="form-control">
+					<input type="email" name="email1" id="email1" value="" class="form-control">
                 </div>
 			  </div>
 			  
