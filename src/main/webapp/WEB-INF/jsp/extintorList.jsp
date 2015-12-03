@@ -185,6 +185,7 @@ function addStops(id){
 	$("#type").val(type);
 	$("#status1").val(status);
 	$("#regNumber1").val(regNumber);
+	$('#edit').modal({backdrop: 'static', keyboard: false});
 	$("#edit").modal('show');
 	
 	
@@ -299,7 +300,7 @@ function addStops(id){
                             	<th width="2%" class="text-center no-sort"><input type="checkbox" onClick="deleteAllRow(this)"></th>
                                 <th width="20%">Extintor Type</th>
                                 <th width="20%">Status</th>
-                                <th width="20%">Bus Number</th>
+                                <th width="20%">Vehicle Number</th>
                                 <th width="20%">Action</th>
                             </tr>
                           </thead>
@@ -416,7 +417,7 @@ function addStops(id){
                 </div>
     
                  <div class="form-group">
-                    <form:label path="bus.regNumber" class="col-sm-3 control-label">* Bus Number</form:label>
+                    <form:label path="bus.regNumber" class="col-sm-3 control-label">* Vehicle Number</form:label>
                     <div class="col-sm-8">
                         <form:select path="bus.regNumber" name="regNumber" id="bus.regNumber" class="form-control">
                         	<form:option value="">Please select Bus</form:option>                    

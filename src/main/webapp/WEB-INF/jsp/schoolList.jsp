@@ -630,7 +630,7 @@ $(document).ready(function() {
                                 <th width="25%">Details</th>
                                 <th width="10%">City</th>
                                 <th width="11%">Location</th>                                
-                                <th width="11%">Edit</th>
+                                <th width="11%">Action</th>
                             </tr>
                           </thead>
                           <tbody>
