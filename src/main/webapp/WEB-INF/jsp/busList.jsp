@@ -71,8 +71,10 @@ var saveKara = 0;
 
 	function checkUniqueVehicleNo(){
 		
-		var regNo= "regNo="+$("#regNumber").val();
-		
+		var regNo= "regNo="+$("#regNumber1").val();
+		if(regNo==null){
+			regNo= "regNo="+$("#regNumber").val();
+		}
 		$.ajax({
 		    type : "POST",
 		    url : "${pageContext.request.contextPath}/route/checkUniqueVehicleNo",
@@ -452,7 +454,7 @@ function addStops(id){
 					<div class="form-group">
 						<form:label path="regNumber" class="col-sm-3 control-label">Vehicle Registration Number</form:label>
 						<div class="col-sm-8">
-							<form:input path="regNumber" id="regNumber" name="regNumber"
+							<form:input path="regNumber" id="regNumber1" name="regNumber"
 								class="form-control" onblur="checkUniqueVehicleNo()" maxlength="20"/>
 						</div>
 					</div>
