@@ -57,6 +57,13 @@
          
     </definition>  
   
+  	<definition name="page404" template="/WEB-INF/jsp/page404.jsp">  
+         
+    </definition>  
+    
+    
+  
+  
     <definition name="index" extends="base.definition">  
         <put-attribute name="title" value="Hello Spring MVC" />  
         <put-attribute name="body" value="/WEB-INF/jsp/index.jsp" />  

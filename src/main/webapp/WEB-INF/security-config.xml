@@ -14,6 +14,8 @@
 		<intercept-url pattern="/route/routeMap**" access="ROLE_SCHOOLADMIN" />
 		<intercept-url pattern="/schoolAdmin/parentList**" access="ROLE_SCHOOLADMIN" />
 		<intercept-url pattern="/schoolAdmin/studentList**" access="ROLE_SCHOOLADMIN" />
+		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+	
 		
 		<form-login login-page='/login' username-parameter="username"
 			password-parameter="password" default-target-url="/default"

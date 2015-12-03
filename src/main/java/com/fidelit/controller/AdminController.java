@@ -76,8 +76,12 @@ public class AdminController {
   @Autowired
   private GtsService gtsService;
   
-  
-  
+  @RequestMapping("/")
+  private String hande404(){
+	  
+	return "page404";
+	  
+  }
   @ResponseBody
   @RequestMapping("/profile")
   public void profile(HttpServletRequest request,HttpServletResponse response){
