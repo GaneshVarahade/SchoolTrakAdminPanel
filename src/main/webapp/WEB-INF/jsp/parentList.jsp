@@ -308,6 +308,7 @@ function editParent(id,name,school,address,email,age,city,password,username,acco
 	$("#password1").val(password);
 	$("#username1").val(username);
 	$("#accountType1").val(accountType);
+	$('#edit').modal({backdrop: 'static', keyboard: false})
 	$("#edit").modal('show');
 	
 }

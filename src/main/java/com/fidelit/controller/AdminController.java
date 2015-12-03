@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fidelit.model.Clients;
 import com.fidelit.model.Employee;
 import com.fidelit.model.EmployeeProject;
+import com.fidelit.model.Extintor;
 import com.fidelit.model.Holidays;
 import com.fidelit.model.LeavesApplied;
 import com.fidelit.model.Project;
@@ -501,7 +502,7 @@ public String deleteEmployeeList(@RequestParam("list") String str,HttpServletReq
 		
 		int id = Integer.parseInt(str1[i]);
 		
-		
+			
 			schoolService.deleteSchool(id);
 	
 		
@@ -521,6 +522,35 @@ public String deleteEmployeeList(@RequestParam("list") String str,HttpServletReq
 	model.addAttribute("schoolList", schoolList);
 	return "schoolList";
 }
+
+
+@ResponseBody
+@RequestMapping(value = "/checkDependancyOfStudentInSchool",method = RequestMethod.POST)
+public String checkDependancyOfStudentInSchool(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+	String status = null;
+	
+	String dataList = request.getParameter("list");
+	dataList = dataList.substring(0, dataList.length()-1);
+	String[] str1 = dataList.split(",");
+	System.out.println("dataList:"+dataList);
+	List<SchoolAdmin> schoolAdminList = null;
+	//List<Extintor> extintorList = null;
+	for (int i = 0; i < str1.length; i++) {
+		schoolAdminList=schoolAdminService.checkStudentInSchool(str1[i]);
+	//	extintorList=extinctorService.allExtintorListForBus(str1[i]);
+		System.out.println("schoolAdminList:"+schoolAdminList.toString());
+	//	System.out.println("RouteList1:"+routeList.isEmpty());
+	if(schoolAdminList.isEmpty()){
+		status = "false";
+	}else{
+		status = "true";
+		break;
+	}
+	
+	}
+	return status;
+}
+
 
 @RequestMapping(value = "/deleteSchoolAdminList")
 public String deleteClientList(@RequestParam("list") String str,HttpServletRequest request,HttpServletResponse response,ModelMap model){
@@ -551,6 +581,9 @@ public String deleteClientList(@RequestParam("list") String str,HttpServletReque
     model.addAttribute("schoolAdminList", schoolAdminList);
 	return "schoolAdmin";
 }
+
+
+
 
 }
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fidelit.model.Employee;
+import com.fidelit.model.Extintor;
 import com.fidelit.model.School;
 import com.fidelit.model.SchoolAdmin;
 import com.fidelit.service.SchoolAdminService;
@@ -105,6 +107,10 @@ public class SchoolServiceImpl implements SchoolService {
 		return null;
 	}
 
+	
+	
+
+	
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
 	public void deleteSchool(int id) {

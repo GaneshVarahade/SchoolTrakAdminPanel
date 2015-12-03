@@ -159,7 +159,27 @@ function password_length_registration()
 	
 		 var result = confirm("Are you sure, you wan to delete school(s)?");
 		 if(result){
-			 window.location.href = "deleteSchoolList?list="+saveKara;	 
+			 var formData="list="+saveKara;
+			 $.ajax({
+			    type : "POST",
+			    url : "${pageContext.request.contextPath}/admin/checkDependancyOfStudentInSchool",
+			    data : formData,
+			    success : function(response) {
+			    	
+			    	if(response == "true"){
+			    		alert("Dependency Exit , can't delete.");
+			    	}else{
+						 window.location.href = "deleteSchoolList?list="+saveKara;
+			    	}
+				   
+			      },
+			    error : function(e) {
+			    	
+			    }
+			});
+			 
+
+	 
 		 }
 		 	 
 	 }

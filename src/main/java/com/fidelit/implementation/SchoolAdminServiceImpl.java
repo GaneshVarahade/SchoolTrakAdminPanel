@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fidelit.model.Extintor;
 import com.fidelit.model.School;
 import com.fidelit.model.SchoolAdmin;
 import com.fidelit.service.SchoolAdminService;
@@ -178,9 +180,28 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 			} catch (Exception e) {
 				
 				e.printStackTrace();
-			}
-		
+			}	
 		return name;
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+    public List<SchoolAdmin> checkStudentInSchool(String schoolId) {
+		String accountType  = "Student";
+		Session session;
+		List<SchoolAdmin> schoolAdminList = null;
+		try{
+			session = sessionFactory.getCurrentSession();
+			System.out.println("IN Service:"+schoolId);
+			SQLQuery query = session.createSQLQuery(
+					"select * from schooladmin s where s.schoolId ='"+schoolId+"' and s.accountType = '"+accountType+"'");		
+			schoolAdminList = query.list();
+			System.out.println("In ExtintorService:"+schoolAdminList.toString());
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return schoolAdminList;
 	}
 
 }
