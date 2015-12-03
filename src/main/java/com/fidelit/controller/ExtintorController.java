@@ -128,7 +128,7 @@ public class ExtintorController {
 			
 		}
 		
-		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		/*String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 	    List<Extintor> extintorList= extinctorService.getExtintorList(userName);
 		
 	    HttpSession session = request.getSession();
@@ -140,6 +140,23 @@ public class ExtintorController {
 	    model.addAttribute("extintorList", extintorList);
 		model.addAttribute(new Extintor());
 		model.addAttribute("extintorActive","extintorActive");
+		return "extintorList";*/
+		
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<Bus> busList=busService.allBusList(userName);
+	
+		List<Extintor> extintorList =extinctorService.getExtintorList(userName);
+		
+		HttpSession session = request.getSession();
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUser.getUsername();
+		model.addAttribute("userName", username);
+		
+		
+		model.addAttribute("extintorList",extintorList);
+		model.addAttribute("busList",busList);
+		model.addAttribute("extintorActive","extintorActive");
+		model.addAttribute(new Extintor());
 		return "extintorList";
 	}
 	

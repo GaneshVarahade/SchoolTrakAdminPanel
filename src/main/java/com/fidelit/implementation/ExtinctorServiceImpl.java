@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -125,5 +126,27 @@ public class ExtinctorServiceImpl implements ExtinctorService {
 		
 		
 	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false) 
+	@Override
+	public List<Extintor> allExtintorListForBus(String busID) {
+		
+		Session session;
+		List<Extintor> extintorList = null;
+		try{
+			session = sessionFactory.getCurrentSession();
+			System.out.println("IN Service:"+busID);
+			SQLQuery query = session.createSQLQuery(
+					"select * from extintor e where e.bus_busId ='"+busID+"'");		
+			extintorList = query.list();
+			System.out.println("In ExtintorService:"+extintorList.toString());
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return extintorList;
+	}
+
+	
 
 }

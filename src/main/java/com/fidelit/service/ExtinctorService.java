@@ -12,5 +12,6 @@ public interface ExtinctorService {
 	Extintor getExtintorId(int id);
 	void deleteExtintor(int id);
 	void deleteBusInExtinctor(int id);
+	List<Extintor> allExtintorListForBus(String busID);
 
 }

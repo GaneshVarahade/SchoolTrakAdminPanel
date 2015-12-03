@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fidelit.model.Bus;
 import com.fidelit.model.BusDriver;
 import com.fidelit.model.Device;
+import com.fidelit.model.Extintor;
 import com.fidelit.model.Route;
 import com.fidelit.model.SchoolAdmin;
 import com.fidelit.model.Stop;
@@ -461,11 +462,13 @@ DeviceService deviceService;
 		String[] str1 = dataList.split(",");
 		System.out.println("dataList:"+dataList);
 		List<Route> routeList = null;
+		List<Extintor> extintorList = null;
 		for (int i = 0; i < str1.length; i++) {
 			routeList=routeService.allRouteList(str1[i]);
+			extintorList=extinctorService.allExtintorListForBus(str1[i]);
 			System.out.println("RouteList:"+routeList.toString());
 			System.out.println("RouteList1:"+routeList.isEmpty());
-		if(routeList.isEmpty()){
+		if(routeList.isEmpty() && extintorList.isEmpty()){
 			status = "false";
 		}else{
 			status = "true";
