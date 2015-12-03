@@ -59,6 +59,7 @@ public class BusServiceImpl implements BusService{
 		List<Bus> busList = new ArrayList<Bus>();
 		 Session session;
 			try {
+				System.out.println("in bus Service");
 				session = sessionFactory.getCurrentSession();
 				String hql = "from Bus where regNumber =:regNumber";
 				Query query = session.createQuery(hql);

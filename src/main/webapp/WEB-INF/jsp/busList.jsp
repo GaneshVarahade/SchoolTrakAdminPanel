@@ -16,6 +16,22 @@ var saveKara = 0;
 	
 	var saveKara = 0;
 	
+	function useHTML(id,data){
+		 var id = "#" + id;
+		var text = "";
+		for (i = 0; i < data.length; i++) { 
+			if(data[i] == "<"){
+	   	text += "<<span>";
+			}else if(data[i] == ">"){
+				text += "</span>>";
+			}
+			else{
+				text += data[i];
+			}
+		}
+		 $(id).val(text);
+	}
+	
 	function showBtn(){
 	
 		 if(saveKara == 0){
@@ -138,11 +154,12 @@ function addStops(id){
 }
 
  function editBus(id,regNo,type,capacity,deviceId){
+	 
 	$("#busId").val(id);
 	$("#regNumber").val(regNo);
 	$("#type").val(type);
 	$("#capacity").val(capacity);
-	$("#deviceID").val(deviceId);
+	$("#uniqueID").val(deviceId);
 	$("#edit").modal('show');
 	
 }
@@ -391,7 +408,7 @@ function addStops(id){
 						<form:label path="regNumber" class="col-sm-3 control-label">Vehicle Registration Number</form:label>
 						<div class="col-sm-8">
 							<form:input path="regNumber" id="regNumber" name="regNumber"
-								class="form-control" onblur="checkUniqueVehicleNo()" maxlength="20"/>
+								class="form-control" maxlength="50" onblur="checkUniqueVehicleNo(); useHTML(this.id,document.getElementById('regNumber').value);" />
 						</div>
 					</div>
 
@@ -399,7 +416,7 @@ function addStops(id){
 						<form:label path="busType" class="col-sm-3 control-label">Vehicle Type</form:label>
 						<div class="col-sm-8">
 							<form:input path="busType" id="type" name="busType"
-								class="form-control" maxlength="20"/>
+								class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('type').value)"/>
 						</div>
 					</div>
 					<div class="form-group">
@@ -416,7 +433,7 @@ function addStops(id){
 						<form:label path="capacity" class="col-sm-3 control-label">Capacity</form:label>
 						<div class="col-sm-8">
 							<form:input path="capacity" type="number" id="capacity"
-								name="capacity" class="form-control" maxlength="10"/>
+								name="capacity" class="form-control" maxlength="10" onblur = "useHTML(this.id,document.getElementById('capacity').value)"/>
 						</div>
 					</div>
 				</div>
@@ -455,7 +472,7 @@ function addStops(id){
 						<form:label path="regNumber" class="col-sm-3 control-label">Vehicle Registration Number</form:label>
 						<div class="col-sm-8">
 							<form:input path="regNumber" id="regNumber1" name="regNumber"
-								class="form-control" onblur="checkUniqueVehicleNo()" maxlength="20"/>
+								class="form-control" maxlength="50" onblur="checkUniqueVehicleNo(); useHTML(this.id,document.getElementById('regNumber1').value)" />
 						</div>
 					</div>
 
@@ -463,13 +480,13 @@ function addStops(id){
 						<form:label path="busType" class="col-sm-3 control-label">Vehicle Type</form:label>
 						<div class="col-sm-8">
 							<form:input path="busType" id="busType" name="busType"
-								class="form-control" maxlength="20"/>
+								class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('busType').value)"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<form:label path="device.uniqueID" class="col-sm-3 control-label">DeviceID</form:label>
 						<div class="col-sm-8">
-							<form:select  path="device.uniqueID"  id="uniqueID" class="form-control">
+							<form:select  path="device.uniqueID"  id="uniqueIDD" class="form-control">
 								<option value="">Select</option>
 								<c:forEach var="device" items="${deviceList}">
 									<option value="${device.uniqueID}">${device.deviceID}</option>
@@ -481,7 +498,7 @@ function addStops(id){
 						<form:label path="capacity" class="col-sm-3 control-label">Capacity</form:label>
 						<div class="col-sm-8">
 							<form:input path="capacity" type="number" id="capacity"
-								name="capacity" class="form-control" maxlength="10"/>
+								name="capacity" class="form-control" maxlength="10" onblur = "useHTML(this.id,document.getElementById('capacity').value)"/>
 						</div>
 					</div>
 				</div>

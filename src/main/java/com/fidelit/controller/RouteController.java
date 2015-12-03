@@ -608,6 +608,7 @@ DeviceService deviceService;
 	public boolean checkUniqueVehicleNo(HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		
 		String regNumber = request.getParameter("regNo");
+		System.out.println("regNumber:"+regNumber);
 		boolean val = busService.getUniqueVehicleNo(regNumber);
 		return val;
 		
