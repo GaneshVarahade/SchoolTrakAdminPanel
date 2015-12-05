@@ -359,6 +359,7 @@ public String allSchoolList(@ModelAttribute("school") School school,HttpServletR
 		schoolService.addSchool(school);
 		schoolList= schoolService.allSchoolList(userName);
 		model.addAttribute(new School());
+		model.addAttribute("success","success");
 		model.addAttribute("schoolList", schoolList);
 	
 		}
@@ -372,6 +373,7 @@ public String allSchoolList(@ModelAttribute("school") School school,HttpServletR
 
 	    schoolList= schoolService.allSchoolList(userName);
 	    model.addAttribute(new School());
+	    model.addAttribute("edit","edit");
 		model.addAttribute("schoolList", schoolList);
 	}
 	HttpSession session = request.getSession();
@@ -415,17 +417,32 @@ public String allSchoolAdminList(@ModelAttribute("schoolAdmin") SchoolAdmin scho
 	   if(action.equals("add")){
 		
 		 schoolAdmin.setRole("ROLE_SCHOOLADMIN");
-		School school=schoolService.getSchool(schoolAdmin.getSchool().getSchoolName());
+	
 		schoolAdmin.setEnabled(true);
 		gtsService.addAccountInGts(schoolAdmin.getUsername(),schoolAdmin.getPassword(),schoolAdmin.getAccountType());
 		
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		schoolAdmin.setAccountId(userName);
-		schoolAdmin.setSchool(school);
 		schoolAdmin.setAccountType("SchoolAdmin");
 		schoolAdminService.addSchoolAdmin(schoolAdmin);
+		model.addAttribute("success","success");
 		model.addAttribute(new SchoolAdmin());
 	}
+	   
+	   if(action.equals("edit")){
+			//	School school =schoolAdmin.getSchool();
+				schoolAdmin.setAccountType("SchoolAdmin");
+				model.addAttribute(new SchoolAdmin());
+				schoolAdmin.setRole("ROLE_SCHOOLADMIN");
+				schoolAdmin.setEnabled(true);
+				String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+				schoolAdmin.setAccountId(userName);
+			//	schoolAdmin.setSchool(school);
+				schoolAdminService.updateSchoolAdmin(schoolAdmin);
+				model.addAttribute("edit","edit");
+				
+			}
+			
 	  
 	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 	List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);

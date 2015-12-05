@@ -86,8 +86,24 @@ public class SchoolAdminController {
 				schoolAdmin.setSchool(school);
 				schoolAdmin.setAccountType("Parent");
 				schoolAdminService.addSchoolAdmin(schoolAdmin);
+				model.addAttribute("success", "success");
 				model.addAttribute(new SchoolAdmin());
+				
 		}
+		
+		if(action.equals("edit")){
+			//	School school =schoolAdmin.getSchool();
+				schoolAdmin.setAccountType("Parent");
+				model.addAttribute(new SchoolAdmin());
+				schoolAdmin.setRole("ROLE_PARENT");
+				schoolAdmin.setEnabled(true);
+				String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+				schoolAdmin.setAccountId(userName);
+			//	schoolAdmin.setSchool(school);
+				model.addAttribute("edit", "edit");
+				schoolAdminService.updateSchoolAdmin(schoolAdmin);
+				
+			}
 		
 		HttpSession session = request.getSession();
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -140,6 +156,7 @@ public class SchoolAdminController {
 			String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 			schoolAdmin.setAccountId(userName);
 		//	schoolAdmin.setSchool(school);
+			model.addAttribute("edit", "edit");
 			schoolAdminService.updateSchoolAdmin(schoolAdmin);
 			
 		}

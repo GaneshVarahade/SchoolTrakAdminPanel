@@ -321,19 +321,19 @@ function addStops(id){
                     <h1 class="page-head-text pull-left">Route</h1>   
                     
                      <c:if test="${success == 'success'}">
-                    <div class="alert alert-success" id="success-alert">
+                   <center> <div class="alert alert-success" id="success-alert">
     					<button type="button" class="close" data-dismiss="alert">x</button>
     						<strong>Success! </strong>
    								 Route Added Successfully
-					</div>                    	
+					</div></center>                    	
                     </c:if>    
                     
                      <c:if test="${edit == 'edit'}">
-                    <div class="alert alert-info" id="success-alert">
+                    <center><div class="alert alert-info" id="success-alert">
     					<button type="button" class="close" data-dismiss="alert">x</button>
     						<strong>Success! </strong>
    								 Route Updated Successfully
-					</div>                    	
+					</div> </center>                   	
                     </c:if>    
                                      
                     <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addRoutes"><i class="fa fa-plus-circle"></i>  Add Route</button>                    

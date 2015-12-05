@@ -488,6 +488,10 @@ $('#frm').submit(function(e) {
 
 
 $(document).ready(function() {
+	$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+	    $("#success-alert").alert('close');
+	});
+	
     $('#frm').formValidation({
         framework: 'bootstrap',
         excluded: ':disabled',
@@ -500,21 +504,21 @@ $(document).ready(function() {
         	schoolName: {
                 validators: {
                     notEmpty: {
-                        message: 'The schoolName is required'
+                        message: 'School Name is required'
                     }
                 }
             },
             address: {
                 validators: {
                     notEmpty: {
-                        message: 'The address is required'
+                        message: 'Address is required'
                     }
                 }
             },
             details: {
                 validators: {
                     notEmpty: {
-                        message: 'The Details is required'
+                        message: 'Details is required'
                     }
                 }
             },
@@ -522,7 +526,7 @@ $(document).ready(function() {
             location: {
                 validators: {
                     notEmpty: {
-                        message: 'The Location is required'
+                        message: 'Location is required'
                     }
                 }
             },
@@ -530,7 +534,7 @@ $(document).ready(function() {
             city: {
                 validators: {
                     notEmpty: {
-                        message: 'The city is required'
+                        message: 'City is required'
                     }
                 }
             }
@@ -550,21 +554,21 @@ $(document).ready(function() {
         	schoolName: {
                 validators: {
                     notEmpty: {
-                        message: 'The schoolName is required'
+                        message: 'School Name is required'
                     }
                 }
             },
             address: {
                 validators: {
                     notEmpty: {
-                        message: 'The address is required'
+                        message: 'Address is required'
                     }
                 }
             },
             details: {
                 validators: {
                     notEmpty: {
-                        message: 'The Details is required'
+                        message: 'Details is required'
                     }
                 }
             },
@@ -572,7 +576,7 @@ $(document).ready(function() {
             location: {
                 validators: {
                     notEmpty: {
-                        message: 'The Location is required'
+                        message: 'Location is required'
                     }
                 }
             },
@@ -580,7 +584,7 @@ $(document).ready(function() {
             city: {
                 validators: {
                     notEmpty: {
-                        message: 'The city is required'
+                        message: 'City is required'
                     }
                 }
             }
@@ -600,6 +604,23 @@ $(document).ready(function() {
             <div class="fixed-page-header">
                 <div class="page-header clearfix">
                     <h1 class="page-head-text pull-left">Schools</h1>
+                    
+                    
+                  <c:if test="${success == 'success'}">
+                   <center> <div class="alert alert-success" id="success-alert">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    						<strong>Success! </strong>
+   								 School Added Successfully
+					</div></center>                    	
+                    </c:if>    
+                    
+                     <c:if test="${edit == 'edit'}">
+                    <center><div class="alert alert-info" id="success-alert">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    						<strong>Success! </strong>
+   								 School Updated Successfully
+					</div> </center>                   	
+                    </c:if>    
                     
                     <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#schoolAdd" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle" ></i>  Add School</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>

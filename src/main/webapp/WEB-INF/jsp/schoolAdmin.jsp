@@ -140,7 +140,9 @@ function sendDataForUpdation(){
 function checkUniqueUsername(){
 	
 	var userName= "userName="+$("#username").val();
-	
+	if(userName=="userName="){
+		userName="userName="+$("#username1").val();
+	}
 	$.ajax({
 	    type : "POST",
 	    url : "${pageContext.request.contextPath}/admin/checkUniqueUserName",
@@ -176,15 +178,15 @@ function useHTML(id,data){
 }
 
 function editSchoolAdmin(id,name,school,address,email,age,city,password,username){
-	$("#schoolAdminId").val(id);
-	$("#aNamee").val(name);
-	$("#usernamee").val(username);
-	$("#aPasswordd").val(password);
-	$("#schoolNamee").val(school);
-	$("#aAddresss").val(address);
-	$("#aEmaill").val(email);
-	$("#aAgee").val(age);
-	$("#aCityy").val(city);
+	$("#schoolAdminId1").val(id);
+	$("#name1").val(name);
+	$("#username1").val(username);
+	$("#password1").val(password);
+	$("#school1").val(school);
+	$("#address1").val(address);
+	$("#email1").val(email);
+	$("#age1").val(age);
+	$("#city1").val(city);
 	$('#edit').modal({backdrop: 'static', keyboard: false})
 	$("#edit").modal('show');
 	
@@ -419,6 +421,10 @@ function password_length_registration()
 
 $(document).ready(function() {
 	
+	$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+	    $("#success-alert").alert('close');
+	});
+	
     $('#frm').formValidation({
         framework: 'bootstrap',
         excluded: ':disabled',
@@ -431,14 +437,14 @@ $(document).ready(function() {
         	name: {
                 validators: {
                     notEmpty: {
-                        message: 'The Admin Name is required'
+                        message: 'Admin Name is required'
                     }
                 }
             },
             address: {
                 validators: {
                     notEmpty: {
-                        message: 'The address is required'
+                        message: 'address is required'
                     }
                 }
             },
@@ -448,16 +454,16 @@ $(document).ready(function() {
                 	
                     notEmpty: {
                     
-                        message: 'The User Name is required'
+                        message: 'Username is required'
                     },
         			stringLength: {
             				min: 6,
             				max: 20,
-            		message: 'The username must be more than 6 and less than 20 characters long'
+            		message: 'username must be more than 6 and less than 20 characters long'
         			},
         		regexp: {
             		regexp: /^[a-zA-Z0-9_\.]+$/,
-            		message: 'The username can only consist of alphabetical, number, dot and underscore'
+            		message: 'username can only consist of alphabetical, number, dot and underscore'
         			},
         			
                 }
@@ -482,14 +488,7 @@ $(document).ready(function() {
             city: {
                 validators: {
                     notEmpty: {
-                        message: 'The city is required'
-                    }
-                }
-            },
-            accountType: {
-                validators: {
-                    notEmpty: {
-                        message: 'Please select Account type'
+                        message: 'city is required'
                     }
                 }
             },
@@ -525,42 +524,42 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-        	namee: {
+        	name: {
                 validators: {
                     notEmpty: {
-                        message: 'The Admin Name is required'
+                        message: 'Admin Name is required'
                     }
                 }
             },
-            addresss: {
+            address: {
                 validators: {
                     notEmpty: {
-                        message: 'The address is required'
+                        message: 'address is required'
                     }
                 }
             },
-            username: {
+        	username: {
         		verbose: false,
                 validators: {
                 	
                     notEmpty: {
                     
-                        message: 'The User Name is required'
+                        message: 'Username is required'
                     },
         			stringLength: {
             				min: 6,
             				max: 20,
-            		message: 'The username must be more than 6 and less than 20 characters long'
+            		message: 'username must be more than 6 and less than 20 characters long'
         			},
         		regexp: {
             		regexp: /^[a-zA-Z0-9_\.]+$/,
-            		message: 'The username can only consist of alphabetical, number, dot and underscore'
+            		message: 'username can only consist of alphabetical, number, dot and underscore'
         			},
         			
                 }
             },
             
-            passwordd: {
+            password: {
                 validators: {
                     notEmpty: {
                         message: 'Please Enter Password'
@@ -568,7 +567,7 @@ $(document).ready(function() {
                 }
             },
             
-            schoolNamee: {
+            'school.schoolName': {
                 validators: {
                     notEmpty: {
                         message: 'Please select School'
@@ -576,29 +575,23 @@ $(document).ready(function() {
                 }
             },
             
-            cityy: {
+            city: {
                 validators: {
                     notEmpty: {
-                        message: 'The city is required'
+                        message: 'city is required'
                     }
                 }
             },
-            accountType1: {
-                validators: {
-                    notEmpty: {
-                        message: 'Please select Account type'
-                    }
-                }
-            },
+          
             
-            emaill: {
+            email: {
                 validators: {
                     notEmpty: {
                         message: 'Please Enter Valid Email'
                     }
                 }
             },
-            agee: {
+            age: {
                 validators: {
                     notEmpty: {
                     	
@@ -625,6 +618,22 @@ $(document).ready(function() {
             <div class="fixed-page-header">
                 <div class="page-header clearfix">
                     <h1 class="page-head-text pull-left">School Admin </h1>
+                    
+                     <c:if test="${success == 'success'}">
+                   <center> <div class="alert alert-success" id="success-alert">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    						<strong>Success! </strong>
+   								 School Admin Added Successfully
+					</div></center>                    	
+                    </c:if>    
+                    
+                     <c:if test="${edit == 'edit'}">
+                    <center><div class="alert alert-info" id="success-alert">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    						<strong>Success! </strong>
+   								 School Admin Updated Successfully
+					</div> </center>                   	
+                    </c:if>    
                     
                     <button type="submit" class="btn btn-inverse btn-sm pull-right" data-id=""  data-toggle="modal" data-target="#schoolAdminId" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  Add School Admin</button>                    
                     <button id="deleteButton" type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
@@ -672,7 +681,7 @@ $(document).ready(function() {
                                         <td>${schoolAdmin.email}</td>
                                         <td>${schoolAdmin.age}</td>
                                         <td>${schoolAdmin.city}</td>
-                                        <td><input type="submit" class="button" value="Edit"  onClick="editSchoolAdmin('${schoolAdmin.id}','${schoolAdmin.name}','${schoolAdmin.school.schoolName}','${schoolAdmin.address}','${schoolAdmin.email}','${schoolAdmin.age}','${schoolAdmin.city}','${schoolAdmin.password}','${schoolAdmin.username}');"></td>
+                                        <td><button type="submit"  class="btn btn-default btn-sm" value="Edit" onClick="editSchoolAdmin('${schoolAdmin.id}','${schoolAdmin.name}','${schoolAdmin.school.schoolName}','${schoolAdmin.address}','${schoolAdmin.email}','${schoolAdmin.age}','${schoolAdmin.city}','${schoolAdmin.password}','${schoolAdmin.username}','${schoolAdmin.accountType}');" ><i class="fa fa-pencil-square-o"></i>Edit</button></td>
                                     </tr>
                                 </c:if>
                              </c:forEach>                                                                  
@@ -789,90 +798,78 @@ $(document).ready(function() {
                 <h4 class="modal-title">School Admin Edit</h4>
             </div>
             <div class="modal-body">
-                <form id="editForm"  class="form-horizontal" role="form" name="editForm">
+                      <form:form id="editForm" class="form-horizontal" method="POST" name="frm" action="${pageContext.request.contextPath}/admin/schoolAdmin" commandName="schoolAdmin">
                 
+      
+            <form:input path="id" id="schoolAdminId1" class="form-control" type="hidden" />
+           <input type="hidden" name="action" value="edit">
                 <div class="form-group">
-                <!--  <label class="col-sm-3 control-label">School Admin Id</label> -->
-               	<div class="col-sm-8">
-					<input type="hidden" name="schoolAdminId" id="schoolAdminId" value="" class="form-control" readonly>
-                 </div>
-			  </div>
-                
-                <div class="form-group">
-                        <label class="col-sm-3 control-label">Admin Name &#42;</label>
+                        <form:label path="name" class="col-sm-3 control-label">&#42; Student Name</form:label>
                         <div class="col-sm-8">
-                        	<input type="text" name="namee" id="aNamee" value="" class="form-control" maxlength="50">
+                        	<form:input path="name" type="text" id="name1" value="" class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('name1').value)"/>
                         </div>
                    	</div>
-              
-                  	<div class="form-group">
-                        <label class="col-sm-3 control-label">Account Type &#42;</label>
-                        <div class="col-sm-8">
-                        	<select name="accountTypee" id="accountTypee" class="form-control" >
-                            	<option value="SchoolAdmin">School Admin</option>
-                            </select>
-                     	</div>
-                    </div>
-                    
+  
                     <div class="form-group">
-                       	<label class="col-sm-3 control-label">User Name &#42;</label>
+                       	<form:label path="username" class="col-sm-3 control-label">&#42; Username</form:label>
                         <div class="col-sm-8">
-                            <input type="text" name="usernamee" id="usernamee" value="" class="form-control" maxlength="10" onblur = "checkUniqueUsernameEdit()">
+                            <form:input type="text" path="username" id="username1" value="" class="form-control" maxlength="20" onblur = "checkUniqueUsername(); useHTML(this.id,document.getElementById('username1').value);" />
                       	</div>
                     </div>
                   	
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">Admin Password &#42;</label>
+                        <form:label path="password" class="col-sm-3 control-label">&#42; Password </form:label>
                         <div class="col-sm-8">
-                        	<input type="text" name="passwordd" id="aPasswordd" value="" class="form-control" maxlength="10">
+                        	<form:input type="text" path="password" id="password1" value="" class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('password1').value)"/>
                         </div>
                     </div>
                     
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">School Name &#42;</label>
+                        <form:label path="school.schoolName" class="col-sm-3 control-label">&#42; School Name </form:label>
                         <div class="col-sm-8">
-                        	<select name="schoolNamee" id="schoolNamee" class="form-control" >
+                        	<form:select path="school.schoolName" id="school1" class="form-control" >
+                        		<form:option value="">Select</form:option>
                             	<c:forEach var="school" items="${schoolList}">
-                               	<option value="${school.schoolName}">${school.schoolName}</option>
+                               	<form:option value="${school.schoolName}">${school.schoolName}</form:option>
                         		</c:forEach>
-                        	</select>
+                        	</form:select>
                        </div>
                     </div>
                     
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">Address &#42;</label>
+                        <form:label path="address" class="col-sm-3 control-label">&#42; Address </form:label>
                         <div class="col-sm-8">
-                            <input type="text" name="addresss" id="aAddresss" value="" class="form-control" >
+                            <form:input  path="address" type="text" id="address1" value="" class="form-control" maxlength="80" onblur = "useHTML(this.id,document.getElementById('address1').value)"/>
                         </div>
                     </div>
                     
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">Email &#42;</label>
+                        <form:label path="email" class="col-sm-3 control-label">&#42; Email </form:label>
                         <div class="col-sm-8">
-                            <input type="email" name="emaill" id="aEmaill" value="" class="form-control" onblur="emailValidateRegistration();">
+                            <form:input path="email" type="email" id="email1" class="form-control"  maxlength="30" />
                         </div>
                    	</div>
                     
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">Age &#42;</label>
+                        <form:label path="age" class="col-sm-3 control-label">&#42; Age (Years) </form:label>
                         <div class="col-sm-8">
-                        	<input type="number" name="agee" id="aAgee" value="" class="form-control" >
+                        	<form:input path="age" type="number" min="1" step="1"  id="age1" value="" class="form-control" />
                         </div>
                     </div>
                     
                   	<div class="form-group">
-                        <label class="col-sm-3 control-label">City &#42;</label>
+                        <form:label path="city" class="col-sm-3 control-label">&#42; City </form:label>
                         <div class="col-sm-8">
-                        	<input type="text" name="cityy" id="aCityy" value="" class="form-control">
+                        	<form:input path="city" type="text"  id="city1" value="" class="form-control" maxlength="20" />
                         </div>
                     </div>
                     
                    
             		<div class="modal-footer text-center">
-                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-sky btn-sm" onClick="editSchoolAdminn();" data-dismiss="modal">Save</button>
-                </div> 
-                </form>               
+                    	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                    	<button type="submit" class="btn btn-sky btn-sm" >Save</button>
+                	</div> 
+        </form:form>
 			</div>
                    
 				
