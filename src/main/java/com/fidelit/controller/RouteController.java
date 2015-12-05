@@ -572,6 +572,7 @@ DeviceService deviceService;
 			bus.setAccountId(userName);
 			bus.setDevice(device);
 			deviceService.addOrUpdateDevice(device);
+			model.addAttribute("success", "success");
 			busService.addBus(bus);
 		}
 		if(action.equals("edit")){
@@ -581,7 +582,7 @@ DeviceService deviceService;
 			Device device = deviceService.getDeviceByUniqueId(bus.getDevice().getUniqueID());
 			bus.setDevice(device);
 			device.setIsDeviceUsed(true);
-
+			model.addAttribute("edit", "edit");
 			busService.updateBus(bus);
 			
 			
@@ -710,11 +711,13 @@ DeviceService deviceService;
 			System.out.println("Inside If :");
 			busDriver.setAccountId(userName);
 			busDriverService.updateBusDriver(busDriver);
+			model.addAttribute("edit", "edit");
 			
 		}
 		if(action.equals("add")){
 			busDriver.setAccountId(userName);
 			busDriverService.addBusDriver(busDriver);
+			model.addAttribute("success", "success");
 			
 		}
 		

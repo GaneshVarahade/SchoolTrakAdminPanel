@@ -14,7 +14,7 @@ var saveKara = 0;
 function showBtn(){
 
 	 if(saveKara == 0){
-		 alert("Please select Atleast one School Admin");
+		 alert("Please select At least one School Admin for delete");
 	 }
 	 else{
 		
@@ -444,7 +444,7 @@ $(document).ready(function() {
             address: {
                 validators: {
                     notEmpty: {
-                        message: 'address is required'
+                        message: 'Address is required'
                     }
                 }
             },
@@ -459,11 +459,11 @@ $(document).ready(function() {
         			stringLength: {
             				min: 6,
             				max: 20,
-            		message: 'username must be more than 6 and less than 20 characters long'
+            		message: 'Username must be more than 6 and less than 20 characters long'
         			},
         		regexp: {
             		regexp: /^[a-zA-Z0-9_\.]+$/,
-            		message: 'username can only consist of alphabetical, number, dot and underscore'
+            		message: 'Username can only consist of alphabetical, number, dot and underscore'
         			},
         			
                 }
@@ -472,7 +472,7 @@ $(document).ready(function() {
             password: {
                 validators: {
                     notEmpty: {
-                        message: 'Please Enter Password'
+                        message: 'Password is required'
                     }
                 }
             },
@@ -488,7 +488,7 @@ $(document).ready(function() {
             city: {
                 validators: {
                     notEmpty: {
-                        message: 'city is required'
+                        message: 'City is required'
                     }
                 }
             },
@@ -534,7 +534,7 @@ $(document).ready(function() {
             address: {
                 validators: {
                     notEmpty: {
-                        message: 'address is required'
+                        message: 'Address is required'
                     }
                 }
             },
@@ -549,11 +549,11 @@ $(document).ready(function() {
         			stringLength: {
             				min: 6,
             				max: 20,
-            		message: 'username must be more than 6 and less than 20 characters long'
+            		message: 'Username must be more than 6 and less than 20 characters long'
         			},
         		regexp: {
             		regexp: /^[a-zA-Z0-9_\.]+$/,
-            		message: 'username can only consist of alphabetical, number, dot and underscore'
+            		message: 'Username can only consist of alphabetical, number, dot and underscore'
         			},
         			
                 }
@@ -562,7 +562,7 @@ $(document).ready(function() {
             password: {
                 validators: {
                     notEmpty: {
-                        message: 'Please Enter Password'
+                        message: 'Password is required'
                     }
                 }
             },
@@ -578,7 +578,7 @@ $(document).ready(function() {
             city: {
                 validators: {
                     notEmpty: {
-                        message: 'city is required'
+                        message: 'City is required'
                     }
                 }
             },
@@ -764,7 +764,7 @@ $(document).ready(function() {
                    	</div>
                     
                   	<div class="form-group">
-                        <form:label path="age" class="col-sm-3 control-label">Age &#42;</form:label>
+                        <form:label path="age" class="col-sm-3 control-label">Age (years) &#42;</form:label>
                         <div class="col-sm-8">
                         	<form:input path="age" type="number" min="1" step="1"  id="aAge" value="" class="form-control" />
                         </div>
@@ -867,7 +867,7 @@ $(document).ready(function() {
                    
             		<div class="modal-footer text-center">
                     	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-                    	<button type="submit" class="btn btn-sky btn-sm" >Save</button>
+                    	<button type="submit" class="btn btn-sky btn-sm" >Update</button>
                 	</div> 
         </form:form>
 			</div>

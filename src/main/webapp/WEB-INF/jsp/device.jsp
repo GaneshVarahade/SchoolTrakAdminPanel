@@ -24,10 +24,24 @@
 			 window.location.href = "deleteDevice?uniqueIdList="+deleteList;
 			 deleteList = [];
 		}else{
-			 alert("Please select at least one device ");
+			 alert("Please select at least one device for delete ");
 		}
 		  
 	}	
+ 
+ $(document).ready(function() {
+
+
+	    $('#routeDataTable').dataTable( {
+	        "aaSorting": [[1,'asc']],
+	         aoColumnDefs: [
+	                   {
+	                      bSortable: false,
+	                      aTargets: [ -1 ]
+	                   }
+	                 ]
+	      } );
+	} ); 
 
  </script>
 <div class="form-horizontal">
@@ -65,7 +79,7 @@
                                 <th width="10%">Status</th>
                                 <th width="20%">Description</th>
                                 <th width="10%">AllowNotify</th>
-                                <th width="30%">Edit Device</th>
+                                <th width="30%">Action</th>
                             </tr>
                           </thead>
                             <tbody>

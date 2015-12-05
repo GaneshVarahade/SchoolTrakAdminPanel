@@ -153,7 +153,7 @@ function password_length_registration()
  function showBtn(){
 
 	 if(saveKara == 0){
-		 alert("Please select Atleast one School for delete");
+		 alert("Please select At least one School for delete");
 	 }
 	 else{
 	
@@ -779,7 +779,7 @@ $(document).ready(function() {
            			<input type="hidden" name="action" value="edit" />
            			 <div class="modal-footer text-center">
             	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            	<button type="submit" name="submitButton" class="btn btn-primary">Save</button>
+            	<button type="submit" name="submitButton" class="btn btn-primary">Update</button>
             </div>
                                          
                 

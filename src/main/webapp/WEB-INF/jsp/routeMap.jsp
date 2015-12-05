@@ -20,7 +20,7 @@ var saveKara = 0;
 function showBtn(){
 
 	 if(saveKara == 0){
-		 alert("Please select Atleast one Route for delete");
+		 alert("Please select At least one Route for delete");
 	 }
 	 else{
 		 var result = confirm("Are you sure, you wan to delete Route(s)?");
@@ -47,6 +47,20 @@ function useHTML(id,data){
 	}
 	 $(id).val(text);
 }
+
+$(document).ready(function() {
+
+
+    $('#routeDataTable').dataTable( {
+        "aaSorting": [[1,'asc']],
+         aoColumnDefs: [
+                   {
+                      bSortable: false,
+                      aTargets: [ -1 ]
+                   }
+                 ]
+      } );
+} ); 
 
 $(document).ready(function() {
     $('#routeDataTable').DataTable();
@@ -97,6 +111,7 @@ function addStops(id){
 	$("#regNumber").val(regNo);
 	$("#driverName").val(driverId);
 	$("#corridorId").val(corridorId);
+	$('#edit').modal({backdrop: 'static', keyboard: false})
 	$("#edit").modal('show');
 	
 	
@@ -336,7 +351,7 @@ function addStops(id){
 					</div> </center>                   	
                     </c:if>    
                                      
-                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addRoutes"><i class="fa fa-plus-circle"></i>  Add Route</button>                    
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addRoutes" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  Add Route</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>
@@ -483,7 +498,7 @@ function addStops(id){
       	</div>
         <div class="modal-footer text-center">
             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            <input type="submit" class="btn btn-sky btn-sm"  value="Save" >
+            <input type="submit" class="btn btn-sky btn-sm"  value="Update" >
         </div>
     </div>
     </form> 

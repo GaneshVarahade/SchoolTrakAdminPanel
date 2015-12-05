@@ -13,7 +13,7 @@ var saveKara = 0;
 function showBtn(){
 
 	 if(saveKara == 0){
-		 alert("Please select Atleast one Parent");
+		 alert("Please select At least one Parent for delete");
 	 }
 	 else{		
 		 var result = confirm("Are you sure, you want to delete parent(s)?");
@@ -29,16 +29,6 @@ $(function(){
 	});
 });
 
-	$(document).ready(function() {
-      $('#example').DataTable({
-    	  "responsive": true,
-    	  "paging":   false,
-    	  "columnDefs": [
-    	                 { className: "dt-body-left", "targets": [ 0 ] }
-    	               ],
-    	   
-     	}); 
-	});
 
 
 function deletel(id){
@@ -165,6 +155,7 @@ function removeString(ch){
 	saveKara = saveKara.replace(ch,'');
 
 }
+
 
 
 function deleteAllRow(source){  	
@@ -356,6 +347,19 @@ function emailValidateRegistration()
      return (false)
 }
 
+$(document).ready(function() {
+
+
+    $('#example').dataTable( {
+        "aaSorting": [[1,'asc']],
+         aoColumnDefs: [
+                   {
+                      bSortable: false,
+                      aTargets: [ -1 ]
+                   }
+                 ]
+      } );
+} ); 
 
 $(document).ready(function() {
 	
@@ -384,11 +388,11 @@ $(document).ready(function() {
         			stringLength: {
             				min: 6,
             				max: 20,
-            		message: 'username must be more than 6 and less than 20 characters long'
+            		message: 'Username must be more than 6 and less than 20 characters long'
         			},
         		regexp: {
             		regexp: /^[a-zA-Z0-9_\.]+$/,
-            		message: 'username can only consist of alphabetical, number, dot and underscore'
+            		message: 'Username can only consist of alphabetical, number, dot and underscore'
         			},
         			
                 }
@@ -396,7 +400,7 @@ $(document).ready(function() {
             name: {
                 validators: {
                     notEmpty: {
-                        message: 'name should be required'
+                        message: 'Name should be required'
                     }
                 }
             },
@@ -404,7 +408,7 @@ $(document).ready(function() {
             password: {
                 validators: {
                     notEmpty: {
-                        message: 'Please Enter Password'
+                        message: 'Password is required'
                     }
                 }
             },
@@ -420,7 +424,7 @@ $(document).ready(function() {
             address: {
                 validators: {
                     notEmpty: {
-                        message: 'address is required'
+                        message: 'Address is required'
                     }
                 }
             },
@@ -474,11 +478,11 @@ $(document).ready(function() {
         			stringLength: {
             				min: 6,
             				max: 20,
-            		message: 'username must be more than 6 and less than 20 characters long'
+            		message: 'Username must be more than 6 and less than 20 characters long'
         			},
         		regexp: {
             		regexp: /^[a-zA-Z0-9_\.]+$/,
-            		message: 'username can only consist of alphabetical, number, dot and underscore'
+            		message: 'Username can only consist of alphabetical, number, dot and underscore'
         			},
         			
                 }
@@ -486,7 +490,7 @@ $(document).ready(function() {
             name: {
                 validators: {
                     notEmpty: {
-                        message: 'name should be required'
+                        message: 'Name is required'
                     }
                 }
             },
@@ -494,7 +498,7 @@ $(document).ready(function() {
             password: {
                 validators: {
                     notEmpty: {
-                        message: 'Please Enter Password'
+                        message: 'Password is required'
                     }
                 }
             },
@@ -510,7 +514,7 @@ $(document).ready(function() {
             address: {
                 validators: {
                     notEmpty: {
-                        message: 'address is required'
+                        message: 'Address is required'
                     }
                 }
             },
@@ -601,7 +605,7 @@ $(document).ready(function() {
                                 <th width="15%">Email</th>
                                 <th width="10%">Age</th>
                                 <th width="10%">City</th>
-                                <th width="10%">Edit</th>                             
+                                <th width="10%">Action</th>                             
                             </tr>
                           </thead>
                           <tbody>
@@ -797,7 +801,7 @@ $(document).ready(function() {
                    
             		<div class="modal-footer text-center">
                     	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-                    	<button type="submit" class="btn btn-sky btn-sm" >Save</button>
+                    	<button type="submit" class="btn btn-sky btn-sm" >Update</button>
                 	</div> 
         </form:form>
             </div>

@@ -47,15 +47,23 @@ public class ExtintorController {
 		}
 		System.out.println("Calling Inpout :"+request.getParameter("action"));
 		System.out.println("Calling Ouut :");
-		if(extintor.getType()!=null){
-			System.out.println("Calling");
+		if(extintor.getType()!=null && action.equals("action")){
 			String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 			String busNumber=extintor.getBus().getRegNumber();
 			Bus bus=busService.getBusRegNo(busNumber);
 			extintor.setBus(bus);
 			extintor.setAccountId(userName);
+			model.addAttribute("success","success");
 			extinctorService.addExtintor(extintor);
 						
+		}
+		if(action.equals("edit")){
+			
+			String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+			extintor.setAccountId(userName);
+			extinctorService.updateExtintor(extintor);		
+			model.addAttribute("edit","edit");	
 		}
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<Extintor> extintorList = extinctorService.getExtintorList(userName);

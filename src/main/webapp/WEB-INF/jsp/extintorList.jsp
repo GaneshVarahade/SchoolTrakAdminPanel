@@ -35,7 +35,9 @@ $(document).ready(function() {
 		document.getElementById("deleteButton").enabled = true;  
 		}
 	
-	
+	$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+	    $("#success-alert").alert('close');
+	});
 	 
     $('#registerForm').formValidation({
         framework: 'bootstrap',
@@ -57,7 +59,7 @@ $(document).ready(function() {
             status: {
                 validators: {
                     notEmpty: {
-                        message: 'Extintor is required'
+                        message: 'Please select Status'
                     }
                 }
             },
@@ -65,7 +67,7 @@ $(document).ready(function() {
             'bus.regNumber': {
                 validators: {
                     notEmpty: {
-                        message: 'Extintor is required'
+                        message: 'Please select Bus'
                     }
                 }
             }
@@ -73,7 +75,7 @@ $(document).ready(function() {
         }
     });
     
-    $('#editForm').formValidation({
+    $('#editExtintor').formValidation({
         framework: 'bootstrap',
         excluded: ':disabled',
         icon: {
@@ -82,7 +84,7 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-        	type1: {
+        	type: {
                 validators: {
                     notEmpty: {
                         message: 'Extintor Type is required'
@@ -98,10 +100,10 @@ $(document).ready(function() {
                 }
             },
             
-            regNumber: {
+            'bus.regNumber': {
                 validators: {
                     notEmpty: {
-                        message: 'Please select Vehicle'
+                        message: 'Please select Bus'
                     }
                 }
             }
@@ -125,7 +127,7 @@ var saveKara = 0;
 function showBtn(){
 
 	 if(saveKara == 0){
-		 alert("Please select Atleast one Extintor");
+		 alert("Please select at least one Extintor for delete");
 	 }
 	 else{
 		 var result = confirm("Are you sure, you want to delete extintor(s)?");
@@ -185,6 +187,7 @@ function addStops(id){
 	$("#type").val(type);
 	$("#status1").val(status);
 	$("#regNumber1").val(regNumber);
+	$('#edit').modal({backdrop: 'static', keyboard: false});
 	$("#edit").modal('show');
 	
 	
@@ -272,8 +275,25 @@ function addStops(id){
         <div class="col-lg-12">
             <div class="fixed-page-header">
                 <div class="page-header clearfix">
-                    <h1 class="page-head-text pull-left">Extintor</h1>    
-                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" onclick="clearData()" data-target="#addExtintor"><i class="fa fa-plus-circle"></i>  Add Extintor</button>                    
+                    <h1 class="page-head-text pull-left">Extintor</h1>  
+                    
+                    <c:if test="${success == 'success'}">
+                   <center> <div class="alert alert-success" id="success-alert">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    						<strong>Success! </strong>
+   								 Extintor Added Successfully
+					</div></center>                    	
+                    </c:if>    
+                    
+                     <c:if test="${edit == 'edit'}">
+                    <center><div class="alert alert-info" id="success-alert">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    						<strong>Success! </strong>
+   								 Extintor Updated Successfully
+					</div> </center>                   	
+                    </c:if>    
+                      
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" onclick="clearData()" data-target="#addExtintor"  data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  Add Extintor</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" id = "deleteButton" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>
@@ -330,7 +350,6 @@ function addStops(id){
 <!-- / row -->   
 </div>
 
-<form id="editForm">
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
    	<div class="modal-dialog">
         <div class="modal-content">
@@ -338,53 +357,52 @@ function addStops(id){
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Edit Extintor</h4>
           </div>
-          <div class="modal-body">   
-          	<div class="form-horizontal">
-				<div class="form-group">
-					<label class="col-sm-3 control-label">* Extintor ID :</label>
+          	<form:form id="editExtintor" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/extintor/extintorList" commandName="extintor">
+			
+			
+			<form:input path="id" id="id" type="hidden"  />
+             <input type="hidden" name="action" value="edit" />      
+          	<div class="modal-body"> 
+                <div class="form-group">
+                    <form:label path="type" class="col-sm-3 control-label">* Extintor Type</form:label>
                     <div class="col-sm-8">
-						<input type="text" name="name" id="id" class="form-control" readOnly>
-                  	</div>
-				</div>			  
-			  	<div class="form-group">
-					<label class="col-sm-3 control-label">* Extintor TYPE :</label>
+                    	
+                    	<form:input path="type" id="type" value="" maxlength="50" class="form-control" onblur = "useHTML(this.id,document.getElementById('type').value)"/>
+                   	</div>
+              </div>
+    			
+                <div class="form-group">
+                    <form:label path="status" class="col-sm-3 control-label">* Status</form:label>
                     <div class="col-sm-8">
-						<input type="text" name="type1" id="type" maxlength="50" class="form-control" onblur = "useHTML(this.id,document.getElementById('type').value)">
-                  	</div>
-				</div>
-				
-				<div class="form-group">
-					<label class="col-sm-3 control-label">* Status</label>
+                        <form:select path="status" id="status1" class="form-control">
+                        	<option value="">Select</option>  
+                            <form:option value="true">ON</form:option>
+                            <form:option value="false">OFF</form:option>
+                        </form:select>
+                   	</div>
+                </div>
+    
+                 <div class="form-group">
+                    <form:label path="bus.regNumber" class="col-sm-3 control-label">* Bus Number</form:label>
                     <div class="col-sm-8">
-					 	<select name="status" id="status1" class="form-control" >
-               			<option value="true">ON</option>
-                        <option value="false">OFF</option>
-                  </select>
-					</div>						
-				</div>
-				
-						
-				<div class="form-group">
-					<label class="col-sm-3 control-label">* Bus Number</label>
-                    <div class="col-sm-8">
-					 	<select name="regNumber" id="regNumber1" class="form-control" >  													
+                        <form:select path="bus.regNumber" name="regNumber" id="regNumber1" class="form-control">
+                        	<form:option value="">Please select Bus</form:option>                    
                             <c:forEach var="bus" items="${busList}">
-                                <option value="${bus.regNumber}">${bus.regNumber}</option>
+                                <form:option value="${bus.regNumber}">${bus.regNumber}</form:option>
                             </c:forEach>
-				 		</select> 
-					</div>						
-				</div>
-			</div>
-            
-            <div class="modal-footer text-center">                
-                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-sky btn-sm" onClick="editExtintor();">Save</button>
-             </div>
-    	</div>
+                        </form:select>
+                  	</div>
+                </div> 
+           	</div>
+			<div class="modal-footer text-center">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>                    
+                <button type="submit" class="btn btn-sky btn-sm" >Update</button>
+            </div>
+         </form:form>
   </div>
 </div>
 </div>
-</form>
+
 
 <div class="modal fade" id="addExtintor" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
    	<div class="modal-dialog">
@@ -394,7 +412,7 @@ function addStops(id){
             <h4 class="modal-title">Add Extintor</h4>
           </div>            
           	<form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/extintor/extintorList" commandName="extintor">
-				      
+			     
           	<div class="modal-body"> 
                 <div class="form-group">
                     <form:label path="type" class="col-sm-3 control-label">* Extintor Type</form:label>

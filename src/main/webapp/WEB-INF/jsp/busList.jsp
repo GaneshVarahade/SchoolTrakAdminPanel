@@ -35,7 +35,7 @@ var saveKara = 0;
 	function showBtn(){
 	
 		 if(saveKara == 0){
-			 alert("Please select Atleast one Vehicle");
+			 alert("Please select At least one Vehicle for delete");
 		 }
 		 else{
 			 var result = confirm("want to delete?");
@@ -160,6 +160,7 @@ function addStops(id){
 	$("#type").val(type);
 	$("#capacity").val(capacity);
 	$("#uniqueID").val(deviceId);
+	$('#edit').modal({backdrop: 'static', keyboard: false})
 	$("#edit").modal('show');
 	
 }
@@ -231,6 +232,10 @@ function addStops(id){
 		 
 	}
 	$(document).ready(function() {
+		
+		$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+		    $("#success-alert").alert('close');
+		});
 	    $('#registerForm').formValidation({
 	        framework: 'bootstrap',
 	        excluded: ':disabled',
@@ -243,21 +248,21 @@ function addStops(id){
 	        	regNumber: {
 	                validators: {
 	                    notEmpty: {
-	                        message: 'The Bus Name is required'
+	                        message: 'Vehicle Name is required'
 	                    }
 	                }
 	            },
 	            busType: {
 	                validators: {
 	                    notEmpty: {
-	                        message: 'The Bus Type is required'
+	                        message: 'Vehicle Type is required'
 	                    }
 	                }
 	            },
 	            capacity: {
 	                validators: {
 	                    notEmpty: {
-	                        message: 'The Capacity is number'
+	                        message: 'Capacity is number'
 	                    }
 	                }
 	            }
@@ -276,14 +281,14 @@ function addStops(id){
 	        	regNumber: {
 	                validators: {
 	                    notEmpty: {
-	                        message: 'The Bus Name is required'
+	                        message: 'Vehicle Name is required'
 	                    }
 	                }
 	            },
 	            busType: {
 	                validators: {
 	                    notEmpty: {
-	                        message: 'The Bus Type is required'
+	                        message: 'Vehicle Type is required'
 	                    }
 	                }
 	            },
@@ -297,7 +302,7 @@ function addStops(id){
 	            capacity: {
 	                validators: {
 	                    notEmpty: {
-	                        message: 'The Capacity is number'
+	                        message: 'Capacity is number'
 	                    }
 	                }
 	            }
@@ -315,8 +320,24 @@ function addStops(id){
 				<div class="page-header clearfix">
 					<h1 class="page-head-text pull-left">Vehicle</h1>
 
+			 <c:if test="${success == 'success'}">
+                   <center> <div class="alert alert-success" id="success-alert">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    						<strong>Success! </strong>
+   								 Vehicle Added Successfully
+					</div></center>                    	
+                    </c:if>    
+                    
+                     <c:if test="${edit == 'edit'}">
+                    <center><div class="alert alert-info" id="success-alert">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    						<strong>Success! </strong>
+   								 Vehicle Updated Successfully
+					</div> </center>                   	
+                    </c:if>    
+		
 					<button type="submit" class="btn btn-inverse btn-sm pull-right"
-						data-toggle="modal" data-target="#forClientRegistration">
+						data-toggle="modal" data-target="#forClientRegistration" data-backdrop="static" data-keyboard="false">
 						<i class="fa fa-plus-circle"></i> Add Vehicle
 					</button>
 					<button type="submit" class="btn btn-brown btn-sm pull-right"
@@ -351,7 +372,7 @@ function addStops(id){
 									<th width="25%">Vehicle Type</th>
 									<th width="20%">Device</th>
 									<th width="20%">Vehicle Capacity</th>
-									<th width="20%">Edit Vehicle</th>
+									<th width="20%">Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -405,7 +426,7 @@ function addStops(id){
 					</div>
 					<input type="hidden" name="action" value="edit">
 					<div class="form-group">
-						<form:label path="regNumber" class="col-sm-3 control-label">Vehicle Registration Number</form:label>
+						<form:label path="regNumber" class="col-sm-3 control-label">* Vehicle Registration Number</form:label>
 						<div class="col-sm-8">
 							<form:input path="regNumber" id="regNumber" name="regNumber"
 								class="form-control" maxlength="50" onblur="checkUniqueVehicleNo(); useHTML(this.id,document.getElementById('regNumber').value);" />
@@ -413,14 +434,14 @@ function addStops(id){
 					</div>
 
 					<div class="form-group">
-						<form:label path="busType" class="col-sm-3 control-label">Vehicle Type</form:label>
+						<form:label path="busType" class="col-sm-3 control-label">* Vehicle Type</form:label>
 						<div class="col-sm-8">
 							<form:input path="busType" id="type" name="busType"
 								class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('type').value)"/>
 						</div>
 					</div>
 					<div class="form-group">
-						<form:label path="device.uniqueID" class="col-sm-3 control-label">DeviceID</form:label>
+						<form:label path="device.uniqueID" class="col-sm-3 control-label">* DeviceID</form:label>
 						<div class="col-sm-8">
 							<form:select  path="device.uniqueID"  id="uniqueID" class="form-control">
 								<c:forEach var="device" items="${deviceList}">
@@ -430,17 +451,17 @@ function addStops(id){
 						</div>
 					</div>
 					<div class="form-group">
-						<form:label path="capacity" class="col-sm-3 control-label">Capacity</form:label>
+						<form:label path="capacity" class="col-sm-3 control-label">* Capacity</form:label>
 						<div class="col-sm-8">
 							<form:input path="capacity" type="number" id="capacity"
-								name="capacity" class="form-control" maxlength="10" onblur = "useHTML(this.id,document.getElementById('capacity').value)"/>
+								name="capacity" class="form-control" maxlength="3" />
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer text-center">
 					<button type="button" class="btn btn-default btn-sm"
 						data-dismiss="modal">Cancel</button>
-					<input type="submit" class="btn btn-sky btn-sm" value="Save">
+					<input type="submit" class="btn btn-sky btn-sm" value="Update">
 				</div>
 			</form:form>
 		</div>
@@ -469,7 +490,7 @@ function addStops(id){
 					</div>
 					<input type="hidden" name="action" value="add">
 					<div class="form-group">
-						<form:label path="regNumber" class="col-sm-3 control-label">Vehicle Registration Number</form:label>
+						<form:label path="regNumber" class="col-sm-3 control-label">* Vehicle Registration Number</form:label>
 						<div class="col-sm-8">
 							<form:input path="regNumber" id="regNumber1" name="regNumber"
 								class="form-control" maxlength="50" onblur="checkUniqueVehicleNo(); useHTML(this.id,document.getElementById('regNumber1').value)" />
@@ -477,14 +498,14 @@ function addStops(id){
 					</div>
 
 					<div class="form-group">
-						<form:label path="busType" class="col-sm-3 control-label">Vehicle Type</form:label>
+						<form:label path="busType" class="col-sm-3 control-label">* Vehicle Type</form:label>
 						<div class="col-sm-8">
 							<form:input path="busType" id="busType" name="busType"
 								class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('busType').value)"/>
 						</div>
 					</div>
 					<div class="form-group">
-						<form:label path="device.uniqueID" class="col-sm-3 control-label">DeviceID</form:label>
+						<form:label path="device.uniqueID" class="col-sm-3 control-label">* DeviceID</form:label>
 						<div class="col-sm-8">
 							<form:select  path="device.uniqueID"  id="uniqueIDD" class="form-control">
 								<option value="">Select</option>
@@ -495,10 +516,10 @@ function addStops(id){
 						</div>
 					</div>
 					<div class="form-group">
-						<form:label path="capacity" class="col-sm-3 control-label">Capacity</form:label>
+						<form:label path="capacity" class="col-sm-3 control-label">* Capacity</form:label>
 						<div class="col-sm-8">
 							<form:input path="capacity" type="number" id="capacity"
-								name="capacity" class="form-control" maxlength="10" onblur = "useHTML(this.id,document.getElementById('capacity').value)"/>
+								name="capacity" class="form-control" maxlength="3"/>
 						</div>
 					</div>
 				</div>
