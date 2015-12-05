@@ -72,7 +72,9 @@ function useHTML(id,data){
 function checkUniqueUsername(){
 	
 	var userName= "userName="+$("#username").val();
-	
+	if(userName=="userName="){
+		userName="userName="+$("#username1").val();
+	}
 	$.ajax({
 	    type : "POST",
 	    url : "${pageContext.request.contextPath}/admin/checkUniqueUserName",
@@ -340,25 +342,18 @@ $(document).ready(function() {
                 	
                     notEmpty: {
                     
-                        message: 'The User Name is required'
+                        message: 'Username is required'
                     },
         			stringLength: {
             				min: 6,
             				max: 20,
-            		message: 'The username must be more than 6 and less than 20 characters long'
+            		message: 'username must be more than 6 and less than 20 characters long'
         			},
         		regexp: {
             		regexp: /^[a-zA-Z0-9_\.]+$/,
-            		message: 'The username can only consist of alphabetical, number, dot and underscore'
+            		message: 'username can only consist of alphabetical, number, dot and underscore'
         			},
         			
-                }
-            },
-            accountType: {
-                validators: {
-                    notEmpty: {
-                        message: 'The accountType is required'
-                    }
                 }
             },
             name: {
@@ -388,7 +383,7 @@ $(document).ready(function() {
             address: {
                 validators: {
                     notEmpty: {
-                        message: 'The address is required'
+                        message: 'address is required'
                     }
                 }
             },
@@ -411,7 +406,7 @@ $(document).ready(function() {
                 validators: {
                     notEmpty: {
                     	
-                        message: 'The city is required'
+                        message: 'city is required'
       
                     }
                 }
@@ -437,25 +432,18 @@ $(document).ready(function() {
                 	
                     notEmpty: {
                     
-                        message: 'The User Name is required'
+                        message: 'Username is required'
                     },
         			stringLength: {
             				min: 6,
             				max: 20,
-            		message: 'The username must be more than 6 and less than 20 characters long'
+            		message: 'username must be more than 6 and less than 20 characters long'
         			},
         		regexp: {
             		regexp: /^[a-zA-Z0-9_\.]+$/,
-            		message: 'The username can only consist of alphabetical, number, dot and underscore'
+            		message: 'username can only consist of alphabetical, number, dot and underscore'
         			},
         			
-                }
-            },
-            accountType: {
-                validators: {
-                    notEmpty: {
-                        message: 'The accountType is required'
-                    }
                 }
             },
             name: {
@@ -485,7 +473,7 @@ $(document).ready(function() {
             address: {
                 validators: {
                     notEmpty: {
-                        message: 'The address is required'
+                        message: 'address is required'
                     }
                 }
             },
@@ -508,7 +496,7 @@ $(document).ready(function() {
                 validators: {
                     notEmpty: {
                     	
-                        message: 'The city is required'
+                        message: 'city is required'
       
                     }
                 }
@@ -529,12 +517,20 @@ $(document).ready(function() {
                     <h1 class="page-head-text pull-left">Students</h1>
                     
                     <c:if test="${success == 'success'}">
-                    <div class="alert alert-success" id="success-alert">
+                   <center> <div class="alert alert-success" id="success-alert">
     					<button type="button" class="close" data-dismiss="alert">x</button>
     						<strong>Success! </strong>
    								 Student Added Successfully
-					</div>                    	
+					</div></center>                    	
                     </c:if>    
+                    
+                     <c:if test="${edit == 'edit'}">
+                    <center><div class="alert alert-info" id="success-alert">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    						<strong>Success! </strong>
+   								 Student Updated Successfully
+					</div> </center>                   	
+                    </c:if>  
                                        
                     
                     
@@ -694,21 +690,21 @@ $(document).ready(function() {
                 <div class="form-group">
                         <form:label path="name" class="col-sm-3 control-label">&#42; Student Name</form:label>
                         <div class="col-sm-8">
-                        	<form:input path="name" type="text" id="name1" value="" class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('aName').value)"/>
+                        	<form:input path="name" type="text" id="name1" value="" class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('name1').value)"/>
                         </div>
                    	</div>
   
                     <div class="form-group">
                        	<form:label path="username" class="col-sm-3 control-label">&#42; Username</form:label>
                         <div class="col-sm-8">
-                            <form:input type="text" path="username" id="username1" value="" class="form-control" maxlength="20" onblur = "checkUniqueUsername(); useHTML(this.id,document.getElementById('username').value);" />
+                            <form:input type="text" path="username" id="username1" value="" class="form-control" maxlength="20" onblur = "checkUniqueUsername(); useHTML(this.id,document.getElementById('username1').value);" />
                       	</div>
                     </div>
                   	
                   	<div class="form-group">
                         <form:label path="password" class="col-sm-3 control-label">&#42; Password </form:label>
                         <div class="col-sm-8">
-                        	<form:input type="text" path="password" id="password1" value="" class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('aPassword').value)"/>
+                        	<form:input type="text" path="password" id="password1" value="" class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('password1').value)"/>
                         </div>
                     </div>
                     
@@ -727,7 +723,7 @@ $(document).ready(function() {
                   	<div class="form-group">
                         <form:label path="address" class="col-sm-3 control-label">&#42; Address </form:label>
                         <div class="col-sm-8">
-                            <form:input  path="address" type="text" id="address1" value="" class="form-control" maxlength="80" onblur = "useHTML(this.id,document.getElementById('aAddress').value)"/>
+                            <form:input  path="address" type="text" id="address1" value="" class="form-control" maxlength="80" onblur = "useHTML(this.id,document.getElementById('address1').value)"/>
                         </div>
                     </div>
                     

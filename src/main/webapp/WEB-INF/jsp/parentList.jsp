@@ -359,6 +359,10 @@ function emailValidateRegistration()
 
 $(document).ready(function() {
 	
+	$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+	    $("#success-alert").alert('close');
+	});
+	
     $('#frm').formValidation({
     	
         framework: 'bootstrap',
@@ -375,25 +379,18 @@ $(document).ready(function() {
                 	
                     notEmpty: {
                     
-                        message: 'The User Name is required'
+                        message: 'Username is required'
                     },
         			stringLength: {
             				min: 6,
             				max: 20,
-            		message: 'The username must be more than 6 and less than 20 characters long'
+            		message: 'username must be more than 6 and less than 20 characters long'
         			},
         		regexp: {
             		regexp: /^[a-zA-Z0-9_\.]+$/,
-            		message: 'The username can only consist of alphabetical, number, dot and underscore'
+            		message: 'username can only consist of alphabetical, number, dot and underscore'
         			},
         			
-                }
-            },
-            accountType: {
-                validators: {
-                    notEmpty: {
-                        message: 'The accountType is required'
-                    }
                 }
             },
             name: {
@@ -423,16 +420,15 @@ $(document).ready(function() {
             address: {
                 validators: {
                     notEmpty: {
-                        message: 'The address is required'
+                        message: 'address is required'
                     }
                 }
             },
             email: {
                 validators: {
-                	emailAddress: {
-                        message: 'The value is not a valid email address'
-                    },
-                   
+                    notEmpty: {
+                        message: 'Please Enter Valid Email'
+                    }
                 }
             },
             
@@ -447,7 +443,7 @@ $(document).ready(function() {
                 validators: {
                     notEmpty: {
                     	
-                        message: 'The city is required'
+                        message: 'City is required'
       
                     }
                 }
@@ -467,34 +463,27 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-        	username1: {
+        	username: {
         		verbose: false,
                 validators: {
                 	
                     notEmpty: {
                     
-                        message: 'The User Name is required'
+                        message: 'Username is required'
                     },
         			stringLength: {
             				min: 6,
             				max: 20,
-            		message: 'The username must be more than 6 and less than 20 characters long'
+            		message: 'username must be more than 6 and less than 20 characters long'
         			},
         		regexp: {
             		regexp: /^[a-zA-Z0-9_\.]+$/,
-            		message: 'The username can only consist of alphabetical, number, dot and underscore'
+            		message: 'username can only consist of alphabetical, number, dot and underscore'
         			},
         			
                 }
             },
-            accountType: {
-                validators: {
-                    notEmpty: {
-                        message: 'The accountType is required'
-                    }
-                }
-            },
-            name1: {
+            name: {
                 validators: {
                     notEmpty: {
                         message: 'name should be required'
@@ -502,7 +491,7 @@ $(document).ready(function() {
                 }
             },
             
-            password1: {
+            password: {
                 validators: {
                     notEmpty: {
                         message: 'Please Enter Password'
@@ -510,7 +499,7 @@ $(document).ready(function() {
                 }
             },
             
-            school: {
+            'school.schoolName': {
                 validators: {
                     notEmpty: {
                         message: 'Please select School'
@@ -518,14 +507,14 @@ $(document).ready(function() {
                 }
             },
             
-            address1: {
+            address: {
                 validators: {
                     notEmpty: {
-                        message: 'The address is required'
+                        message: 'address is required'
                     }
                 }
             },
-            email1: {
+            email: {
                 validators: {
                     notEmpty: {
                         message: 'Please Enter Valid Email'
@@ -533,7 +522,7 @@ $(document).ready(function() {
                 }
             },
             
-            age1: {
+            age: {
                 validators: {
                     notEmpty: {
                         message: 'Age should be a number '
@@ -544,7 +533,7 @@ $(document).ready(function() {
                 validators: {
                     notEmpty: {
                     	
-                        message: 'The city is required'
+                        message: 'City is required'
       
                     }
                 }
@@ -563,7 +552,25 @@ $(document).ready(function() {
         <div class="col-lg-12">
             <div class="fixed-page-header">
                 <div class="page-header clearfix">
-                    <h1 class="page-head-text pull-left">Parent</h1>                    
+                    <h1 class="page-head-text pull-left">Parent</h1>     
+                    
+                         
+                  <c:if test="${success == 'success'}">
+                   <center> <div class="alert alert-success" id="success-alert">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    						<strong>Success! </strong>
+   								 Parent Added Successfully
+					</div></center>                    	
+                    </c:if>    
+                    
+                     <c:if test="${edit == 'edit'}">
+                    <center><div class="alert alert-info" id="success-alert">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    						<strong>Success! </strong>
+   								 Parent Updated Successfully
+					</div> </center>                   	
+                    </c:if>  
+                                   
                     <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal"  data-target="#forClientRegistration" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  Add Parent</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
@@ -637,7 +644,7 @@ $(document).ready(function() {
                 
                 <input type="hidden" name="action" value="add">
                 <div class="form-group">
-                        <form:label path="name" class="col-sm-3 control-label">Admin Name &#42;</form:label>
+                        <form:label path="name" class="col-sm-3 control-label">&#42; Parent Name</form:label>
                         <div class="col-sm-8">
                         	<form:input path="name" type="text" id="aName" value="" class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('aName').value)"/>
                         </div>
@@ -647,21 +654,21 @@ $(document).ready(function() {
                     
                      
                     <div class="form-group">
-                       	<form:label path="username" class="col-sm-3 control-label">Username &#42;</form:label>
+                       	<form:label path="username" class="col-sm-3 control-label">&#42; Username</form:label>
                         <div class="col-sm-8">
                             <form:input type="text" path="username" id="username" value="" class="form-control" maxlength="20" onblur = "checkUniqueUsername(); useHTML(this.id,document.getElementById('username').value);" />
                       	</div>
                     </div>
                   	
                   	<div class="form-group">
-                        <form:label path="password" class="col-sm-3 control-label">Admin Password &#42;</form:label>
+                        <form:label path="password" class="col-sm-3 control-label">&#42; Password</form:label>
                         <div class="col-sm-8">
                         	<form:input type="text" path="password" id="aPassword" value="" class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('aPassword').value)"/>
                         </div>
                     </div>
                     
                   	<div class="form-group">
-                        <form:label path="school.schoolName" class="col-sm-3 control-label">School Name &#42;</form:label>
+                        <form:label path="school.schoolName" class="col-sm-3 control-label">&#42; School Name</form:label>
                         <div class="col-sm-8">
                         	<form:select path="school.schoolName" id="schoolId" class="form-control" >
                         		<form:option value="">Select</form:option>
@@ -673,28 +680,28 @@ $(document).ready(function() {
                     </div>
                     
                   	<div class="form-group">
-                        <form:label path="address" class="col-sm-3 control-label">Address &#42;</form:label>
+                        <form:label path="address" class="col-sm-3 control-label">&#42; Address</form:label>
                         <div class="col-sm-8">
                             <form:input  path="address" type="text" id="aAddress" value="" class="form-control" maxlength="80" onblur = "useHTML(this.id,document.getElementById('aAddress').value)"/>
                         </div>
                     </div>
                     
                   	<div class="form-group">
-                        <form:label path="email" class="col-sm-3 control-label">Email &#42;</form:label>
+                        <form:label path="email" class="col-sm-3 control-label">&#42; Email</form:label>
                         <div class="col-sm-8">
                             <form:input path="email" type="email" id="aEmail" class="form-control"  maxlength="30" />
                         </div>
                    	</div>
                     
                   	<div class="form-group">
-                        <form:label path="age" class="col-sm-3 control-label">Age (Years) &#42;</form:label>
+                        <form:label path="age" class="col-sm-3 control-label"> &#42; Age (Years)</form:label>
                         <div class="col-sm-8">
                         	<form:input path="age" type="number" min="1" step="1"  id="aAge" value="" class="form-control" />
                         </div>
                     </div>
                     
                   	<div class="form-group">
-                        <form:label path="city" class="col-sm-3 control-label">City &#42;</form:label>
+                        <form:label path="city" class="col-sm-3 control-label"> &#42; City</form:label>
                         <div class="col-sm-8">
                         	<form:input path="city" type="text"  id="aCity" value="" class="form-control" maxlength="40" onblur = "useHTML(this.id,document.getElementById('aCity').value)"/>
                         </div>
@@ -717,95 +724,82 @@ $(document).ready(function() {
     <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       	<div class="modal-dialog">
 			<div class="modal-content">
-			<form id="editForm">
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Edit </h4>
 			  </div>
-			  <div class="modal-body">
-			  
-			  <div class="form-group">
-                 <label class="col-sm-3 control-label">Parent Id</label>
-               		<div class="col-sm-8">
-						<input type="text" name="id" id="parentId" value="" class="form-control" readonly>
-                 </div>
-			  </div>
-			  
-			 <!--  <div class="form-group">
-                <label class="col-sm-3 control-label">Account Type</label>
-                <div class="col-sm-8">
-					<select name="accountType1" id="accountType1" class="form-control" >
-						<option value="Parent">Parent</option>
-					</select>
-                 </div>
-			  </div> -->
-			  
-			  <div class="form-group">
-                	<label class="col-sm-3 control-label">Username</label>
-                    <div class="col-sm-8">
-						<input type="text" name="username1" id="username1" value="" class="form-control">
-                   	</div>
-			  </div>
-			  
-			  <div class="form-group">
-                <label class="col-sm-3 control-label">Password</label>
-                <div class="col-sm-8">
-					<input type="text" name="password1" id="password1" value="" class="form-control">
-               	</div>
-			  </div>
-			  
-			  <div class="form-group">
-                <label class="col-sm-3 control-label">Parent Name</label>
-                <div class="col-sm-8">
-					<input type="text" name="name1" id="name1" value="" class="form-control">
-                </div>
-			  </div>
-			  
-			   <div class="form-group">
-                <label class="col-sm-3 control-label">Address</label>
-                <div class="col-sm-8">
-					<input type="text" name="address1" id="address1" value="" class="form-control">
-                </div>
-			  </div>
-			  
-			  <div class="form-group">
-                <label class="col-sm-3 control-label">Email</label>
-                <div class="col-sm-8">
-					<input type="email" name="email1" id="email1" value="" class="form-control">
-                </div>
-			  </div>
-			  
-			  <div class="form-group">
-                <label class="col-sm-3 control-label">City</label>
-                <div class="col-sm-8">
-					<input type="text" name="city" id="city1" value="" class="form-control">
-               	</div>
-			  </div>
-			  
-			  <div class="form-group">
-                <label class="col-sm-3 control-label">Age</label>
-                <div class="col-sm-8">
-					<input type="number" name="age" id="age1" min="1" step="1" value="" class="form-control">
-                </div>
-			  </div>
-			  
-			  <div class="form-group">
-                <label class="col-sm-3 control-label">School Name</label>
-                <div class="col-sm-8">
-					<select name="school" id="school1" class="form-control" >
-  					<c:forEach var="school" items="${schoolList}">
-  						<option value="${school.schoolName}">${school.schoolName}</option>
-					</c:forEach>
-					</select>
-                </div>
-			  </div>
-              </div>
+			 <form:form id="editForm" class="form-horizontal" method="POST" name="frm" action="${pageContext.request.contextPath}/schoolAdmin/parentList" commandName="schoolAdmin">
                 
-                <div class="modal-footer text-center">
-                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>                    
-                    <button type="submit" class="btn btn-sky btn-sm" onClick="editParents();" data-dismiss="modal">Save</button>
-                </div>
-                </form>
+      
+            <form:input path="id" id="parentId" class="form-control" type="hidden" />
+           <input type="hidden" name="action" value="edit">
+                <div class="form-group">
+                        <form:label path="name" class="col-sm-3 control-label">&#42; Parent Name</form:label>
+                        <div class="col-sm-8">
+                        	<form:input path="name" type="text" id="name1" value="" class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('aName').value)"/>
+                        </div>
+                   	</div>
+  
+                    <div class="form-group">
+                       	<form:label path="username" class="col-sm-3 control-label">&#42; Username</form:label>
+                        <div class="col-sm-8">
+                            <form:input type="text" path="username" id="username1" value="" class="form-control" maxlength="20" onblur = "checkUniqueUsername(); useHTML(this.id,document.getElementById('username').value);" />
+                      	</div>
+                    </div>
+                  	
+                  	<div class="form-group">
+                        <form:label path="password" class="col-sm-3 control-label">&#42; Password </form:label>
+                        <div class="col-sm-8">
+                        	<form:input type="text" path="password" id="password1" value="" class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('aPassword').value)"/>
+                        </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <form:label path="school.schoolName" class="col-sm-3 control-label">&#42; School Name </form:label>
+                        <div class="col-sm-8">
+                        	<form:select path="school.schoolName" id="school1" class="form-control" >
+                        		<form:option value="">Select</form:option>
+                            	<c:forEach var="school" items="${schoolList}">
+                               	<form:option value="${school.schoolName}">${school.schoolName}</form:option>
+                        		</c:forEach>
+                        	</form:select>
+                       </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <form:label path="address" class="col-sm-3 control-label">&#42; Address </form:label>
+                        <div class="col-sm-8">
+                            <form:input  path="address" type="text" id="address1" value="" class="form-control" maxlength="80" onblur = "useHTML(this.id,document.getElementById('aAddress').value)"/>
+                        </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <form:label path="email" class="col-sm-3 control-label">&#42; Email </form:label>
+                        <div class="col-sm-8">
+                            <form:input path="email" type="email" id="email1" class="form-control"  maxlength="30" />
+                        </div>
+                   	</div>
+                    
+                  	<div class="form-group">
+                        <form:label path="age" class="col-sm-3 control-label">&#42; Age (Years) </form:label>
+                        <div class="col-sm-8">
+                        	<form:input path="age" type="number" min="1" step="1"  id="age1" value="" class="form-control" />
+                        </div>
+                    </div>
+                    
+                  	<div class="form-group">
+                        <form:label path="city" class="col-sm-3 control-label">&#42; City </form:label>
+                        <div class="col-sm-8">
+                        	<form:input path="city" type="text"  id="city1" value="" class="form-control" maxlength="20" />
+                        </div>
+                    </div>
+                    
+                   
+            		<div class="modal-footer text-center">
+                    	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                    	<button type="submit" class="btn btn-sky btn-sm" >Save</button>
+                	</div> 
+        </form:form>
             </div>
         </div>
     </div>
