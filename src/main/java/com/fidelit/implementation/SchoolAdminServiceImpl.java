@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fidelit.model.Extintor;
+import com.fidelit.model.Route;
 import com.fidelit.model.School;
 import com.fidelit.model.SchoolAdmin;
 import com.fidelit.service.SchoolAdminService;
@@ -222,6 +223,43 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 			e.printStackTrace();
 		}
 		return schoolAdminList;
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public int getLastSchoolAdminId() {
+		
+		Session session;
+		String sql="SELECT * FROM schoolAdmin ORDER BY id DESC LIMIT 1";
+		session = sessionFactory.getCurrentSession();
+		SQLQuery query=session.createSQLQuery(sql).addEntity(SchoolAdmin.class);
+		SchoolAdmin schoolAdmin = (SchoolAdmin) query.uniqueResult();
+		// TODO Auto-generated method stub
+		return schoolAdmin.getId();
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public void addRouteToStudent(Route route, int studentid) {
+		System.out.println("Route Id: "+route.getRouteNo());
+		Session session=sessionFactory.getCurrentSession();
+		String sql="insert into routeToStudent (routeId,studentId) values ("+route.getRouteNo()+","+studentid+")";
+		SQLQuery query=session.createSQLQuery(sql);
+		query.executeUpdate();
+		
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public List<Route> getAllRouteToStudent(int studentId) {
+		List<Route> routeList= null;
+		Session session=sessionFactory.getCurrentSession();
+		String sql="select routeId from routeToStudent where studentId ="+studentId;
+		SQLQuery query=session.createSQLQuery(sql);
+		routeList=query.list();
+		String routeId=query.toString();
+		System.out.println("RouteId"+routeId);
+		return null;
 	}
 
 }

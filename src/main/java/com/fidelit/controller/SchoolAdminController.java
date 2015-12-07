@@ -134,8 +134,11 @@ public class SchoolAdminController {
 		   if(request.getParameter("action")!=null){
 			    action=request.getParameter("action");
 		   }
+		   int[] RouteId= new int[30];
 		   if(action.equals("add")){
-			
+			String route1=request.getParameter("route1");
+			String[] route2=route1.split(",");
+			String[] routeNo=new String[30];	
 			schoolAdmin.setRole("ROLE_STUDENT");
 			schoolAdmin.setEnabled(true);
 			gtsService.addAccountInGts(schoolAdmin.getUsername(),schoolAdmin.getPassword(),schoolAdmin.getAccountType());
@@ -143,7 +146,23 @@ public class SchoolAdminController {
 			schoolAdmin.setAccountId(userName);
 			schoolAdmin.setAccountType("Student");
 			model.addAttribute("success", "success");
+			int studentId1= schoolAdminService.getLastSchoolAdminId();
 			schoolAdminService.addSchoolAdmin(schoolAdmin);
+			for(int i=0;i<route2.length;i++){
+				routeNo=route2[i].split("-");
+				for(int j=0;j<routeNo.length;j++)
+				{
+					if(j==0){
+						
+						System.out.println(routeNo[j]);
+						RouteId[j]=Integer.parseInt(routeNo[j]);
+						Route route=routeService.getRouteId(RouteId[j]);
+						schoolAdminService.addRouteToStudent(route, studentId1);
+						List<Route> routes= schoolAdminService.getAllRouteToStudent(studentId1);
+					}
+				}
+			}
+			
 			model.addAttribute(new SchoolAdmin());
 			
 		}
