@@ -51,10 +51,10 @@ var saveKara = 0;
 function showBtn(){
 
 	 if(saveKara == 0){
-		 alert("Please select Atleast one NewsLetter for delete");
+		 alert("Please select At least one NewsLetter for delete");
 	 }
 	 else{
-		 var result = confirm("want to delete?");
+		 var result = confirm("Are you sure, you want to delete newsletter(s)?");
 		 if(result){
 			 window.location.href = "deleteNewsletterList?list="+saveKara;	 
 		 }
@@ -94,6 +94,7 @@ function addStops(id){
 	$("#id").val(id);
 	$("#type").val(type);
 	$("#status").val(status);
+	$('#edit').modal({backdrop: 'static', keyboard: false});
 	$("#edit").modal('show');
 	
 	
@@ -187,7 +188,7 @@ function addStops(id){
             <div class="fixed-page-header">
                 <div class="page-header clearfix">
                     <h1 class="page-head-text pull-left">Newsletter</h1>
-                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addNewsletter"><i class="fa fa-plus-circle"></i>  Add Newsletter</button> 
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addNewsletter" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  Add Newsletter</button> 
                                      
                     <button type="submit" id="deleteButton" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    

@@ -46,7 +46,7 @@ public class Extintor {
 		this.status = status;
 	}
 	
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER,cascade = {CascadeType.ALL})
 	public Bus getBus() {
 		return bus;
 	}

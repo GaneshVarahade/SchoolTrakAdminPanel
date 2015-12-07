@@ -7,6 +7,11 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
+	
+
+	$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+	    $("#success-alert").alert('close');
+	});
     $('#registerForm').formValidation({
         framework: 'bootstrap',
         excluded: ':disabled',
@@ -19,7 +24,7 @@ $(document).ready(function() {
         	driverName: {
                 validators: {
                     notEmpty: {
-                        message: 'Driver Name Should not be Empty'
+                        message: 'Driver Name is required'
                     }
                 }
             },
@@ -27,7 +32,7 @@ $(document).ready(function() {
             address: {
                 validators: {
                     notEmpty: {
-                        message: 'Address is Required'
+                        message: 'Address is required'
                     }
                 }
             },
@@ -35,7 +40,7 @@ $(document).ready(function() {
             city: {
                 validators: {
                     notEmpty: {
-                        message: 'City is Required'
+                        message: 'City is required'
                     }
                 }
             },
@@ -43,7 +48,7 @@ $(document).ready(function() {
             licenseNo: {
                 validators: {
                     notEmpty: {
-                        message: 'License Number is Required'
+                        message: 'License Number is required'
                     }
                 }
             },
@@ -81,7 +86,7 @@ $(document).ready(function() {
         	driverName: {
                 validators: {
                     notEmpty: {
-                        message: 'Driver Name Should not be Empty'
+                        message: 'Driver is required'
                     }
                 }
             },
@@ -89,7 +94,7 @@ $(document).ready(function() {
             address: {
                 validators: {
                     notEmpty: {
-                        message: 'Address is Required'
+                        message: 'Address is required'
                     }
                 }
             },
@@ -97,7 +102,7 @@ $(document).ready(function() {
             city: {
                 validators: {
                     notEmpty: {
-                        message: 'City is Required'
+                        message: 'City is required'
                     }
                 }
             },
@@ -105,7 +110,7 @@ $(document).ready(function() {
             licenseNo: {
                 validators: {
                     notEmpty: {
-                        message: 'License Number is Required'
+                        message: 'License Number is required'
                     }
                 }
             },
@@ -133,6 +138,19 @@ $(document).ready(function() {
     
 });
 
+$(document).ready(function() {
+
+
+    $('#routeDataTable').dataTable( {
+        "aaSorting": [[1,'asc']],
+         aoColumnDefs: [
+                   {
+                      bSortable: false,
+                      aTargets: [ -1 ]
+                   }
+                 ]
+      } );
+} ); 
 
 var saveKara = 0;
 $(document).on("click", ".open-AddBookDialog", function () {
@@ -162,7 +180,7 @@ function useHTML(id,data){
 var saveKara = 0;
 function showBtn(){
 	 if(saveKara == 0){
-		 alert("Please select Atleast one driver");
+		 alert("Please select At least one driver for delete");
 	 }
 	 else{
 		 var result = confirm("Are you sure, you want to delete driver(s)?");
@@ -348,8 +366,25 @@ function addStops(id){
         <div class="col-lg-12">
             <div class="fixed-page-header">
                 <div class="page-header clearfix">
-                    <h1 class="page-head-text pull-left"> Driver</h1>                    
-                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addDriver" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  Add Bus Driver</button>                    
+                    <h1 class="page-head-text pull-left"> Driver</h1>       
+                    
+                    <c:if test="${success == 'success'}">
+                   <center> <div class="alert alert-success" id="success-alert">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    						<strong>Success! </strong>
+   								 Driver Added Successfully
+					</div></center>                    	
+                    </c:if>    
+                    
+                     <c:if test="${edit == 'edit'}">
+                    <center><div class="alert alert-info" id="success-alert">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    						<strong>Success! </strong>
+   								 Driver Updated Successfully
+					</div> </center>                   	
+                    </c:if>    
+                                 
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addDriver" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  Add Driver</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>
@@ -451,14 +486,14 @@ function addStops(id){
                 </div>
                 
                 <div class="form-group">
-                    <form:label path="experiance" class="col-sm-3 control-label">* Experience(Year):</form:label>
+                    <form:label path="experiance" class="col-sm-3 control-label">*Experience(Years):</form:label>
                     <div class="col-sm-8">
                    		<form:input path="experiance" id="experiance" type="number" step="0.01" class="form-control" maxlength="10" onblur = "useHTML(this.id,document.getElementById('experiance').value)"/>
                    	</div>
                 </div>
                 
                 <div class="form-group">
-                    <form:label path="age" class="col-sm-3 control-label">* Age (Year) :</form:label>
+                    <form:label path="age" class="col-sm-3 control-label">* Age (Years) :</form:label>
                     <div class="col-sm-8">
                     	<form:input path="age" type="number" step="0.01"  id="age" value="" class="form-control" maxlength="4"/>
                    	</div>
@@ -467,7 +502,7 @@ function addStops(id){
       	</div>
     	<div class="modal-footer text-center">
             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-sky btn-sm" >Save</button>
+            <button type="submit" class="btn btn-sky btn-sm" >Update</button>
         </div></form:form>
     </div>
   </div>
@@ -520,7 +555,7 @@ function addStops(id){
                 </div>
                 
                 <div class="form-group">
-                    <form:label path="age" class="col-sm-3 control-label">* Age (Year):</form:label>
+                    <form:label path="age" class="col-sm-3 control-label">* Age (Years):</form:label>
                     <div class="col-sm-8">
                     	<form:input path="age" type="number" min="1" step="0.1"  id="age1"  class="form-control" maxlength="4" />
                    	</div>

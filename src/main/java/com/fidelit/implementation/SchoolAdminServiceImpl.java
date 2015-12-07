@@ -194,9 +194,29 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 			session = sessionFactory.getCurrentSession();
 			System.out.println("IN Service:"+schoolId);
 			SQLQuery query = session.createSQLQuery(
-					"select * from schooladmin s where s.schoolId ='"+schoolId+"' and s.accountType = '"+accountType+"'");		
+					"select * from schoolAdmin s where s.schoolId ='"+schoolId+"' and s.accountType = '"+accountType+"'");		
 			schoolAdminList = query.list();
-			System.out.println("In ExtintorService:"+schoolAdminList.toString());
+			System.out.println("In schoolAdminServiceForStudent:"+schoolAdminList.toString());
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return schoolAdminList;
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+    public List<SchoolAdmin> checkSchoolAdminInSchool(String schoolId) {
+		String accountType  = "SchoolAdmin";
+		Session session;
+		List<SchoolAdmin> schoolAdminList = null;
+		try{
+			session = sessionFactory.getCurrentSession();
+			System.out.println("IN Service:"+schoolId);
+			SQLQuery query = session.createSQLQuery(
+					"select * from schoolAdmin s where s.schoolId ='"+schoolId+"' and s.accountType = '"+accountType+"'");		
+			schoolAdminList = query.list();
+			System.out.println("In SchoolAdminServiceForSchoolAdmin:"+schoolAdminList.toString());
 		}
 		catch(Exception e){
 			e.printStackTrace();
