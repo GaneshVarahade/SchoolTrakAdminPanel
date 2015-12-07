@@ -26,6 +26,7 @@ import com.fidelit.model.Employee;
 import com.fidelit.model.Holidays;
 import com.fidelit.model.LeavesApplied;
 import com.fidelit.model.Route;
+import com.fidelit.model.RouteToStudent;
 import com.fidelit.model.School;
 import com.fidelit.model.SchoolAdmin;
 import com.fidelit.model.SuperVisor;
@@ -146,8 +147,8 @@ public class SchoolAdminController {
 			schoolAdmin.setAccountId(userName);
 			schoolAdmin.setAccountType("Student");
 			model.addAttribute("success", "success");
-			int studentId1= schoolAdminService.getLastSchoolAdminId();
 			schoolAdminService.addSchoolAdmin(schoolAdmin);
+			int studentId1= schoolAdminService.getLastSchoolAdminId();
 			for(int i=0;i<route2.length;i++){
 				routeNo=route2[i].split("-");
 				for(int j=0;j<routeNo.length;j++)
@@ -158,7 +159,7 @@ public class SchoolAdminController {
 						RouteId[j]=Integer.parseInt(routeNo[j]);
 						Route route=routeService.getRouteId(RouteId[j]);
 						schoolAdminService.addRouteToStudent(route, studentId1);
-						List<Route> routes= schoolAdminService.getAllRouteToStudent(studentId1);
+						
 					}
 				}
 			}
@@ -191,10 +192,15 @@ public class SchoolAdminController {
 		
 		SchoolAdmin currentUserr = (SchoolAdmin) session.getAttribute("currentUser");
 		List<Route> routeList = routeService.getRouteList(userName);
+		List<RouteToStudent> routeToStudentList=schoolAdminService.getAllRouteToStudent();
+		for(RouteToStudent routeToStudent : routeToStudentList){
+			System.out.println("RouteToStudent :"+routeToStudent.getRouteId());
+		}
+		
 		
 		String username = currentUserr.getUsername();
 		model.addAttribute("userName", username);
-		
+		model.addAttribute("routeToStudentList", routeToStudentList);
 		model.addAttribute("routeList", routeList);
 		model.addAttribute("schoolList", schoolList);
 		model.addAttribute("studentActive", "studentActive");

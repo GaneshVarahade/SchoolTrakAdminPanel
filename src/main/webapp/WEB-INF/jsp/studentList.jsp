@@ -613,6 +613,7 @@ $(document).ready(function() {
                               	<th width="18%">Email</th>
                               	<th width="10%">Age</th>
                               	<th width="10%">City</th>
+                              	<th width="10%">Route</th>
                                 <th width="10%">Action</th>                          
                             </tr>
                           </thead>
@@ -626,6 +627,19 @@ $(document).ready(function() {
                                 <td>${schoolAdmin.email}</td>
                                 <td>${schoolAdmin.age}</td>
                                 <td>${schoolAdmin.city}</td>
+                                 <td>
+                                 	<c:forEach var="routeToStudent" items="${routeToStudentList}">
+                                 			<c:if test="${schoolAdmin.id == routeToStudent.studentId}">
+                                 				<c:forEach var="route" items="${routeList}">
+                                 					<c:if test="${routeToStudent.routeId == route.routeNo}">
+                                 							${route.routeName},
+                                 					</c:if>
+                                 				</c:forEach>
+                                 					
+                                 				 
+                                 			</c:if>
+                                 	</c:forEach>
+                                 </td>
                                 <td><button type="button" class="btn btn-default btn-sm" onClick="editStudent('${schoolAdmin.id}','${schoolAdmin.name}','${schoolAdmin.school.schoolName}','${schoolAdmin.address}','${schoolAdmin.email}','${schoolAdmin.age}','${schoolAdmin.city}','${schoolAdmin.password}','${schoolAdmin.username}','${schoolAdmin.accountType}');"> <i class="fa fa-pencil-square-o"></i> Edit</button></td>
                               </tr>
     						</c:forEach>

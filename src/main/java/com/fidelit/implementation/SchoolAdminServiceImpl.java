@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fidelit.model.Extintor;
 import com.fidelit.model.Route;
+import com.fidelit.model.RouteToStudent;
 import com.fidelit.model.School;
 import com.fidelit.model.SchoolAdmin;
 import com.fidelit.service.SchoolAdminService;
@@ -251,15 +252,20 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 	
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
-	public List<Route> getAllRouteToStudent(int studentId) {
-		List<Route> routeList= null;
-		Session session=sessionFactory.getCurrentSession();
-		String sql="select routeId from routeToStudent where studentId ="+studentId;
-		SQLQuery query=session.createSQLQuery(sql);
-		routeList=query.list();
-		String routeId=query.toString();
-		System.out.println("RouteId"+routeId);
-		return null;
+	public List<RouteToStudent> getAllRouteToStudent() {
+		List<RouteToStudent> routeTostudent = new ArrayList<RouteToStudent>();
+		 Session session;
+			try {
+				session = sessionFactory.getCurrentSession();
+				String sql = "select * from routeToStudent";
+				Query query = session.createSQLQuery(sql).addEntity(RouteToStudent.class);	
+				routeTostudent = query.list();
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+
+		return routeTostudent;
 	}
 
 }

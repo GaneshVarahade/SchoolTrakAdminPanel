@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fidelit.model.Route;
+import com.fidelit.model.RouteToStudent;
 import com.fidelit.model.SchoolAdmin;
 
 public interface SchoolAdminService {
@@ -24,6 +25,6 @@ public interface SchoolAdminService {
 	List<SchoolAdmin> checkSchoolAdminInSchool(String schoolId);
 	int getLastSchoolAdminId();
 	void addRouteToStudent(Route route,int student);
-	List<Route> getAllRouteToStudent(int studentId);
+	List<RouteToStudent> getAllRouteToStudent();
 
 }
