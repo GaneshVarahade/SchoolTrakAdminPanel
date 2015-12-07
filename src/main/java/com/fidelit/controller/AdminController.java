@@ -448,7 +448,7 @@ public String allSchoolAdminList(@ModelAttribute("schoolAdmin") SchoolAdmin scho
 	List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
 	model.addAttribute("schoolAdminList", schoolAdminList);
 	List<School> schoolList=schoolService.allSchoolList(userName);
-	
+	List<Route> routeList=routeService.allRouteList(userName);
 
 	HttpSession session = request.getSession();
 	SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
@@ -457,6 +457,7 @@ public String allSchoolAdminList(@ModelAttribute("schoolAdmin") SchoolAdmin scho
 	model.addAttribute(new SchoolAdmin());
 	model.addAttribute("schoolList", schoolList);
 	model.addAttribute("schoolAdminActive", "schoolAdminActive");
+	model.addAttribute("routeList", routeList);
 	return "schoolAdmin";
 }
 

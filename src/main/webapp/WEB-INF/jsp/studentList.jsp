@@ -11,7 +11,7 @@ var saveKara = 0;
 
 function showBtn(){
 	 if(saveKara == 0){
-		 alert("Please select At least One Student for delete");
+		 alert("Please select Atleast One Student for delete");
 	 }
 	 else{
 		
@@ -271,7 +271,7 @@ function password_length_registration()
      }  
 }
 
-function editStudent(id,name,school,address,email,age,city,password,username,accountType){
+function editStudent(id,name,school,address,email,age,city,password,username,accountType,routeId){
 	
 	$("#studentId").val(id);
 	$("#name1").val(name);
@@ -283,7 +283,7 @@ function editStudent(id,name,school,address,email,age,city,password,username,acc
 	$("#password1").val(password);
 	$("#username1").val(username);
 	$("#accountType1").val(accountType);
-	$('#edit').modal({backdrop: 'static', keyboard: false})
+	$("#route1").val(routeId);
 	$("#edit").modal('show');
 	
 }
@@ -348,11 +348,11 @@ $(document).ready(function() {
         			stringLength: {
             				min: 6,
             				max: 20,
-            		message: 'Username must be more than 6 and less than 20 characters long'
+            		message: 'username must be more than 6 and less than 20 characters long'
         			},
         		regexp: {
             		regexp: /^[a-zA-Z0-9_\.]+$/,
-            		message: 'Username can only consist of alphabetical, number, dot and underscore'
+            		message: 'username can only consist of alphabetical, number, dot and underscore'
         			},
         			
                 }
@@ -360,7 +360,7 @@ $(document).ready(function() {
             name: {
                 validators: {
                     notEmpty: {
-                        message: 'Name is required'
+                        message: 'name should be required'
                     }
                 }
             },
@@ -368,7 +368,7 @@ $(document).ready(function() {
             password: {
                 validators: {
                     notEmpty: {
-                        message: 'Password is required'
+                        message: 'Please Enter Password'
                     }
                 }
             },
@@ -384,7 +384,7 @@ $(document).ready(function() {
             address: {
                 validators: {
                     notEmpty: {
-                        message: 'Address is required'
+                        message: 'address is required'
                     }
                 }
             },
@@ -407,8 +407,16 @@ $(document).ready(function() {
                 validators: {
                     notEmpty: {
                     	
-                        message: 'City is required'
+                        message: 'city is required'
       
+                    }
+                }
+            },
+            
+            'route.routeName': {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select Route'
                     }
                 }
             }
@@ -438,11 +446,11 @@ $(document).ready(function() {
         			stringLength: {
             				min: 6,
             				max: 20,
-            		message: 'Username must be more than 6 and less than 20 characters long'
+            		message: 'username must be more than 6 and less than 20 characters long'
         			},
         		regexp: {
             		regexp: /^[a-zA-Z0-9_\.]+$/,
-            		message: 'Username can only consist of alphabetical, number, dot and underscore'
+            		message: 'username can only consist of alphabetical, number, dot and underscore'
         			},
         			
                 }
@@ -450,7 +458,7 @@ $(document).ready(function() {
             name: {
                 validators: {
                     notEmpty: {
-                        message: 'Name is required'
+                        message: 'name should be required'
                     }
                 }
             },
@@ -458,7 +466,7 @@ $(document).ready(function() {
             password: {
                 validators: {
                     notEmpty: {
-                        message: 'Password is required'
+                        message: 'Please Enter Password'
                     }
                 }
             },
@@ -474,7 +482,7 @@ $(document).ready(function() {
             address: {
                 validators: {
                     notEmpty: {
-                        message: 'Address is required'
+                        message: 'address is required'
                     }
                 }
             },
@@ -497,11 +505,19 @@ $(document).ready(function() {
                 validators: {
                     notEmpty: {
                     	
-                        message: 'City is required'
+                        message: 'city is required'
       
                     }
                 }
+            },
+            'route.routeName': {
+                validators: {
+                    notEmpty: {
+                        message: 'Please select Route'
+                    }
+                }
             }
+           
             
             
         }
@@ -536,7 +552,7 @@ $(document).ready(function() {
                     
                     
                     
-                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#forClientRegistration" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  Add Student</button>                    
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#forClientRegistration"><i class="fa fa-plus-circle"></i>  Add Student</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>
@@ -566,7 +582,8 @@ $(document).ready(function() {
                               	<th width="18%">Email</th>
                               	<th width="10%">Age</th>
                               	<th width="10%">City</th>
-                                <th width="10%">Action</th>                          
+								<th width="10%">Route</th>
+                                <th width="10%">Edit</th>                          
                             </tr>
                           </thead>
                           <tbody>          
@@ -579,7 +596,8 @@ $(document).ready(function() {
                                 <td>${schoolAdmin.email}</td>
                                 <td>${schoolAdmin.age}</td>
                                 <td>${schoolAdmin.city}</td>
-                                <td><button type="button" class="btn btn-default btn-sm" onClick="editStudent('${schoolAdmin.id}','${schoolAdmin.name}','${schoolAdmin.school.schoolName}','${schoolAdmin.address}','${schoolAdmin.email}','${schoolAdmin.age}','${schoolAdmin.city}','${schoolAdmin.password}','${schoolAdmin.username}','${schoolAdmin.accountType}');"> <i class="fa fa-pencil-square-o"></i> Edit</button></td>
+                                <td>${schoolAdmin.route.routeName}</td>
+                                <td><button type="button" class="btn btn-default btn-sm" onClick="editStudent('${schoolAdmin.id}','${schoolAdmin.name}','${schoolAdmin.school.schoolName}','${schoolAdmin.address}','${schoolAdmin.email}','${schoolAdmin.age}','${schoolAdmin.city}','${schoolAdmin.password}','${schoolAdmin.username}','${schoolAdmin.accountType}','${schoolAdmin.route.routeName}');"> <i class="fa fa-pencil-square-o"></i> Edit</button></td>
                               </tr>
     						</c:forEach>
                       	</tbody>
@@ -664,6 +682,17 @@ $(document).ready(function() {
                         </div>
                     </div>
                     
+                   <div class="form-group">
+                        <form:label path="route" class="col-sm-3 control-label">&#42; Route Name</form:label>
+                        <div class="col-sm-8">
+                        	<form:select path="route" id="routeId"  items="${route}  class="form-control" >
+                        		<form:option value="">Select</form:option>
+                            	<c:forEach var="route" items="${route}">
+                                 	<form:option value="${route.routeName}">${route.routeName}</form:option>
+                        		</c:forEach>
+                        	</form:select>
+                       </div>
+                    </div>
                    
             		<div class="modal-footer text-center">
                     	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
@@ -749,13 +778,25 @@ $(document).ready(function() {
                         </div>
                     </div>
                     
+                    <div class="form-group">
+                        <form:label path="route.routeName" class="col-sm-3 control-label">&#42; Route Name</form:label>
+                        <div class="col-sm-8">
+                        	<form:select path="route.routeName" id="route1" class="form-control" >
+                        		<form:option value="">Select</form:option>
+                            	<c:forEach var="route" items="${routeList}">
+                               	<form:option value="${route.routeName}">${route.routeName}</form:option>
+                        		</c:forEach>
+                        	</form:select>
+                       </div>
+                    </div>
+                   
                    
             		<div class="modal-footer text-center">
                     	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-                    	<button type="submit" class="btn btn-sky btn-sm" >Update</button>
+                    	<button type="submit" class="btn btn-sky btn-sm" >Save</button>
                 	</div> 
         </form:form>
     </div>
   </div>
 </div> 
-</div>
+</div>	

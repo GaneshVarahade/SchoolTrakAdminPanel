@@ -1,6 +1,7 @@
 package com.fidelit.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -17,6 +20,7 @@ import javax.validation.constraints.Min;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+
 import org.hibernate.validator.constraints.Email;
 import org.springframework.beans.factory.annotation.Required;
 
@@ -50,8 +54,9 @@ public class SchoolAdmin implements Serializable  {
 	private String role;
 	
 	private String accountId;
-	
-    private Route route;
+    
+	private List<Route> route;
+    
     
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -187,16 +192,21 @@ public class SchoolAdmin implements Serializable  {
 		this.accountId = accountId;
 	}
 
-	@OneToOne(cascade = {CascadeType.MERGE})
+	@Required
+	@ManyToMany(cascade=CascadeType.ALL)
 	@NotFound(action=NotFoundAction.IGNORE)
-	@JoinColumn(name="routId",nullable = true, insertable = true, updatable = true)
-	public Route getRoute() {
+	@JoinColumn(name="routeId",nullable = true, insertable = true, updatable = true)
+	public List<Route> getRoute() {
 		return route;
 	}
 
-	public void setRoute(Route route) {
+	public void setRoute(List<Route> route) {
 		this.route = route;
-	} 
+	}
+
+
+
+	
 	
 	
 	

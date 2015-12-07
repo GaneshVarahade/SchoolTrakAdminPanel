@@ -314,7 +314,7 @@ public class UserController {
 		schoolAdmin.setUsername(dataList[8]);
 		schoolAdmin.setAccountType(dataList[9]);
 		Route route = routeService.getRouteId(Integer.parseInt(dataList[10]));
-		schoolAdmin.setRoute(route);
+		schoolAdmin.setRoute((List<Route>) route);
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		schoolAdmin.setAccountId(userName);
 		model.addAttribute(new SchoolAdmin());

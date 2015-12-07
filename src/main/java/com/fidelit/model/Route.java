@@ -10,9 +10,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Entity
 @Table(name="route")
@@ -32,6 +37,7 @@ public class Route implements Serializable{
 	 private List<Stop> stopList;
 	 private Bus      bus;
 	 private BusDriver busDriver;
+	 private List<SchoolAdmin> schoolAdmin;
 	 
 	
 	@Id
@@ -107,4 +113,17 @@ public class Route implements Serializable{
 	public void setAccountId(String accountId) {
 		this.accountId = accountId;
 	}
+	
+	@ManyToMany(cascade = {CascadeType.MERGE})
+	@NotFound(action=NotFoundAction.IGNORE)
+	@JoinColumn(name="studentId",nullable = true, insertable = true, updatable = true)
+	public List<SchoolAdmin> getSchoolAdmin() {
+		return schoolAdmin;
+	}
+	public void setSchoolAdmin(List<SchoolAdmin> schoolAdmin) {
+		this.schoolAdmin = schoolAdmin;
+	}
+	
+	
+	
 }

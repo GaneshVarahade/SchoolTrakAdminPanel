@@ -293,7 +293,7 @@ function addStops(id){
 					</div> </center>                   	
                     </c:if>    
                       
-                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" onclick="clearData()" data-target="#addExtintor"  data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  Add Extintor</button>                    
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" onclick="clearData()" data-target="#addExtintor" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  Add Extintor</button>                                        
                     <button type="submit" class="btn btn-brown btn-sm pull-right" id = "deleteButton" onClick="showBtn()" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>
