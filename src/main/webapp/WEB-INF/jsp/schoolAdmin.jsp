@@ -804,7 +804,7 @@ $(document).ready(function() {
             <form:input path="id" id="schoolAdminId1" class="form-control" type="hidden" />
            <input type="hidden" name="action" value="edit">
                 <div class="form-group">
-                        <form:label path="name" class="col-sm-3 control-label">&#42; Student Name</form:label>
+                        <form:label path="name" class="col-sm-3 control-label">&#42; School Admin Name</form:label>
                         <div class="col-sm-8">
                         	<form:input path="name" type="text" id="name1" value="" class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('name1').value)"/>
                         </div>

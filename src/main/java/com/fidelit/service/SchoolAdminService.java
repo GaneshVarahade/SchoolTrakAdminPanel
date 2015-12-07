@@ -20,5 +20,6 @@ public interface SchoolAdminService {
 	boolean getUniqueUserName(String userName);
 	String getNameFromId(int id);
 	List<SchoolAdmin> checkStudentInSchool(String schoolId);
+	List<SchoolAdmin> checkSchoolAdminInSchool(String schoolId);
 
 }

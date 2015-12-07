@@ -550,14 +550,17 @@ public String checkDependancyOfStudentInSchool(HttpServletRequest request,HttpSe
 	dataList = dataList.substring(0, dataList.length()-1);
 	String[] str1 = dataList.split(",");
 	System.out.println("dataList:"+dataList);
-	List<SchoolAdmin> schoolAdminList = null;
+	List<SchoolAdmin> schoolAdminListForStudent = null;
+	List<SchoolAdmin> schoolAdminListForSchoolAdmin = null;
 	//List<Extintor> extintorList = null;
 	for (int i = 0; i < str1.length; i++) {
-		schoolAdminList=schoolAdminService.checkStudentInSchool(str1[i]);
+		schoolAdminListForStudent=schoolAdminService.checkStudentInSchool(str1[i]);
+		schoolAdminListForSchoolAdmin=schoolAdminService.checkSchoolAdminInSchool(str1[i]);
 	//	extintorList=extinctorService.allExtintorListForBus(str1[i]);
-		System.out.println("schoolAdminList:"+schoolAdminList.toString());
+		System.out.println("schoolAdminListForStudent:"+schoolAdminListForStudent.toString());
+		System.out.println("schoolAdminListForSchoolAdmin:"+schoolAdminListForSchoolAdmin.toString());
 	//	System.out.println("RouteList1:"+routeList.isEmpty());
-	if(schoolAdminList.isEmpty()){
+	if(schoolAdminListForStudent.isEmpty() && schoolAdminListForSchoolAdmin.isEmpty()){
 		status = "false";
 	}else{
 		status = "true";
