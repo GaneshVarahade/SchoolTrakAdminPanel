@@ -91,8 +91,14 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 
 	@Override
 	public SchoolAdmin getSchoolAdminId(int id) {
-		// TODO Auto-generated method stub
-		return null;
+
+        SchoolAdmin student = null;
+        Session session=sessionFactory.getCurrentSession();
+        String sql="select * from schoolAdmin where id ="+id;
+        SQLQuery query=session.createSQLQuery(sql).addEntity(SchoolAdmin.class);
+        Object result = query.uniqueResult();
+        student = (SchoolAdmin)result;
+        return student;
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
@@ -119,6 +125,27 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
+	public List<SchoolAdmin> getAllStudentListForParent(String userName) {
+        List<SchoolAdmin> schoolAdminList = new ArrayList<SchoolAdmin>();
+         Session session;
+            try {
+                session = sessionFactory.getCurrentSession();
+                String hql = "from SchoolAdmin where accountType = :accountType and accountId =:accountId and isUsed =:isUsed";
+                Query query = session.createQuery(hql);
+                query.setParameter("accountType", "Student");
+                query.setParameter("accountId", userName);
+                query.setBoolean("isUsed", false);
+                schoolAdminList = query.list();
+            } catch (Exception e) {
+                
+                e.printStackTrace();
+            }
+        return schoolAdminList;
+    }
+ 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    @Override
+	
 	public List<SchoolAdmin> getAllStudentList(String userName) {
 		List<SchoolAdmin> schoolAdminList = new ArrayList<SchoolAdmin>();
 		 Session session;
@@ -250,6 +277,17 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 		
 	}
 	
+	 @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	    @Override
+	    public void addParentToStudent(SchoolAdmin schoolAdmin, int studentid) {
+	        System.out.println("Route Id: "+schoolAdmin.getId());
+	        Session session=sessionFactory.getCurrentSession();
+	        String sql="insert into parentToStudent (parentId,studentId) values ("+studentid+","+schoolAdmin.getId()+")";
+	        SQLQuery query=session.createSQLQuery(sql);
+	        query.executeUpdate();
+	        
+	    }
+	
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
 	public List<RouteToStudent> getAllRouteToStudent() {
@@ -267,5 +305,52 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 
 		return routeTostudent;
 	}
+	
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    @Override
+    public SchoolAdmin getParentId(int id) {
+        Session session;
+        SchoolAdmin  schoolAdmin = null;
+        try{
+            session = sessionFactory.getCurrentSession();
+            Criteria criteria = session.createCriteria(SchoolAdmin.class);
+             criteria.add(Restrictions.eq("id", id));
+             Object result=criteria.uniqueResult();
+             schoolAdmin = (SchoolAdmin)result;
+        }
+        catch(Exception e){
+ 
+            e.printStackTrace();
+        }
+ 
+        return schoolAdmin;
+    }
+
+    
+    
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    @Override
+    public List<SchoolAdmin> getAllParentToStudent(int studentId) {
+        List<SchoolAdmin> schoolAdminList= null;
+        Session session=sessionFactory.getCurrentSession();
+        String sql="select parentId from parentToStudent where studentId ="+studentId;
+        SQLQuery query=session.createSQLQuery(sql);
+        schoolAdminList=query.list();
+        String parentId=query.toString();
+        System.out.println("parentId"+parentId);
+        return null;
+    }
+ 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    @Override
+    public List<Integer> getStduentFromParentToStudent(Integer parentId) {
+        List<Integer> studentList = null;
+        Session session=sessionFactory.getCurrentSession();
+        String sql="select studentId from parentToStudent where parentId ="+parentId;
+        SQLQuery query=session.createSQLQuery(sql);
+        studentList=query.list();
+        return studentList;
+    }
+    
 }

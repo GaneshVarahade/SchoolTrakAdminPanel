@@ -55,6 +55,8 @@ public class SchoolAdmin implements Serializable  {
 	
 	private String accountId;
     
+	private Boolean isUsed=false;
+	
 	private List<Route> route;
     
     
@@ -202,6 +204,15 @@ public class SchoolAdmin implements Serializable  {
 
 	public void setRoute(List<Route> route) {
 		this.route = route;
+	}
+
+	@Column(name="isUsed")
+	public Boolean isUsed() {
+		return isUsed;
+	}
+
+	public void setUsed(Boolean isUsed) {
+		this.isUsed = isUsed;
 	}
 
 

@@ -73,9 +73,13 @@ public class SchoolAdminController {
 		if(request.getParameter("action")!=null){
 			action=request.getParameter("action");
 		}
+		int[] StudentId= new int[30];
 		System.out.println("Action:"+action);
 		if(action.equals("add")){
-			
+			 String student1=request.getParameter("student1");
+	            String[] student2=student1.split(",");
+	            String[] studentNo=new String[30];
+	 
 			System.out.println("Add Controller");
 			 schoolAdmin.setRole("ROLE_PARENT");
 				School school=schoolService.getSchool(schoolAdmin.getSchool().getSchoolName());
@@ -87,6 +91,26 @@ public class SchoolAdminController {
 				schoolAdmin.setSchool(school);
 				schoolAdmin.setAccountType("Parent");
 				schoolAdminService.addSchoolAdmin(schoolAdmin);
+				
+                int parentId= schoolAdminService.getLastSchoolAdminId();
+                
+                for(int i=0;i<student2.length;i++){
+                    studentNo=student2[i].split("-");
+                    for(int j=0;j<studentNo.length;j++)
+                    {
+                        if(j==0){
+                            
+                            System.out.println(studentNo[j]);
+                            StudentId[j]=Integer.parseInt(studentNo[j]);
+                            SchoolAdmin schoolAdminn = schoolAdminService.getParentId(StudentId[j]);//This give student
+                            schoolAdminn.setUsed(true);
+                            schoolAdminService.updateSchoolAdmin(schoolAdminn);
+                            schoolAdminService.addParentToStudent(schoolAdminn, parentId);
+                            List<SchoolAdmin> routes= schoolAdminService.getAllParentToStudent(parentId);
+                        }
+                    }
+                }
+				
 				model.addAttribute("success", "success");
 				model.addAttribute(new SchoolAdmin());
 				
@@ -122,7 +146,8 @@ public class SchoolAdminController {
 		SchoolAdmin currentUserr = (SchoolAdmin) session.getAttribute("currentUser");
 		String username = currentUserr.getUsername();
 		model.addAttribute("userName", username);
-		
+		 List<SchoolAdmin> studentList = schoolAdminService.getAllStudentListForParent(username);
+	        model.addAttribute("studentList", studentList);
 		model.addAttribute("schoolList", schoolList);
 		model.addAttribute("parentActive", "parentActive");
 		return "parentList";
@@ -149,6 +174,7 @@ public class SchoolAdminController {
 			model.addAttribute("success", "success");
 			schoolAdminService.addSchoolAdmin(schoolAdmin);
 			int studentId1= schoolAdminService.getLastSchoolAdminId();
+			
 			for(int i=0;i<route2.length;i++){
 				routeNo=route2[i].split("-");
 				for(int j=0;j<routeNo.length;j++)
@@ -218,7 +244,13 @@ public class SchoolAdminController {
 			String accountID = schoolAdminService.getNameFromId(id);
 			System.out.println("accountID:"+accountID);			
 			gtsService.deleteAccountInGts(accountID);
-
+			 List<Integer> studentList = schoolAdminService.getStduentFromParentToStudent(id);
+	            for (Integer integer : studentList) {
+	                SchoolAdmin schoolAdmin = schoolAdminService.getSchoolAdminId(integer);
+	                schoolAdmin.setUsed(false);
+	                schoolAdminService.updateSchoolAdmin(schoolAdmin);
+	            }
+	 
 			schoolAdminService.deleteSchoolAdmin(id);
 		}
 		
@@ -251,7 +283,8 @@ public class SchoolAdminController {
 		SchoolAdmin currentUserr = (SchoolAdmin) session.getAttribute("currentUser");
 		String username = currentUserr.getUsername();
 		model.addAttribute("userName", username);
-		
+		 List<SchoolAdmin> studentList = schoolAdminService.getAllStudentListForParent(username);
+	        model.addAttribute("studentList", studentList);
 		model.addAttribute("schoolList", schoolList);
 		model.addAttribute("parentActive", "parentActive");
 		model.addAttribute(new SchoolAdmin());

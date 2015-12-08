@@ -26,5 +26,9 @@ public interface SchoolAdminService {
 	int getLastSchoolAdminId();
 	void addRouteToStudent(Route route,int student);
 	List<RouteToStudent> getAllRouteToStudent();
-
+	void addParentToStudent(SchoolAdmin schoolAdmin, int studentid);
+    SchoolAdmin getParentId(int id);
+    List<SchoolAdmin> getAllParentToStudent(int studentId);
+    List<SchoolAdmin> getAllStudentListForParent(String userName);
+    List<Integer> getStduentFromParentToStudent(Integer parentId);
 }

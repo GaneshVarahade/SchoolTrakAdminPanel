@@ -349,6 +349,47 @@ function emailValidateRegistration()
 
 $(document).ready(function() {
 
+	var title1="";
+	$(".dropdown dt a").on('click', function () {
+	          $(".dropdown dd ul").slideToggle('fast');
+	      });
+
+	      $(".dropdown dd ul li a").on('click', function () {
+	          $(".dropdown dd ul").hide();
+	      });
+
+	      function getSelectedValue(id) {
+	           return $("#" + id).find("dt a span.value").html();
+	      }
+
+	      $(document).bind('click', function (e) {
+	          var $clicked = $(e.target);
+	          if (!$clicked.parents().hasClass("dropdown")) $(".dropdown dd ul").hide();
+	      });
+
+
+	      $('.mutliSelect input[type="checkbox"]').on('click', function () {
+	        
+	          var title = $(this).closest('.mutliSelect').find('input[type="checkbox"]').val(),
+	              title = $(this).val() + ",";
+	        	
+	        	
+	        	
+	          if ($(this).is(':checked')) {
+	        	  title1=title1+title;
+	              var html = '<span title="' + title + '">' + title + '</span>';
+	              $('.multiSel').append(html);
+	              $(".hida").hide();
+	          } 
+	          else {
+	        	  title1=title1.replace(title,"");
+	              $('span[title="' + title + '"]').remove();
+	              var ret = $(".hida");
+	              $('.dropdown dt a').append(ret);
+	              
+	          }
+	          $('#student1').val(title1);
+	      });
 
     $('#example').dataTable( {
         "aaSorting": [[1,'asc']],
@@ -410,6 +451,7 @@ $(document).ready(function() {
                     notEmpty: {
                         message: 'Password is required'
                     }
+            
                 }
             },
             
@@ -647,6 +689,7 @@ $(document).ready(function() {
                 <form:form id="frm" class="form-horizontal" method="POST" name="frm" action="${pageContext.request.contextPath}/schoolAdmin/parentList" commandName="schoolAdmin">
                 
                 <input type="hidden" name="action" value="add">
+                <input type="hidden" name="student1" id="student1"> 
                 <div class="form-group">
                         <form:label path="name" class="col-sm-3 control-label">&#42; Parent Name</form:label>
                         <div class="col-sm-8">
@@ -711,6 +754,34 @@ $(document).ready(function() {
                         </div>
                     </div>
                     
+                      <div class="form-group">
+                    	<label path="school.schoolName" class="col-sm-3 control-label">&#42; Student</label>
+                    	<div class="col-sm-8">
+                    	<dl class="dropdown"> 
+  
+   						 <dt>
+    						<a href="#">
+      							<span class="hida form-control  ">Select</span>    
+     						 	<p class="multiSel form-control"></p>  
+    						</a>
+    					</dt>
+  
+    					<dd>
+        				<div class="mutliSelect " >
+            				<ul>
+            				
+            				<c:forEach var="student" items="${studentList}">
+                              <li> 	<input type="checkbox" value="${student.id}-${student.name}">${student.name}</li>
+                        	</c:forEach>
+                
+            				</ul>
+        				</div>
+    					</dd>
+  
+						</dl>
+                    	</div>
+                    </div>
+                   
                    
             		<div class="modal-footer text-center">
                     	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
