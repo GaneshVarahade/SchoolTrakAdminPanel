@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fidelit.model.Extintor;
+import com.fidelit.model.ParentToStudent;
 import com.fidelit.model.Route;
 import com.fidelit.model.RouteToStudent;
 import com.fidelit.model.School;
@@ -352,5 +353,27 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
         studentList=query.list();
         return studentList;
     }
+
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public List<ParentToStudent> getAllParentToStudentList() {
+		
+		List<ParentToStudent> parentTostudent = new ArrayList<ParentToStudent>();
+		 Session session;
+			try {
+				session = sessionFactory.getCurrentSession();
+				String sql = "select * from parentToStudent";
+				Query query = session.createSQLQuery(sql).addEntity(ParentToStudent.class);	
+				parentTostudent = query.list();
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+
+		System.out.println("parentTostudent:"+parentTostudent);
+		return parentTostudent;
+
+		
+	}
     
 }

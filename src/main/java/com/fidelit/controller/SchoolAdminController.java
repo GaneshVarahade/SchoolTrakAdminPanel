@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fidelit.model.Employee;
 import com.fidelit.model.Holidays;
 import com.fidelit.model.LeavesApplied;
+import com.fidelit.model.ParentToStudent;
 import com.fidelit.model.Route;
 import com.fidelit.model.RouteToStudent;
 import com.fidelit.model.School;
@@ -146,8 +147,15 @@ public class SchoolAdminController {
 		SchoolAdmin currentUserr = (SchoolAdmin) session.getAttribute("currentUser");
 		String username = currentUserr.getUsername();
 		model.addAttribute("userName", username);
-		 List<SchoolAdmin> studentList = schoolAdminService.getAllStudentListForParent(username);
-	        model.addAttribute("studentList", studentList);
+		List<SchoolAdmin> studentList = schoolAdminService.getAllStudentListForParent(username);
+		List<SchoolAdmin> studentListForDisplay=schoolAdminService.getAllStudentList(username);
+		List<ParentToStudent> parentToStudentList=schoolAdminService.getAllParentToStudentList();
+		for(ParentToStudent parantsToStudent : parentToStudentList){
+			System.out.println("ParentTOStudentId :"+parantsToStudent.getId());
+		}
+		model.addAttribute("studentListForDisplay",studentListForDisplay);
+		model.addAttribute("parentToStudentList",parentToStudentList);
+	    model.addAttribute("studentList", studentList);
 		model.addAttribute("schoolList", schoolList);
 		model.addAttribute("parentActive", "parentActive");
 		return "parentList";

@@ -647,6 +647,7 @@ $(document).ready(function() {
                                 <th width="15%">Email</th>
                                 <th width="10%">Age</th>
                                 <th width="10%">City</th>
+                                <th width="10%">Student</th>
                                 <th width="10%">Action</th>                             
                             </tr>
                           </thead>
@@ -661,6 +662,19 @@ $(document).ready(function() {
                                         <td>${schoolAdmin.email}</td>
                                         <td>${schoolAdmin.age}</td>
                                         <td>${schoolAdmin.city}</td>
+                                        <td>
+                                        	<c:forEach var="parentToStudent" items="${parentToStudentList}">
+                                 			<c:if test="${schoolAdmin.id == parentToStudent.parentId}">
+                                 				<c:forEach var="student" items="${studentListForDisplay}">
+                                 					<c:if test="${parentToStudent.studentId == student.id}">
+                                 							${student.name},
+                                 					</c:if>
+                                 				</c:forEach>
+                                 			 
+                                 				</c:if>
+                                 			</c:forEach>
+                                        	
+                                        </td>
                                         <td><button type="submit"  class="btn btn-default btn-sm" value="Edit" onClick="editParent('${schoolAdmin.id}','${schoolAdmin.name}','${schoolAdmin.school.schoolName}','${schoolAdmin.address}','${schoolAdmin.email}','${schoolAdmin.age}','${schoolAdmin.city}','${schoolAdmin.password}','${schoolAdmin.username}','${schoolAdmin.accountType}');" ><i class="fa fa-pencil-square-o"></i>Edit</button></td>
                                    	</tr>  
                                    </c:if>                                      

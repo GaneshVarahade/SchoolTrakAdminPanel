@@ -3,6 +3,7 @@ package com.fidelit.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fidelit.model.ParentToStudent;
 import com.fidelit.model.Route;
 import com.fidelit.model.RouteToStudent;
 import com.fidelit.model.SchoolAdmin;
@@ -31,4 +32,5 @@ public interface SchoolAdminService {
     List<SchoolAdmin> getAllParentToStudent(int studentId);
     List<SchoolAdmin> getAllStudentListForParent(String userName);
     List<Integer> getStduentFromParentToStudent(Integer parentId);
+    List<ParentToStudent> getAllParentToStudentList(); 
 }

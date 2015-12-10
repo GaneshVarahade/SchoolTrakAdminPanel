@@ -6,19 +6,19 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="routeToStudent")
-public class RouteToStudent {
+@Table(name="parentToStudent")
+public class ParentToStudent {
 	
 	private int id;
-	private int routeId;
+	private int parentId;
 	private int  studentId;
 		
-	@Column(name = "routeId")
-	public int getRouteId() {
-		return routeId;
+	@Column(name = "parentId")
+	public int getParentId() {
+		return parentId;
 	}
-	public void setRouteId(int routeId) {
-		this.routeId = routeId;
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
 	}
 	
 	@Column(name = "studentId")

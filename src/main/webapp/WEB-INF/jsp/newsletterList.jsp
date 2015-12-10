@@ -35,6 +35,25 @@ $(document).ready(function() {
             }
         }
     });
+    
+    $('#editForm').formValidation({
+        framework: 'bootstrap',
+        excluded: ':disabled',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	news: {
+                validators: {
+                    notEmpty: {
+                        message: 'News Field Should not be Empty'
+                    }
+                }
+            }
+        }
+    });
 });
 
 var saveKara = 0;
@@ -89,13 +108,13 @@ function addStops(id){
 	
 }
 
- function editExtintors(id,type,status){
+ function editNewsletter(id,news,date){
 	 
 	$("#id").val(id);
-	$("#type").val(type);
-	$("#status").val(status);
+	$("#news1").val(news);
+	$("#date").val(date);
 	$('#edit').modal({backdrop: 'static', keyboard: false});
-	$("#edit").modal('show');
+	$("#edit").modal('show'); 
 	
 	
 }
@@ -215,6 +234,7 @@ function addStops(id){
                             	<th width="10%" class="text-center no-sort"><input type="checkbox" onClick="deleteAllRow(this)"></th>
                                 <th width="60%">News</th>
                                 <th width="30%">Date</th>
+                                <th width="30%">Action</th>
                             </tr>
                           </thead>
                             <tbody>
@@ -222,7 +242,8 @@ function addStops(id){
                                     <tr>
                                        <td class="text-center"><input type="checkbox" id="${newsletter.id}" name="myTextEditBox" value="" onClick="displayNote(event)"></td>
                                        <td>${newsletter.news}</td>  
-                                       <td>${newsletter.date}</td>       
+                                       <td>${newsletter.date}</td>   
+                                        <td><button type="submit" class="btn btn-default btn-sm" onClick="editNewsletter('${newsletter.id}','${newsletter.news}','${newsletter.date}');"><i class="fa fa-pencil-square-o"></i> Edit</button></td>    
                                       </tr>
                                 </c:forEach>
                             </tbody>
@@ -251,7 +272,7 @@ function addStops(id){
                             <form:input path="news" id="news" value="" class="form-control" maxlength="100" />
                         </div> --%>
                          <input type="hidden" name=action value="add" />
-                       
+                   
                         <div class="col-sm-8">
                       <form:textarea path="news" rows="2" id="news" cols="50" maxlength="100" onblur = "useHTML(this.id,document.getElementById('news').value)"/>
                         </div>
@@ -266,5 +287,38 @@ function addStops(id){
         </div>
 	</div>
 </div>
+			
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
+    <div class="modal-dialog">
+    	<!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> Update NewsLetter : </h4>
+            </div>
+            <form:form id="editForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/newsletter/newsletterList" commandName="newsletter">
+               	<form:input path="id" id="id" type="hidden"  />
+                <div class="modal-body">            
+                    <div class="form-group">
+                        <form:label path="news" class="col-sm-3 control-label">* News :</form:label>
+                        <%-- <div class="col-sm-8">
+                            <form:input path="news" id="news" value="" class="form-control" maxlength="100" />
+                        </div> --%>
+                         <input type="hidden" name=action value="edit" />
+                       
+                        <div class="col-sm-8">
+                      <form:textarea path="news" rows="2" id="news1" cols="50" maxlength="100" onblur = "useHTML(this.id,document.getElementById('news1').value)"/>
+                        </div>
+                        
+                    </div>
+               	</div>
+                <div class="modal-footer text-center">                
+            		<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+                  	<button type="submit" class="btn btn-sky btn-sm">Save</button>
+                </div>
+            </form:form>
+        </div>
+	</div>
+</div>	
 					
 <script src="script.js" type="text/javascript" defer="defer"></script>

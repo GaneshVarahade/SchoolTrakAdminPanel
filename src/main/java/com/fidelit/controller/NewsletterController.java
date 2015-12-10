@@ -56,6 +56,18 @@ public class NewsletterController {
 			List<Newsletter> newsletterList = newsletterService.getNewsletterList(userName);
 			model.addAttribute("newsletterList",newsletterList);
 			}
+			
+			if(action.equals("edit")){
+				
+				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				Date date = new Date();
+				newsletter.setDate(dateFormat.parse(dateFormat.format(date)));
+				newsletter.setAccountId(userName);
+				newsletterService.updateNewsletter(newsletter);
+				model.addAttribute("userName", username);
+				List<Newsletter> newsletterList = newsletterService.getNewsletterList(userName);
+				model.addAttribute("newsletterList",newsletterList);
+			}
 		List<Newsletter> newsletterList = newsletterService.getNewsletterList(userName);
 		model.addAttribute("userName", username);
 		model.addAttribute("newsletterList",newsletterList);

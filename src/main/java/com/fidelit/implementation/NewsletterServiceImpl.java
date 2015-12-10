@@ -144,4 +144,21 @@ public class NewsletterServiceImpl implements NewsletterService{
 			}
 
 	}
+
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public void updateNewsletter(Newsletter newsletter) {
+		
+
+		Session session;
+		try {
+			
+			session = sessionFactory.getCurrentSession();
+			session.update(newsletter);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+	}
 }
