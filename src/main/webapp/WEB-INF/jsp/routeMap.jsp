@@ -126,7 +126,6 @@ function addStops(id){
 	var busNo=$("#regNumber").val();
 	var driverName=$("#driverName").val();
 	var corridorId=$("#corridorId").val();
-	alert("fvgb")
 	 var allData=routeId+","+routeName+","+status+","+start+","+stop+","+busNo+","+driverName+","+corridorId;
 	var formData="list="+allData;
 	 $.ajax({

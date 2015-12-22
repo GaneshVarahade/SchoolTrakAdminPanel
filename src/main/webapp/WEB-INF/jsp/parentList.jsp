@@ -349,6 +349,8 @@ function emailValidateRegistration()
 
 $(document).ready(function() {
 
+	
+	$(".multiSel").hide();
 	var title1="";
 	$(".dropdown dt a").on('click', function () {
 	          $(".dropdown dd ul").slideToggle('fast');
@@ -374,7 +376,7 @@ $(document).ready(function() {
 	              title = $(this).val() + ",";
 	        	
 	        	
-	        	
+	          $(".multiSel").show();	
 	          if ($(this).is(':checked')) {
 	        	  title1=title1+title;
 	              var html = '<span title="' + title + '">' + title + '</span>';
@@ -382,12 +384,11 @@ $(document).ready(function() {
 	              $(".hida").hide();
 	          } 
 	          else {
-	        	  title1=title1.replace(title,"");
-	              $('span[title="' + title + '"]').remove();
-	              var ret = $(".hida");
-	              $('.dropdown dt a').append(ret);
-	              
-	          }
+	        	  		title1=title1.replace(title,"");
+	              		$('span[title="' + title + '"]').remove();
+	              		var ret = $(".hida");
+	              		$('.dropdown dt a').append(ret);
+	             	}
 	          $('#student1').val(title1);
 	      });
 

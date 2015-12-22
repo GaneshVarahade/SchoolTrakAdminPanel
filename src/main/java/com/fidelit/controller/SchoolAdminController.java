@@ -89,7 +89,7 @@ public class SchoolAdminController {
 				
 				String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 				schoolAdmin.setAccountId(userName);
-				schoolAdmin.setSchool(school);
+			//	schoolAdmin.setSchool(school);
 				schoolAdmin.setAccountType("Parent");
 				schoolAdminService.addSchoolAdmin(schoolAdmin);
 				

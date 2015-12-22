@@ -213,12 +213,6 @@ public class SchoolAdmin implements Serializable  {
 
 	public void setUsed(Boolean isUsed) {
 		this.isUsed = isUsed;
-	}
-
-
-
-	
-	
-	
+	}	
 	
 }

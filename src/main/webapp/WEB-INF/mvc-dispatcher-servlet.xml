@@ -87,6 +87,7 @@
 			    <value>com.fidelit.model.AddDeviceForNotification</value>
 			    <value>com.fidelit.model.Device</value>
 			    <value>com.fidelit.model.RouteToStudent</value>
+			    <value>com.fidelit.model.ParentToStudent</value>
 			    
 			</list>
 		</property>  
@@ -129,6 +130,7 @@
 			    <value>com.fidelit.model.AddDeviceForNotification</value>
 			    <value>com.fidelit.model.Device</value>
 			    <value>com.fidelit.model.RouteToStudent</value>
+			    <value>com.fidelit.model.ParentToStudent</value>
 			</list>
 		</property>  
 		<property name="hibernateProperties">

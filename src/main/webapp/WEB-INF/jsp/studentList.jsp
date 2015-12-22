@@ -31,11 +31,7 @@ function showBtn(){
 
 $(document).ready(function() {
     
-	/*
-	Dropdown with Multiple checkbox select with jQuery - May 27, 2013
-	(c) 2013 @ElmahdiMahmoud
-	license: http://www.opensource.org/licenses/mit-license.php
-*/ 
+	$(".multiSel").hide();
 var title1="";
 $(".dropdown dt a").on('click', function () {
           $(".dropdown dd ul").slideToggle('fast');
@@ -56,7 +52,10 @@ $(".dropdown dt a").on('click', function () {
 
 
       $('.mutliSelect input[type="checkbox"]').on('click', function () {
-        
+    	  
+    	  var routes=$("#routes").val();
+    	  title1=routes;
+    	  $(".multiSel").show();    
           var title = $(this).closest('.mutliSelect').find('input[type="checkbox"]').val(),
               title = $(this).val() + ",";
         	
@@ -320,6 +319,23 @@ function password_length_registration()
 
 function editStudent(id,name,school,address,email,age,city,password,username,accountType){
 	
+	var routes="";
+	
+	<c:forEach var="routeToStudent" items="${routeToStudentList}">
+		var studentId='${routeToStudent.studentId}';
+		
+		if(id == studentId){
+		
+			<c:forEach var="route" items="${routeList}" >
+				<c:if test="${routeToStudent.routeId == route.routeNo}">
+						routes+='${route.routeName}'+',';
+							
+				</c:if>
+			</c:forEach>
+				
+		}
+	</c:forEach>
+	$("#routes").val(routes);
 	$("#studentId").val(id);
 	$("#name1").val(name);
 	$("#school1").val(school);
@@ -619,6 +635,7 @@ $(document).ready(function() {
                           </thead>
                           <tbody>          
                             <c:forEach var="schoolAdmin" items="${schoolAdminList}">
+                            
                               <tr>
                                 <td class="text-center no-sort"><input type="checkbox" id="${schoolAdmin.id}"  name="myTextEditBox" value="" onClick="displayNote(event)"/></td>
                                 <td>${schoolAdmin.name}</td>
@@ -630,13 +647,16 @@ $(document).ready(function() {
                                  <td>
                                  	<c:forEach var="routeToStudent" items="${routeToStudentList}">
                                  			<c:if test="${schoolAdmin.id == routeToStudent.studentId}">
-                                 				<c:forEach var="route" items="${routeList}">
+                                 				<c:forEach var="route" items="${routeList}" varStatus="stat">
                                  					<c:if test="${routeToStudent.routeId == route.routeNo}">
+                                 					
                                  							${route.routeName},
+                                 					<c:set var="route" value="${stat.first ? '' : route} ${route.routeName}" />
+                                 					
                                  					</c:if>
                                  				</c:forEach>
                                  					
-                                 				 
+                                 				
                                  			</c:if>
                                  	</c:forEach>
                                  </td>
@@ -722,11 +742,11 @@ $(document).ready(function() {
                 
             				</ul>
         				</div>
-    </dd>
+    				</dd>
   
-</dl>
+						</dl>
                     	</div>
-                    </div>
+                   </div>
                     
                     
                   	<div class="form-group">
@@ -813,6 +833,36 @@ $(document).ready(function() {
                         	</form:select>
                        </div>
                     </div>
+                    
+                    
+                         <div class="form-group">
+                    	<label path="school.schoolName" class="col-sm-3 control-label">&#42; Route</label>
+                    	<div class="col-sm-8">
+                    	<dl class="dropdown"> 
+  
+   						 <dt>
+    						<a href="#">
+      							<input type="text" id="routes" class="hida form-control " readonly/>    
+     						 	<p class="multiSel form-control"></p>  
+    						</a>
+    					</dt>
+  
+    				<dd>
+        				<div class="mutliSelect" >
+            				<ul>
+    						        				
+            				<c:forEach var="route" items="${routeList}">
+                              <li> 	<input type="checkbox" value="${route.routeNo}-${route.routeName}">${route.routeName}</li>
+                        	</c:forEach>
+                
+            				</ul>
+        				</div>
+    				</dd>
+  
+						</dl>
+                    </div>
+                   </div>
+                    
                     
                   	<div class="form-group">
                         <form:label path="address" class="col-sm-3 control-label">&#42; Address </form:label>

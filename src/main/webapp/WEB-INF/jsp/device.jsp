@@ -1,6 +1,117 @@
  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
  <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%><head>
+ <script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
+<script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
  <script type="text/javascript">
+ 
+ 
+ $(document).ready(function() {
+		
+		
+	    $('#registerForm').formValidation({
+	        framework: 'bootstrap',
+	        excluded: ':disabled',
+	        icon: {
+	            valid: 'glyphicon glyphicon-ok',
+	            invalid: 'glyphicon glyphicon-remove',
+	            validating: 'glyphicon glyphicon-refresh'
+	        },
+	        fields: {
+	        	uniqueID: {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Unique ID is required'
+	                    }
+	                }
+	            },
+	            
+	            deviceID: {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'device ID is required'
+	                    }
+	                }
+	            },
+	            
+	            isActive: {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Please Select Status '
+	                    }
+	                }
+	            },
+	            
+	            description: {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Description is required '
+	                    }
+	                }
+	            },
+	            
+	            allowNotify: {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Please Select Allow Notify '
+	                    }
+	                }
+	            }
+	        }
+	    });
+	    
+	    $('#editForm').formValidation({
+	        framework: 'bootstrap',
+	        excluded: ':disabled',
+	        icon: {
+	            valid: 'glyphicon glyphicon-ok',
+	            invalid: 'glyphicon glyphicon-remove',
+	            validating: 'glyphicon glyphicon-refresh'
+	        },
+	        fields: {
+	        	uniqueID: {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Unique ID is required'
+	                    }
+	                }
+	            },
+	            
+	            deviceID: {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'device ID is required'
+	                    }
+	                }
+	            },
+	            
+	            isActive: {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Please Select Status '
+	                    }
+	                }
+	            },
+	            
+	            description: {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Description is required'
+	                    }
+	                }
+	            },
+	            
+	            allowNotify: {
+	                validators: {
+	                    notEmpty: {
+	                        message: 'Please Select Allow Notify '
+	                    }
+	                }
+	            }
+	        }
+	    });
+	    
+	});
+ 
  
  var deleteList = [];
  
@@ -15,6 +126,7 @@
 		$("#status").val(status);
 		$("#description").val(description);
 		$("#allowNotify").val(allowNotify);
+		$('#editDevice').modal({backdrop: 'static', keyboard: false});
 		$("#editDevice").modal('show');
 	}
 
@@ -31,7 +143,10 @@
  
  $(document).ready(function() {
 
-
+	 $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+		    $("#success-alert").alert('close');
+		});
+	 
 	    $('#routeDataTable').dataTable( {
 	        "aaSorting": [[1,'asc']],
 	         aoColumnDefs: [
@@ -49,8 +164,25 @@
         <div class="col-lg-12">
             <div class="fixed-page-header">
                 <div class="page-header clearfix">
-                    <h1 class="page-head-text pull-left">Device</h1>    
-                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addExtintor"><i class="fa fa-plus-circle"></i>  Add Device</button>                    
+                    <h1 class="page-head-text pull-left">Device</h1>  
+                    
+                      <c:if test="${added == 'added'}">
+                   <center> <div class="alert alert-success" id="success-alert">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    						<strong>Success! </strong>
+   								 Device Added Successfully
+					</div></center>                    	
+                    </c:if>    
+                    
+                     <c:if test="${updated == 'updated'}">
+                    <center><div class="alert alert-info" id="success-alert">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    						<strong>Success! </strong>
+   								 Device Updated Successfully
+					</div> </center>                   	
+                    </c:if>    
+                      
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addExtintor" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  Add Device</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="deleteDevice('${device.uniqueID}')" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>
@@ -118,8 +250,9 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Edit Device</h4>
           </div>            
-          	<form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/device/updateDevice" commandName="device">
+          	<form:form id="editForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/device/deviceList" commandName="device">
           	<div class="modal-body"> 
+          	<input type="hidden" name="action" value="edit">
           	 <div class="form-group">
                     <form:label path="uniqueID" class="col-sm-3 control-label">Unique Id</form:label>
                     <div class="col-sm-8">
@@ -136,7 +269,7 @@
                 <div class="form-group">
                     <form:label path="isActive" class="col-sm-3 control-label">Status</form:label>
                     <div class="col-sm-8">
-                        <form:select path="isActive" id="isActive" class="form-control">
+                        <form:select path="isActive" id="status" class="form-control">
                             <form:option value="1">ON</form:option>
                             <form:option value="0">OFF</form:option>
                         </form:select>
@@ -175,8 +308,9 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Add Device</h4>
           </div>            
-          	<form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/device/addDevice" commandName="device">
+          	<form:form id="registerForm" class="form-horizontal" method="post" name="registerForm" action="${pageContext.request.contextPath}/device/deviceList" commandName="device">
           	<div class="modal-body"> 
+          		<input type="hidden" name="action" value="add">
                 <div class="form-group">
                     <form:label path="deviceID" class="col-sm-3 control-label">Device Id</form:label>
                     <div class="col-sm-8">
@@ -194,6 +328,7 @@
                     <form:label path="isActive" class="col-sm-3 control-label">Status</form:label>
                     <div class="col-sm-8">
                         <form:select path="isActive"  class="form-control">
+                        	<form:option value="">Select Status </form:option>
                             <form:option value="1">ON</form:option>
                             <form:option value="0">OFF</form:option>
                         </form:select>
@@ -209,6 +344,7 @@
                     <form:label path="allowNotify" class="col-sm-3 control-label">AllowNotify</form:label>
                     <div class="col-sm-8">
                         <form:select path="allowNotify"  class="form-control">
+                        	<form:option value="">Select Notify </form:option>
                             <form:option value="1">YES</form:option>
                             <form:option value="0">NO</form:option>
                         </form:select>

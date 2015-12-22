@@ -29,7 +29,31 @@ public class DeviceController {
 	GtsService gtsService;
 	
 	@RequestMapping(value="/deviceList")
-	String getDeviceList(HttpServletRequest request,HttpServletResponse response,ModelMap model){
+	String getDeviceList(@ModelAttribute("device") Device device,HttpServletRequest request,HttpServletResponse response,ModelMap model){
+		
+		String action="action";
+		if(request.getParameter("action")!=null){
+			action=request.getParameter("action");
+		}
+		if(action.equals("add")){
+			
+			 	HttpSession session = request.getSession();
+				SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		    	String userName = currentUser.getUsername();
+		    	
+				device.setAccountID(userName);
+				deviceService.addOrUpdateDevice(device);
+				gtsService.addDeviceInGts(device);	
+				model.addAttribute("added","added");
+		}
+		if(action.equals("edit")){
+			
+			String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+			device.setAccountID(userName);
+			deviceService.addOrUpdateDevice(device);
+			gtsService.updateDeviceInGts(device);
+			model.addAttribute("updated","updated");
+		}
 	
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<Device> deviceList = deviceService.getAllDeviceByUsername(userName);
