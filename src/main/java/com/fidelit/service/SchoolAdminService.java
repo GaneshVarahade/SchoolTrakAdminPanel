@@ -28,6 +28,8 @@ public interface SchoolAdminService {
 	void addRouteToStudent(Route route,int student);
 	List<RouteToStudent> getAllRouteToStudent();
 	void addParentToStudent(SchoolAdmin schoolAdmin, int studentid);
+	
+	void updateRouteToStudent(Route route,int routeId,int student);
     SchoolAdmin getParentId(int id);
     List<SchoolAdmin> getAllParentToStudent(int studentId);
     List<SchoolAdmin> getAllStudentListForParent(String userName);

@@ -7,6 +7,7 @@
 <script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
     
 <script>
+
 var saveKara = 0;
 
 function showBtn(){
@@ -34,6 +35,7 @@ $(document).ready(function() {
 	$(".multiSel").hide();
 var title1="";
 $(".dropdown dt a").on('click', function () {
+		
           $(".dropdown dd ul").slideToggle('fast');
       });
 
@@ -42,10 +44,12 @@ $(".dropdown dt a").on('click', function () {
       });
 
       function getSelectedValue(id) {
+    	 
            return $("#" + id).find("dt a span.value").html();
       }
 
       $(document).bind('click', function (e) {
+    	 
           var $clicked = $(e.target);
           if (!$clicked.parents().hasClass("dropdown")) $(".dropdown dd ul").hide();
       });
@@ -53,8 +57,7 @@ $(".dropdown dt a").on('click', function () {
 
       $('.mutliSelect input[type="checkbox"]').on('click', function () {
     	  
-    	  var routes=$("#routes").val();
-    	  title1=routes;
+    	  
     	  $(".multiSel").show();    
           var title = $(this).closest('.mutliSelect').find('input[type="checkbox"]').val(),
               title = $(this).val() + ",";
@@ -75,6 +78,7 @@ $(".dropdown dt a").on('click', function () {
               
           }
           $('#route1').val(title1);
+          $('#route2').val(title1);
       });
 	
     $('#example').dataTable( {
@@ -328,13 +332,15 @@ function editStudent(id,name,school,address,email,age,city,password,username,acc
 		
 			<c:forEach var="route" items="${routeList}" >
 				<c:if test="${routeToStudent.routeId == route.routeNo}">
-						routes+='${route.routeName}'+',';
+						routes+='${route.routeNo}-'+'${route.routeName}'+',';
 							
 				</c:if>
 			</c:forEach>
 				
 		}
 	</c:forEach>
+
+	$("#routes1").val(routes);
 	$("#routes").val(routes);
 	$("#studentId").val(id);
 	$("#name1").val(name);
@@ -647,12 +653,10 @@ $(document).ready(function() {
                                  <td>
                                  	<c:forEach var="routeToStudent" items="${routeToStudentList}">
                                  			<c:if test="${schoolAdmin.id == routeToStudent.studentId}">
-                                 				<c:forEach var="route" items="${routeList}" varStatus="stat">
+                                 				<c:forEach var="route" items="${routeList}">
                                  					<c:if test="${routeToStudent.routeId == route.routeNo}">
                                  					
-                                 							${route.routeName},
-                                 					<c:set var="route" value="${stat.first ? '' : route} ${route.routeName}" />
-                                 					
+                                 							${route.routeName},         					
                                  					</c:if>
                                  				</c:forEach>
                                  					
@@ -800,6 +804,8 @@ $(document).ready(function() {
                 
       
             <form:input path="id" id="studentId" class="form-control" type="hidden" />
+           <input type="hidden" name="route2" id="route2"> 
+           <input type="hidden" name="route3" id="routes1"> 
            <input type="hidden" name="action" value="edit">
                 <div class="form-group">
                         <form:label path="name" class="col-sm-3 control-label">&#42; Student Name</form:label>
@@ -850,10 +856,30 @@ $(document).ready(function() {
     				<dd>
         				<div class="mutliSelect" >
             				<ul>
-    						        				
-            				<c:forEach var="route" items="${routeList}">
+            			<%-- 	<c:forEach var="route" items="${routeList}">
+            				 <c:forEach var="schoolAdmin" items="${schoolAdminList}">
+    						      
+    						      <c:forEach var="routeToStudent" items="${routeToStudentList}">
+                                 			
+                                 				
+                                 				<c:if test="${schoolAdmin.id == routeToStudent.studentId}">
+                                 					<c:choose>
+                                 					<c:when test="${routeToStudent.routeId == route.routeNo}">
+                                 							<input type="checkbox" checked value="${route.routeNo}-${route.routeName}">${route.routeName}</li>
+                                 								         					
+                                 					</c:when>
+                                 					<c:otherwise>
+                                 							<input type="checkbox" value="${route.routeNo}-${route.routeName}">${route.routeName}</li>
+                                 					</c:otherwise>
+                                 					</c:choose>
+                                 				</c:if>
+                                 				</c:forEach>
+                                	</c:forEach> 
+                              	</c:forEach>	 --%>	 
+            				 <c:forEach var="route" items="${routeList}">
+            				 
                               <li> 	<input type="checkbox" value="${route.routeNo}-${route.routeName}">${route.routeName}</li>
-                        	</c:forEach>
+                        	</c:forEach>  
                 
             				</ul>
         				</div>

@@ -254,20 +254,20 @@
           	<div class="modal-body"> 
           	<input type="hidden" name="action" value="edit">
           	 <div class="form-group">
-                    <form:label path="uniqueID" class="col-sm-3 control-label">Unique Id</form:label>
+                    <form:label path="uniqueID" class="col-sm-3 control-label">* Unique Id</form:label>
                     <div class="col-sm-8">
                     	<form:input path="uniqueID" id="uniqueID"  class="form-control" readonly="true"/>
                    	</div>
                 </div>
                 <div class="form-group">
-                    <form:label path="deviceID" class="col-sm-3 control-label">Device Id</form:label>
+                    <form:label path="deviceID" class="col-sm-3 control-label">* Device Id</form:label>
                     <div class="col-sm-8">
-                    	<form:input path="deviceID" id="deviceID"  class="form-control" />
+                    	<form:input path="deviceID" id="deviceID"  class="form-control" maxlength="20"/>
                    	</div>
                 </div>
     
                 <div class="form-group">
-                    <form:label path="isActive" class="col-sm-3 control-label">Status</form:label>
+                    <form:label path="isActive" class="col-sm-3 control-label">* Status</form:label>
                     <div class="col-sm-8">
                         <form:select path="isActive" id="status" class="form-control">
                             <form:option value="1">ON</form:option>
@@ -276,13 +276,13 @@
                    	</div>
                 </div>
                 <div class="form-group">
-                    <form:label path="description" class="col-sm-3 control-label">Description</form:label>
+                    <form:label path="description" class="col-sm-3 control-label">* Description</form:label>
                     <div class="col-sm-8">
-                    	<form:input path="description" id="description"  class="form-control" />
+                    	<form:input path="description" id="description"  class="form-control" maxlength="50"/>
                    	</div>
                 </div>
                 <div class="form-group">
-                    <form:label path="allowNotify" class="col-sm-3 control-label">AllowNotify</form:label>
+                    <form:label path="allowNotify" class="col-sm-3 control-label">* AllowNotify</form:label>
                     <div class="col-sm-8">
                         <form:select path="allowNotify" id="allowNotify" class="form-control">
                             <form:option value="1">YES</form:option>
@@ -312,20 +312,20 @@
           	<div class="modal-body"> 
           		<input type="hidden" name="action" value="add">
                 <div class="form-group">
-                    <form:label path="deviceID" class="col-sm-3 control-label">Device Id</form:label>
+                    <form:label path="deviceID" class="col-sm-3 control-label">* Device Id</form:label>
                     <div class="col-sm-8">
-                    	<form:input path="deviceID"   class="form-control" />
+                    	<form:input path="deviceID"   class="form-control" maxlength="20" />
                    	</div>
                 </div>
                 <div class="form-group">
-                    <form:label path="uniqueID" class="col-sm-3 control-label">Unique Id</form:label>
+                    <form:label path="uniqueID" class="col-sm-3 control-label">* Unique Id</form:label>
                     <div class="col-sm-8">
-                    	<form:input path="uniqueID"   class="form-control" />
+                    	<form:input path="uniqueID"   class="form-control" maxlength="20" />
                    	</div>
                 </div>
     
                 <div class="form-group">
-                    <form:label path="isActive" class="col-sm-3 control-label">Status</form:label>
+                    <form:label path="isActive" class="col-sm-3 control-label">* Status</form:label>
                     <div class="col-sm-8">
                         <form:select path="isActive"  class="form-control">
                         	<form:option value="">Select Status </form:option>
@@ -335,13 +335,13 @@
                    	</div>
                 </div>
                 <div class="form-group">
-                    <form:label path="description" class="col-sm-3 control-label">Description</form:label>
+                    <form:label path="description" class="col-sm-3 control-label">* Description</form:label>
                     <div class="col-sm-8">
-                    	<form:input path="description"   class="form-control" />
+                    	<form:input path="description"   class="form-control" maxlength="50" />
                    	</div>
                 </div>
                 <div class="form-group">
-                    <form:label path="allowNotify" class="col-sm-3 control-label">AllowNotify</form:label>
+                    <form:label path="allowNotify" class="col-sm-3 control-label">* AllowNotify</form:label>
                     <div class="col-sm-8">
                         <form:select path="allowNotify"  class="form-control">
                         	<form:option value="">Select Notify </form:option>

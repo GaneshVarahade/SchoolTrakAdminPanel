@@ -44,7 +44,7 @@ $(document).ready(function() {
         excluded: ':disabled',
         icon: {
             valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
+            invalid: 'glyphicon ',
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {

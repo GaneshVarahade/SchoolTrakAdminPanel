@@ -90,6 +90,7 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 		return schoolAdminList;
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	@Override
 	public SchoolAdmin getSchoolAdminId(int id) {
 
@@ -278,6 +279,8 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 		
 	}
 	
+	
+	
 	 @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	    @Override
 	    public void addParentToStudent(SchoolAdmin schoolAdmin, int studentid) {
@@ -373,6 +376,18 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 		System.out.println("parentTostudent:"+parentTostudent);
 		return parentTostudent;
 
+		
+	}
+
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public void updateRouteToStudent(Route route,int routeId, int student) {
+		
+    	
+		Session session=sessionFactory.getCurrentSession();
+		String sql="update routeToStudent set routeId ="+route.getRouteNo()+" where routeId="+routeId +" and studentId = "+student;
+		SQLQuery query=session.createSQLQuery(sql);
+		query.executeUpdate();
 		
 	}
     

@@ -67,12 +67,26 @@ var saveKara = 0;
 		 
 	}
 
+	$(document).ready(function() {
+
+
+	    $('#routeDataTable').dataTable( {
+	        "aaSorting": [[1,'asc']],
+	         aoColumnDefs: [
+	                   {
+	                      bSortable: false,
+	                      aTargets: [ -1 ]
+	                   }
+	                 ]
+	      } );
+	} ); 
 
 
 	$(document).ready(function() {
 		$('#routeDataTable').DataTable();
 	} );
 
+	
 
 	function edit(id){
 		var id = id;
@@ -362,7 +376,7 @@ function addStops(id){
 				<!-- /.panel-heading -->
 				<div class="panel-body">
 					<div class="table-responsive">
-						<table id="example"
+						<table id="routeDataTable"
 							class="table table-bordered table-striped table-hover">
 							<thead>
 								<tr>

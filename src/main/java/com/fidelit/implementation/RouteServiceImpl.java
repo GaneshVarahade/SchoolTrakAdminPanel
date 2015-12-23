@@ -73,6 +73,25 @@ public class RouteServiceImpl implements RouteService{
 	}
 
 	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Override
+	public Route getRouteName(String routeName) {
+		
+		System.out.println("Route Name"+routeName);
+		Session session;
+		Route  route = null;
+		try{
+			session = sessionFactory.getCurrentSession();
+			Criteria criteria = session.createCriteria(Route.class);
+			 criteria.add(Restrictions.eq("routeName", routeName));
+			 Object result=criteria.uniqueResult();
+			 route = (Route)result;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return route;
+	}
 
 	
 	
@@ -112,9 +131,6 @@ public class RouteServiceImpl implements RouteService{
 		catch(Exception e){
 			e.printStackTrace();
 		}
-
-		
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -141,6 +157,8 @@ public class RouteServiceImpl implements RouteService{
 		}
 		return id;
 	}
+	
+	
 	
 	
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
@@ -215,6 +233,8 @@ public class RouteServiceImpl implements RouteService{
 		}
 		return routeList;
 	}
+
+	
 
 
 }

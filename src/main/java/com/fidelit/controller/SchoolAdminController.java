@@ -202,14 +202,48 @@ public class SchoolAdminController {
 			
 		}
 		if(action.equals("edit")){
-		//	School school =schoolAdmin.getSchool();
+			
+			
+			String route1=request.getParameter("route2");
+			String oldRoute=request.getParameter("route3");
+			String[] route2=route1.split(",");
+			String[] oldRoute1=oldRoute.split(",");
+			String[] routeNo=new String[30];
+			SchoolAdmin studentId1= schoolAdminService.getSchoolAdminId(schoolAdmin.getId());
+			int[] routeIdList=new int[20];
+			System.out.println("Length:"+oldRoute1.length);
+			for(int i=0;i<oldRoute1.length;i++){
+				routeNo=oldRoute1[i].split("-");
+				System.out.println("OldOne :"+oldRoute1[i]);
+				for(int j=0;j<routeNo.length;j++){
+					if(j==1){
+						Route route=routeService.getRouteName(routeNo[j]);
+						routeIdList[i]=route.getRouteNo();
+					}
+										
+				}
+			}
+			for(int i=0;i<route2.length;i++){
+				routeNo=route2[i].split("-");
+				for(int j=0;j<routeNo.length;j++)
+				{
+					if(j==0){
+						
+						RouteId[j]=Integer.parseInt(routeNo[j]);
+						Route route=routeService.getRouteId(RouteId[j]);
+						schoolAdminService.updateRouteToStudent(route,routeIdList[i], studentId1.getId());
+						
+					}
+				}
+			}
+			
+			model.addAttribute(new SchoolAdmin());
 			schoolAdmin.setAccountType("Student");
 			model.addAttribute(new SchoolAdmin());
 			schoolAdmin.setRole("ROLE_STUDENT");
 			schoolAdmin.setEnabled(true);
 			String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 			schoolAdmin.setAccountId(userName);
-		//	schoolAdmin.setSchool(school);
 			model.addAttribute("edit", "edit");
 			schoolAdminService.updateSchoolAdmin(schoolAdmin);
 			

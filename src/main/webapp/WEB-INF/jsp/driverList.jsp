@@ -180,7 +180,7 @@ function useHTML(id,data){
 var saveKara = 0;
 function showBtn(){
 	 if(saveKara == 0){
-		 alert("Please select At least one driver for delete");
+		 alert("Please select atleast one driver for delete");
 	 }
 	 else{
 		 var result = confirm("Are you sure, you want to delete driver(s)?");
