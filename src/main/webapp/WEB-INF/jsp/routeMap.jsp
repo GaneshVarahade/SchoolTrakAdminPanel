@@ -489,7 +489,7 @@ function addStops(id){
                 <div class="col-sm-8">
                   <select id="driverName" name="driverName" class="form-control" >
                     <c:forEach var="busDriver" items="${busDriverList}">
-                      <option value="${busDriver.driverId}">${busDriver.driverId},${busDriver.driverName},${busDriver.address},${busDriver.city}</option>
+                      <option value="${busDriver.driverId}">${busDriver.driverName}</option>
                     </c:forEach>
                   </select>
                 </div>
@@ -574,7 +574,7 @@ function addStops(id){
                     <form:select path="busDriver.driverName" id="driverName1" class="form-control" >
                     	<form:option value="">Select Driver</form:option>
                       <c:forEach var="busDriver" items="${busDriverList}">
-                        <form:option value="${busDriver.driverId}">${busDriver.driverId},${busDriver.driverName},${busDriver.address},${busDriver.city}</form:option>
+                        <form:option value="${busDriver.driverId}">${busDriver.driverName}</form:option>
                       </c:forEach>
                     </form:select>
                	</div>

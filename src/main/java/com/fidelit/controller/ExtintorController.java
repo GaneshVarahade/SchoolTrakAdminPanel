@@ -49,9 +49,7 @@ public class ExtintorController {
 		System.out.println("Calling Ouut :");
 		if(extintor.getType()!=null && action.equals("action")){
 			String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-			String busNumber=extintor.getBus().getRegNumber();
-			Bus bus=busService.getBusRegNo(busNumber);
-			extintor.setBus(bus);
+			
 			extintor.setAccountId(userName);
 			model.addAttribute("success","success");
 			extinctorService.addExtintor(extintor);

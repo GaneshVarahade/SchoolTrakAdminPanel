@@ -758,7 +758,7 @@ $(document).ready(function() {
                   	<div class="form-group">
                         <form:label path="age" class="col-sm-3 control-label"> &#42; Age (Years)</form:label>
                         <div class="col-sm-8">
-                        	<form:input path="age" type="number" min="1" step="1"  id="aAge" value="" class="form-control" />
+                        	<form:input path="age" type="number" min="1" step="1"  id="aAge" maxlength="3" value="" class="form-control" />
                         </div>
                     </div>
                     
@@ -873,7 +873,7 @@ $(document).ready(function() {
                   	<div class="form-group">
                         <form:label path="age" class="col-sm-3 control-label">&#42; Age (Years) </form:label>
                         <div class="col-sm-8">
-                        	<form:input path="age" type="number" min="1" step="1"  id="age1" value="" class="form-control" />
+                        	<form:input path="age" type="number" min="1" step="1" maxlength="3" id="age1" value="" class="form-control" />
                         </div>
                     </div>
                     

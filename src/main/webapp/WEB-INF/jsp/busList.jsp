@@ -173,7 +173,7 @@ function addStops(id){
 	$("#regNumber").val(regNo);
 	$("#type").val(type);
 	$("#capacity").val(capacity);
-	$("#uniqueID").val(deviceId);
+	$("#uniqueID1").val(deviceId);
 	$('#edit').modal({backdrop: 'static', keyboard: false})
 	$("#edit").modal('show');
 	
@@ -457,7 +457,7 @@ function addStops(id){
 					<div class="form-group">
 						<form:label path="device.uniqueID" class="col-sm-3 control-label">* DeviceID</form:label>
 						<div class="col-sm-8">
-							<form:select  path="device.uniqueID"  id="uniqueID" class="form-control">
+							<form:select  path="device.uniqueID" id="uniqueID1" class="form-control">
 								<c:forEach var="device" items="${deviceList}">
 									<option value="${device.uniqueID}">${device.deviceID}</option>
 								</c:forEach>
@@ -467,7 +467,7 @@ function addStops(id){
 					<div class="form-group">
 						<form:label path="capacity" class="col-sm-3 control-label">* Capacity</form:label>
 						<div class="col-sm-8">
-							<form:input path="capacity" type="number" id="capacity"
+							<form:input path="capacity" type="number" min="1" step="1" id="capacity"
 								name="capacity" class="form-control" maxlength="3" />
 						</div>
 					</div>
@@ -532,7 +532,7 @@ function addStops(id){
 					<div class="form-group">
 						<form:label path="capacity" class="col-sm-3 control-label">* Capacity</form:label>
 						<div class="col-sm-8">
-							<form:input path="capacity" type="number" id="capacity"
+							<form:input path="capacity" type="number" id="capacity" min="1" step="1"
 								name="capacity" class="form-control" maxlength="3"/>
 						</div>
 					</div>

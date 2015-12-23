@@ -127,7 +127,7 @@ var saveKara = 0;
 function showBtn(){
 
 	 if(saveKara == 0){
-		 alert("Please select at least one Extintor for delete");
+		 alert("Please select atleast one Extintor for delete");
 	 }
 	 else{
 		 var result = confirm("Are you sure, you want to delete extintor(s)?");
