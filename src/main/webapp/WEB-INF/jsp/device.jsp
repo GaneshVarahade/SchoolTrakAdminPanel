@@ -8,6 +8,15 @@
  $(document).ready(function() {
 		
 		
+	 	$('#addDevice').on('hidden.bs.modal', function(){
+	        $(this).removeData('bs.modal');
+	        $('#registerForm').bootstrapValidator('resetForm', true);
+	    });
+	 
+	 	$('#editDevice').on('hidden.bs.modal', function(){
+	        $(this).removeData('bs.modal');
+	        $('#editForm').bootstrapValidator('resetForm', true);
+	    });
 	    $('#registerForm').formValidation({
 	        framework: 'bootstrap',
 	        excluded: ':disabled',
@@ -136,7 +145,7 @@
 			 window.location.href = "deleteDevice?uniqueIdList="+deleteList;
 			 deleteList = [];
 		}else{
-			 alert("Please select at least one device for delete ");
+			 alert("Please select atleast one device for delete ");
 		}
 		  
 	}	
@@ -182,7 +191,7 @@
 					</div> </center>                   	
                     </c:if>    
                       
-                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addExtintor" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  Add Device</button>                    
+                    <button type="submit" class="btn btn-inverse btn-sm pull-right" data-toggle="modal" data-target="#addDevice" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  Add Device</button>                    
                     <button type="submit" class="btn btn-brown btn-sm pull-right" onClick="deleteDevice('${device.uniqueID}')" ><i class="fa fa-trash-o"></i> Delete</button>
                 </div>                                    
             </div>
@@ -301,7 +310,7 @@
 </div>
 
 
-<div class="modal fade" id="addExtintor" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
+<div class="modal fade" id="addDevice" tabindex="-1" role="dialog" aria-labelledby="delete-domain" aria-hidden="true">
    	<div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">

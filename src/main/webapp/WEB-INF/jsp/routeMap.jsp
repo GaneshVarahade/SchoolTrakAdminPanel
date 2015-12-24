@@ -20,7 +20,7 @@ var saveKara = 0;
 function showBtn(){
 
 	 if(saveKara == 0){
-		 alert("Please select At least one Route for delete");
+		 alert("Please select atleast one Route for delete");
 	 }
 	 else{
 		 var result = confirm("Are you sure, you wan to delete Route(s)?");
@@ -197,6 +197,16 @@ function addStops(id){
 		$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
 		    $("#success-alert").alert('close');
 		});
+		
+		 $('#addRoutes').on('hidden.bs.modal', function(){
+		        $(this).removeData('bs.modal');
+		        $('#registerForm').bootstrapValidator('resetForm', true);
+		    });
+		 
+		 $('#edit').on('hidden.bs.modal', function(){
+		        $(this).removeData('bs.modal');
+		        $('#editForm').bootstrapValidator('resetForm', true);
+		    });
 		
 	    $('#registerForm').formValidation({
 	        framework: 'bootstrap',

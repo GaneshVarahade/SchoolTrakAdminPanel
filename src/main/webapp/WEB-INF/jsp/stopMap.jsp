@@ -7,6 +7,16 @@
 <script>
 
 $(document).ready(function() {
+	
+	 $('#addStop').on('hidden.bs.modal', function(){
+	        $(this).removeData('bs.modal');
+	        $('#formAdd').bootstrapValidator('resetForm', true);
+	    });
+	 
+	 $('#edit').on('hidden.bs.modal', function(){
+	        $(this).removeData('bs.modal');
+	        $('#editForm').bootstrapValidator('resetForm', true);
+	    });
     $('#formAdd').formValidation({
         framework: 'bootstrap',
         excluded: ':disabled',

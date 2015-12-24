@@ -595,7 +595,6 @@ DeviceService deviceService;
 		String username = currentUser.getUsername();
 		
 		List<Device> deviceList = deviceService.getDeviceListByUsername(username);
-		System.out.println(deviceList);
 		model.addAttribute("userName", username);
 		model.addAttribute("busList", busList);
 		model.addAttribute("deviceList",deviceList);

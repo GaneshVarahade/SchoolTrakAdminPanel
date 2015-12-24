@@ -12,7 +12,7 @@ var saveKara = 0;
 
 function showBtn(){
 	 if(saveKara == 0){
-		 alert("Please select At least One Student for delete");
+		 alert("Please select atleast One Student for delete");
 	 }
 	 else{
 		
@@ -396,6 +396,17 @@ $(document).ready(function() {
 	$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
 	    $("#success-alert").alert('close');
 	});
+	
+	$('#forClientRegistration').on('hidden.bs.modal', function(){
+        $(this).removeData('bs.modal');
+        $('#frm').bootstrapValidator('resetForm', true);
+    });
+ 
+ $('#edit').on('hidden.bs.modal', function(){
+        $(this).removeData('bs.modal');
+        $('#editForm').bootstrapValidator('resetForm', true);
+    });
+	
     $('#frm').formValidation({
     	
         framework: 'bootstrap',

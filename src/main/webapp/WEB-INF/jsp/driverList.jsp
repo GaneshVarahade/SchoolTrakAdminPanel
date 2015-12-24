@@ -12,6 +12,17 @@ $(document).ready(function() {
 	$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
 	    $("#success-alert").alert('close');
 	});
+	
+	$('#addDriver').on('hidden.bs.modal', function(){
+        $(this).removeData('bs.modal');
+        $('#registerForm').bootstrapValidator('resetForm', true);
+    });
+ 
+ 	$('#edit').on('hidden.bs.modal', function(){
+        $(this).removeData('bs.modal');
+        $('#editForm').bootstrapValidator('resetForm', true);
+    });
+	
     $('#registerForm').formValidation({
         framework: 'bootstrap',
         excluded: ':disabled',

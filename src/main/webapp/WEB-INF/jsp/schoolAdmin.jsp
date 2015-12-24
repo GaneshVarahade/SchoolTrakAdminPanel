@@ -14,7 +14,7 @@ var saveKara = 0;
 function showBtn(){
 
 	 if(saveKara == 0){
-		 alert("Please select At least one School Admin for delete");
+		 alert("Please select atleast one School Admin for delete");
 	 }
 	 else{
 		
@@ -425,6 +425,16 @@ $(document).ready(function() {
 	    $("#success-alert").alert('close');
 	});
 	
+	 $('#schoolAdminId').on('hidden.bs.modal', function(){
+	        $(this).removeData('bs.modal');
+	        $('#frm').bootstrapValidator('resetForm', true);
+	    });
+	 
+	 $('#edit').on('hidden.bs.modal', function(){
+	        $(this).removeData('bs.modal');
+	        $('#editForm').bootstrapValidator('resetForm', true);
+	    });
+	
     $('#frm').formValidation({
         framework: 'bootstrap',
         excluded: ':disabled',
@@ -707,7 +717,7 @@ $(document).ready(function() {
                 
                 <input type="hidden" name="action" value="add">
                 <div class="form-group">
-                        <form:label path="name" class="col-sm-3 control-label">Admin Name &#42;</form:label>
+                        <form:label path="name" class="col-sm-3 control-label">&#42; Admin Name </form:label>
                         <div class="col-sm-8">
                         	<form:input path="name" type="text" id="aName" value="" class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('aName').value)"/>
                         </div>
@@ -724,21 +734,21 @@ $(document).ready(function() {
                      --%>
                      
                     <div class="form-group">
-                       	<form:label path="username" class="col-sm-3 control-label">Username &#42;</form:label>
+                       	<form:label path="username" class="col-sm-3 control-label">&#42; Username </form:label>
                         <div class="col-sm-8">
                             <form:input type="text" path="username" id="username" value="" class="form-control" maxlength="20" onblur = "checkUniqueUsername(); useHTML(this.id,document.getElementById('username').value);" />
                       	</div>
                     </div>
                   	
                   	<div class="form-group">
-                        <form:label path="password" class="col-sm-3 control-label">Admin Password &#42;</form:label>
+                        <form:label path="password" class="col-sm-3 control-label">&#42; Admin Password </form:label>
                         <div class="col-sm-8">
                         	<form:input type="text" path="password" id="aPassword" value="" class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('aPassword').value)"/>
                         </div>
                     </div>
                     
                   	<div class="form-group">
-                        <form:label path="school.schoolName" class="col-sm-3 control-label">School Name &#42;</form:label>
+                        <form:label path="school.schoolName" class="col-sm-3 control-label">&#42; School Name </form:label>
                         <div class="col-sm-8">
                         	<form:select path="school.schoolName" id="schoolId" class="form-control" >
                         		<form:option value="">Select</form:option>
@@ -750,28 +760,28 @@ $(document).ready(function() {
                     </div>
                     
                   	<div class="form-group">
-                        <form:label path="address" class="col-sm-3 control-label">Address &#42;</form:label>
+                        <form:label path="address" class="col-sm-3 control-label">&#42; Address </form:label>
                         <div class="col-sm-8">
                             <form:input  path="address" type="text" id="aAddress" value="" class="form-control" maxlength="80" onblur = "useHTML(this.id,document.getElementById('aAddress').value)"/>
                         </div>
                     </div>
                     
                   	<div class="form-group">
-                        <form:label path="email" class="col-sm-3 control-label">Email &#42;</form:label>
+                        <form:label path="email" class="col-sm-3 control-label">&#42; Email </form:label>
                         <div class="col-sm-8">
                             <form:input path="email" type="email" id="aEmail" value="" class="form-control" onblur="emailValidateRegistration();" maxlength="30" />
                         </div>
                    	</div>
                     
                   	<div class="form-group">
-                        <form:label path="age" class="col-sm-3 control-label">Age (years) &#42;</form:label>
+                        <form:label path="age" class="col-sm-3 control-label">&#42; Age (years) </form:label>
                         <div class="col-sm-8">
                         	<form:input path="age" type="number" min="1" step="1"  id="aAge" value="" class="form-control" />
                         </div>
                     </div>
                     
                   	<div class="form-group">
-                        <form:label path="city" class="col-sm-3 control-label">City &#42;</form:label>
+                        <form:label path="city" class="col-sm-3 control-label">&#42; City </form:label>
                         <div class="col-sm-8">
                         	<form:input path="city" type="text"  id="aCity" value="" class="form-control" maxlength="40" onblur = "useHTML(this.id,document.getElementById('aCity').value)"/>
                         </div>

@@ -35,7 +35,7 @@ var saveKara = 0;
 	function showBtn(){
 	
 		 if(saveKara == 0){
-			 alert("Please select At least one Vehicle for delete");
+			 alert("Please select atleast one Vehicle for delete");
 		 }
 		 else{
 			 var result = confirm("want to delete?");
@@ -250,6 +250,17 @@ function addStops(id){
 		$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
 		    $("#success-alert").alert('close');
 		});
+		
+		$('#forClientRegistration').on('hidden.bs.modal', function(){
+	        $(this).removeData('bs.modal');
+	        $('#registerForm').bootstrapValidator('resetForm', true);
+	    });
+	 
+	 $('#edit').on('hidden.bs.modal', function(){
+	        $(this).removeData('bs.modal');
+	        $('#editForm').bootstrapValidator('resetForm', true);
+	    });
+		
 	    $('#registerForm').formValidation({
 	        framework: 'bootstrap',
 	        excluded: ':disabled',

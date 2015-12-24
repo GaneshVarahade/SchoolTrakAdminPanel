@@ -409,6 +409,16 @@ $(document).ready(function() {
 	    $("#success-alert").alert('close');
 	});
 	
+	 $('#forClientRegistration').on('hidden.bs.modal', function(){
+	        $(this).removeData('bs.modal');
+	        $('#frm').bootstrapValidator('resetForm', true);
+	    });
+	 
+	 $('#edit').on('hidden.bs.modal', function(){
+	        $(this).removeData('bs.modal');
+	        $('#editForm').bootstrapValidator('resetForm', true);
+	    });
+	
     $('#frm').formValidation({
     	
         framework: 'bootstrap',

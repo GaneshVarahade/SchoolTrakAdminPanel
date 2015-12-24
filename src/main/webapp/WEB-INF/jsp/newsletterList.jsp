@@ -16,6 +16,16 @@ $(document).ready(function() {
 		document.getElementById("deleteButton").enabled = true;  
 		}
 	
+	 
+	$('#addNewsletter').on('hidden.bs.modal', function(){
+        $(this).removeData('bs.modal');
+        $('#registerForm').bootstrapValidator('resetForm', true);
+    });
+ 
+ 	$('#edit').on('hidden.bs.modal', function(){
+        $(this).removeData('bs.modal');
+        $('#editForm').bootstrapValidator('resetForm', true);
+    });
 	
     $('#registerForm').formValidation({
         framework: 'bootstrap',
@@ -70,7 +80,7 @@ var saveKara = 0;
 function showBtn(){
 
 	 if(saveKara == 0){
-		 alert("Please select At least one NewsLetter for delete");
+		 alert("Please select atleast one NewsLetter for delete");
 	 }
 	 else{
 		 var result = confirm("Are you sure, you want to delete newsletter(s)?");

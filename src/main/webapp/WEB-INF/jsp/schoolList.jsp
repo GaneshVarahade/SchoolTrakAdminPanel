@@ -153,7 +153,7 @@ function password_length_registration()
  function showBtn(){
 
 	 if(saveKara == 0){
-		 alert("Please select At least one School for delete");
+		 alert("Please select atleast one School for delete");
 	 }
 	 else{
 	
@@ -200,8 +200,23 @@ $(document).ready(function() {
 }); */
 
 
+
+
  $(document).ready(function() {
 
+	 $('[data-dismiss=modal]').on('click', function (e) {
+		    var $t = $(this),
+		        target = $t[0].href || $t.data("target") || $t.parents('.modal') || [];
+
+		  $(target)
+		    .find("input,textarea,select")
+		       .val('')
+		       .end()
+		    .find("input[type=checkbox], input[type=radio]")
+		       .prop("checked", "")
+		       .end();
+		})
+	 
     $('#example').dataTable( {
         "aaSorting": [[1,'asc']],
     aoColumnDefs: [
@@ -429,7 +444,9 @@ function sendDataForRegistration(){
 		});
 	}
 
-
+function cleardata(){
+	$("#schoolName").innerHTML = "";
+}
 
 
 $('.dropdown-menu a').on('click', function(){    
@@ -492,6 +509,15 @@ $(document).ready(function() {
 	    $("#success-alert").alert('close');
 	});
 	
+	 $('#schoolAdd').on('hidden.bs.modal', function(){
+	        $(this).removeData('bs.modal');
+	        $('#frm').bootstrapValidator('resetForm', true);
+	    });
+	 
+	 $('#edit').on('hidden.bs.modal', function(){
+	        $(this).removeData('bs.modal');
+	        $('#editForm').bootstrapValidator('resetForm', true);
+	    });
     $('#frm').formValidation({
         framework: 'bootstrap',
         excluded: ':disabled',
@@ -689,38 +715,38 @@ $(document).ready(function() {
                 
                       	
                     <div class="form-group">
-                        <form:label path="schoolName" class="col-sm-3 control-label">School Name &#42;</form:label>
+                        <form:label path="schoolName" class="col-sm-3 control-label">&#42; School Name </form:label>
                         <div class="col-sm-8">
                        		<form:input type="text" path="schoolName" id="schoolName" value="" class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('schoolName').value)"/>
                        	</div>
                     </div>
                   	<div class="form-group">
-                        <form:label path="address" class="col-sm-3 control-label">Address &#42;</form:label>
+                        <form:label path="address" class="col-sm-3 control-label">&#42; Address </form:label>
                         <div class="col-sm-8">
                             <form:input type="text" path="address" id="address" value="" class="form-control" maxlength="50" onblur = "useHTML(this.id,document.getElementById('address').value)"/>
                       	</div>
                    	</div>
                     <div class="form-group">
-                        <form:label path="details" class="col-sm-3 control-label">Details &#42;</form:label>
+                        <form:label path="details" class="col-sm-3 control-label">&#42; Details </form:label>
                         <div class="col-sm-8">
                             <form:input type="text" path="details" id="details" value="" class="form-control" maxlength="60" onblur = "useHTML(this.id,document.getElementById('details').value)"/>
                       	</div>
                     </div>
                     <div class="form-group">
-                        <form:label path="location" class="col-sm-3 control-label">Location &#42;</form:label>
+                        <form:label path="location" class="col-sm-3 control-label">&#42; Location </form:label>
                         <div class="col-sm-8">
                             <form:input type="text" path="location" id="location" value="" class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('location').value)"/>
                      	</div>
                     </div>
                     <div class="form-group">
-                        <form:label path="city" class="col-sm-3 control-label">City &#42;</form:label>
+                        <form:label path="city" class="col-sm-3 control-label">&#42; City </form:label>
                      	<div class="col-sm-8">
                             <form:input type="text" path="city" id="city" value="" class="form-control" maxlength="20" onblur = "useHTML(this.id,document.getElementById('city').value)"/>
                       	</div>
                     </div>
            			<input type="hidden" name="action" value="add" />
            			 <div class="modal-footer text-center">
-            	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+            	<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" onclick="cleardata()">Cancel</button>
             	<button type="submit" name="submitButton" class="btn btn-primary">Save</button>
             </div>
                                          
@@ -747,31 +773,31 @@ $(document).ready(function() {
                 
                      <input type="hidden" name="schoolID" id="Idd" />
                     <div class="form-group">
-                        <form:label path="schoolName" class="col-sm-3 control-label">School Name &#42;</form:label>
+                        <form:label path="schoolName" class="col-sm-3 control-label">&#42; School Name </form:label>
                         <div class="col-sm-8">
                        		<form:input type="text" path="schoolName" id="schoolNamee" value="" class="form-control" maxlength="50" />
                        	</div>
                     </div>
                   	<div class="form-group">
-                        <form:label path="address" class="col-sm-3 control-label">Address &#42;</form:label>
+                        <form:label path="address" class="col-sm-3 control-label">&#42; Address </form:label>
                         <div class="col-sm-8">
                             <form:input type="text" path="address" id="addresss" value="" class="form-control" maxlength="50" />
                       	</div>
                    	</div>
                     <div class="form-group">
-                        <form:label path="details" class="col-sm-3 control-label">Details &#42;</form:label>
+                        <form:label path="details" class="col-sm-3 control-label">&#42; Details </form:label>
                         <div class="col-sm-8">
                             <form:input type="text" path="details" id="detailss" value="" class="form-control" maxlength="60" />
                       	</div>
                     </div>
                     <div class="form-group">
-                        <form:label path="location" class="col-sm-3 control-label">Location &#42;</form:label>
+                        <form:label path="location" class="col-sm-3 control-label">&#42; Location </form:label>
                         <div class="col-sm-8">
                             <form:input type="text" path="location" id="locationn" value="" class="form-control" maxlength="20" />
                      	</div>
                     </div>
                     <div class="form-group">
-                        <form:label path="city" class="col-sm-3 control-label">City &#42;</form:label>
+                        <form:label path="city" class="col-sm-3 control-label">&#42; City </form:label>
                      	<div class="col-sm-8">
                             <form:input type="text" path="city" id="city11" value="" class="form-control" maxlength="20" />
                       	</div>

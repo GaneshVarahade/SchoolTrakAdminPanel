@@ -39,6 +39,16 @@ $(document).ready(function() {
 	    $("#success-alert").alert('close');
 	});
 	 
+	$('#addExtintor').on('hidden.bs.modal', function(){
+        $(this).removeData('bs.modal');
+        $('#registerForm').bootstrapValidator('resetForm', true);
+    });
+ 
+ 	$('#edit').on('hidden.bs.modal', function(){
+        $(this).removeData('bs.modal');
+        $('#editExtintor').bootstrapValidator('resetForm', true);
+    });
+	
     $('#registerForm').formValidation({
         framework: 'bootstrap',
         excluded: ':disabled',
