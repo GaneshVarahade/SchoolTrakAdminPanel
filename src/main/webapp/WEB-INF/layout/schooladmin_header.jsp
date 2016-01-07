@@ -8,6 +8,7 @@
  	<li id="extintorActive"><a href="${pageContext.request.contextPath}/extintor/extintorList">Extintor</a></li>
  	<li id="newsSletterActive"><a href="${pageContext.request.contextPath}/newsletter/newsletterList">Newsletter</a></li>
  	<li id="deviceActive"><a href="${pageContext.request.contextPath}/device/deviceList">Device</a></li>
+ 	<li id="cameraActive"><a href="${pageContext.request.contextPath}/camera/cameraList">Camera</a></li>
 </ul>
 <script type="text/javascript">
 $(function(){
@@ -29,6 +30,9 @@ $(function(){
 		$("#newsSletterActive").addClass("active");
 	}else if(("${deviceActive}" == 'deviceActive')){
 		$("#deviceActive").addClass("active");
+	}
+	else if(("${cameraActive}" == 'cameraActive')){
+		$("#cameraActive").addClass("active");
 	}
 	
 })

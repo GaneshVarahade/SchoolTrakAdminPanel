@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fidelit.model.Bus;
 import com.fidelit.model.BusDriver;
+import com.fidelit.model.Camera;
 import com.fidelit.model.Device;
 import com.fidelit.model.Extintor;
 import com.fidelit.model.Route;
@@ -26,6 +27,7 @@ import com.fidelit.model.SchoolAdmin;
 import com.fidelit.model.Stop;
 import com.fidelit.service.BusDriverService;
 import com.fidelit.service.BusService;
+import com.fidelit.service.CameraService;
 import com.fidelit.service.DeviceService;
 import com.fidelit.service.ExtinctorService;
 import com.fidelit.service.GtsService;
@@ -56,6 +58,9 @@ ExtinctorService extinctorService;
 
 @Autowired
 DeviceService deviceService;
+
+@Autowired
+CameraService cameraService;
 
 
 	
@@ -568,10 +573,17 @@ DeviceService deviceService;
 			SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
 			String userName = currentUser.getUsername();
 			Device device = deviceService.getDeviceByUniqueId(bus.getDevice().getUniqueID());
+			Camera camera = cameraService.getCameraByCameraId(bus.getCamera().getCameraID());
+			System.out.println("Camera Id :"+camera.getIsCameraUsed());
+			camera.setVehicleID(bus.getRegNumber());
+			camera.setIsCameraUsed(true);
 			device.setIsDeviceUsed(true);
 			bus.setAccountId(userName);
 			bus.setDevice(device);
+			bus.setCamera(camera);
+			System.out.println("Camera Id :"+camera.getIsCameraUsed());
 			deviceService.addOrUpdateDevice(device);
+			cameraService.addOrUpdateCamera(camera);
 			model.addAttribute("success", "success");
 			busService.addBus(bus);
 		}
@@ -580,8 +592,11 @@ DeviceService deviceService;
 			String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 			bus.setAccountId(userName);
 			Device device = deviceService.getDeviceByUniqueId(bus.getDevice().getUniqueID());
+			Camera camera = cameraService.getCameraByCameraId(bus.getCamera().getCameraID());
 			bus.setDevice(device);
+			bus.setCamera(camera);
 			device.setIsDeviceUsed(true);
+			camera.setIsCameraUsed(true);
 			model.addAttribute("edit", "edit");
 			busService.updateBus(bus);
 			
@@ -595,9 +610,11 @@ DeviceService deviceService;
 		String username = currentUser.getUsername();
 		
 		List<Device> deviceList = deviceService.getDeviceListByUsername(username);
+		List<Camera> cameraList = cameraService.getCameraListByUsername(username);
 		model.addAttribute("userName", username);
 		model.addAttribute("busList", busList);
 		model.addAttribute("deviceList",deviceList);
+		model.addAttribute("cameraList", cameraList);
 		model.addAttribute(new Bus());
 		model.addAttribute("vehicleActive","vehicleActive");
 		return "busList";
@@ -621,14 +638,19 @@ DeviceService deviceService;
 		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
 		String userName = currentUser.getUsername();
 		Device device = deviceService.getDeviceByUniqueId(bus.getDevice().getUniqueID());
+		Camera camera = cameraService.getCameraByCameraId(bus.getCamera().getCameraID());
 		device.setIsDeviceUsed(true);
+		camera.setIsCameraUsed(true);
 		bus.setAccountId(userName);
 		bus.setDevice(device);
+		bus.setCamera(camera);
 		deviceService.addOrUpdateDevice(device);
 		busService.addBus(bus);
 		List<Bus> busList = busService.allBusList(userName);
 		List<Device> deviceList = deviceService.getDeviceListByUsername(userName);
+		List<Camera> cameraList = cameraService.getCameraListByUsername(userName);
 		model.addAttribute("deviceList",deviceList);
+		model.addAttribute("cameraList", cameraList);
 		model.addAttribute("userName", userName);
 		model.addAttribute("busList",busList);
 		model.addAttribute(new Bus());

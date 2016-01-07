@@ -147,6 +147,4 @@ public class ExtinctorServiceImpl implements ExtinctorService {
 		return extintorList;
 	}
 
-	
-
 }

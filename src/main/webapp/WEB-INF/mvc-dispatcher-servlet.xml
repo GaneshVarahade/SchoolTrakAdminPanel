@@ -46,16 +46,16 @@
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		id="dataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://localhost:3306/schooltrack"></property>
+		<property name="url" value="jdbc:mysql://45.40.137.142:3306/schooltrack"></property>
 		<property name="username" value="root"></property>
-		<property name="password" value="system"></property>
+		<property name="password" value=""></property>
 	</bean>
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		id="gtsDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://localhost:3306/gts"></property>
+		<property name="url" value="jdbc:mysql://45.40.137.142:3306/gts"></property>
 		<property name="username" value="root"></property>
-		<property name="password" value="system"></property>
+		<property name="password" value=""></property>
 	</bean>
 	<bean class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
 		id="gtsSessionFactory">
@@ -88,7 +88,8 @@
 			    <value>com.fidelit.model.Device</value>
 			    <value>com.fidelit.model.RouteToStudent</value>
 			    <value>com.fidelit.model.ParentToStudent</value>
-			    
+			    <value>com.fidelit.model.Camera</value>
+			    <value>com.fidelit.model.Video</value>
 			</list>
 		</property>  
 		<property name="hibernateProperties">
@@ -131,6 +132,8 @@
 			    <value>com.fidelit.model.Device</value>
 			    <value>com.fidelit.model.RouteToStudent</value>
 			    <value>com.fidelit.model.ParentToStudent</value>
+			    <value>com.fidelit.model.Camera</value>
+			    <value>com.fidelit.model.Video</value>
 			</list>
 		</property>  
 		<property name="hibernateProperties">

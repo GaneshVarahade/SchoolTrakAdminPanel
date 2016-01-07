@@ -22,7 +22,7 @@ public class Bus {
 	Route   route;
 	String  accountId;
 	Device  device;
-	
+	Camera camera;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -90,5 +90,14 @@ public class Bus {
 		this.device = device;
 	}
 	
+	@OneToOne(fetch=FetchType.EAGER, cascade = {CascadeType.MERGE})
+	@JoinColumn(name="cameraID")
+	public Camera getCamera() {
+		return camera;
+	}
+
+	public void setCamera(Camera camera) {
+		this.camera = camera;
+	}
 	
 }

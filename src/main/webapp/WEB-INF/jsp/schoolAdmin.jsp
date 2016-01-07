@@ -10,6 +10,7 @@
 
 
 var saveKara = 0;
+var adminId=0;
 
 function showBtn(){
 
@@ -179,7 +180,9 @@ function useHTML(id,data){
 
 function editSchoolAdmin(id,name,school,address,email,age,city,password,username){
 	$("#schoolAdminId1").val(id);
+	$("#adminId").val(id);
 	$("#name1").val(name);
+	adminId=id;
 	$("#username1").val(username);
 	$("#password1").val(password);
 	$("#school1").val(school);
@@ -466,15 +469,23 @@ $(document).ready(function() {
                     
                         message: 'Username is required'
                     },
-        			stringLength: {
             				min: 6,
             				max: 20,
+        			stringLength: {
             		message: 'Username must be more than 6 and less than 20 characters long'
         			},
+        		
         		regexp: {
             		regexp: /^[a-zA-Z0-9_\.]+$/,
             		message: 'Username can only consist of alphabetical, number, dot and underscore'
         			},
+        			
+        		remote: {
+        				message: 'Username already exist',
+                        url: '${pageContext.request.contextPath}/schoolAdmin/uniqueUsername',
+                        processData: true
+                    },
+        		
         			
                 }
             },
@@ -524,7 +535,7 @@ $(document).ready(function() {
             
         }
     });
-    
+   
     $('#editForm').formValidation({
         framework: 'bootstrap',
         excluded: ':disabled',
@@ -565,6 +576,11 @@ $(document).ready(function() {
             		regexp: /^[a-zA-Z0-9_\.]+$/,
             		message: 'Username can only consist of alphabetical, number, dot and underscore'
         			},
+        		remote: {
+        				message: 'Username already exist',
+                        url: '${pageContext.request.contextPath}/schoolAdmin/uniqueUsernameforEdit?adminId='+adminId,
+                        processData: true
+                    },
         			
                 }
             },
@@ -736,7 +752,7 @@ $(document).ready(function() {
                     <div class="form-group">
                        	<form:label path="username" class="col-sm-3 control-label">&#42; Username </form:label>
                         <div class="col-sm-8">
-                            <form:input type="text" path="username" id="username" value="" class="form-control" maxlength="20" onblur = "checkUniqueUsername(); useHTML(this.id,document.getElementById('username').value);" />
+                            <form:input type="text" path="username" id="username" value="" class="form-control" maxlength="20"  />
                       	</div>
                     </div>
                   	
@@ -823,7 +839,7 @@ $(document).ready(function() {
                     <div class="form-group">
                        	<form:label path="username" class="col-sm-3 control-label">&#42; Username</form:label>
                         <div class="col-sm-8">
-                            <form:input type="text" path="username" id="username1" value="" class="form-control" maxlength="20" onblur = "checkUniqueUsername(); useHTML(this.id,document.getElementById('username1').value);" />
+                            <form:input type="text" path="username" id="username1" value="" class="form-control" maxlength="20"  />
                       	</div>
                     </div>
                   	

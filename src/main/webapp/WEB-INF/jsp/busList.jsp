@@ -324,6 +324,13 @@ function addStops(id){
 	                    }
 	                }
 	            },
+	            'camera.cameraID':{
+	            	validators: {
+	                    notEmpty: {
+	                        message: 'Camera ID is required'
+	                    }
+	                }
+	            },
 	            capacity: {
 	                validators: {
 	                    notEmpty: {
@@ -396,6 +403,7 @@ function addStops(id){
 									<th width="25%">Vehicle Number</th>
 									<th width="25%">Vehicle Type</th>
 									<th width="20%">Device</th>
+									<th width="20%">Camera</th>
 									<th width="20%">Vehicle Capacity</th>
 									<th width="20%">Action</th>
 								</tr>
@@ -408,10 +416,11 @@ function addStops(id){
 										<td>${bus.regNumber}</td>
 										<td>${bus.busType}</td>
 										<td>${bus.device.deviceID}</td>
+										<td>${bus.camera.cameraID}</td>
 										<td>${bus.capacity}</td>
 										<td><button type="button" class="btn btn-default btn-sm"
 												value="Edit"
-												onClick="editBus('${bus.busId}','${bus.regNumber}','${bus.busType}','${bus.capacity}','${bus.device.deviceID}')">
+												onClick="editBus('${bus.busId}','${bus.regNumber}','${bus.busType}','${bus.capacity}','${bus.device.deviceID}','${bus.camera.cameraID}')">
 												<i class="fa fa-pencil-square-o"></i> Edit
 											</button></td>
 									</tr>
@@ -471,6 +480,16 @@ function addStops(id){
 							<form:select  path="device.uniqueID" id="uniqueID1" class="form-control">
 								<c:forEach var="device" items="${deviceList}">
 									<option value="${device.uniqueID}">${device.deviceID}</option>
+								</c:forEach>
+							</form:select>
+						</div>
+					</div>
+					<div class="form-group">
+						<form:label path="camera.cameraID" class="col-sm-3 control-label">* CameraID</form:label>
+						<div class="col-sm-8">
+							<form:select  path="camera.cameraID" id="uniqueID1" class="form-control">
+								<c:forEach var="camera" items="${cameraList}">
+									<option value="${camera.cameraID}">${camera.cameraID}</option>
 								</c:forEach>
 							</form:select>
 						</div>
@@ -540,6 +559,19 @@ function addStops(id){
 							</form:select>
 						</div>
 					</div>
+					
+					<div class="form-group">
+						<form:label path="camera.cameraID" class="col-sm-3 control-label">* CameraID</form:label>
+						<div class="col-sm-8">
+							<form:select  path="camera.cameraID"  id="cameraIDD" class="form-control">
+								<option value="">Select</option>
+								<c:forEach var="camera" items="${cameraList}">
+									<option value="${camera.cameraID}">${camera.cameraID}</option>
+								</c:forEach>
+							</form:select>
+						</div>
+					</div>
+					
 					<div class="form-group">
 						<form:label path="capacity" class="col-sm-3 control-label">* Capacity</form:label>
 						<div class="col-sm-8">

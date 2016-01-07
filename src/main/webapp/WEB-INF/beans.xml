@@ -52,8 +52,16 @@
    
     <bean id="NewsletterServiceImpl" class="com.fidelit.implementation.NewsletterServiceImpl" scope="prototype">
    </bean>
+   
    <bean id="customWebAuthenticationDetailsSource" class="com.fidelit.controller.CustomWebAuthenticationDetailsSource" scope="prototype">
    </bean>
+   
    <bean id="deviceServiceImpl" class="com.fidelit.implementation.DeviceServiceImpl" scope="prototype">
+   </bean>
+   
+   <bean id="cameraServiceImpl" class="com.fidelit.implementation.CameraServiceImpl" scope="prototype">
+   </bean>
+   
+   <bean id="videoServiceImpl" class="com.fidelit.implementation.VideoServiceImpl" scope="prototype">
    </bean>
 </beans>

@@ -2,6 +2,7 @@ package com.fidelit.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.annotations.Filters;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -159,6 +161,51 @@ public class SchoolAdminController {
 		model.addAttribute("schoolList", schoolList);
 		model.addAttribute("parentActive", "parentActive");
 		return "parentList";
+	}
+	
+	@RequestMapping(value = "/uniqueUsername")
+	@ResponseBody
+	public JSONObject UniqueUsername(HttpServletResponse response,
+	        @RequestParam String username) throws IOException {
+		
+		JSONObject isUnique= new JSONObject();
+		System.out.println("username:" + username);
+	    boolean isUnique1= schoolAdminService.getUniqueUserName(username);
+	    if(isUnique1==true)
+	    	isUnique1=false;
+	    else
+	    	isUnique1=true;
+	    isUnique.put("valid", isUnique1);
+	    System.out.println("IsUniques :"+ isUnique);
+	    return isUnique;
+	}
+	
+	@RequestMapping(value = "/uniqueUsernameforEdit")
+	@ResponseBody
+	public JSONObject UniqueUsernameforEdit(HttpServletRequest request,HttpServletResponse response,
+	        @RequestParam String username) throws IOException {
+		
+		
+		String id=request.getParameter("adminId");
+		System.out.println("ID"+id);
+		JSONObject isUnique= new JSONObject();
+		System.out.println("username:" + username);
+		System.out.println("ID:" + id);
+		SchoolAdmin admin=schoolAdminService.getSchoolAdminId(Integer.parseInt(id));
+		System.out.println("admin.getName() :"+admin.getName());
+		if(admin.getUsername().equals(username)){
+			isUnique.put("valid", true);
+		}else{
+			boolean isUnique1= schoolAdminService.getUniqueUserName(username);
+			if(isUnique1==true)
+				isUnique1=false;
+			else
+				isUnique1=true;
+			isUnique.put("valid", isUnique1);
+			System.out.println("IsUniques :"+ isUnique);
+		}
+	    return isUnique;
+		
 	}
 	
 	@RequestMapping(value="/studentList")
