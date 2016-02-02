@@ -72,6 +72,7 @@ public class Stop implements Serializable{
 	public void setRoute(Route route) {
 		this.route = route;
 	}
+	
 	public Integer getStopNo() {
 		return stopNo;
 	}

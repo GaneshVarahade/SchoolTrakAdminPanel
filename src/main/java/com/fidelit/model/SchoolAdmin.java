@@ -30,7 +30,6 @@ public class SchoolAdmin implements Serializable  {
 	
 	private Integer id;
 	
-	
 	private String name;
 	
 	private String password;

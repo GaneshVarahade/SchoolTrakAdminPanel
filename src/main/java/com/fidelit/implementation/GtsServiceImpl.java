@@ -37,7 +37,7 @@ public class GtsServiceImpl implements GtsService{
 	    builder.append(" VALUES('"+accountId +"',0,'',1,0,0,0,0,0,0,");
 	    builder.append("'',0,0,3,' *', 0,0,0,0,");
 	    builder.append("0,0,'',1,'','',0,0,'','"+password +"',");
-	    builder.append("'','','',0,0,0,0,1,'','System Administrator', '',");
+	    builder.append("'','','','GMT-05:00',0,0,0,1,'','System Administrator', '',");
 	    builder.append("0,0,'','',0,'','','','',");
 	    builder.append("'0','0');");
 	    
