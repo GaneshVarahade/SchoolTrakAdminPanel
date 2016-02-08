@@ -198,9 +198,7 @@ function showProfile(){
             		<div class="modal-footer text-center">
                 </div> 
                 </form>               
-			</div>
-                   
-				
+			</div>                  
        		</div>
 			
 		</div>

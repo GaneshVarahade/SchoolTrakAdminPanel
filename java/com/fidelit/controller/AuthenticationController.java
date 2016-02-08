@@ -35,6 +35,9 @@ public class AuthenticationController {
 			}else if(account.getAccountType().equals("Student")){
 			
 				return "admin_home";
+			}else if(account.getAccountType().equals("Teacher")){
+			
+				return "teacher_home";
 			}else{
 					model.addAttribute("message", "Login Failed !");
 					return "login";	

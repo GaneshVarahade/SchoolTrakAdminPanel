@@ -206,14 +206,80 @@ public class SchoolAdminController {
 		}
 	    return isUnique;
 		
+	}	
+	
+	@RequestMapping(value="/TeacherList")
+	public String allTeacherList(@ModelAttribute("schoolAdmin") SchoolAdmin schoolAdmin,HttpServletRequest request,HttpServletResponse response,ModelMap model) throws ParseException{
+	
+		String action="action";
+		if(request.getParameter("action")!=null){
+			action=request.getParameter("action");
+		}
+		
+		System.out.println("Action:"+action);
+		if(action.equals("add")){
+			
+	 
+			System.out.println("Add Controller");
+			 schoolAdmin.setRole("ROLE_TEACHER");
+			 schoolAdmin.setAccountType("Teacher");
+				School school=schoolService.getSchool(schoolAdmin.getSchool().getSchoolName());
+				schoolAdmin.setEnabled(true);
+				gtsService.addAccountInGts(schoolAdmin.getUsername(),schoolAdmin.getPassword(),schoolAdmin.getAccountType());
+				
+				String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+				schoolAdmin.setAccountId(userName);
+				schoolAdmin.setAccountType("Teacher");
+				schoolAdminService.addSchoolAdmin(schoolAdmin);	
+				model.addAttribute("success", "success");
+				model.addAttribute(new SchoolAdmin());
+				
+		}
+		
+		if(action.equals("edit")){
+				System.out.println("IN Teacher Edit");
+				System.out.println("Teacher ID:"+schoolAdmin.getAccountId());
+				schoolAdmin.setAccountType("Teacher");
+				model.addAttribute(new SchoolAdmin());
+				schoolAdmin.setRole("ROLE_TEACHER");
+				schoolAdmin.setEnabled(true);
+				String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+				schoolAdmin.setAccountId(userName);
+				model.addAttribute("edit", "edit");
+				schoolAdminService.updateSchoolAdmin(schoolAdmin);
+				
+			}
+		
+		HttpSession session = request.getSession();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
+		model.addAttribute("schoolAdminList", schoolAdminList);
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		System.out.println("currentUser"+currentUser.getAccountId());
+		List<School> schoolList=schoolService.allSchoolList(currentUser.getAccountId());
+		System.out.println("schoolList:"+schoolList.toString());
+		for (School school : schoolList) {
+			System.out.println("schoolList:"+school.toString());
+		}
+		
+	
+		SchoolAdmin currentUserr = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUserr.getUsername();
+		model.addAttribute("userName", username);
+		model.addAttribute("schoolList", schoolList);
+		model.addAttribute("teacherActive", "teacherActive");
+		return "TeacherList";
+	
 	}
 	
+	
+
 	@RequestMapping(value="/studentList")
 	public String allStudentList(@ModelAttribute("schoolAdmin") SchoolAdmin schoolAdmin,HttpServletRequest request,HttpServletResponse response,ModelMap model){
 		
 		   String action="action";
 		   if(request.getParameter("action")!=null){
-			    action=request.getParameter("action");
+		    action=request.getParameter("action");
 		   }
 		   int[] RouteId= new int[30];
 		   if(action.equals("add")){
@@ -321,6 +387,46 @@ public class SchoolAdminController {
 		model.addAttribute("studentActive", "studentActive");
 		return "studentList";
 	}
+
+	
+	@RequestMapping(value = "/deleteTeacherList")
+	public String deleteTeacherList(@RequestParam("list") String str,HttpServletRequest request,ModelMap model){
+		str = str.substring(0, str.length()-1);
+		String[] str1 = str.split(",");
+		
+		for (int i = 0; i < str1.length; i++) {
+			int id = Integer.parseInt(str1[i]);
+	
+			String accountID = schoolAdminService.getNameFromId(id);
+			System.out.println("accountID:"+accountID);			
+			gtsService.deleteAccountInGts(accountID);
+			schoolAdminService.deleteSchoolAdmin(id);
+		}
+		
+		
+		HttpSession session = request.getSession();
+		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
+		model.addAttribute("schoolAdminList", schoolAdminList);
+		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
+		System.out.println("currentUser"+currentUser.getAccountId());
+		List<School> schoolList=schoolService.allSchoolList(currentUser.getAccountId());
+		System.out.println("schoolList:"+schoolList.toString());
+		for (School school : schoolList) {
+			System.out.println("schoolList:"+school.toString());
+		}
+		
+		
+		SchoolAdmin currentUserr = (SchoolAdmin) session.getAttribute("currentUser");
+		String username = currentUserr.getUsername();
+		model.addAttribute("userName", username);
+		model.addAttribute("schoolList", schoolList);
+		model.addAttribute("teacherActive", "teacherActive");
+		model.addAttribute(new SchoolAdmin());
+		return "TeacherList";
+	    
+	}
+	
 	
 	@RequestMapping(value = "/deleteParentList")
 	public String deleteParentList(@RequestParam("list") String str,HttpServletRequest request,ModelMap model){
@@ -343,19 +449,6 @@ public class SchoolAdminController {
 			schoolAdminService.deleteSchoolAdmin(id);
 		}
 		
-		/*String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-	    List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
-		
-	    HttpSession session = request.getSession();
-		SchoolAdmin currentUser = (SchoolAdmin) session.getAttribute("currentUser");
-		String username = currentUser.getUsername();
-		model.addAttribute("userName", username);
-	    
-	    model.addAttribute("schoolAdminList", schoolAdminList);
-		model.addAttribute("parentActive", "parentActive");
-		model.addAttribute(new SchoolAdmin());
-		return "parentList";
-	    */
 		HttpSession session = request.getSession();
 		String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 		List<SchoolAdmin> schoolAdminList= schoolAdminService.allSchoolAdminList(userName);
@@ -437,6 +530,6 @@ public class SchoolAdminController {
 		schoolAdminService.updateSchoolAdmin(schoolAdmin);
 		return "parentList";
 	}
-
+	
 	
 }

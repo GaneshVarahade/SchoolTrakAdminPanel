@@ -21,9 +21,7 @@ public class LoginController {
 	 model.addAttribute("message", "Username/Password Wrong");
   }else if(denied != null){
 	  model.addAttribute("message", "Access denied");
-  }
-	
-	 
+  }	 
   return "login";  
  }  
   

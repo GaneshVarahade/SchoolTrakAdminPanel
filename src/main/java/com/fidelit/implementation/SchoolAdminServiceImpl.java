@@ -333,6 +333,10 @@ public class SchoolAdminServiceImpl implements SchoolAdminService{
 
     
     
+    
+    
+    
+    
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Override
     public List<SchoolAdmin> getAllParentToStudent(int studentId) {

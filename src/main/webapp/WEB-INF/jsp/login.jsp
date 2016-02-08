@@ -55,6 +55,8 @@
                                         <option value="SchoolAdmin">School Admin</option>
                                         <option value="Parent">Parent</option>
                                         <option value="Student">Student</option>
+                                        <option value="Teacher">Teacher</option>
+                                        
                             		</select>
                                   </div>
                                   <div class="form-group">

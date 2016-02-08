@@ -64,7 +64,6 @@ public class AdminController {
   private HolidayService holidayService;
   @Autowired
   private EmployeeProjectService employeeProjectService;
-  
   @Autowired
   private SchoolService schoolService;
   
@@ -271,6 +270,8 @@ public String addClient(HttpServletRequest request,HttpServletResponse response,
 		schoolAdmin.setRole("ROLE_PARENT");
 	}else if(dataList[8].equalsIgnoreCase("Admin")){
 		schoolAdmin.setRole("ROLE_ADMIN");
+	}else if(dataList[8].equalsIgnoreCase("Teacher")){
+		schoolAdmin.setRole("ROLE_TEACHER");
 	}
 	String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 	schoolAdmin.setAccountId(userName);

@@ -11,8 +11,6 @@ var saveKara = 0;
 	   
 	    
 	});
-
- 
 </script>
 <script type="text/javascript">
 var saveKara = 0;

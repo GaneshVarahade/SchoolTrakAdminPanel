@@ -44,8 +44,6 @@ public class AddDeviceForNotification {
 	public void setID(Integer iD) {
 		ID = iD;
 	}
-	
-	
 	public String getIMEI() {
 		return IMEI;
 	}

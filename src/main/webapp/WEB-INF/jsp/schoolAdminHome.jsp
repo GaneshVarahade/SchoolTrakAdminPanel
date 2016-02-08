@@ -11,17 +11,15 @@
                         <div class="menu-name">Routes</div>
                     </div>
                 </a>
-            </div>
-            
+            </div>   
             <div class="col-md-2 col-sm-3">
-            	<a href="${pageContext.request.contextPath}/schoolAdmin/parentList" class="menu-link">
+            	<a href="${pageContext.request.contextPath}/schoolAdmin/TeacherList" class="menu-link">
                     <div class="menu-block m-block2">
                         <div class="menu-icon"><i class="fa fa-users"></i></div>
-                        <div class="menu-name">Parents</div>
+                        <div class="menu-name">Teachers</div>
                     </div>
                 </a>
             </div>
-            
             <div class="col-md-2 col-sm-3">
             	<a href="${pageContext.request.contextPath}/schoolAdmin/studentList" class="menu-link">
                     <div class="menu-block m-block3">
@@ -30,7 +28,7 @@
                     </div>
                 </a>
             </div>
-            
+                 
             <div class="col-md-2 col-sm-3">
             	<a href="${pageContext.request.contextPath}/route/busList" class="menu-link">
                     <div class="menu-block m-block4">
@@ -48,7 +46,15 @@
                     </div>
                 </a>
             </div>
-            
+            <div class="col-md-2 col-sm-3">
+            	<a href="${pageContext.request.contextPath}/schoolAdmin/parentList" class="menu-link">
+                    <div class="menu-block m-block2">
+                        <div class="menu-icon"><i class="fa fa-users"></i></div>
+                        <div class="menu-name">Parents</div>
+                    </div>
+                </a>
+            </div>
+          
              <div class="col-md-2 col-md-offset-4 col-sm-3">
             	<a href="${pageContext.request.contextPath}/extintor/extintorList" class="menu-link">
                     <div class="menu-block m-block4">
@@ -60,7 +66,7 @@
             
             <div class="col-md-2 col-md-offset-0 col-sm-3">
                <a href="${pageContext.request.contextPath}/newsletter/newsletterList" class="menu-link">
-                    <div class="menu-block m-block1">
+               <div class="menu-block m-block1">
                         <div class="menu-icon"><i class="fa fa-newspaper-o"></i></div>
                         <div class="menu-name">Newsletter</div>
                     </div>
@@ -79,7 +85,8 @@
                     <div class="menu-block m-block2">
                         <div class="menu-icon"><i class="fa fa-camera-retro fa-lg"></i></div>
                         <div class="menu-name">Camera</div>
-                    </div>
+                  
+                    </div>    
                 </a>
             </div>
         </div>

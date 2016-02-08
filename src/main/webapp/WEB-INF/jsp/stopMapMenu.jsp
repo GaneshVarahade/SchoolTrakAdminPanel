@@ -19,7 +19,7 @@
 
 <body>
 				       		  					
-				       		  		<form id="stopForm" action="${pageContext.request.contextPath}/route/addNewStops">
+  		<form id="stopForm" action="${pageContext.request.contextPath}/route/addNewStops">
 												<div>
 													<label>Route No.</label>&nbsp;&nbsp;&nbsp;
 													<input type="text" name="routeId" id="routeId" value="${routeId}" style="width: 114px;" readonly>

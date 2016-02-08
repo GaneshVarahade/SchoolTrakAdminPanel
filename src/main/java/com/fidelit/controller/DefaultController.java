@@ -58,12 +58,14 @@ public String defaultUrl(ModelMap model,HttpServletRequest req,SecurityContextHo
 	
 	
 	if(authorities.toString().contains("ROLE_ADMIN")){
-		 url = "admin_home";
-		 
+		 url = "admin_home";		 
 	}else if(authorities.toString().contains("ROLE_PARENT")){
 		url = "parent_home";
 	}else if(authorities.toString().contains("ROLE_STUDENT")){
-		url = "student_home";
+		url = "student_home";	
+	}else if(authorities.toString().contains("ROLE_TEACHER")){
+			url = "teacher_home";
+		
 	}else{
 		url = "schoolAdminHome";
 	}

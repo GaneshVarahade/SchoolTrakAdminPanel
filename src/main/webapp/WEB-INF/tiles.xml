@@ -42,6 +42,18 @@
         <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />  
     </definition>  
 
+
+<definition name="teacher.definition"  
+        template="/WEB-INF/layout/admin_layout.jsp">  
+        <put-attribute name="title" value="userMangement" />  
+        <put-attribute name="header" value="/WEB-INF/layout/teacher_header.jsp" />  
+        <put-attribute name="logo" value="/WEB-INF/layout/logo.jsp" />
+        <put-attribute name="menu" value="" />  
+        <put-attribute name="body" value="" />  
+        <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />  
+    </definition>  
+
+
 	<definition name="child.definition"  
         template="/WEB-INF/layout/admin_layout.jsp">  
         <put-attribute name="title" value="userMangement" />  
@@ -50,7 +62,7 @@
         <put-attribute name="menu" value="" />  
         <put-attribute name="body" value="" />  
         <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />  
-    </definition>  
+     </definition>  
 
   
     <definition name="login" template="/WEB-INF/jsp/login.jsp">  
@@ -90,7 +102,13 @@
     </definition>
 
 
-     
+      <definition name="teacher_home" extends="teacher.definition">  
+        <put-attribute name="title" value="Admin" />   
+       
+        <put-attribute name="body" value="/WEB-INF/jsp/teacher_home.jsp" />  
+    </definition>
+    
+   
     <definition name="student_home" extends="child.definition">  
         <put-attribute name="title" value="Admin" />   
        
@@ -115,14 +133,24 @@
        
         <put-attribute name="body" value="/WEB-INF/jsp/schoolAdminHome.jsp" />  
     </definition>
-    
    
-  
+   
+     <definition name="TeacherList" extends="schooladmin.definition" >  
+        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />   -->
+        <put-attribute name="body" value="/WEB-INF/jsp/TeacherList.jsp"></put-attribute>  
+    </definition>  
+    
     
      <definition name="parentList" extends="schooladmin.definition" >  
         <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />   -->
         <put-attribute name="body" value="/WEB-INF/jsp/parentList.jsp"></put-attribute>  
+    </definition>   
+    
+      <definition name="studentList" extends="schooladmin.definition" >  
+        <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />   -->
+        <put-attribute name="body" value="/WEB-INF/jsp/studentList.jsp"></put-attribute>  
     </definition>  
+    
     
       <definition name="studentList" extends="schooladmin.definition" >  
         <!-- <put-attribute name="menu" value="/WEB-INF/layout/admin_menu.jsp" />   -->

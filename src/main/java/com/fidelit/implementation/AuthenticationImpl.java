@@ -58,6 +58,7 @@ public class AuthenticationImpl implements AuthenticationService{
 			
 			Object result=criteria.uniqueResult();
 			account = (SchoolAdmin)result;
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
